@@ -3,6 +3,7 @@ import pkg_resources
 import time
 import sys
 import os
+import cProfile,pstats
 
 from claudio.module01.src.main import main as run_claudio_lists
 from claudio.module02.run_module02_intra import main as run_claudio_structdi
@@ -52,6 +53,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
          res_cutoff, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness, distance_maximum, cutoff,
          output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin, compute_scoring, verbose_level,
          config):
+    profile = cProfile.Profile()
+    profile.enable()   # --- start profiling
     verbose_print(f"Start full CLAUDIO v{pkg_resources.require('CLAUDIO')[0].version} pipeline", 0, 1)
     verbose_print("===================================", 0, 1)
     start_time = time.time()
@@ -119,6 +122,12 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
                   f"{round_self(time.time() - start_time, 2)}s)",
                   0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
+    profile.disable()  # --- stop profiling
+    profile.create_stats()
+    with open("profile.txt", 'w') as fp:
+        stats = pstats.Stats(profile, stream=fp)
+        stats.sort_stats('time')
+        stats.print_stats()
     sys.exit()
 
 

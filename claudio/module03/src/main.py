@@ -1,6 +1,7 @@
 import click
 import sys
 import time
+import cProfile,pstats
 
 from claudio.module03.src.io.read_in import read_in
 from claudio.module03.src.algorithm.signal_analysis import analyse_homo_signals
@@ -15,6 +16,8 @@ from claudio.utils.utils import verbose_print, clean_input_paths, create_out_pat
 @click.option("-o", "--output-directory", default="test/out/sample/")
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, output_directory, verbose_level):
+    profile = cProfile.Profile()
+    profile.enable()   # --- start profiling
     verbose_print("Start Homo-signal analysis", 0, verbose_level)
     start_time = time.time()
 
@@ -48,6 +51,12 @@ def main(input_filepath, output_directory, verbose_level):
 
     verbose_print(f"\nEnd script (Elapsed time: {round_self(time.time() - start_time, 2)}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
+    profile.disable()  # --- stop profiling
+    profile.create_stats()
+    with open("profileM03.txt", 'w') as fp:
+        stats = pstats.Stats(profile, stream=fp)
+        stats.sort_stats('time')
+        stats.print_stats()
     sys.exit()
 
 

@@ -1,5 +1,6 @@
 import click
 import sys
+import cProfile,pstats
 
 from claudio.module02.src_structure_search.main import main as run_structure_search
 from claudio.module02.src_distance_reevaluation.main import main as run_distance_analysis
@@ -30,6 +31,8 @@ from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
 def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, plddt_cutoff, linker_minimum,
          linker_maximum, e_value, query_id, coverage, res_cutoff, output_directory, blast_bin, blast_db, hhsearch_bin,
          hhsearch_db, topolink_bin, verbose_level):
+    profile = cProfile.Profile()
+    profile.enable()   # --- start profiling
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
                      blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin]
@@ -58,5 +61,11 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, p
                                "-v", verbose_level])
     except SystemExit:
         pass
-
+    
+        profile.disable()  # --- stop profiling
+    profile.create_stats()
+    with open("profileM02.txt", 'w') as fp:
+        stats = pstats.Stats(profile, stream=fp)
+        stats.sort_stats('time')
+        stats.print_stats()
     sys.exit()
