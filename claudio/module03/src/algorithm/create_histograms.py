@@ -1,13 +1,23 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
-def create_homo_signal_histograms(data, filename, output_directory):
-    # create histograms for homology signal, e.g. for adjacency of interaction sites and peptide overlaps
-    # between/including interacting residues
-    #
-    # input data: pd.DataFrame, filename: str, output_directory: str
-    # no return
+def create_homo_signal_histograms(data : pd.DataFrame, filename : str, output_directory : str):
+    """
+    create histograms for homology signal, e.g. for adjacency of interaction sites and peptide overlaps
+    between/including interacting residues
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    filename : str,
+    output_directory : str
+
+    Returns
+    -------
+        None 
+    """
 
     # adjacency histogram
     adj_data = data["homo_adjacency"].copy()

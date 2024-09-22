@@ -8,13 +8,27 @@ from io import StringIO
 from claudio.utils.utils import verbose_print, round_self
 
 
-def create_list_of_unique_proteins(data, unique_protein_temp_dir, search_tool, blast_bin, blast_db, hhsearch_bin,
-                                   hhsearch_db, verbose_level):
-    # create pandas dataframe of unique proteins depending on uniprot ids
-    #
-    # input data: pd.DataFrame, unique_protein_temp_dir: str, search_tool: str, blast_bin: str/None, blast_db: str,
-    # hhsearch_bin: str/None, hhsearch_db: str, verbose_level: int
-    # return unique_proteins_list: pd.DataFrame
+def create_list_of_unique_proteins(data: pd.DataFrame, unique_protein_temp_dir: str, search_tool: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None,
+                                   hhsearch_db : str, verbose_level: int):
+    """
+    create pandas dataframe of unique proteins depending on uniprot ids
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    unique_protein_temp_dir : str,
+    search_tool : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+
+    Returns
+    -------
+    unique_protein_list : pd.DataFrame
+    """
+    #TODO Legacy code for hhsearch included here, could possibly be removed?
 
     # Collect first rows in dataset of unique proteins
     # print([data[(data.unip_id_a == protein)] for protein in (data.unip_id_a + data.unip_id_b).unique()])
@@ -57,11 +71,19 @@ def create_list_of_unique_proteins(data, unique_protein_temp_dir, search_tool, b
     return unique_proteins_list
 
 
-def search_uniprot_metadata(unique_proteins, verbose_level):
-    # retrieve full sequences and info from uniprot database by given entries
-    #
-    # input unique_proteins: list(str), verbose_level: int
-    # return infos: list(list(str))
+def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
+    """
+    retrieve full sequences and info from uniprot database by given entries
+
+    Parameters
+    ----------
+    unique_proteins : list[str],
+    verbose_level : int
+
+    Returns
+    -------
+    infos : list[list[str]]
+    """
 
     # Create data container lists
     infos = []
@@ -89,14 +111,29 @@ def search_uniprot_metadata(unique_proteins, verbose_level):
     return infos
 
 
-def search_pdb_entries(proteins, sequences, unique_protein_temp_dir, search_tool, blast_bin, blast_db, hhsearch_bin,
-                       hhsearch_db, verbose_level):
-    # use either hhsearch or blastp as search tool on protein sequence in order to retrieve matching pdb id, if no
-    # result was found add an alphafold entry id instead (id: af<uniprot_id>_A)
-    #
-    # input proteins: list(str), sequences: list(str), unique_protein_temp_dir: str, search_tool: str,
-    # blast_bin: str/None, blast_db: str, hhsearch_bin: str/None, hhsearch_db: str, verbose_level: int
-    # return pdbs: list(str)
+def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein_temp_dir: str, search_tool: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None,
+                       hhsearch_db: str, verbose_level: int):
+    """
+    use either hhsearch or blastp as search tool on protein sequence in order to retrieve matching pdb id, if no
+    result was found add an alphafold entry id instead (id: af<uniprot_id>_A)
+
+    Parameters
+    ----------
+    proteins : list(str),
+    sequences : list(str),
+    unique_protein_temp_dir : str,
+    search_tool : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+
+    Returns 
+    -------
+    pdbs : list[str]  
+    """
+    #TODO contains legacy code for hhsearch, could possibly be removed?
 
     # Create data container list
     pdbs = []

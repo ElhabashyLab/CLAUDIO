@@ -1,11 +1,22 @@
 import os
+import pandas as pd
 
 
-def write_outputs(data, filename, compute_scoring, output_directory):
-    # write outputs
-    #
-    # input data: pd.DataFrame, filename: str, compute_scoring: bool, output_directory: str
-    # no return
+def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, output_directory: str):
+    """
+    write outputs
+
+    Parameters
+    ----------
+    data : pd.DataFrame, 
+    filename : str,
+    compute_scoring : bool,
+    output_directory: str
+
+    Returns
+    -------
+        None
+    """
 
     # save list of already written results by uniprot ids
     already_written = []
@@ -98,11 +109,21 @@ def write_outputs(data, filename, compute_scoring, output_directory):
     #     pass
 
 
-def write_small_test_sets(data):
-    # write small sample datasets, one containing 10 and one with 100 samples of xls mapped onto alphafold structures
-    #
-    # input data: pd.DataFrame, filename: str, compute_scoring: bool, output_directory: str
-    # no return
+def write_small_test_sets(data: pd.DataFrame):
+    """
+    write small sample datasets, one containing 10 and one with 100 samples of xls mapped onto alphafold structures
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+
+    Returns
+    -------
+        None
+    """
+    #    #
+    #TODO original comment mentioned additional input parameters: filename: str, compute_scoring: bool, output_directory: str
+    # probably not used anymore
 
     test_data = data[(data.pdb_id.astype(str).str.len() > 4) &
                      (~data.index.astype(str).str.contains('_'))][

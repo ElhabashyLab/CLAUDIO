@@ -1,13 +1,24 @@
 from claudio.utils.utils import verbose_print
+import pandas as pd
 
 
-def write_outputs(data, unique_proteins_list, filename, output_directory, verbose_level):
-    # write outputs to files: One csv-file for the users information on unique proteins and one
-    # csv-file marked with the extension .sqcs, signaling CLAUDIO that this dataset is processed for its uses
-    #
-    # input data: pd.DataFrame, unique_proteins_list: pd.DataFrame, filename: str, output_directory: str,
-    # verbose_level: int
-    # no return
+def write_outputs(data: pd.DataFrame, unique_proteins_list: pd.DataFrame, filename: str, output_directory: str, verbose_level: int):
+    """
+    write outputs to files: One csv-file for the users information on unique proteins and one
+    csv-file marked with the extension .sqcs, signaling CLAUDIO that this dataset is processed for its uses
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    unique_proteins_list : pd.DataFrame,
+    filename : str,
+    output_directory : str,
+    verbose_level : int
+
+    Returns 
+    -------
+        None
+    """
 
     # write list of unique proteins
     verbose_print("\tWrite list of unique proteins", 0, verbose_level)

@@ -2,11 +2,22 @@ import os
 import pandas as pd
 
 
-def verbose_print(print_string, threshold, verbose_level, end='\n'):
-    # print given string, if verbose_level is higher than threshold
-    #
-    # input print_string: str, threshold: int, verbose_level: int, end: str
-    # no return
+def verbose_print(print_string: str, threshold: int, verbose_level: int, end='\n'):
+    """
+    print given string, if verbose_level is higher than threshold
+
+    Parameters
+    ----------
+    print_string : str,
+    threshold : int,
+    verbose_level : int,
+    end : str
+
+    Returns
+    -------
+        None
+    """
+    #TODO why is end defaulted to \n?
 
     if verbose_level > threshold:
         print(print_string.replace('\x00', ''), end=end)

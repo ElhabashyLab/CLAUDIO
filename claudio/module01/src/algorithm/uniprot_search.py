@@ -6,11 +6,20 @@ import requests as r
 from claudio.utils.utils import verbose_print, round_self
 
 
-def do_uniprot_search(data, tmp_filepath, verbose_level):
-    # Retrieve full uniprot sequences and IDs if not given
-    #
-    # input data: pd.DataFrame, tmp_filepath: str, verbose_level: int
-    # return data: pd.DataFrame
+def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str, verbose_level: int):
+    """
+    Retrieve full uniprot sequences and IDs if not given
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    tmp_filepath : str,
+    verbose_level : int
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     # retrieve sequences from uniprot entries
     data["seq_a"], search_result_dict = search_uniprot(data, verbose_level, site='a')
@@ -22,11 +31,23 @@ def do_uniprot_search(data, tmp_filepath, verbose_level):
     return data
 
 
-def search_uniprot(data, verbose_level, already_searched={}, site='a'):
-    # search uniprot database for sequences
-    #
-    # input data: pd.DataFrame, verbose_level: int, already_searched: dict{str: list(str)}, site: str
-    # return seqs: list(str), already_searched: dict{str: list(str)}
+def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched={}, site='a'):
+    """
+    search uniprot database for sequences
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    verbose_level : int,
+    already_searched : dict[str,list[str]],
+    site : str
+
+    Returns
+    -------
+    seq : list[str],
+    already_searched : dict[str,list[str]]
+    """
+    #TODO why is already_searched and site defaulted?
 
     seqs = []
 

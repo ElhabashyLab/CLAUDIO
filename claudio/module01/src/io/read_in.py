@@ -2,11 +2,19 @@ import pandas as pd
 import sys
 
 
-def read_inputfile(input_filepath, projections):
-    # read inputfile and use projections to map column names to unified naming
-    #
-    # input input_filepath: str, projections: dict
-    # return data: pd.DataFrame
+def read_inputfile(input_filepath: str, projections: dict):
+    """
+    read inputfile and use projections to map column names to unified naming
+
+    Parameters
+    ----------
+    input_filepath : str,
+    projections : dict
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     data = pd.read_csv(input_filepath)
     try:

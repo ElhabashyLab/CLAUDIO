@@ -1,11 +1,19 @@
 from claudio.utils.utils import round_self
+import pandas as pd
 
 
-def analyse_homo_signals(data):
-    # compute homology signals of interaction sites based on site adjacency and peptide overlap
-    #
-    # input data: pd.DataFrame
-    # return data: pd.DataFrame
+def analyse_homo_signals(data: pd.DataFrame):
+    """
+    compute homology signals of interaction sites based on site adjacency and peptide overlap
+    
+    Parameters
+    ----------
+    data : pd.DataFrame
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     data["pep_copies_found"] = data.apply(lambda x: search_for_peptide_copies(x, data), axis=1)
     data["homo_adjacency"] = data.apply(lambda x: compute_interaction_adj(x), axis=1)
@@ -15,12 +23,20 @@ def analyse_homo_signals(data):
     return data
 
 
-def search_for_peptide_copies(data_row, data):
-    # search the dataset for in-sequence peptide copies. If so, return True marking them to be excluded from
-    # the ops analysis
-    #
-    # input: data_row: pd.Series, data: pd.DataFrame
-    # return bool
+def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
+    """
+    search the dataset for in-sequence peptide copies. If so, return True marking them to be excluded from
+    the ops analysis
+    
+    Parameters
+    ----------
+    data_row : pd.Series
+    data : pd.DataFrame
+
+    Returns
+    -------
+        bool
+    """
 
     for i, row in data.iterrows():
         if i != data_row.name:
@@ -35,12 +51,20 @@ def search_for_peptide_copies(data_row, data):
     return False
 
 
-def compute_interaction_adj(data_row):
-    # compute interactions site adjacency, represented by value between 0 (residues far away on sequence) and 1
-    # (residues are the same)
-    #
-    # input data_row: pd.Series
-    # return compute_interaction_dist: float
+def compute_interaction_adj(data_row: pd.Series):
+    """
+    compute interactions site adjacency, represented by value between 0 (residues far away on sequence) and 1
+    (residues are the same)
+    
+    Parameters
+    ----------
+    data_row : pd.Series
+
+    Returns
+    -------
+    compute_interaction_dist: (float | int)
+    """
+    #TODO output should be float? 
 
     if (data_row["unip_id_a"] == data_row["unip_id_b"]) and (not data_row.pep_copies_found):
         adjacency = 1 - (abs(int(data_row["pos_a"]) - int(data_row["pos_b"])) /
@@ -51,12 +75,20 @@ def compute_interaction_adj(data_row):
         return float("Nan")
 
 
-def compute_interaction_overlap(data_row):
-    # compute peptide overlap between/including interacting residues, represented by value between 0
-    # (no peptide overlap between/including interacting residues) and 1 (both interacting residues are in both peptides)
-    #
-    # input data_row: pd.Series
-    # return compute_interaction_overlap: float
+def compute_interaction_overlap(data_row: pd.Series):
+    """
+    compute peptide overlap between/including interacting residues, represented by value between 0
+    (no peptide overlap between/including interacting residues) and 1 (both interacting residues are in both peptides)
+    
+    Parameters
+    ----------
+    data_row : pd.Series
+
+    Returns
+    -------
+    compute_interaction_overlap : (float | int)
+    """
+    # TODO output should be float?
 
     if (data_row["unip_id_a"] == data_row["unip_id_b"]) and (not data_row.pep_copies_found):
         if data_row["pos_a"] == data_row["pos_b"]:

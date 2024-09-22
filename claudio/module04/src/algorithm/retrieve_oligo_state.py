@@ -7,11 +7,19 @@ import pandas as pd
 from claudio.utils.utils import verbose_print, round_self
 
 
-def retrieve_oligomeric_states(data, verbose_level):
-    # retrieve oligomeric states known for each uniprot entry and add them to the dataset as a string
-    #
-    # input data: pd.DataFrame, verbose_level: int
-    # return data: pd.DataFrame
+def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
+    """
+    retrieve oligomeric states known for each uniprot entry and add them to the dataset as a string
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    verbose_level : int
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     # container for already searched oligo-states
     known_ostates = {}
@@ -27,13 +35,23 @@ def retrieve_oligomeric_states(data, verbose_level):
     return data
 
 
-def get_oligo_state_from_swiss(data, known_ostates, i_iteration, verbose_level):
-    # access SWISS-MODEL for given datapoint's uniprot id, if not previously encountered, else retrieve known result
-    # from known_unips
-    #
-    # input data: pd.Series, known_ostates: dict(str: list(str))), i_iteration: tuple(int, int),
-    # verbose_level: int
-    # return oligo_states: str
+def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str]], i_iteration: tuple[int,int], verbose_level: int):
+    """
+    access SWISS-MODEL for given datapoint's uniprot id, if not previously encountered, else retrieve known result
+    from known_unips
+    
+    Parameters
+    ----------
+    data : pd.Series,
+    known_ostates : dict[str,list[str]],
+    i_iteration : tuple[int,int],
+    verbose_level : int
+
+    Returns
+    -------
+    oligo_states : LiteralStr
+    """
+    #TODO should return str?
 
     NUMBER_OF_CALL_REPEATS = 5
     DOWNLOAD_RATE_LIMITER_IN_SECONDS = .05

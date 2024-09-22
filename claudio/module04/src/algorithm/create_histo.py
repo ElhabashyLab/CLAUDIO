@@ -1,12 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
-def create_histograms(data, filename, cutoff, compute_scoring, output_directory):
-    # create histograms for inter scores, and pie charts for final validation results
-    #
-    # input data: pd.DataFrame, filename: str, compute_scoring: bool, output_directory: str
-    # no return
+def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring: bool, output_directory: str):
+    """
+    create histograms for inter scores, and pie charts for final validation results
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    filename : str,
+    compute_scoring : bool,
+    output_directory : str
+
+    Returns
+    -------
+        None
+    """
+    #TODO missing input parameter description: cutoff 
 
     colors = ["#9ACE9A", "#464444"]
     if compute_scoring:

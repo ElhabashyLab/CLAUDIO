@@ -3,14 +3,27 @@ import pandas as pd
 from claudio.utils.utils import round_self
 
 
-def combine_inter_reevaluations(data, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness,
-                                distance_maximum, cutoff, compute_scoring):
-    # combine distance and homo signal reevaluation, create score that represents inter interaction affinity (higher
-    # value, higher affinity), and evidence for this type evaluation. Base new crosslink types on each individually.
-    #
-    # input data: pd.DataFrame, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
-    # euclidean_strictness: float, distance_maximum: float, cutoff: float, compute_scoring: bool
-    # return data: pd.DataFrame
+def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float, linker_minimum: float, linker_maximum: float, euclidean_strictness: float,
+                                distance_maximum: float, cutoff: float, compute_scoring: bool):
+    """
+    combine distance and homo signal reevaluation, create score that represents inter interaction affinity (higher
+    value, higher affinity), and evidence for this type evaluation. Base new crosslink types on each individually.
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    euclidean_strictness : float,
+    distance_maximum : float,
+    cutoff : float,
+    compute_scoring : bool
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     if compute_scoring:
         # new crosslink type based on score
@@ -40,14 +53,26 @@ def combine_inter_reevaluations(data, plddt_cutoff, linker_minimum, linker_maxim
     return data
 
 
-def score_inter_potential(datapoint, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness,
-                          distance_maximum):
-    # combine distance and homo signal reevaluation, create score that represents inter interaction affinity (higher
-    # value, higher affinity)
-    #
-    # input datapoint: pd.Series, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
-    # euclidean_strictness: float, distance_maximum: float
-    # return score: float
+def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float, linker_minimum: float, linker_maximum: float, euclidean_strictness: float,
+                          distance_maximum: float):
+    """
+    combine distance and homo signal reevaluation, create score that represents inter interaction affinity (higher
+    value, higher affinity)
+    
+    Parameters
+    ----------
+    input datapoint : pd.Series,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    euclidean_strictness : float,
+    distance_maximum : float
+
+    Returns
+    -------
+    score : (float | int)
+    """ 
+    # TODO should return float?
 
     score = 0.0
 
@@ -92,12 +117,23 @@ def score_inter_potential(datapoint, plddt_cutoff, linker_minimum, linker_maximu
     return round_self(score, 3)
 
 
-def write_evidence(datapoint, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness):
-    # combine distance and homo signal reevaluation, create evidence string
-    #
-    # input datapoint: pd.Series, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
-    # euclidean_strictness: float
-    # return evidence: str
+def write_evidence(datapoint: pd.Series, plddt_cutoff: float, linker_minimum: float, linker_maximum: float, euclidean_strictness: float):
+    """
+    combine distance and homo signal reevaluation, create evidence string
+
+    Parameters
+    ----------
+    datapoint : pd.Series,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    euclidean_strictness : float
+
+    Returns
+    -------
+    evidence : Literal['\'same peptide\'', '\'peptides overlap;distances below range\'', '\'peptides overlap;distances above range\'', '\'peptides overlap;only euclidean distance below ra…', '\'peptides overlap;only euclidean distance above ra…', '\'peptides overlap;only topological distance below …', '\'peptides overlap;only topological distance above …', '\'peptides overlap;distance below range\'', '\'peptides overlap;distance above range\'', '\'peptides overlap\'', '\'distances below range\'', '\'distances above range\'', '\'only euclidean distance below range\'', '\'only euclidean distance above range\'', '\'only topological distance below range\'', '\'only topological distance above range\'', '\'distance below range\'', '\'distance above range\'', '']
+    """
+    # TODO should return str?
 
     evidence = '\''
 
@@ -177,12 +213,21 @@ def write_evidence(datapoint, plddt_cutoff, linker_minimum, linker_maximum, eucl
     return evidence if evidence != "\'\'" else ""
 
 
-def def_xl_type(datapoint):
-    # combine distance and homo signal reevaluation, create evidence string
-    #
-    # input datapoint: pd.Series, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
-    # euclidean_strictness: float
-    # return evidence: str
+def def_xl_type(datapoint: pd.Series):
+    """
+    combine distance and homo signal reevaluation, create evidence string
+
+    Parameters
+    ----------
+    datapoint : pd.Series
+
+    Returns
+    -------
+    evidence : Literal['intra', 'inter']
+    """
+    #TODO should return str?
+    #TODO input arguments in original comment contained additionally: plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
+    # euclidean_strictness: float; probably not needed anymore?
 
     if (datapoint.unip_id_a == datapoint.unip_id_b) and (not datapoint.evidence):
         return_str = "intra"

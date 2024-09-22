@@ -5,12 +5,22 @@ import pandas as pd
 from claudio.utils.utils import verbose_print, round_self
 
 
-def double_check_data(data, filename, df_xl_res, output_directory, verbose_level):
-    # Check given datapoints and correct it, if possible/needed
-    #
-    # input data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame, output_directory: str,
-    # verbose_level: int
-    # return data: pd.DataFrame
+def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame, output_directory: str, verbose_level: int):
+    """
+    Check given datapoints and correct it, if possible/needed
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    filename : str,
+    df_xl_res : pd.DataFrame,
+    output_directory : str,
+    verbose_level : int
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     log_text = ''
     ind = 0
@@ -122,12 +132,24 @@ def double_check_data(data, filename, df_xl_res, output_directory, verbose_level
     return data
 
 
-def check_pep_pos(i, row, site, df_xl_res, log_text, verbose_level):
-    # Check given positions and correct it, if possible/needed
-    #
-    # input i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, log_text: str,
-    # verbose_level: int
-    # return row: pd.Series, log_text: str
+def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, log_text: str, verbose_level: int):
+    """
+    Check given positions and correct it, if possible/needed
+
+    Parameters
+    ----------
+    i : int,
+    row : pd.Series,
+    site : str,
+    df_xl_res : pd.DataFrame,
+    log_text : str,
+    verbose_level : int
+
+    Returns
+    -------
+    row : pd.Series,
+    log_text : str
+    """
 
     seq = row[f"seq_{site}"]
     pep_pos = int(row[f"pos_{site}"])
@@ -260,11 +282,21 @@ def check_pep_pos(i, row, site, df_xl_res, log_text, verbose_level):
     return row, log_text
 
 
-def realign_pep_to_seq(seq, peptide, res_pos, verbose_level):
-    # Align peptide to sequence and based on res_pos in peptide compute res_pos in sequence, return None if this fails
-    #
-    # input seq: str, peptide: str, res_pos: int, verbose_level: int
-    # return new_res_pos: int
+def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, verbose_level:int):
+    """
+    Align peptide to sequence and based on res_pos in peptide compute res_pos in sequence, return None if this fails
+
+    Parameters
+    ----------
+    seq : str,
+    peptide : str,
+    res_pos : int,
+    verbose_level : int
+
+    Returns
+    -------
+    new_res_pos : ( int | None )
+    """
 
     # Set alignment parameters
     aligner = PairwiseAligner()
@@ -312,11 +344,21 @@ def realign_pep_to_seq(seq, peptide, res_pos, verbose_level):
         return None
 
 
-def create_duplicates(row, df_xl_res, log_text):
-    # Check if peptides in datapoint occur multiple times in sequence, if so create dataset with possible permutations
-    #
-    # input row: pd.Series, df_xl_res: pd.DataFrame, log_text: str
-    # return new_datapoints: pd.DataFrame, log_text: str
+def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
+    """
+    Check if peptides in datapoint occur multiple times in sequence, if so create dataset with possible permutations
+    
+    Parameters
+    ----------
+    row : pd.Series,
+    df_xl_res : pd.DataFrame,
+    log_text : str
+
+    Returns
+    -------
+    new_datapoints : pd.DataFrame,
+    log_text : str
+    """
 
     new_datapoints = []
 
