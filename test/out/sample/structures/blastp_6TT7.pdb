@@ -139,6 +139,7 @@ KEYWDS    ATP SYNTHASE, MITOCHONDRIAL, RESPIRATORY CHAIN, MAMMALIAN, MEMBRANE
 KEYWDS   2 PROTEIN                                                              
 EXPDTA    ELECTRON MICROSCOPY                                                   
 AUTHOR    G.PINKE,L.ZHOU,L.A.SAZANOV                                            
+REVDAT   4   22-MAY-24 6TT7    1       REMARK                                   
 REVDAT   3   30-DEC-20 6TT7    1       COMPND SOURCE JRNL   REMARK              
 REVDAT   3 2                   1       DBREF  SEQADV SEQRES HET                 
 REVDAT   3 3                   1       HETNAM HETSYN FORMUL HELIX               
@@ -215,7 +216,7 @@ REMARK 245   MINIMUM TILT ANGLE (DEGREES)      : NULL
 REMARK 245   MAXIMUM TILT ANGLE (DEGREES)      : NULL                           
 REMARK 245   NOMINAL CS                        : 2.70                           
 REMARK 245   IMAGING MODE                      : BRIGHT FIELD                   
-REMARK 245   ELECTRON DOSE (ELECTRONS NM**-2)  : 106.00                         
+REMARK 245   ELECTRON DOSE (ELECTRONS NM**-2)  : 10600.00                       
 REMARK 245   ILLUMINATION MODE                 : FLOOD BEAM                     
 REMARK 245   NOMINAL MAGNIFICATION             : NULL                           
 REMARK 245   CALIBRATED MAGNIFICATION          : 131951                         

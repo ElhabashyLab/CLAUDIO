@@ -5,8 +5,8 @@ pdb_id,chain_a,chain_b,all_results
 -,-,-,
 -,-,-,
 6G2J,S,S,6G2J_S|_S
--,-,-,
-6TT7,A_B_C,D_E_F,6TT7_A_B_C|_D_E_F 2W6E_A_B_C|_D_E_F 1MAB_A|_B 1BMF_A_B_C|_D_E_F 6J5I_A_B_C|_D_E_F 2XND_A_B_C|_D_E_F
+7UCW,A_B_C_D,A_B_C_D,7UCW_A_B_C_D|_A_B_C_D
+6TT7,A_B_C,D_E_F,6TT7_A_B_C|_D_E_F 2W6E_A_B_C|_D_E_F 1MAB_A|_B 8H9E_A_B_C|_D_E_F 1BMF_A_B_C|_D_E_F 6J5I_A_B_C|_D_E_F 2XND_A_B_C|_D_E_F
 -,-,-,
 -,-,-,
 -,-,-,
@@ -15,10 +15,10 @@ pdb_id,chain_a,chain_b,all_results
 -,-,-,
 6TT7,I,A_B_C,6TT7_I|_A_B_C 2XND_I|_A_B_C 6J5I_I|_A_B_C
 6G2J,O,W,6G2J_O|_W
-2W6E,G,A_B_C,2W6E_G|_A_B_C 2F43_G|_A 1MAB_G|_A 6J5I_G|_A_B_C 1BMF_G|_A_B_C
+2W6E,G,A_B_C,2W6E_G|_A_B_C 2F43_G|_A 1MAB_G|_A 8H9E_G|_A_B_C 6J5I_G|_A_B_C 1BMF_G|_A_B_C
 -,-,-,
 2BSK,A_C_E,B_D_F,2BSK_A_C_E|_B_D_F
-6TT7,A_B_C,A_B_C,6TT7_A_B_C|_A_B_C 2W6E_A_B_C|_A_B_C 2F43_A|_A 1MAB_A|_A 1BMF_A_B_C|_A_B_C 1COW_A_B_C|_A_B_C 6J5I_A_B_C|_A_B_C 2JIZ_A_B_C_H_I_J|_A_B_C_H_I_J 2XND_A_B_C|_A_B_C 1OHH_A_B_C|_A_B_C
+6TT7,A_B_C,A_B_C,6TT7_A_B_C|_A_B_C 2W6E_A_B_C|_A_B_C 2F43_A|_A 1MAB_A|_A 8H9E_A_B_C|_A_B_C 1BMF_A_B_C|_A_B_C 1COW_A_B_C|_A_B_C 6J5I_A_B_C|_A_B_C 2JIZ_A_B_C_H_I_J|_A_B_C_H_I_J 2XND_A_B_C|_A_B_C
 2DFD,A_B_C_D,A_B_C_D,2DFD_A_B_C_D|_A_B_C_D 4WLE_A_B_C_D|_A_B_C_D 1MLD_A_B_C_D|_A_B_C_D
 4Z9M,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,4Z9M_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 1CRK_A_B_C_D|_A_B_C_D
 4Z9M,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,4Z9M_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 1CRK_A_B_C_D|_A_B_C_D
@@ -105,7 +105,7 @@ pdb_id,chain_a,chain_b,all_results
 5I96,A_B,A_B,5I96_A_B|_A_B 5H3F_A_B|_A_B 5H3E_A_B|_A_B 1LWD_A_B|_A_B 5SVO_A_B|_A_B 5SVN_A_B|_A_B 5I95_A|_A 6ADI_A_B|_A_B 4JA8_A_B|_A_B
 5I96,A_B,A_B,5I96_A_B|_A_B 5H3F_A_B|_A_B 5H3E_A_B|_A_B 1LWD_A_B|_A_B 5SVO_A_B|_A_B 5SVN_A_B|_A_B 5I95_A|_A 6ADI_A_B|_A_B 4JA8_A_B|_A_B
 -,-,-,
-1PC2,A,A,1PC2_A|_A 1IYG_A|_A 1NZN_A|_A
+1PC2,A,A,1PC2_A|_A 1IYG_A|_A 8U1Z_A|_A 7YA9_A|_A 7YKA_A|_A 1NZN_A|_A
 -,-,-,
 -,-,-,
 -,-,-,
