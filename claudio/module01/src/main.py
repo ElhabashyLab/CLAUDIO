@@ -109,15 +109,36 @@ def main(input_filepath, input_temppath, projections, uniprot_search, xl_residue
     sys.exit()
 
 
-def inputs_valid(input_filepath, uniprot_search_temp_dir, unique_protein_temp_dir, projections, uniprot_search,
-                 xl_residues, search_tool, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db,
-                 verbose_level):
-    # check validity of inputted parameters
-    #
-    # input input_filepath: str, uniprot_search_temp_dir: str, unique_protein_temp_dir: str, projections: str,
-    # uniprot_search: bool, xl_residues: str, search_tool: str, output_directory: str, blast_bin: str/None,
-    # blast_db: str, hhsearch_bin: str/None, hhsearch_db: str, verbose_level: int
-    # return inputs_valid: bool
+def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str, unique_protein_temp_dir: str, projections: str, uniprot_search: bool,
+                 xl_residues: str, search_tool: str, output_directory: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None,
+                 hhsearch_db: str, verbose_level: int):
+    """
+    check validity of inputted parameters
+
+    Parameters
+    ----------
+    input_filepath : str,
+    uniprot_search_temp_dir : str,
+    unique_protein_temp_dir : str,
+    projections : str,
+    uniprot_search : bool,
+    xl_residues : str,
+    search_tool : str,
+    output_directory : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+
+    Returns
+    -------
+    inputs_valid : bool
+
+    Raises 
+    ------
+        invalid input exceptions
+    """
 
     filename = input_filepath.split('/')[-1]
     # check whether an inputfile is specified

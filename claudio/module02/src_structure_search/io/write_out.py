@@ -1,8 +1,18 @@
+import pandas as pd
 
-def write_output(data, filename, output_directory):
-    # overwrite dataset to input filepath as csv
-    #
-    # input data: pd.DataFrame, filename: str, output_directory: str
-    # no return
+def write_output(data: pd.DataFrame, filename: str, output_directory: str):
+    """
+    Overwrite dataset to input filepath as csv
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    filename : str,
+    output_directory : str
+
+    Returns
+    -------
+    None
+    """
 
     data.to_csv(f"{output_directory}{filename}_structdi.csv", index=True)

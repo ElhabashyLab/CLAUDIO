@@ -76,13 +76,30 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
     sys.exit()
 
 
-def inputs_valid(input_directory, input_filename, search_tool, xl_residues, plddt_cutoff, output_directory,
-                 topolink_bin, verbose_level):
-    # check validity of inputted parameters
-    #
-    # input input_directory: str, input_filename: str, search_tool: str, xl_residues: str, plddt_cutoff: float,
-    # output_directory: str, topolink_bin: str/None, verbose_level: int
-    # return inputs_valid: bool
+def inputs_valid(input_directory: str, input_filename: str, search_tool: str, xl_residues: str, plddt_cutoff: float, output_directory: str,
+                 topolink_bin: str | None, verbose_level: int):
+    """
+    check validity of inputted parameters
+
+    Parameters
+    ----------
+    input_directory : str,
+    input_filename : str,
+    search_tool : str,
+    xl_residues : str,
+    plddt_cutoff : float,
+    output_directory : str,
+    topolink_bin : str | None,
+    verbose_level : int
+    
+    Returns
+    -------
+    inputs_valid : bool
+
+    Raises
+    ------
+        Invalid input parameters exceptions
+    """
 
     if any([".pdb" in filename for filename in os.listdir(input_directory)]):
         if input_filename.endswith(".sqcs_structdi.csv"):

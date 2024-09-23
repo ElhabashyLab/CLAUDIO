@@ -60,11 +60,19 @@ def main(input_filepath, output_directory, verbose_level):
     sys.exit()
 
 
-def inputs_valid(input_filepath, output_directory):
-    # check validity of inputted parameters
-    #
-    # input input_filepath: str, output_directory: str
-    # return inputs_valid: bool
+def inputs_valid(input_filepath: str, output_directory: str):
+    """
+    check validity of inputted parameters
+
+    Parameters
+    ----------
+    input_filepath : str,
+    output_directory : str
+
+    Returns
+    -------
+    inputs_valid : bool
+    """
 
     # check whether an inputfile with the extension .sqcs is specified
     if input_filepath and input_filepath.endswith(".sqcs"):

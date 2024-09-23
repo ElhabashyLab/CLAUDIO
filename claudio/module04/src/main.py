@@ -102,14 +102,34 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_m
     sys.exit()
 
 
-def inputs_valid(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness,
-                 distance_maximum, cutoff, output_directory, compute_scoring, verbose_level):
-    # check validity of inputted parameters
-    #
-    # input input_filepath: str, input_filepath2: str, plddt_cutoff: float, linker_minimum: float,
-    # linker_maximum: float, euclidean_strictness: float, distance_maximum: float, cutoff: float, output_directory: str,
-    # compute_scoring: bool, verbose_level: int
-    # return inputs_valid: bool
+def inputs_valid(input_filepath: str, input_filepath2: str, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
+                euclidean_strictness: float, distance_maximum: float, cutoff: float, output_directory: str, compute_scoring: bool,
+                verbose_level: int):
+    """
+    check validity of inputted parameters
+
+    Parameters 
+    ----------
+    input_filepath : str,
+    input_filepath2 : str,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    euclidean_strictness : float,
+    distance_maximum : float,
+    cutoff : float,
+    output_directory : str,
+    compute_scoring : bool,
+    verbose_level : int
+
+    Returns
+    -------
+    inputs_valid : bool
+
+    Raises 
+    ------
+        invalid input exceptions
+    """
 
     # check whether outputfile from distance-based reevauation is specified
     if input_filepath.endswith(".sqcs_structdi.csv"):

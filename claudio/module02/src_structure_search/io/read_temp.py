@@ -1,12 +1,20 @@
 import pandas as pd
 
 
-def read_temp_file(data, tmp_filepath):
-    # read temporary save file containing earlier hhsearch or blastp search results and concatenate them to the dataset,
-    # for quick reruns
-    #
-    # input data: pd.DataFrame, tmp_filepath: str
-    # return read_temp_file: pd.DataFrame
+def read_temp_file(data: pd.DataFrame, tmp_filepath: str):
+    """
+    read temporary save file containing earlier hhsearch or blastp search results and concatenate them to the dataset,
+    for quick reruns
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    tmp_filepath : str
+
+    Returns
+    -------
+    read_temp_file : pd.DataFrame
+    """
 
     tmp_data = pd.read_csv(tmp_filepath)
 

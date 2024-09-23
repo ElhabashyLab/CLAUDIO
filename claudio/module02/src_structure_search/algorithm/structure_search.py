@@ -8,17 +8,33 @@ import os
 from claudio.utils.utils import verbose_print, round_self
 
 
-def structure_search(data, search_tool, e_value, query_id, coverage, tmp_filepath, blast_bin, blast_db, hhsearch_bin,
-                     hhsearch_db, verbose_level):
-    # Perform either hhsearch or blastp search for any unique uniprot entry in rcsb database and retrieve the best
-    # results, and save all entries for which no sufficient result was returned to retrieve these from alphafold
-    # database later
-    #
-    # input data: pd.DataFrame, search_tool: str, e_value: float, query_id: float, coverage: float, tmp_filepath: str,
-    # blast_bin: str/None, blast_db: str, hhsearch_bin: str/None, hhsearch_db: str, verbose_level: int
-    # return dataset: pd.DataFrame
+def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query_id: float, coverage: float, tmp_filepath: str, 
+                     blast_bin: str | None, blast_db: str, hhsearch_bin: str | None, hhsearch_db: str, verbose_level: int):
+    """
+    Perform either hhsearch or blastp search for any unique uniprot entry in rcsb database and retrieve the best
+    results, and save all entries for which no sufficient result was returned to retrieve these from alphafold
+    database later
 
-    # Container lists for search results
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    search_tool : str,
+    e_value : float,
+    query_id : float,
+    coverage : float,
+    tmp_filepath : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
+    #TODO contains legacy code for hhsearch
+
     not_found = []
     ind = 0
 
@@ -78,13 +94,31 @@ def structure_search(data, search_tool, e_value, query_id, coverage, tmp_filepat
     return data
 
 
-def perform_search(data, site, search_tool, e_value, query_id, coverage, tmp_filepath, blast_bin, blast_db,
-                   hhsearch_bin, hhsearch_db):
-    # Perform either hhsearch or blastp search for unique uniprot entry in rcsb database and return possible results
-    #
-    # input data: pd.Series, site: str, search_tool: str, e_value: float, query_id: float,
-    # coverage: float, temp_path: str, blast_bin: str/None, blast_db: str, hhsearch_bin: str/None, hhsearch_db: str
-    # return best_result: list(str), pdb_id: str/None, chain: str/None
+def perform_search(data: pd.Series, site: str, search_tool: str, e_value: float, query_id: float, coverage: float, tmp_filepath: str, 
+                   blast_bin: str | None, blast_db: str, hhsearch_bin: str | None, hhsearch_db: str):
+    """
+    Perform either hhsearch or blastp search for unique uniprot entry in rcsb database and return possible results
+
+    Parameters
+    ----------
+    data : pd.Series,
+    site : str,
+    search_tool : str,
+    e_value : float,
+    query_id : float,
+    coverage : float,
+    temp_path : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str
+
+    Returns
+    -------
+    best_result : list[str],
+    pdb_id : str | None,
+    chain : str | None
+    """
 
     # Save uniprot sequence in a temporary fasta file for search tool commandline call
     # (override before each new search)
@@ -138,11 +172,20 @@ def perform_search(data, site, search_tool, e_value, query_id, coverage, tmp_fil
     return search_results, pdb_id, chain
 
 
-def retrieve_identical_chain_ids(pdb_id, chain, max_try):
-    # Access RCSB fastas to check for identical chain identifiers based on sequence
-    #
-    # input pdb_id: str, chain: str, max_try: int
-    # return new_chains: list(str)/None
+def retrieve_identical_chain_ids(pdb_id: str, chain: str, max_try: int):
+    """
+    Access RCSB fastas to check for identical chain identifiers based on sequence
+
+    Parameters
+    ----------
+    pdb_id : str,
+    chain : str,
+    max_try : int
+
+    Returns
+    -------
+    new_chains : list[str] | None
+    """
 
     num_connect_error = 0
     for _ in range(max_try):

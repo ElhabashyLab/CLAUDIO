@@ -24,11 +24,20 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int, end='\n
 
 
 def clean_input_paths(path_strs):
-    # get absolute paths and apply windowsos path translation, if not NoneType (else return None) and if it does not
-    # contain an environmental variable (else return it as is)
-    #
-    # input path_strs: iterable(str)
-    # return out_paths: list(str)
+    """
+    get absolute paths and apply windowsos path translation, if not NoneType (else return None) and if it does not
+    contain an environmental variable (else return it as is)
+
+    Parameters
+    ----------
+    path_strs : iterable[str]
+
+    Returns
+    -------
+    out_paths : list[str]
+    """
+    #TODO check input type
+
     out_paths = [os.path.abspath(os.path.expandvars(path_str)).replace("\\\\", '/').replace('\\', '/')
                  if path_str not in [None, "None"] else None
                  for path_str in path_strs]
@@ -36,11 +45,19 @@ def clean_input_paths(path_strs):
     return [op if (op is None) or op.endswith('/') or ('.' in op[-5:]) else op + '/' for op in out_paths]
 
 
-def create_out_path(output_directory, input_filepath):
-    # create output directory, if not already existing
-    #
-    # input output_directory: str, input_filepath: str
-    # return output_directory: str
+def create_out_path(output_directory: str, input_filepath: str):
+    """
+    create output directory, if not already existing
+
+    Parameters
+    ----------
+    output_directory : str,
+    input_filepath : str
+
+    Returns
+    -------
+    output_directory : str
+    """
 
     output_directory = output_directory if output_directory else '/'.join(input_filepath.split('/')[:-1])
     output_directory = output_directory.replace('\\', '/')
@@ -54,11 +71,22 @@ def create_out_path(output_directory, input_filepath):
     return output_directory
 
 
-def evaluate_boolean_input(input_str):
-    # evaluate boolean value of input string
-    #
-    # input input_str: str
-    # return boolean
+def evaluate_boolean_input(input_str: str):
+    """
+    evaluate boolean value of input string
+
+    Parameters
+    ----------
+    input_str : str
+
+    Returns
+    -------
+        bool
+
+    Raises
+    ------
+        ValueError
+    """
 
     if str(input_str).lower() in ("y", "yes", "t", "true", "on", "1"):
         return True
@@ -68,11 +96,18 @@ def evaluate_boolean_input(input_str):
         raise ValueError(f"Error! Could not change type of input to boolean (given:{input_str}).")
 
 
-def build_xl_dataset(xl_residues):
-    # build residue dataset from comma-separated xl_residues input string, specifying residue, atom type, and position
-    #
-    # input xl_residues: str
-    # return df_xl_res: pd.DataFrame
+def build_xl_dataset(xl_residues: str):
+    """
+    build residue dataset from comma-separated xl_residues input string, specifying residue, atom type, and position
+
+    Parameters
+    ----------
+    xl_residues : str
+    
+    Returns
+    -------
+    df_xl_res : pd.DataFrame
+    """
 
     res_list, pos_list, atom_list = ([] for _ in range(3))
 
@@ -102,11 +137,19 @@ def build_xl_dataset(xl_residues):
     return df_xl_res
 
 
-def round_self(value, decimals):
-    # simple decimal rounding function (python by itself has a tendency to round fragmented with the built-in function)
-    #
-    # input value: float, decimals: int
-    # return rounded_value: float/int
+def round_self(value: float, decimals: int):
+    """
+    simple decimal rounding function (python by itself has a tendency to round fragmented with the built-in function)
+
+    Parameters 
+    ----------
+    value : float,
+    decimals : int
+
+    Returns
+    -------
+    rounded_value : float | int
+    """
 
     # If decimal less than 1, the resulting value will be an integer
     if pd.isna(value):
@@ -120,11 +163,18 @@ def round_self(value, decimals):
         return rounded_value
 
 
-def clean_dataset(data, method=""):
-    # Cleaning of structure data dataset for outputs
-    #
-    # input data: pd.DataFrame
-    # return data: pd.DataFrame
+def clean_dataset(data: pd.DataFrame, method=""):
+    """
+    Cleaning of structure data dataset for outputs
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+
+    Returns 
+    -------
+    data : pd.DataFrame
+    """
 
     if not method:
         # Drop datapoints with ident index, if data values are all identical

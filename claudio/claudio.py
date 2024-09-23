@@ -131,12 +131,18 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
     sys.exit()
 
 
-def parse_params(params):
-    # Parse input parameters, and differentiate whether it is given by the user, by the config, or is supposed to be
-    # default
-    #
-    # input params: list(str)
-    # return params: list(str)
+def parse_params(params: list[str]):
+    """
+    Parse input parameters, and differentiate whether it is given by the user, by the config, or is supposed to be default
+    
+    Parameters
+    ----------
+    params : list[str]
+
+    Returns
+    -------
+    params : list[str]
+    """
 
     # If configuration file given, parse its parameters
     if params[-1]:
@@ -162,12 +168,20 @@ def parse_params(params):
     return params[:-1]
 
 
-def read_config(path, args):
-    # read configuration file from path, compare already set values to defaults thus checking whether params were given
-    # additionally to the config-file and set values for other input parameters
-    #
-    # input path: str, args: list(str)
-    # return final_params: list(object)
+def read_config(path: str, args: list[str]):
+    """
+    read configuration file from path, compare already set values to defaults thus checking whether params were given
+    additionally to the config-file and set values for other input parameters
+    
+    Parameters
+    ----------
+    path : str,
+    args : list[str]
+
+    Returns
+    -------
+    final_params : list[Any]
+    """
 
     with open(path, 'r') as f:
         config_content = f.read()

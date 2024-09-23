@@ -1,11 +1,18 @@
 import pandas as pd
 
 
-def create_ident_chain_copies(data):
-    # Create and append datapoints for identical chains in structures
-    #
-    # input: data: pd.DataFrame
-    # return data: pd.DataFrame
+def create_ident_chain_copies(data: pd.DataFrame):
+    """
+    Create and append datapoints for identical chains in structures
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     new_data_infos, new_datapoints = ([] for _ in range(2))
     num_before = len(data.index)
@@ -46,11 +53,19 @@ def create_ident_chain_copies(data):
     return data
 
 
-def annotate_multi_chain_dps(data_row, new_data_infos):
-    # Annotate options if multiple chains were found, if so furthermore replace this with the first option
-    #
-    # input: data_row: pd.DataSeries, new_data_infos: list(tuple(pd.DataSeries, str, str))
-    # return data: pd.DataFrame
+def annotate_multi_chain_dps(data_row: pd.Series, new_data_infos: list[tuple[pd.Series,str,str]]):
+    """
+    Annotate options if multiple chains were found, if so furthermore replace this with the first option
+
+    Parameters
+    ----------
+    data_row : pd.Series,
+    new_data_infos : list[tuple[pd.Series,str,str]]
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     chain_a_opts_found = '_' in data_row.chain_a
     chain_b_opts_found = '_' in data_row.chain_b

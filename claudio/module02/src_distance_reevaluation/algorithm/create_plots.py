@@ -3,12 +3,26 @@ import pandas as pd
 import numpy as np
 
 
-def create_histogram(data, filename, output_directory, linker_minimum, linker_maximum, add_labels=False):
-    # Create histogram plots with matplotlib
-    #
-    # input data: pd: DataFrame, bins: list(int), filename: str, output_directory: str, linker_minimum: float,
-    # linker_maximum: float, add_labels: bool
-    # no return
+def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, linker_minimum: float, linker_maximum: float,
+                      add_labels=False):
+    """
+    Create histogram plots with matplotlib
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    filename : str,
+    output:directory : str,
+    linker_minimum : float,
+    linker_maximum : float,
+    add_labels : bool
+
+    Returns
+    -------
+        None    
+    """
+    #TODO additional parameter mentioned in original comment: bins : list(int); probably not needed anymore?
+    #TODO add_labels defaulted to False?
 
     # normal distance histograms
     dist_data = data[["eucl_dist", "topo_dist"]].copy()

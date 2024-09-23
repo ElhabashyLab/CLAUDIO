@@ -2,17 +2,28 @@ import os
 import socket
 import time
 import requests as r
+import pandas as pd
 
 from claudio.utils.utils import verbose_print, round_self
 
 
-def download_pdbs(dataset, search_tool, res_cutoff, output_directory, verbose_level):
-    # Download pdb files either from RCSB or AlphaFold database (depending on earlier hhsearch or blastp search) into
-    # output directory
-    #
-    # input dataset: pd.DataFrame, search_tool: str, res_cutoff: float, output_directory: str,
-    # verbose_level: int
-    # return dataset: pd.DataFrame
+def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, output_directory: str, verbose_level: int):
+    """
+    Download pdb files either from RCSB or AlphaFold database (depending on earlier hhsearch or blastp search) into
+    output directory
+
+    Parameters
+    ----------
+    dataset : pd.DataFrame,
+    search_tool : str,
+    res_cutoff : float,
+    output_directory : str,
+    verbose_level : int,
+
+    Returns
+    -------
+    dataset : pd.DataFrame
+    """
 
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
@@ -102,24 +113,41 @@ def download_pdbs(dataset, search_tool, res_cutoff, output_directory, verbose_le
     return dataset
 
 
-def clear_output_dir(search_tool, output_directory):
-    # Clear output directory of pdb files starting with the specified search tool's name, to ensure that no old results
-    # or other files intervene in later parsing of the results
-    #
-    # input search_tool: str, output_directory: str
-    # no return
+def clear_output_dir(search_tool: str, output_directory: str):
+    """
+    Clear output directory of pdb files starting with the specified search tool's name, to ensure that no old results
+    or other files intervene in later parsing of the results
+
+    Parameters
+    ----------
+    search_tool : str,
+    output_directory : str
+
+    Returns
+    -------
+        None
+    """
 
     pdb_files = [x for x in os.listdir(output_directory) if x.endswith(".pdb") and x.startswith(search_tool)]
     for f in pdb_files:
         os.remove(f"{output_directory}{f}")
 
 
-def download_pdb_from_db(url, i_try, max_try):
-    # Attempt pdb download from online database, either as .pdb- or .cif-file. If this fails retry until max retry is
-    # reached.
-    #
-    # input url: str, i_try: int, max_try: int
-    # output pdb_file: str/None
+def download_pdb_from_db(url: str, i_try: int, max_try: int):
+    """
+    Attempt pdb download from online database, either as .pdb- or .cif-file. If this fails retry until max retry is reached
+    
+    Parameters
+    ----------
+    url : str,
+    i_try : int,
+    max_try : int
+
+    Returns
+    -------
+    pdb_file : str | None 
+    """
+    #TODO check output type
     try:
         if url.startswith("https://files.rcsb.org/"):
             # Attempt regular .pdb call from RCSB database
@@ -152,11 +180,23 @@ def download_pdb_from_db(url, i_try, max_try):
         return download_pdb_from_db(url, i_try + 1, max_try)
 
 
-def accept_resolution_method(pdb, pdb_id, res_cutoff):
-    # decide whether a pdb should be accepted based on the used method and its resolution
-    #
-    # input pdb: str, pdb_id: str, res_cutoff: float
-    # return accept_resolution_method: boolean, method: str, resolution: str/float
+def accept_resolution_method(pdb: str, pdb_id: str, res_cutoff: float):
+    """
+    decide whether a pdb should be accepted based on the used method and its resolution
+
+    Parameters
+    ----------
+    pdb : str,
+    pdb_id : str,
+    res_cutoff : float
+
+    Returns
+    -------
+    accept_resolution_method : bool,
+    method : str,
+    resolution : str | float
+    """
+    #TODO check output type
 
     method, resolution = ('-' for _ in range(2))
 

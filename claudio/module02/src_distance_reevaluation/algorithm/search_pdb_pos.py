@@ -13,14 +13,23 @@ from claudio.utils.utils import verbose_print, round_self
 _MAX_INTERFACE_DISTANCE = 50
 
 
-def search_site_pos_in_pdb(data, df_xl_res, verbose_level):
-    # search for site positions in pdb, extend input dataset by res_criteria, e.g. whether the found
-    # sites satisfy the criteria of being the specified residue, the method used to find the sites in the structure
-    # file, in case said method was alphafold the pLDDT, e.g. confidence, value, and download new alphafold pdb into
-    # directory, if needed
-    #
-    # input data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_level: int
-    # return data: pd.DataFrame
+def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_level: int):
+    """
+    search for site positions in pdb, extend input dataset by res_criteria, e.g. whether the found
+    sites satisfy the criteria of being the specified residue, the method used to find the sites in the structure
+    file, in case said method was alphafold the pLDDT, e.g. confidence, value, and download new alphafold pdb into
+    directory, if needed
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    df_xl_res : pd.DataFrame,
+    verbose_level : int
+
+    Returns 
+    -------
+    data : pd.DataFrame
+    """
 
     # Read shift file given by EMBL-EBI database (see: https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html) for rcsb files
     # to uniprot entries
@@ -168,13 +177,33 @@ def search_site_pos_in_pdb(data, df_xl_res, verbose_level):
     return data
 
 
-def compute_site_pos(i, data, site_id, xl_type, pdb_uni_map, method, df_xl_res, verbose_level):
-    # Search site in structure file and return threedimensional position
-    #
-    # input i: int, data: pd.Series, site_id: int, xl_type: str, pdb_uni_map: pd.DataFrame,
-    # method: str, df_xl_res: pd.DataFrame, verbose_level: int
-    # return pdb_pos: int, res_criteria: bool, method: str, i_error: int, pLDDT: float, new_path_a: str,
-    # atom_coord: [float, float, float]/None
+def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_uni_map: pd.DataFrame, method: str, df_xl_res: pd.DataFrame,
+                      verbose_level: int):
+    """
+    Search site in structure file and return threedimensional position
+
+    Parameters 
+    ----------
+    i : int,
+    data : pd.Series,
+    site_id : int,
+    xl_type : str,
+    pdb_uni_map : pd.DataFrame,
+    method : str,
+    df_xl_res : pd.DataFrame,
+    verbose_level : int
+
+    Returns
+    -------
+    pdb_pos : int,
+    res_criteria : bool,
+    method : str,
+    i_error : int,
+    pLDDT: float,
+    new_path_a : str,
+    atom_coord : [float, float, float] | None
+    """
+    #TODO check output type
 
     # Extract pdb_id, chain_id and unip_id from data
     pdb_id = data["pdb_id"]
@@ -402,12 +431,20 @@ def compute_site_pos(i, data, site_id, xl_type, pdb_uni_map, method, df_xl_res, 
         return None, False, method, 6, '-', '', None
 
 
-def compute_pdb_uniprot_shift(pdb_uni_map_entry):
-    # Compute shift by a finding entry with closely related indeces (neighbours) for pdb and uniprot, search through
-    # entries recursively until either satisfying result found, or dataset empty (in the latter case return None)
-    #
-    # input pdb_uni_map_entry: pd.DataFrame
-    # return shift: int
+def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
+    """
+    Compute shift by a finding entry with closely related indeces (neighbours) for pdb and uniprot, search through
+    entries recursively until either satisfying result found, or dataset empty (in the latter case return None)
+    
+    Parameters
+    ----------
+    pdb_uni_map_entry : pd.DataFrame
+
+    Returns
+    -------
+    shift : int | Any | None
+    """
+    #TODO should return int (or None?)
 
     # Set acceptable neighbour ranges
     neighbours_beg = (int(pdb_uni_map_entry["SP_BEG"].iloc[0])-1, int(pdb_uni_map_entry["SP_BEG"].iloc[0])+2)
@@ -429,12 +466,22 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry):
             return None
 
 
-def realign_unip_pos_in_pdb_seq(pdb_seq, unip_seq, unip_pos, verbose_level):
-    # Realign pdb sequence to uniprot sequence, and compute position of residue in pdb sequence which is specified by
-    # unip_pos in uniprot sequence, if this fails return None
-    #
-    # input pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int
-    # return pdb_pos: int
+def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int):
+    """
+    Realign pdb sequence to uniprot sequence, and compute position of residue in pdb sequence which is specified by
+    unip_pos in uniprot sequence, if this fails return None
+    
+    Parameters
+    ----------
+    pdb_seq : str,
+    unip_seq : str,
+    unip_pos : int,
+    verbose_level : int
+
+    Returns
+    -------
+    pdb_pos : int | None
+    """
 
     # Set alignment parameters
     aligner = PairwiseAligner()
@@ -481,12 +528,21 @@ def realign_unip_pos_in_pdb_seq(pdb_seq, unip_seq, unip_pos, verbose_level):
         return None
 
 
-def replacement_alphafold_download(unip_id, path):
-    # Attempt to download a replacement alphafold structure model (also return path to new pdb),
-    # return None if attempt fails
-    #
-    # input unip_id: str, path: str
-    # return chain: Bio.PDB.Chain, new_path: str
+def replacement_alphafold_download(unip_id: str, path: str):
+    """
+    Attempt to download a replacement alphafold structure model (also return path to new pdb),
+    return None if attempt fails
+    
+    Parameters
+    ----------
+    unip_id : str,
+    path : str
+
+    Returns
+    -------
+    chain : Bio.PDB.Chain | None
+    new_path : str |  ''
+    """
 
     # ex.: data/out/structure_search/blastp_6G2J.pdb
     new_path = f"{'_'.join(path.split('_')[:-1])}_af{unip_id}.pdb"

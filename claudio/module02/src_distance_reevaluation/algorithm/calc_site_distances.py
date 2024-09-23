@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import warnings
+import pandas as pd
 
 from Bio.PDB import Polypeptide, PDBParser, MMCIFParser, Select, PDBIO
 
@@ -9,14 +10,26 @@ from claudio.utils.utils import verbose_print, round_self
 warnings.filterwarnings("ignore")
 
 
-def calculate_site_dists(data, temp_dir, df_xl_res, plddt_cutoff, topolink_bin, verbose_level):
-    # calculate distances between interaction sites, and extend input dataset by res_criteria, e.g. whether the found
-    # sites satisfy the criteria of being the specified residue, the method used to find the sites in the structure
-    # file, in case said method was alphafold the pLDDT, e.g. confidence, value and finally the computed distances
-    #
-    # input data: pd.DataFrame, temp_dir: str, df_xl_res: pd.DataFrame, plddt_cutoff: float,
-    # topolink_bin: str/None, verbose_level: int
-    # return data: pd.DataFrame
+def calculate_site_dists(data: pd.DataFrame, temp_dir: str, df_xl_res: pd.DataFrame, plddt_cutoff: float, topolink_bin: str | None,
+                          verbose_level: int):
+    """
+    calculate distances between interaction sites, and extend input dataset by res_criteria, e.g. whether the found
+    sites satisfy the criteria of being the specified residue, the method used to find the sites in the structure
+    file, in case said method was alphafold the pLDDT, e.g. confidence, value and finally the computed distances
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    temp_dir : str,
+    df_xl_res : pd.DataFrame,
+    plddt_cutoff : float,
+    topolink_bin : str | None,
+    verbose_level : int
+
+    Returns
+    -------
+    data : pd.DataFrame
+    """
 
     # Compute euclidean and topological distance of interacting residues with topolink and add them all to the dataset
     data = compute_dists_with_topolink(data, temp_dir, df_xl_res, plddt_cutoff, topolink_bin, verbose_level)
@@ -24,14 +37,26 @@ def calculate_site_dists(data, temp_dir, df_xl_res, plddt_cutoff, topolink_bin, 
     return data
 
 
-def compute_dists_with_topolink(data, temp_dir, df_xl_res, plddt_cutoff, topolink_bin, verbose_level):
-    # compute euclidean and topological distances between residues utilizing topolink software, also saves logs of
-    # topolink computation into temporary folder (careful: contents of this folder will be fully deleted each time this
-    # script is executed)
-    #
-    # input data: pd.DataFrame, temp_dir: str, df_xl_res: pd.DataFrame, plddt_cutoff: float,
-    # topolink_bin: str/None, verbose_level: int
-    # return data: pd.DataFrame
+def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd.DataFrame, plddt_cutoff: float, topolink_bin: str | None,
+                                 verbose_level: int):
+    """
+    compute euclidean and topological distances between residues utilizing topolink software, also saves logs of
+    topolink computation into temporary folder (careful: contents of this folder will be fully deleted each time this
+    script is executed)
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    temp_dir : str,
+    df_xl_res : pd.DataFrame,
+    plddt_cutoff : float,
+    topolink_bin : str | None,
+    verbose_level : int
+
+    Returns 
+    -------
+    data : pd.DataFrame
+    """
 
     toplink_dists = []
     ind = 0
@@ -193,13 +218,21 @@ def compute_dists_with_topolink(data, temp_dir, df_xl_res, plddt_cutoff, topolin
     return data
 
 
-def isolate_pdb_chain(path, temp_dir, chain_ids):
-    # isolate chains with cross-links and write only those chains to pdb
-    #
-    # input path: str, temp_dir: str, chain_ids: list(str)
-    # return new_path: str
+def isolate_pdb_chain(path: str, temp_dir: str, chain_ids: list[str]):
+    """
+    isolate chains with cross-links and write only those chains to pdb
 
-    # Parse pdb structure
+    Parameters
+    ----------
+    path : str,
+    temp_dir : str,
+    chain_ids : list[str]
+
+    Returns
+    -------
+    new_path : str
+    """
+
     try:
         structure = PDBParser().get_structure('', path)
     except:

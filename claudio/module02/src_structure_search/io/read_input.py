@@ -1,11 +1,19 @@
 import pandas as pd
 
 
-def read_in(input_filepath):
-    # read inputfile (.sqcs file), and columns for results and for control
-    #
-    # input input_filepath: str
-    # return data: pd.DataFrame, filename: str
+def read_in(input_filepath: str):
+    """
+    read inputfile (.sqcs file), and columns for results and for control
+
+    Parameters
+    ----------
+    input_filepath : str
+
+    Returns
+    -------
+    data : pd.DataFrame,
+    filename : str
+    """
 
     # Read input
     data = pd.read_csv(input_filepath, index_col=0)

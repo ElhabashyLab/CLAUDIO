@@ -87,14 +87,37 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool, e_val
     sys.exit()
 
 
-def inputs_valid(input_filepath, input_temppath, do_structure_search, search_tool, e_value, query_id, coverage,
-                 res_cutoff, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, verbose_level):
-    # check validity of inputted parameters
-    #
-    # input input_filepath: str, input_temppath: str, do_structure_search: bool, search_tool: str, e_value: float,
-    # query_id: float, coverage: float, res_cutoff: float, output_directory: str, blast_bin: str/None, blast_db: str,
-    # hhsearch_bin: str/None, hhsearch_db: str, verbose_level: int
-    # return inputs_valid: bool
+def inputs_valid(input_filepath: str, input_temppath: str, do_structure_search: bool, search_tool: str, e_value: float, query_id: float, 
+                 coverage: float, res_cutoff: float, output_directory: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None, 
+                 hhsearch_db: str, verbose_level: int):
+    """
+    check validity of inputted parameters
+
+    Parameters
+    ----------
+    input_filepath : str,
+    input_temppath : str,
+    do_structure_search : bool,
+    search_tool : str,
+    e_value : float,
+    query_id : float,
+    coverage : float,
+    res_cutoff : float,
+    output_directory : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+
+    Returns 
+    -------
+    inputs_valid : bool
+
+    Raises
+    ------
+        invalid input exceptions
+    """
 
     # check whether an inputfile with the extension .sqcs is specified
     if input_filepath and input_filepath.endswith(".sqcs"):
