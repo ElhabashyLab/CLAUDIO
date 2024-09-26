@@ -442,9 +442,8 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
 
     Returns
     -------
-    shift : int | Any | None
+    shift : int | None
     """
-    #TODO should return int (or None?)
 
     # Set acceptable neighbour ranges
     neighbours_beg = (int(pdb_uni_map_entry["SP_BEG"].iloc[0])-1, int(pdb_uni_map_entry["SP_BEG"].iloc[0])+2)

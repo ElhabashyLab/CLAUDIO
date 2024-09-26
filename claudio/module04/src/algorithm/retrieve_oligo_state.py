@@ -51,7 +51,6 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
     -------
     oligo_states : LiteralStr
     """
-    #TODO should return str?
 
     NUMBER_OF_CALL_REPEATS = 5
     DOWNLOAD_RATE_LIMITER_IN_SECONDS = .05

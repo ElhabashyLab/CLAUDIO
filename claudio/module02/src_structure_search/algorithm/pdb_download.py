@@ -147,7 +147,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
     -------
     pdb_file : str | None 
     """
-    #TODO check output type
+    
     try:
         if url.startswith("https://files.rcsb.org/"):
             # Attempt regular .pdb call from RCSB database
@@ -196,7 +196,6 @@ def accept_resolution_method(pdb: str, pdb_id: str, res_cutoff: float):
     method : str,
     resolution : str | float
     """
-    #TODO check output type
 
     method, resolution = ('-' for _ in range(2))
 

@@ -64,7 +64,6 @@ def compute_interaction_adj(data_row: pd.Series):
     -------
     compute_interaction_dist: (float | int)
     """
-    #TODO output should be float? 
 
     if (data_row["unip_id_a"] == data_row["unip_id_b"]) and (not data_row.pep_copies_found):
         adjacency = 1 - (abs(int(data_row["pos_a"]) - int(data_row["pos_b"])) /
@@ -88,7 +87,6 @@ def compute_interaction_overlap(data_row: pd.Series):
     -------
     compute_interaction_overlap : (float | int)
     """
-    # TODO output should be float?
 
     if (data_row["unip_id_a"] == data_row["unip_id_b"]) and (not data_row.pep_copies_found):
         if data_row["pos_a"] == data_row["pos_b"]:

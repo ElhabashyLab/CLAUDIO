@@ -21,8 +21,6 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
     -------
         None    
     """
-    #TODO additional parameter mentioned in original comment: bins : list(int); probably not needed anymore?
-    #TODO add_labels defaulted to False?
 
     # normal distance histograms
     dist_data = data[["eucl_dist", "topo_dist"]].copy()

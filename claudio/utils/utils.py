@@ -17,7 +17,6 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int, end='\n
     -------
         None
     """
-    #TODO why is end defaulted to \n?
 
     if verbose_level > threshold:
         print(print_string.replace('\x00', ''), end=end)

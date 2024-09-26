@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-def create_plots(data: pd.DataFrame, filename: str, cutoff, compute_scoring: bool, output_directory: str, linker_minimum: float, linker_maximum: float,
+def create_plots(data: pd.DataFrame, filename: str, cutoff: float, compute_scoring: bool, output_directory: str, linker_minimum: float, linker_maximum: float,
                       add_labels=False):
     """
     create histograms for inter scores, and pie charts for final validation results
@@ -12,6 +12,7 @@ def create_plots(data: pd.DataFrame, filename: str, cutoff, compute_scoring: boo
     ----------
     data : pd.DataFrame,
     filename : str,
+    cutoff : float
     compute_scoring : bool,
     output_directory : str,
     linker_minimum : float,
@@ -22,8 +23,6 @@ def create_plots(data: pd.DataFrame, filename: str, cutoff, compute_scoring: boo
     -------
         None
     """
-    #TODO add_labels is defaulted to False, why?
-    #TODO missing input parameters description: cutoff
 
     colors = ["#9ACE9A", "#464444"]
     if compute_scoring:

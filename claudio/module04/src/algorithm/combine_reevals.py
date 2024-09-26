@@ -72,7 +72,6 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float, linker_mini
     -------
     score : (float | int)
     """ 
-    # TODO should return float?
 
     score = 0.0
 
@@ -131,9 +130,8 @@ def write_evidence(datapoint: pd.Series, plddt_cutoff: float, linker_minimum: fl
 
     Returns
     -------
-    evidence : Literal['\'same peptide\'', '\'peptides overlap;distances below range\'', '\'peptides overlap;distances above range\'', '\'peptides overlap;only euclidean distance below ra…', '\'peptides overlap;only euclidean distance above ra…', '\'peptides overlap;only topological distance below …', '\'peptides overlap;only topological distance above …', '\'peptides overlap;distance below range\'', '\'peptides overlap;distance above range\'', '\'peptides overlap\'', '\'distances below range\'', '\'distances above range\'', '\'only euclidean distance below range\'', '\'only euclidean distance above range\'', '\'only topological distance below range\'', '\'only topological distance above range\'', '\'distance below range\'', '\'distance above range\'', '']
+    evidence : str
     """
-    # TODO should return str?
 
     evidence = '\''
 
@@ -223,11 +221,8 @@ def def_xl_type(datapoint: pd.Series):
 
     Returns
     -------
-    evidence : Literal['intra', 'inter']
+    evidence : str
     """
-    #TODO should return str?
-    #TODO input arguments in original comment contained additionally: plddt_cutoff: float, linker_minimum: float, linker_maximum: float,
-    # euclidean_strictness: float; probably not needed anymore?
 
     if (datapoint.unip_id_a == datapoint.unip_id_b) and (not datapoint.evidence):
         return_str = "intra"
