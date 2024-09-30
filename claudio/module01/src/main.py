@@ -44,7 +44,8 @@ def main(input_filepath, input_temppath, projections, uniprot_search, xl_residue
     # Evaluate value of boolean inputs
     uniprot_search = evaluate_boolean_input(uniprot_search)
 
-    filename = '.'.join(input_filepath.split('/')[-1].split('.')[:-1])
+    # Get name of input file
+    filename = os.path.splitext(os.path.basename(input_filepath))[0]
 
     # Check output directory
     output_directory = create_out_path(output_directory, input_filepath)

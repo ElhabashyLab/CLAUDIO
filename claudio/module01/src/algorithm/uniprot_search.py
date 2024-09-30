@@ -47,7 +47,7 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched={}, 
     seq : list[str],
     already_searched : dict[str,list[str]]
     """
-    #TODO why is already_searched and site defaulted?
+    #TODO why is site defaulted?
 
     seqs = []
 
