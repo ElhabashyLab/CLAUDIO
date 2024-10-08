@@ -64,7 +64,7 @@ In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS
 [[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references). The file in question can be found 
 [here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/pdb_chain_uniprot.csv).\
 We also recommend updating this file from time to time ([download here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz)) 
-in order to keep up its efficiency, though this is not a necessity (last updated: 26.09.2023).
+in order to keep up its efficiency, though this is not a necessity (last updated: 28.09.2024).
 
 ### Optional: Packages (background info)
 This tool is written in and has to be run with python 3 (last tested v3.11).\
