@@ -7,6 +7,34 @@ import pandas as pd
 from claudio.utils.utils import verbose_print, round_self
 
 
+def download_wrapper(filename: str, url: str, dataset: pd.DataFrame, pdb_id: str, chain: str, chain_b: str,pdb_file: str):
+    """
+    Downloads a pdb-file from a given url
+
+    Parameters
+    ----------
+    filename : str,
+    url : str,
+    dataset : pd.DataFrame,
+    pdb_id : str,
+    chain : str,
+    chain_b : str,
+    pdb_file : str
+
+    Returns 
+    -------
+    pdb_id : str,
+    chain : str,
+    chain_b : str,
+    pdb_file : str,
+    
+    """
+    if filename not in dataset["path"]:
+        pdb_file = download_pdb_from_db(url, 0, 5)
+        if pdb_file is None:
+            return '-','-','-','-'
+    return pdb_id, chain, chain_b, pdb_file
+
 def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, output_directory: str, verbose_level: int):
     """
     Download pdb files either from RCSB or AlphaFold database (depending on earlier hhsearch or blastp search) into
@@ -31,49 +59,36 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
     ind = 0
     # Download pdb files for each datapoint
     for i, row in dataset.iterrows():
+
         # Iterate over results
         for j, res in enumerate((row["all_results"] + ' ').split(' ')):
-            # If an entry was found in the rcsb database, download from there
+
             pdb_id = res.split('_')[0]
             chain = '_'.join(res.split('|')[0].split('_')[1:]) if pdb_id else '-'
             chain_b = '_'.join(res.split('|')[1].split('_')[1:]) if pdb_id else '-'
             pdb_file = ''
+
+            # If pdb entry found in RCSB, download from there
             if pdb_id:
-                # Create custom pdb filename
                 filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
-
-                # If no similar pdb was already downloaded, then download
-                if filename not in dataset["path"]:
-                    # Download pdb as str text
-                    url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
-                    pdb_file = download_pdb_from_db(url, 0, 5)
-                    if pdb_file is None:
-                        pdb_file = ''
-                        filename = '-'
-                        pdb_id = '-'
-                        chain = '-'
-                        chain_b = '-'
-            # If no entry was found, attempt download from alphafold database instead, if it is an intra crosslink
+                url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
             else:
-                if row["unip_id_a"] == row["unip_id_b"]:
-                    # Create custom alphafold pdb filename
-                    pdb_id = f"af{row['unip_id_a']}"
-                    chain = 'A'
-                    chain_b = 'A'
-                    filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
 
-                    # If no similar pdb was already downloaded, then download
-                    if filename not in dataset["path"]:
-                        # Download pdb as str text
-                        url = f"https://alphafold.ebi.ac.uk/files/AF-"\
-                              f"{row['unip_id_a']}-F1-model_v1.pdb"
-                        pdb_file = download_pdb_from_db(url, 0, 5)
-                        if pdb_file is None:
-                            pdb_file = ''
-                            filename = '-'
-                            pdb_id = '-'
-                            chain = '-'
-                            chain_b = '-'
+                # if intra crosslink, download from AlphaFold
+                if row.unip_id_a == row.unip_id_b:
+                        
+                        # Create custom alphafold pdb filename
+                        pdb_id = f"af{row.unip_id_a}"
+                        chain = 'A'
+                        chain_b = 'A'
+                        filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
+                        url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v1.pdb"
+                
+                # no download possible
+                else:
+                    continue
+
+            pdb_id, chain, chain_b, pdb_file = download_wrapper(filename, url, dataset, pdb_id, chain, chain_b,pdb_file)
 
             # Check whether method and resolution are accepted, return respective bool, method and resolution
             method_accepted, method, resolution = accept_resolution_method(pdb_file, pdb_id, res_cutoff)
