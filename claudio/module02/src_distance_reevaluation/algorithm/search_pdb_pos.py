@@ -93,12 +93,8 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
 
             # Replace path if alphafold file was downloaded instead
             if new_path and xl_type == "intra":
-                data.loc[i, "path"] = new_path
-                data.loc[i, "chain_a"] = 'A'
-                data.loc[i, "chain_b"] = 'A'
-                data.loc[i, "pdb_id"] = new_path.split('_')[-1].split('.')[0]
-                data.loc[i, "pdb_method"] = "ALPHAFOLD"
-                data.loc[i, "pdb_resolution"] = "ALPHAFOLD"
+                new_res = [new_path,'A','A',new_path.split('_')[-1].split('.')[0],"ALPHAFOLD","ALPHAFOLD"]
+                data.loc[i,["path","chain_a","chain_b","pdb_id","pdb_method","pdb_resolution"]] = new_res
 
             # Append results to data container lists
             pdb_pos_as.append(pdb_pos_a)
@@ -445,18 +441,22 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
     shift : int | None
     """
 
+    sp_beg = int(pdb_uni_map_entry["SP_BEG"].iloc[0])
+    sp_end = int(pdb_uni_map_entry["SP_END"].iloc[0])
+    pdb_beg = pdb_uni_map_entry["PDB_BEG"].iloc[0]
+    pdb_end = pdb_uni_map_entry["PDB_END"].iloc[0]
     # Set acceptable neighbour ranges
-    neighbours_beg = (int(pdb_uni_map_entry["SP_BEG"].iloc[0])-1, int(pdb_uni_map_entry["SP_BEG"].iloc[0])+2)
-    neighbours_end = (int(pdb_uni_map_entry["SP_END"].iloc[0])-1, int(pdb_uni_map_entry["SP_END"].iloc[0])+2)
+    neighbours_beg = (sp_beg-1, sp_beg+2)
+    neighbours_end = (sp_end-1, sp_end+2)
 
     # If pdb start is not None and in range, return shift
-    if pdb_uni_map_entry["PDB_BEG"].iloc[0] != "None" and \
-            int(pdb_uni_map_entry["PDB_BEG"].iloc[0]) in range(neighbours_beg[0], neighbours_beg[1]):
-        return int(pdb_uni_map_entry["PDB_BEG"].iloc[0]) - int(pdb_uni_map_entry["SP_BEG"].iloc[0])
+    if pdb_beg != "None" and \
+            int(pdb_beg) in range(neighbours_beg[0], neighbours_beg[1]):
+        return int(pdb_beg) - sp_beg
     # Elif pdb end is not None and in range, return shift
-    elif pdb_uni_map_entry["PDB_END"].iloc[0] != "None" and \
-            int(pdb_uni_map_entry["PDB_END"].iloc[0]) in range(neighbours_end[0], neighbours_end[1]):
-        return int(pdb_uni_map_entry["PDB_END"].iloc[0]) - int(pdb_uni_map_entry["SP_END"].iloc[0])
+    elif pdb_end != "None" and \
+            int(pdb_end) in range(neighbours_end[0], neighbours_end[1]):
+        return int(pdb_end) - sp_end
     # Else if dataset not empty, recursively call function again with dataset except first entry, else return None
     else:
         if not pdb_uni_map_entry[1:].empty:

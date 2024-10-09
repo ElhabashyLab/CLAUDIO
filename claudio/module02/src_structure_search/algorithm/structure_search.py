@@ -71,11 +71,9 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query
             if intersect_results:
                 pdb_id = list(intersect_results.keys())[0]
                 chain_a, chain_b = intersect_results[pdb_id]
-                data.loc[i, "pdb_id"] = pdb_id
-                data.loc[i, "chain_a"] = chain_a
-                data.loc[i, "chain_b"] = chain_b
-                data.loc[i, "all_results"] = ' '.join([f"{key}_{value[0]}|_{value[1]}"
-                                                       for key, value in intersect_results.items()])
+                all_results = ' '.join([f"{key}_{value[0]}|_{value[1]}" for key, value in intersect_results.items()])
+                new_cols = [pdb_id, chain_a, chain_b, all_results]
+                data.loc[i,["pdb_id","chain_a","chain_b","all_results"]] = new_cols
         else:
             not_found.append(i)
         ind += 1

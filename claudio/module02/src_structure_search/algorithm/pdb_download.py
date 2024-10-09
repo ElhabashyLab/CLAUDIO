@@ -96,23 +96,16 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
             # Save method and resolution for best structure search result
             if j == 0:
                 # Add method and resolution to dataset
-                dataset.loc[i, "best_res_pdb_method"] = method
-                dataset.loc[i, "best_res_pdb_resolution"] = resolution
+                dataset.loc[i, ["best_res_pdb_method","best_res_pdb_resolution"]] = [method, resolution]
 
             # Stop Iteration of results if result gets accepted
             if method_accepted:
                 not_nmr_alphafold = ("NMR" not in method) and ("ALPHAFOLD" not in method)
                 no_nmr_found_yet = "NMR" not in dataset.loc[i, "pdb_method"]
                 if not_nmr_alphafold or no_nmr_found_yet:
-                    # Update pdb_id and chain in dataset
-                    dataset.loc[i, "pdb_id"] = pdb_id
-                    dataset.loc[i, "chain_a"] = chain
-                    dataset.loc[i, "chain_b"] = chain_b
-                    # Add filename to paths
-                    dataset.loc[i, "path"] = filename
-                    # Add method and resolution to dataset
-                    dataset.loc[i, "pdb_method"] = method
-                    dataset.loc[i, "pdb_resolution"] = resolution
+                    # Update pdb_id and chain in dataset, add filename to path and method,resolution to dataset
+                    dataset.loc[i,["pdb_id","chain_a","chain_b","path","pdb_method","pdb_resolution"]] = [pdb_id,chain,chain_b,
+                                                                                                          filename,method,resolution]
 
                     # Save pdb text to new pdb file with custom name
                     if (not os.path.exists(filename)) and (pdb_file is not None):
