@@ -249,8 +249,8 @@ def clean_dataset(data: pd.DataFrame, method=""):
 
         # Sort rows
         if any([type(i) == str for i in data.index]):
-            data["sort_index_i"] = [int(i.split('_')[0]) for i in data.index]
-            data["sort_index_j"] = [int(i.split('_')[1]) if '_' in i else 1 for i in data.index]
+            data["sort_index_i"] = [int(i.split('_')[0]) if type(i) == str else i for i in data.index]
+            data["sort_index_j"] = [int(i.split('_')[1]) if type(i) == str and '_' in i else 1 for i in data.index]
             data = data.sort_values(["sort_index_i", "sort_index_j"]).drop("sort_index_i", axis=1).drop("sort_index_j", axis=1)
     elif method == "minimize":
 
