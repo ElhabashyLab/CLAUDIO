@@ -115,3 +115,6 @@ template.egg-info/
 
 build/
 dist/
+
+# profiling results
+**/profile*

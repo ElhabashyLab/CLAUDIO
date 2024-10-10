@@ -55,7 +55,7 @@ def main(input_filepath, output_directory, verbose_level):
     profile.create_stats()
     with open("profileM03.txt", 'w') as fp:
         stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('time')
+        stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit()
 

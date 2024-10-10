@@ -66,6 +66,6 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, p
     profile.create_stats()
     with open("profileM02.txt", 'w') as fp:
         stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('time')
+        stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit()

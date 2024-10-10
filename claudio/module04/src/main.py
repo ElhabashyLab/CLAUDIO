@@ -97,7 +97,7 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_m
     profile.create_stats()
     with open("profileM04.txt", 'w') as fp:
         stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('time')
+        stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit()
 

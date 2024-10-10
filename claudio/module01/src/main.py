@@ -105,7 +105,7 @@ def main(input_filepath, input_temppath, projections, uniprot_search, xl_residue
     profile.create_stats()
     with open("profileM01.txt", 'w') as fp:
         stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('time')
+        stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit()
 
