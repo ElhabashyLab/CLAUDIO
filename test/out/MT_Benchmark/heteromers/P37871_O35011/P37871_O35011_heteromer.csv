@@ -1,0 +1,9 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+6WVJ,D,F,,,888,63,heteromer,inter
+6WVJ,D,F,377.0,49.0,377,49,heteromer,inter
+6WVJ,D,F,1179.0,,1179,63,heteromer,inter
+6WVJ,D,F,377.0,34.0,377,34,heteromer,inter
+6WVJ,D,F,1182.0,,1182,63,heteromer,inter
+6WVJ,D,F,,,1170,63,heteromer,inter
+6WVJ,D,F,,49.0,373,49,heteromer,inter
+6WVJ,D,F,,,888,50,heteromer,inter

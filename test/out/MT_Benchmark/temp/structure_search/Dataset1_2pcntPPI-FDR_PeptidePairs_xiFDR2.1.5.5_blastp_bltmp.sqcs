@@ -1,0 +1,4424 @@
+pdb_id,chain_a,chain_b,all_results
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+3J9W,BJ,BJ,3J9W_BJ|_BJ 7O5B_p|_p 5NJT_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+3J9W,AD,AE,3J9W_AD|_AE 5NJT_D|_E 6HTQ_d|_e
+6WVJ,C,D,6WVJ_C|_D
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+6WVJ,C,C,6WVJ_C|_C
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+1EE1,A_B,A_B,1EE1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AD,AE,3J9W_AD|_AE 5NJT_D|_E 6HTQ_d|_e
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5CL2,A_B,A_B,5CL2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AT,AT,3J9W_AT|_AT 5NJT_T|_T 6HTQ_t|_t
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+5VH6,A,A,5VH6_A|_A
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+3OIF,A_B_C_D,A_B_C_D,3OIF_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+3OIF,A_B_C_D,A_B_C_D,3OIF_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+3J3V,Y,Y,3J3V_Y|_Y 5NJT_w|_w
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+-,-,-,
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AP,AP,3J9W_AP|_AP 5NJT_P|_P 6HTQ_p|_p
+-,-,-,
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+7AQC,R,R,7AQC_R|_R 7AS8_0|_0 7OPE_0|_0
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+6GOW,D,D,6GOW_D|_D 5MAW_D|_D 5WJX_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJV_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJY_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJT_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJU_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJW_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJZ_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+6SDK,A_B_C_D,A_B_C_D,6SDK_A_B_C_D|_A_B_C_D
+2GZY,A,A,2GZY_A|_A 2VOC_A_B|_A_B 2IPA_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,P,P,3J3V_P|_P 5NJT_i|_i
+3TT7,A_B_C_D_E_F_G,A_B_C_D_E_F_G,3TT7_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTI_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 7FEP_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 3TT6_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5DED,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,5DED_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 5F2V_O_P_Q_R_S_T_U_V_W_X_Y_Z|_O_P_Q_R_S_T_U_V_W_X_Y_Z 5DEC_A_B_C_D|_A_B_C_D
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+1NG6,A,A,1NG6_A|_A
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+2WHY,A,A,2WHY_A|_A 2PHZ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+5XHU,A,A,5XHU_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+-,-,-,
+6WVJ,D,A_B,6WVJ_D|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+5CL2,A_B,A_B,5CL2_A_B|_A_B
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+6NFP,A_B_C_D_E_F,A_B_C_D_E_F,6NFP_A_B_C_D_E_F|_A_B_C_D_E_F 6DKT_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+2K1N,A_B_C_D,A_B_C_D,2K1N_A_B_C_D|_A_B_C_D 1YFB_A_B|_A_B 1Z0R_A_B|_A_B
+-,-,-,
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+6CGQ,A_B,A_B,6CGQ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1NG6,A,A,1NG6_A|_A
+-,-,-,
+-,-,-,
+3J3V,G,G,3J3V_G|_G 5NJT_a|_a
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AF,AF,3J9W_AF|_AF 6HTQ_f|_f
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AH,3J9W_AE|_AH 5NJT_E|_H
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3J3V,P,P,3J3V_P|_P 5NJT_i|_i
+-,-,-,
+3J3V,J,J,3J3V_J|_J 5NJT_c|_c
+-,-,-,
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+6WVJ,D,F,6WVJ_D|_F
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1PYF,A,A,1PYF_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1Y23,A_B_C_D_E,A_B_C_D_E,1Y23_A_B_C_D_E|_A_B_C_D_E
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2QIK,A,A,2QIK_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,A_B,A_B,6WVJ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+2YRF,A_B,A_B,2YRF_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,k,T,5NJT_k|_T
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+5LOJ,A_B,A_B,5LOJ_A_B|_A_B 5LOE_A_B_C_D|_A_B_C_D 5LNH_A_B_C_D_E_F_G_H_I_K|_A_B_C_D_E_F_G_H_I_K 2GX5_A_B_C_D|_A_B_C_D 2B18_A|_A 2HGV_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+1COZ,A_B,A_B,1COZ_A_B|_A_B
+-,-,-,
+-,-,-,
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+1T90,A_B_C_D,A_B_C_D,1T90_A_B_C_D|_A_B_C_D
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+8ARE,A,A,8ARE_A|_A
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+1VZY,A_B,A_B,1VZY_A_B|_A_B
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+2JSY,A,A,2JSY_A|_A
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+5VH6,A,A,5VH6_A|_A
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+4MWA,D_F_H,D_F_H,4MWA_D_F_H|_D_F_H
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+3OIF,A_B_C_D,A_B_C_D,3OIF_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+3E7W,A,A,3E7W_A|_A
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+3J9W,AS,AH,3J9W_AS|_AH 5NJT_S|_H
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+3J9W,AT,AT,3J9W_AT|_AT 5NJT_T|_T 6HTQ_t|_t
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8ARE,A,A,8ARE_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,G,G,3J3V_G|_G 5NJT_a|_a
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+3J3V,5,5,3J3V_5|_5
+3J9W,AF,AF,3J9W_AF|_AF 6HTQ_f|_f
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+8QYG,A_B,A_B,8QYG_A_B|_A_B 8Q5G_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+3J9W,AR,AR,3J9W_AR|_AR 5NJT_R|_R 6HTQ_r|_r
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+4B2O,A_B_C_D,A_B_C_D,4B2O_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+2FQO,A,A,2FQO_A|_A 1IE0_A|_A 1YCL_A|_A 1J98_A|_A
+-,-,-,
+7CKQ,F,F,7CKQ_F|_F
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+3J3V,O,O,3J3V_O|_O
+-,-,-,
+3GFG,A_B_C_D_E_F_G_H_I_J_K_L,A_B_C_D_E_F_G_H_I_J_K_L,3GFG_A_B_C_D_E_F_G_H_I_J_K_L|_A_B_C_D_E_F_G_H_I_J_K_L 3GDO_A_B|_A_B
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+1NG6,A,A,1NG6_A|_A
+-,-,-,
+1MVO,A,A,1MVO_A|_A
+6WVJ,D,A_B,6WVJ_D|_A_B
+2GZY,A,A,2GZY_A|_A 2VOC_A_B|_A_B 2IPA_A|_A
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+6BHX,A_B_C_D,A_B_C_D,6BHX_A_B_C_D|_A_B_C_D 6BHW_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H
+-,-,-,
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+-,-,-,
+4A3S,A_B,A_B,4A3S_A_B|_A_B
+3J3V,P,P,3J3V_P|_P 5NJT_i|_i
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,F,F,6WVJ_F|_F
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+5XHU,A,A,5XHU_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+3OIC,A_D,A_D,3OIC_A_D|_A_D
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+4RLE,A,A,4RLE_A|_A
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,D,A_B,6WVJ_D|_A_B
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+3ZQ4,A_C_D_E,A_C_D_E,3ZQ4_A_C_D_E|_A_C_D_E
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+6KOB,B_F,B_F,6KOB_B_F|_B_F
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+5CL2,A_B,A_B,5CL2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+1NG6,A,A,1NG6_A|_A
+3ZQ4,A_C_D_E,A_C_D_E,3ZQ4_A_C_D_E|_A_C_D_E
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+1QE3,A,A,1QE3_A|_A 1C7J_A|_A 1C7I_A|_A
+-,-,-,
+1O57,A_B_C_D,A_B_C_D,1O57_A_B_C_D|_A_B_C_D 1P4A_A_B_C_D|_A_B_C_D
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+5CL2,A_B,A_B,5CL2_A_B|_A_B
+3J3V,5,5,3J3V_5|_5
+7OJ2,A,A,7OJ2_A|_A
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+6GOW,D,D,6GOW_D|_D 5MAW_D|_D 5WJX_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJV_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJY_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJT_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJU_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJW_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJZ_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2NV0,A_B,A_B,2NV0_A_B|_A_B 2NV2_B_D_F_H_J_L_N_P_R_T_V_X|_B_D_F_H_J_L_N_P_R_T_V_X 1R9G_A_B|_A_B
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6UF5,A,A,6UF5_A|_A 4DE9_A|_A 3MEJ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+2K1N,A_B_C_D,A_B_C_D,2K1N_A_B_C_D|_A_B_C_D 1YFB_A_B|_A_B 1Z0R_A_B|_A_B
+-,-,-,
+3J9W,AM,AM,3J9W_AM|_AM 5NJT_M|_M 6HTQ_m|_m
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+3J9W,B0,B0,3J9W_B0|_B0 5NJT_u|_u
+7OJ2,A,A,7OJ2_A|_A
+3J9W,AT,AT,3J9W_AT|_AT 5NJT_T|_T 6HTQ_t|_t
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+2LXJ,A,A,2LXJ_A|_A
+7OJ2,A,A,7OJ2_A|_A
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+4J90,A_B,A_B,4J90_A_B|_A_B 6S5N_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 6S2J_A_B|_A_B 6S5D_A_B|_A_B 6S5E_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 4J7C_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 2HMS_A_B_C_D|_A_B_C_D 1LSU_A_B|_A_B 5BUT_A_C_E_G|_A_C_E_G
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+-,-,-,
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+-,-,-,
+-,-,-,
+1PYF,A,A,1PYF_A|_A
+5IWX,A_B_C_D_E_F,A_B_C_D_E_F,5IWX_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+6WVJ,D,F,6WVJ_D|_F
+-,-,-,
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6SDK,A_B_C_D,A_B_C_D,6SDK_A_B_C_D|_A_B_C_D
+3J3V,G,G,3J3V_G|_G 5NJT_a|_a
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,G,G,3J3V_G|_G 5NJT_a|_a
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AH,3J9W_AE|_AH 5NJT_E|_H
+2IEE,A_B,A_B,2IEE_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AR,AR,3J9W_AR|_AR 5NJT_R|_R 6HTQ_r|_r
+5LOJ,A_B,A_B,5LOJ_A_B|_A_B 5LOE_A_B_C_D|_A_B_C_D 5LNH_A_B_C_D_E_F_G_H_I_K|_A_B_C_D_E_F_G_H_I_K 2GX5_A_B_C_D|_A_B_C_D 2B18_A|_A 2HGV_A|_A
+1NG6,A,A,1NG6_A|_A
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+8ARE,A,A,8ARE_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+3J9W,AB,AC,3J9W_AB|_AC 5NJT_B|_C 6HTQ_b|_c
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+2IA9,A_B_C_D_E_F,A_B_C_D_E_F,2IA9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3TT7,A_B_C_D_E_F_G,A_B_C_D_E_F_G,3TT7_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTI_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 7FEP_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 3TT6_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G
+-,-,-,
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+-,-,-,
+-,-,-,
+2OLC,A_B,A_B,2OLC_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+7OJ2,A,A,7OJ2_A|_A
+4D8V,A_B,A_B,4D8V_A_B|_A_B
+8EHQ,G,G,8EHQ_G|_G
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,B7,B7,3J9W_B7|_B7 8QPP_3|_3 5NJT_s|_s
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+8EHQ,G,G,8EHQ_G|_G
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+1TT7,A_B_C_D_E_F,A_B_C_D_E_F,1TT7_A_B_C_D_E_F|_A_B_C_D_E_F
+3HXP,A,A,3HXP_A|_A 3G9Q_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+3OIC,A_D,A_D,3OIC_A_D|_A_D
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+6WVJ,A_B,A_B,6WVJ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+6WVJ,D,D,6WVJ_D|_D
+3J9W,BJ,BJ,3J9W_BJ|_BJ 7O5B_p|_p 5NJT_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1ON1,A_B,A_B,1ON1_A_B|_A_B 3R60_A_B|_A_B 1ON2_A_B|_A_B 4HX4_A_B|_A_B 4HV6_A_B|_A_B 2HYF_A_B_C_D|_A_B_C_D
+4D8V,A_B,A_B,4D8V_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AN,AC,3J9W_AN|_AC 5NJT_N|_C
+-,-,-,
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+4DCS,A,A,4DCS_A|_A 5M7H_A|_A 2HJG_A|_A 5X4B_A_B|_A_B
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+5LOJ,A_B,A_B,5LOJ_A_B|_A_B 5LOE_A_B_C_D|_A_B_C_D 5LNH_A_B_C_D_E_F_G_H_I_K|_A_B_C_D_E_F_G_H_I_K 2GX5_A_B_C_D|_A_B_C_D 2B18_A|_A 2HGV_A|_A
+-,-,-,
+-,-,-,
+3J3V,L,L,3J3V_L|_L 6PPF_L|_L
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6KOB,B_F,B_F,6KOB_B_F|_B_F
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+5LOJ,A_B,A_B,5LOJ_A_B|_A_B 5LOE_A_B_C_D|_A_B_C_D 5LNH_A_B_C_D_E_F_G_H_I_K|_A_B_C_D_E_F_G_H_I_K 2GX5_A_B_C_D|_A_B_C_D 2B18_A|_A 2HGV_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,L,L,3J3V_L|_L 6PPF_L|_L
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+6P2T,A,A,6P2T_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5XT5,C_D,C_D,5XT5_C_D|_C_D 1XJS_A|_A 5XT6_C|_C
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6E8D,A_B_C_D,A_B_C_D,6E8D_A_B_C_D|_A_B_C_D 4TR6_A_B|_A_B
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+2GZY,A,A,2GZY_A|_A 2VOC_A_B|_A_B 2IPA_A|_A
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1OYP,A_B_C_D_E_F,A_B_C_D_E_F,1OYP_A_B_C_D_E_F|_A_B_C_D_E_F 1OYS_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5LOJ,A_B,A_B,5LOJ_A_B|_A_B 5LOE_A_B_C_D|_A_B_C_D 5LNH_A_B_C_D_E_F_G_H_I_K|_A_B_C_D_E_F_G_H_I_K 2GX5_A_B_C_D|_A_B_C_D 2B18_A|_A 2HGV_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7DD0,A_B_C_D,A_B_C_D,7DD0_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+7NYB,A_B,A_B,7NYB_A_B|_A_B 2FCA_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+1VZY,A_B,A_B,1VZY_A_B|_A_B
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+3EU3,A,A,3EU3_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+1IXM,A_B,A_B,1IXM_A_B|_A_B 1F51_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+8R3G,A_B_C_D,A_B_C_D,8R3G_A_B_C_D|_A_B_C_D 3BXE_A_B|_A_B 2OKG_A_B|_A_B
+-,-,-,
+4LS5,A_B,A_B,4LS5_A_B|_A_B 4LS6_A_B|_A_B
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+4DCS,A,A,4DCS_A|_A 5M7H_A|_A 2HJG_A|_A 5X4B_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+5XT5,C_D,A_B,5XT5_C_D|_A_B 5XT6_C|_A_B
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1OYP,A_B_C_D_E_F,A_B_C_D_E_F,1OYP_A_B_C_D_E_F|_A_B_C_D_E_F 1OYS_A|_A
+-,-,-,
+1LNZ,A_B,A_B,1LNZ_A_B|_A_B
+3J9W,B3,B3,3J9W_B3|_B3 5NJT_y|_y 6HA1_6|_6 8QCQ_6|_6
+2YRF,A_B,A_B,2YRF_A_B|_A_B
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+2IEE,A_B,A_B,2IEE_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5XHU,A,A,5XHU_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+3F7J,A_B,A_B,3F7J_A_B|_A_B 3D3F_A_B|_A_B
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+3J3V,O,O,3J3V_O|_O
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,N,N,3J3V_N|_N 5NJT_g|_g
+-,-,-,
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+-,-,-,
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+5NJT,Z,y,5NJT_Z|_y
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+2OLC,A_B,A_B,2OLC_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+3J9W,AB,AH,3J9W_AB|_AH 5NJT_B|_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4B2O,A_B_C_D,A_B_C_D,4B2O_A_B_C_D|_A_B_C_D
+8WT4,A,A,8WT4_A|_A 8I2E_A_C|_A_C 2RSX_A|_A
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,B3,B3,3J9W_B3|_B3 5NJT_y|_y 6HA1_6|_6 8QCQ_6|_6
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+1PUJ,A,A,1PUJ_A|_A
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6M36,B_D_F_H_J_L_N_P,B_D_F_H_J_L_N_P,6M36_B_D_F_H_J_L_N_P|_B_D_F_H_J_L_N_P
+1O6B,A,A,1O6B_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+6GOW,D,D,6GOW_D|_D 5MAW_D|_D 5WJX_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJV_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJY_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJT_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJU_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJW_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJZ_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t
+-,-,-,
+-,-,-,
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+2K4K,A,A,2K4K_A|_A
+3J3V,X,X,3J3V_X|_X 5NJT_v|_v
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5BUQ,A_B,A_B,5BUQ_A_B|_A_B 5X8F_A_B_C_D|_A_B_C_D
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+8S1P,V,V,8S1P_V|_V
+-,-,-,
+1A3C,A,A,1A3C_A|_A 4P82_A|_A 4P80_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AO,AO,3J9W_AO|_AO 5NJT_O|_O 6HTQ_o|_o
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+7PKX,A_B,A_B,7PKX_A_B|_A_B 7PL0_A_B_C_D|_A_B_C_D 6KMM_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+1T90,A_B_C_D,A_B_C_D,1T90_A_B_C_D|_A_B_C_D
+-,-,-,
+6E8D,A_B_C_D,A_B_C_D,6E8D_A_B_C_D|_A_B_C_D 4TR6_A_B|_A_B
+-,-,-,
+-,-,-,
+8SKY,A_B,A_B,8SKY_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,A_B,6WVJ_C|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2YRF,A_B,A_B,2YRF_A_B|_A_B
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+5XHU,A,A,5XHU_A|_A
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+6P2T,A,A,6P2T_A|_A
+-,-,-,
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+7PI1,AAA_BBB_CCC_DDD,AAA_BBB_CCC_DDD,7PI1_AAA_BBB_CCC_DDD|_AAA_BBB_CCC_DDD 7QU9_A_B_C|_A_B_C
+-,-,-,
+2B4L,A,A,2B4L_A|_A
+-,-,-,
+3J3V,O,O,3J3V_O|_O
+-,-,-,
+6BHX,A_B_C_D,A_B_C_D,6BHX_A_B_C_D|_A_B_C_D 6BHW_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+7MFM,G_H,G_H,7MFM_G_H|_G_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,X,X,3J3V_X|_X 5NJT_v|_v
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+1NG6,A,A,1NG6_A|_A
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+6UF6,A,A,6UF6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+6GOW,D,D,6GOW_D|_D 5MAW_D|_D 5WJX_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJV_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJY_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJT_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJU_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJW_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJZ_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+2KTE,A,A,2KTE_A|_A 2KEW_A|_A
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+1EE1,A_B,A_B,1EE1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+6YXA,A,A,6YXA_A|_A 8ACU_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4MWA,D_F_H,D_F_H,4MWA_D_F_H|_D_F_H
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+1COZ,A_B,A_B,1COZ_A_B|_A_B
+-,-,-,
+-,-,-,
+5NJT,k,T,5NJT_k|_T
+-,-,-,
+-,-,-,
+3HXP,A,A,3HXP_A|_A 3G9Q_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+5NJT,Z,y,5NJT_Z|_y
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+1YLM,A_B,A_B,1YLM_A_B|_A_B
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+7AQC,Y,Y,7AQC_Y|_Y
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+5XT5,A_B,A_B,5XT5_A_B|_A_B 7E6E_A|_A 5ZS9_A|_A 7CER_A|_A 7E6B_A|_A 5J8Q_A|_A 5XT6_A_B|_A_B 7E6A_A|_A 7E6D_A|_A 7CEQ_A|_A
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,D,A_B,6WVJ_D|_A_B
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3ZQ4,A_C_D_E,A_C_D_E,3ZQ4_A_C_D_E|_A_C_D_E
+5T91,A,A,5T91_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+3BS8,A,A,3BS8_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1OYP,A_B_C_D_E_F,A_B_C_D_E_F,1OYP_A_B_C_D_E_F|_A_B_C_D_E_F 1OYS_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NP9,A,A,5NP9_A|_A 5MVR_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+4DDQ,A_B_C_D_E_F,A_B_C_D_E_F,4DDQ_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+1SF9,A,A,1SF9_A|_A
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OIC,A_D,A_D,3OIC_A_D|_A_D
+-,-,-,
+-,-,-,
+-,-,-,
+7V2L,W,W,7V2L_W|_W 6IFS_A_B|_A_B 6IFX_A_B|_A_B 6IFW_A_B|_A_B 6IFV_A_B|_A_B
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8CDU,C,C,8CDU_C|_C
+3J3V,E,S,3J3V_E|_S 5NJT_Y|_l
+-,-,-,
+-,-,-,
+-,-,-,
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,M,Z,5NJT_M|_Z 6HTQ_m|_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1TD9,A_B_C_D_E_F,A_B_C_D_E_F,1TD9_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QV3,v_w,v_w,7QV3_v_w|_v_w 8QPP_W|_W
+-,-,-,
+3J9W,AS,B3,3J9W_AS|_B3 5NJT_S|_y
+-,-,-,
+-,-,-,
+-,-,-,
+6UF5,A,A,6UF5_A|_A 4DE9_A|_A 3MEJ_A|_A
+1TO0,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,1TO0_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H
+-,-,-,
+3E0O,A_B_C_D_E_F,A_B_C_D_E_F,3E0O_A_B_C_D_E_F|_A_B_C_D_E_F 2KZN_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+3F7J,A_B,A_B,3F7J_A_B|_A_B 3D3F_A_B|_A_B
+-,-,-,
+-,-,-,
+1XD7,A,A,1XD7_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+3J9W,B3,B3,3J9W_B3|_B3 5NJT_y|_y 6HA1_6|_6 8QCQ_6|_6
+-,-,-,
+-,-,-,
+-,-,-,
+7PKX,A_B,A_B,7PKX_A_B|_A_B 7PL0_A_B_C_D|_A_B_C_D 6KMM_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3TB6,A_B,A_B,3TB6_A_B|_A_B
+-,-,-,
+1HQS,A_B,A_B,1HQS_A_B|_A_B
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3ZH9,B,B,3ZH9_B|_B
+-,-,-,
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+7AQC,Y,Y,7AQC_Y|_Y
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+6SDK,A_B_C_D,A_B_C_D,6SDK_A_B_C_D|_A_B_C_D
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+1A6F,A,A,1A6F_A|_A 4JG4_A|_A
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+1SF9,A,A,1SF9_A|_A
+3J9W,AR,AR,3J9W_AR|_AR 5NJT_R|_R 6HTQ_r|_r
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+6GOW,D,D,6GOW_D|_D 5MAW_D|_D 5WJX_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJV_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJY_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJT_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJU_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t 5WJW_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_e_f_g_h_i_j_k_l_m_n_o 5WJZ_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t|_A_B_D_C_F_E_H_G_J_I_L_K_N_M_P_O_R_Q_T_S_V_U_X_W_Z_Y_b_a_d_c_f_e_h_g_j_i_l_k_n_m_o_p_q_r_s_t
+-,-,-,
+1VZY,A_B,A_B,1VZY_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4RX6,A_B_D,A_B_D,4RX6_A_B_D|_A_B_D 4R25_A|_A
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+-,-,-,
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1QWR,A_B,A_B,1QWR_A_B|_A_B
+3J3V,J,J,3J3V_J|_J 5NJT_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+3TT7,A_B_C_D_E_F_G,A_B_C_D_E_F_G,3TT7_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTI_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 7FEP_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 3TT6_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+8ARE,A,A,8ARE_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+1EX2,A_B,A_B,1EX2_A_B|_A_B 4HEB_A_B|_A_B
+6E8D,A_B_C_D,A_B_C_D,6E8D_A_B_C_D|_A_B_C_D 4TR6_A_B|_A_B
+-,-,-,
+2KTE,A,A,2KTE_A|_A 2KEW_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AC,3J9W_AB|_AC 5NJT_B|_C 6HTQ_b|_c
+-,-,-,
+-,-,-,
+3J9W,AP,AP,3J9W_AP|_AP 5NJT_P|_P 6HTQ_p|_p
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,J,J,3J3V_J|_J 5NJT_c|_c
+-,-,-,
+3TT7,A_B_C_D_E_F_G,A_B_C_D_E_F_G,3TT7_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTI_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 7FEP_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 3TT6_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3J3V,0,0,3J3V_0|_0 5NJT_p|_p
+-,-,-,
+3J3V,P,P,3J3V_P|_P 5NJT_i|_i
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+5NJT,M,Z,5NJT_M|_Z 6HTQ_m|_F
+3J3V,5,5,3J3V_5|_5
+2VT2,A_B,A_B,2VT2_A_B|_A_B
+3OIC,A_D,A_D,3OIC_A_D|_A_D
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+2JSY,A,A,2JSY_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3ZQ4,A_C_D_E,A_C_D_E,3ZQ4_A_C_D_E|_A_C_D_E
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+5NJT,C,k,5NJT_C|_k
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2JS1,A_B,A_B,2JS1_A_B|_A_B 2GSV_A_B|_A_B
+-,-,-,
+1S3J,A_B,A_B,1S3J_A_B|_A_B
+2A8E,A,A,2A8E_A|_A
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+1CSP,A,A,1CSP_A|_A 6SZZ_A|_A 2I5M_X|_X 2I5L_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AE,AE,3J9W_AE|_AE 5NJT_E|_E 6HTQ_e|_e
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+-,-,-,
+3J9W,AR,AK,3J9W_AR|_AK 5NJT_R|_K 6HTQ_r|_k
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+7OJ2,A,A,7OJ2_A|_A
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HXP,A,A,3HXP_A|_A 3G9Q_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2OGG,A,A,2OGG_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+7QV3,v_w,v_w,7QV3_v_w|_v_w 8QPP_W|_W
+2NV0,A_B,A_B,2NV0_A_B|_A_B 2NV2_B_D_F_H_J_L_N_P_R_T_V_X|_B_D_F_H_J_L_N_P_R_T_V_X 1R9G_A_B|_A_B
+-,-,-,
+-,-,-,
+2X7J,A_B_C_D,A_B_C_D,2X7J_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1COZ,A_B,A_B,1COZ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+8ARE,A,A,8ARE_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1Z91,A,A,1Z91_A|_A
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3FHK,A_D_E_F,A_D_E_F,3FHK_A_D_E_F|_A_D_E_F
+3J9W,AS,AS,3J9W_AS|_AS 5NJT_S|_S 6HTQ_s|_s
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5D00,A_B,A_B,5D00_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OIC,A_D,A_D,3OIC_A_D|_A_D
+-,-,-,
+-,-,-,
+3J9W,AN,AC,3J9W_AN|_AC 5NJT_N|_C
+-,-,-,
+-,-,-,
+4A3S,A_B,A_B,4A3S_A_B|_A_B
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1O6B,A,A,1O6B_A|_A
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AM,AM,3J9W_AM|_AM 5NJT_M|_M 6HTQ_m|_m
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8ARE,A,A,8ARE_A|_A
+-,-,-,
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+1YX2,A_B,A_B,1YX2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2JSY,A,A,2JSY_A|_A
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+3J3V,J,J,3J3V_J|_J 5NJT_c|_c
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+2X2B,A,A,2X2B_A|_A 1HY8_A|_A 1F80_D_E_F|_D_E_F
+-,-,-,
+8BTG,A_B_C_D_E_F_G,A_B_C_D_E_F_G,8BTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 8BV3_A_B_C_D_E|_A_B_C_D_E
+-,-,-,
+-,-,-,
+-,-,-,
+1A6F,A,A,1A6F_A|_A 4JG4_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+3OIF,A_B_C_D,A_B_C_D,3OIF_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2PIH,A_B,A_B,2PIH_A_B|_A_B 6PRH_A|_A
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2WHY,A,A,2WHY_A|_A 2PHZ_A|_A
+-,-,-,
+-,-,-,
+1P3J,A,A,1P3J_A|_A 5X6I_A|_A 2EU8_A_B|_A_B 2OO7_A_B|_A_B 2QAJ_A_B|_A_B 2P3S_A|_A 2ORI_A_B|_A_B 2OSB_A_B|_A_B 4MKF_A_B|_A_B 3DL0_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4DDQ,A_B_C_D_E_F,A_B_C_D_E_F,4DDQ_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7PI1,AAA_BBB_CCC_DDD,AAA_BBB_CCC_DDD,7PI1_AAA_BBB_CCC_DDD|_AAA_BBB_CCC_DDD 7QU9_A_B_C|_A_B_C
+3J3V,L,E,3J3V_L|_E
+-,-,-,
+-,-,-,
+-,-,-,
+1VZY,A_B,A_B,1VZY_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+3J9W,AC,AE,3J9W_AC|_AE 5NJT_C|_E 6HTQ_c|_e
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+3F7J,A_B,A_B,3F7J_A_B|_A_B 3D3F_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HXP,A,A,3HXP_A|_A 3G9Q_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+1XDZ,A,A,1XDZ_A|_A
+1F9N,A_B_C_D_E_F,A_B_C_D_E_F,1F9N_A_B_C_D_E_F|_A_B_C_D_E_F 2P5M_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,Y,Y,3J3V_Y|_Y 5NJT_w|_w
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,C,k,5NJT_C|_k
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6YXA,A,A,6YXA_A|_A 8ACU_A_B|_A_B
+-,-,-,
+-,-,-,
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+3J3V,X,X,3J3V_X|_X 5NJT_v|_v
+-,-,-,
+-,-,-,
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2NV1,A_B_C_D_E_F,A_B_C_D_E_F,2NV1_A_B_C_D_E_F|_A_B_C_D_E_F 2NV2_A_C_E_G_I_K_M_O_Q_S_U_W|_A_C_E_G_I_K_M_O_Q_S_U_W
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4B2O,A_B_C_D,A_B_C_D,4B2O_A_B_C_D|_A_B_C_D
+-,-,-,
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4FKZ,A_B,A_B,4FKZ_A_B|_A_B 1O6C_A_B|_A_B
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+4DDQ,A_B_C_D_E_F,A_B_C_D_E_F,4DDQ_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6SZS,z,z,6SZS_z|_z
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+6WVJ,D,D,6WVJ_D|_D
+3J9W,AR,AB,3J9W_AR|_AB 5NJT_R|_B 6HTQ_r|_b
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3U44,B,B,3U44_B|_B
+-,-,-,
+-,-,-,
+8S1P,V,V,8S1P_V|_V
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+6SZS,z,z,6SZS_z|_z
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1NJH,A,A,1NJH_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8QYG,A_B,A_B,8QYG_A_B|_A_B 8Q5G_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8CDU,C,C,8CDU_C|_C
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+3J9W,AO,AO,3J9W_AO|_AO 5NJT_O|_O 6HTQ_o|_o
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+3J9W,AR,AF,3J9W_AR|_AF 6HTQ_r|_f
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+-,-,-,
+-,-,-,
+3J3V,N,N,3J3V_N|_N 5NJT_g|_g
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+-,-,-,
+3J9W,AN,AJ,3J9W_AN|_AJ 7NHN_o|_k
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+3J3V,Q,Q,3J3V_Q|_Q 6PPF_Q|_Q 5NJT_j|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,A_B,A_B,6WVJ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+3J3V,E,E,3J3V_E|_E 5NJT_Y|_Y
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4S0R,A_B_C_D_E_F_G_H_I_J_K_L_M_N,A_B_C_D_E_F_G_H_I_J_K_L_M_N,4S0R_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 7TFC_A_B_C_F_G_H_I_N_O_P_Q_R_S_T|_A_B_C_F_G_H_I_N_O_P_Q_R_S_T 4LNF_A_B_C_D_E_F_G_H_I_J_K_L|_A_B_C_D_E_F_G_H_I_J_K_L
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4MWA,D_F_H,D_F_H,4MWA_D_F_H|_D_F_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1F1O,A,A,1F1O_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+-,-,-,
+-,-,-,
+3J9W,AD,AD,3J9W_AD|_AD 5NJT_D|_D 6HTQ_d|_d
+-,-,-,
+6J3D,A_B,A_B,6J3D_A_B|_A_B 5XNE_A_B|_A_B
+3J9W,AR,AB,3J9W_AR|_AB 5NJT_R|_B 6HTQ_r|_b
+3E0O,A_B_C_D_E_F,A_B_C_D_E_F,3E0O_A_B_C_D_E_F|_A_B_C_D_E_F 2KZN_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3NJC,A_B,A_B,3NJC_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J9W,AJ,AJ,3J9W_AJ|_AJ 7NHN_k|_k 5NGM_Aj|_Aj 6HTQ_j|_j 5LI0_j|_j 6FXC_Bj_Aj|_Bj_Aj 5TCU_S1|_S1
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4MWA,D_F_H,D_F_H,4MWA_D_F_H|_D_F_H
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AR,AF,3J9W_AR|_AF 6HTQ_r|_f
+-,-,-,
+-,-,-,
+-,-,-,
+7OJR,A,A,7OJR_A|_A 7OJS_A_B_C_F_G_J|_A_B_C_F_G_J
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+-,-,-,
+3J9W,AR,AB,3J9W_AR|_AB 5NJT_R|_B 6HTQ_r|_b
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AM,AJ,3J9W_AM|_AJ 6HTQ_m|_j
+-,-,-,
+-,-,-,
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+6PRK,A,A,6PRK_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3TT7,A_B_C_D_E_F_G,A_B_C_D_E_F_G,3TT7_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTI_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 7FEP_A_B_C_D_E_F_G_H_I_J_K_L_M_N|_A_B_C_D_E_F_G_H_I_J_K_L_M_N 3TT6_A_B_C_D_E_F_G|_A_B_C_D_E_F_G 3KTG_A_B_C_D_E_F_G|_A_B_C_D_E_F_G
+-,-,-,
+6SDK,A_B_C_D,A_B_C_D,6SDK_A_B_C_D|_A_B_C_D
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+7QV3,v_w,v_w,7QV3_v_w|_v_w 8QPP_W|_W
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+7BN9,A_B,A_B,7BN9_A_B|_A_B
+4YZR,A,A,4YZR_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+5FTW,A,A,5FTW_A|_A
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,p,M,5NJT_p|_M
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+-,-,-,
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+4A3R,A_B_C_D,A_B_C_D,4A3R_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4F8B,A_B_C_D_E,A_B_C_D_E,4F8B_A_B_C_D_E|_A_B_C_D_E 4FGC_A_B_C_D_E|_A_B_C_D_E 5UDG_A_B_C_D_E|_A_B_C_D_E
+-,-,-,
+3J9W,AK,AK,3J9W_AK|_AK 7O5B_K|_K 5NJT_K|_K 6HTQ_k|_k 7NHN_l|_l
+-,-,-,
+3J9W,AH,AH,3J9W_AH|_AH 5NJT_H|_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+3OQM,A_C,A_C,3OQM_A_C|_A_C 3OQO_A_C|_A_C 2FEP_A|_A
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+6WVJ,C,C,6WVJ_C|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+3PRH,A_B,A_B,3PRH_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AH,3J9W_AB|_AH 5NJT_B|_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3OIF,A_B_C_D,A_B_C_D,3OIF_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,L,L,3J3V_L|_L 6PPF_L|_L
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3ZQ4,A_C_D_E,A_C_D_E,3ZQ4_A_C_D_E|_A_C_D_E
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1WPM,A_B,A_B,1WPM_A_B|_A_B 2IW4_A_B|_A_B 1K23_A_B_C_D|_A_B_C_D 1WPN_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7W42,A_B,A_B,7W42_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AR,AC,3J9W_AR|_AC 5NJT_R|_C 6HTQ_r|_c
+-,-,-,
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+5NJT,Z,y,5NJT_Z|_y
+-,-,-,
+-,-,-,
+-,-,-,
+1Q2Y,A,A,1Q2Y_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1R0U,A,A,1R0U_A|_A
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+1BN8,A,A,1BN8_A|_A 2BSP_A|_A 5AMV_A|_A 2NZM_A|_A 3KRG_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AN,AC,3J9W_AN|_AC 5NJT_N|_C
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7QGU,X,X,7QGU_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AS,AM,3J9W_AS|_AM 5NJT_S|_M 6HTQ_s|_m
+-,-,-,
+4RX6,A_B_D,A_B_D,4RX6_A_B_D|_A_B_D 4R25_A|_A
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HXP,A,A,3HXP_A|_A 3G9Q_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AM,B3,3J9W_AM|_B3 5NJT_M|_y
+-,-,-,
+-,-,-,
+-,-,-,
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+-,-,-,
+3J9W,BJ,BJ,3J9W_BJ|_BJ 7O5B_p|_p 5NJT_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+3FYS,A,A,3FYS_A|_A
+8SKY,A_B,A_B,8SKY_A_B|_A_B
+2VSQ,A,A,2VSQ_A|_A
+1IY9,A_B_C_D,A_B_C_D,1IY9_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,C,p,5NJT_C|_p
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,I_J,I_J,7MFM_I_J|_I_J
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,D,6WVJ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+1F1O,A,A,1F1O_A|_A
+6WVJ,C,D,6WVJ_C|_D
+-,-,-,
+-,-,-,
+3J9W,AT,AT,3J9W_AT|_AT 5NJT_T|_T 6HTQ_t|_t
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+4JZU,A_B,A_B,4JZU_A_B|_A_B 4JZS_A_D|_A_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1PYF,A,A,1PYF_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+8AUR,A_B_C,A_B_C,8AUR_A_B_C|_A_B_C 5OF2_A|_A 5OF1_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1PYF,A,A,1PYF_A|_A
+-,-,-,
+2ZWM,A_B,A_B,2ZWM_A_B|_A_B 3F6P_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+3J9W,B3,B3,3J9W_B3|_B3 5NJT_y|_y 6HA1_6|_6 8QCQ_6|_6
+-,-,-,
+1EE1,A_B,A_B,1EE1_A_B|_A_B
+7OJ2,A,A,7OJ2_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5NJT,S,Z,5NJT_S|_Z 6HTQ_s|_F
+-,-,-,
+-,-,-,
+3J3V,L,L,3J3V_L|_L 6PPF_L|_L
+-,-,-,
+3J9W,AN,AN,3J9W_AN|_AN 5NJT_N|_N 7NHN_o|_o
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+-,-,-,
+5OLN,A_B,A_B,5OLN_A_B|_A_B 5EP8_A_B|_A_B
+2PIH,A_B,A_B,2PIH_A_B|_A_B 6PRH_A|_A
+2YRF,A_B,A_B,2YRF_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+3J3V,X,X,3J3V_X|_X 5NJT_v|_v
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3R8R,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W,3R8R_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W|_A_B_C_D_E_F_G_H_I_J_K_L_M_N_P_R_T_U_V_W
+3J3V,U,U,3J3V_U|_U 6HTQ_U|_U 5NJT_n|_n
+-,-,-,
+7O5B,g,g,7O5B_g|_g 7O9F_A_B_C|_A_B_C
+-,-,-,
+-,-,-,
+-,-,-,
+6E8D,A_B_C_D,A_B_C_D,6E8D_A_B_C_D|_A_B_C_D 4TR6_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2D7D,A,A,2D7D_A|_A 3V4R_A_B|_A_B
+-,-,-,
+-,-,-,
+6UF5,A,A,6UF5_A|_A 4DE9_A|_A 3MEJ_A|_A
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1CSP,A,A,1CSP_A|_A 6SZZ_A|_A 2I5M_X|_X 2I5L_X|_X
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+2KTE,A,A,2KTE_A|_A 2KEW_A|_A
+4DCS,A,A,4DCS_A|_A 5M7H_A|_A 2HJG_A|_A 5X4B_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6KOC,A_E,A_E,6KOC_A_E|_A_E 6KOB_A_E|_A_E
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+6UF5,A,A,6UF5_A|_A 4DE9_A|_A 3MEJ_A|_A
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J9W,AO,AO,3J9W_AO|_AO 5NJT_O|_O 6HTQ_o|_o
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+4B2O,A_B_C_D,A_B_C_D,4B2O_A_B_C_D|_A_B_C_D
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,E,E,3J3V_E|_E 5NJT_Y|_Y
+-,-,-,
+4RX6,A_B_D,A_B_D,4RX6_A_B_D|_A_B_D 4R25_A|_A
+4KWB,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,4KWB_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 3RST_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4RX6,A_B_D,A_B_D,4RX6_A_B_D|_A_B_D 4R25_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4DCS,A,A,4DCS_A|_A 5M7H_A|_A 2HJG_A|_A 5X4B_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+3J9W,AM,AM,3J9W_AM|_AM 5NJT_M|_M 6HTQ_m|_m
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+-,-,-,
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+5NJT,R,v,5NJT_R|_v
+-,-,-,
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+2JS1,A_B,A_B,2JS1_A_B|_A_B 2GSV_A_B|_A_B
+-,-,-,
+1DKR,A_B,A_B,1DKR_A_B|_A_B
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+2A8E,A,A,2A8E_A|_A
+3J3T,A_B_C_D_E_F,A_B_C_D_E_F,3J3T_A_B_C_D_E_F|_A_B_C_D_E_F 3J3S_A_B_C_D_E_F|_A_B_C_D_E_F 3J3R_A_B_C_D_E_F|_A_B_C_D_E_F 7ABR_A_B_C_D_E_F|_A_B_C_D_E_F 3PXI_A_B_C|_A_B_C 3PXG_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+1PUJ,A,A,1PUJ_A|_A
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+2VSQ,A,A,2VSQ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+2X2B,A,A,2X2B_A|_A 1HY8_A|_A 1F80_D_E_F|_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+3J9W,AL,AL,3J9W_AL|_AL 5NJT_L|_L 6HTQ_l|_l
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+2HEP,A,A,2HEP_A|_A 3BHP_A_B_C|_A_B_C 2JVD_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+6CGL,A_B,A_B,6CGL_A_B|_A_B
+-,-,-,
+-,-,-,
+4DCS,A,A,4DCS_A|_A 5M7H_A|_A 2HJG_A|_A 5X4B_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+1R0U,A,A,1R0U_A|_A
+-,-,-,
+1LNZ,A_B,A_B,1LNZ_A_B|_A_B
+-,-,-,
+4B2O,A_B_C_D,A_B_C_D,4B2O_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,C,D,6WVJ_C|_D
+3J3V,6,6,3J3V_6|_6 1Y39_A_B|_A_B 1HC8_A_B|_A_B 1ACI_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6SZS,z,z,6SZS_z|_z
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+4KWB,A_B_C_D_E_F_G_H,A_B_C_D_E_F_G_H,4KWB_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H 3RST_A_B_C_D_E_F_G_H|_A_B_C_D_E_F_G_H
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1A6F,A,A,1A6F_A|_A 4JG4_A|_A
+-,-,-,
+-,-,-,
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2FXA,A_B_C_D,A_B_C_D,2FXA_A_B_C_D|_A_B_C_D
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AO,AO,3J9W_AO|_AO 5NJT_O|_O 6HTQ_o|_o
+-,-,-,
+-,-,-,
+2K1N,A_B_C_D,A_B_C_D,2K1N_A_B_C_D|_A_B_C_D 1YFB_A_B|_A_B 1Z0R_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3LZW,A,A,3LZW_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6WVJ,D,F,6WVJ_D|_F
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,R,R,3J3V_R|_R 5NJT_k|_k 7SAE_R|_R
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2OP8,A_B,A_B,2OP8_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+7MFM,A_B_C_D_E_F,A_B_C_D_E_F,7MFM_A_B_C_D_E_F|_A_B_C_D_E_F 3K8Z_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4UG3,A_B_C_D,A_B_C_D,4UG3_A_B_C_D|_A_B_C_D 6GP7_A_B|_A_B 6GPZ_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+1TF2,A,A,1TF2_A|_A 3IQY_A|_A 1M6N_A|_A 3IQM_A|_A 2IBM_A_B|_A_B 3JV2_A_B|_A_B 3DL8_A_B|_A_B 7XHA_A|_A 5EUL_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AC,AJ,3J9W_AC|_AJ 6HTQ_c|_j
+-,-,-,
+-,-,-,
+-,-,-,
+8H0S,A_B_C_D,A_B_C_D,8H0S_A_B_C_D|_A_B_C_D 4PON_A_B|_A_B
+2WHY,A,A,2WHY_A|_A 2PHZ_A|_A
+3J3V,G,G,3J3V_G|_G 5NJT_a|_a
+2VAM,A,A,2VAM_A|_A 2RHH_A|_A 4U39_A_B_C_D_E_F_G_H_I|_A_B_C_D_E_F_G_H_I
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AB,AJ,3J9W_AB|_AJ 6HTQ_b|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+5VH6,A,A,5VH6_A|_A
+3J9W,AB,AB,3J9W_AB|_AB 5NJT_B|_B 6HTQ_b|_b
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,D,D,3J3V_D|_D 7O5B_a|_a 5NJT_X|_X 6HTQ_D|_D
+-,-,-,
+2Q7F,A_B,A_B,2Q7F_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AL,AJ,3J9W_AL|_AJ 6HTQ_l|_j
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,BJ,BJ,3J9W_BJ|_BJ 7O5B_p|_p 5NJT_b|_b
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+6KOB,B_F,B_F,6KOB_B_F|_B_F
+7QV1,b,b,7QV1_b|_b 5ND8_u|_u 6FXC_Bu_Au|_Bu_Au
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+1NG6,A,A,1NG6_A|_A
+-,-,-,
+-,-,-,
+3J9W,AC,AC,3J9W_AC|_AC 7O5B_C|_C 5NJT_C|_C 8QCQ_c|_c 6HTQ_c|_c
+-,-,-,
+-,-,-,
+6NFP,A_B_C_D_E_F,A_B_C_D_E_F,6NFP_A_B_C_D_E_F|_A_B_C_D_E_F 6DKT_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,C,C,3J3V_C|_C 5NJT_W|_W 6HTQ_C|_C
+8CDU,C,C,8CDU_C|_C
+-,-,-,
+3M6A,A_B_C_D_E_F,A_B_C_D_E_F,3M6A_A_B_C_D_E_F|_A_B_C_D_E_F
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2LXJ,A,A,2LXJ_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3FYS,A,A,3FYS_A|_A
+-,-,-,
+-,-,-,
+4GOT,A,A,4GOT_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3HQ2,A_B,A_B,3HQ2_A_B|_A_B
+-,-,-,
+3J9W,AG,AG,3J9W_AG|_AG 5NJT_G|_G 6HTQ_g|_g
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AJ,AJ,3J9W_AJ|_AJ 7NHN_k|_k 5NGM_Aj|_Aj 6HTQ_j|_j 5LI0_j|_j 6FXC_Bj_Aj|_Bj_Aj 5TCU_S1|_S1
+-,-,-,
+-,-,-,
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,F,F,3J3V_F|_F 5NJT_Z|_Z 6HTQ_F|_F
+-,-,-,
+-,-,-,
+2D7D,A,A,2D7D_A|_A 3V4R_A_B|_A_B
+4WO7,A_B,A_B,4WO7_A_B|_A_B
+-,-,-,
+6YXA,A,A,6YXA_A|_A 8ACU_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,T,T,3J3V_T|_T 5NJT_m|_m 6HTQ_T|_T
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J9W,AQ,AQ,3J9W_AQ|_AQ 5NJT_Q|_Q 6HTQ_q|_q
+-,-,-,
+-,-,-,
+3GFV,A_B,A_B,3GFV_A_B|_A_B
+-,-,-,
+-,-,-,
+-,-,-,
+7AQC,R,R,7AQC_R|_R 7AS8_0|_0 7OPE_0|_0
+-,-,-,
+3TB6,A_B,A_B,3TB6_A_B|_A_B
+-,-,-,
+-,-,-,
+8I2E,B_D,B_D,8I2E_B_D|_B_D
+-,-,-,
+-,-,-,
+6SZS,z,z,6SZS_z|_z
+-,-,-,
+3J3V,5,5,3J3V_5|_5
+-,-,-,
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2FQO,A,A,2FQO_A|_A 1IE0_A|_A 1YCL_A|_A 1J98_A|_A
+-,-,-,
+2K4K,A,A,2K4K_A|_A
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+3J3V,K,K,3J3V_K|_K 7NHN_N|_N 6O8W_L|_L 4WCE_H|_H 6SJ5_C_D|_C_D 5T7V_LN|_LN
+3J9W,AJ,AH,3J9W_AJ|_AH
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+-,-,-,
+2FQO,A,A,2FQO_A|_A 1IE0_A|_A 1YCL_A|_A 1J98_A|_A
+-,-,-,

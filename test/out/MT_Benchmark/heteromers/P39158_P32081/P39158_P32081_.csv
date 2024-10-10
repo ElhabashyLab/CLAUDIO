@@ -1,0 +1,8 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+-,-,-,,,13,7,,inter
+-,-,-,,,13,65,,inter
+-,-,-,,,65,7,,inter
+-,-,-,,,39,7,,inter
+-,-,-,,,13,1,,inter
+-,-,-,,,1,65,,inter
+-,-,-,,,1,7,,inter

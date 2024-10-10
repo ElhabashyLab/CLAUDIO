@@ -1,0 +1,14 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+5NJT,Z,y,,,19,47,heteromer,inter
+5NJT,Z,y,,,11,47,heteromer,inter
+5NJT,Z,y,,,19,48,heteromer,inter
+5NJT,Z,y,,,10,61,heteromer,inter
+5NJT,Z,y,,,64,1,heteromer,inter
+5NJT,Z,y,,,179,48,heteromer,inter
+5NJT,Z,y,,,120,61,heteromer,inter
+5NJT,Z,y,,,168,48,heteromer,inter
+5NJT,Z,y,,,145,10,heteromer,inter
+5NJT,Z,y,,,179,47,heteromer,inter
+5NJT,Z,y,,,11,48,heteromer,inter
+5NJT,Z,y,,,7,47,heteromer,inter
+5NJT,Z,y,,,10,47,heteromer,inter

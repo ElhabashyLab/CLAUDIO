@@ -1,0 +1,4 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+2KTE,A,A,14.0,118.0,14,118,,inter
+2KTE,A,A,114.0,125.0,114,125,,inter
+2KTE,A,A,14.0,,14,115,,intra

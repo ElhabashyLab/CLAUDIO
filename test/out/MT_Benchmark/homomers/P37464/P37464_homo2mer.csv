@@ -1,0 +1,6 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+-,-,-,,,49,84,homo2mer,intra
+-,-,-,,,375,1,homo2mer,inter
+-,-,-,,,63,74,homo2mer,intra
+-,-,-,,,85,44,homo2mer,intra
+-,-,-,,,373,1,homo2mer,inter

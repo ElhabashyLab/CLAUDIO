@@ -1,0 +1,3 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+1SF9,A,A,50.0,,26,4,,intra
+1SF9,A,A,66.0,,42,4,,inter

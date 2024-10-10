@@ -1,0 +1,6 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+3OIC,D,D,18.0,193.0,18,193,homo4mer,intra
+3OIC,A,A,18.0,,18,176,homo4mer,inter
+3OIC,D,D,40.0,193.0,40,193,homo4mer,intra
+3OIC,A,A,55.0,,55,1,homo4mer,intra
+3OIC,A,A,40.0,60.0,40,60,homo4mer,intra

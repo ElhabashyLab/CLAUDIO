@@ -1,0 +1,16 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+3J9W,AG,AG,,,38,114,,intra
+3J9W,AG,AG,,,9,21,,intra
+3J9W,AG,AG,,,29,9,,intra
+3J9W,AG,AG,,,67,21,,intra
+3J9W,AG,AG,,,136,143,,intra
+3J9W,AG,AG,,,4,21,,intra
+3J9W,AG,AG,,,21,54,,inter
+3J9W,AG,AG,,,38,35,,intra
+3J9W,AG,AG,,,136,76,,intra
+3J9W,AG,AG,,,136,139,,intra
+3J9W,AG,AG,,,38,30,,intra
+3J9W,AG,AG,,,68,137,,intra
+3J9W,AG,AG,,,137,76,,intra
+3J9W,AG,AG,,,45,114,,intra
+3J9W,AG,AG,,,4,29,,intra

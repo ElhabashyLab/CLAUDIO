@@ -1,0 +1,5 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+2YRF,A,A,,181.0,2,181,homo2mer,intra
+2YRF,A,A,,183.0,2,183,homo2mer,inter
+2YRF,A,A,,,2,182,homo2mer,inter
+2YRF,A,A,,14.0,2,14,homo2mer,intra
