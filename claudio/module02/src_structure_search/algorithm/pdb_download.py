@@ -56,10 +56,8 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
 
-    ind = 0
     # Download pdb files for each datapoint
-    for i, row in dataset.iterrows():
-
+    def download_task(i,row, dataset):
         # Iterate over results
         for j, res in enumerate((row["all_results"] + ' ').split(' ')):
 
@@ -87,7 +85,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
                 # no download possible
                 else:
                     continue
-
+            
             pdb_id, chain, chain_b, pdb_file = download_wrapper(filename, url, dataset, pdb_id, chain, chain_b,pdb_file)
 
             # Check whether method and resolution are accepted, return respective bool, method and resolution
@@ -105,7 +103,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
                 if not_nmr_alphafold or no_nmr_found_yet:
                     # Update pdb_id and chain in dataset, add filename to path and method,resolution to dataset
                     dataset.loc[i,["pdb_id","chain_a","chain_b","path","pdb_method","pdb_resolution"]] = [pdb_id,chain,chain_b,
-                                                                                                          filename,method,resolution]
+                                                                                                        filename,method,resolution]
 
                     # Save pdb text to new pdb file with custom name
                     if (not os.path.exists(filename)) and (pdb_file is not None):
@@ -113,9 +111,19 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
                             f.write(pdb_file)
                 if "NMR" not in method:
                     break
+        return dataset
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(download_task, i, row, dataset) for i, row in dataset.iterrows()]
 
-        ind += 1
-        verbose_print(f"\r\t[{round_self(ind * 100 / len(dataset.index), 2)}%]", 1, verbose_level, end='')
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                if future.result() is not None:
+                    dataset = future.result()
+                    verbose_print(f"\r\t[{round_self(len(futures) / len(dataset.index) * 100, 2)}%]", 1, verbose_level, end='')
+            except Exception as e:
+                print(e)
+
     verbose_print("", 1, verbose_level)
 
     return dataset
