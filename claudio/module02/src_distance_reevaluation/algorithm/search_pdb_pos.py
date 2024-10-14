@@ -40,18 +40,26 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
 
     # Define data container lists
     ind = 0
-    pdb_pos_as,\
-        pdb_pos_bs,\
-        res_criteria,\
-        is_interfaced = ([] for _ in range(4))
-    res_crit_site_specific, \
-        methods, \
-        pLDDTs = ([[], []] for _ in range(3))
 
     # Save numbers for performance/success statistics
     errors = [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
-    successes, \
-        true_res_crits = ([0, 0] for _ in range(2))
+    successes, true_res_crits = ([0,0], [0,0])
+
+    # Initialize columns for results
+    data["pdb_pos_a"] = None
+    data["pdb_pos_b"] = None
+    data["res_criteria_fulfilled"] = False
+    data["res_crit_a"] = False
+    data["res_crit_b"] = False
+    data["method_a"] = ""
+    data["method_b"] = ""
+    data["pLDDT_a"] = "-"
+    data["pLDDT_b"] = "-"
+    data["is_interfaced"] = False
+
+    # vectorized computation of xl_type
+    data["xl_type"] = np.where(data["unip_id_a"] == data["unip_id_b"], "intra", "inter")
+    xl_res_list = df_xl_res.res.tolist()
 
     # Iterate over given dataset
     for i, row in data.iterrows():
@@ -61,57 +69,36 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
         if "path" not in row.index: #TODO
             time.sleep(10000)
         both_pdbs_found = row["path"] != '-'
-        if not both_pdbs_found:
-            pdb_pos_as.append(None)
-            pdb_pos_bs.append(None)
-            res_criteria.append(False)
-            res_crit_site_specific[0].append(False)
-            res_crit_site_specific[1].append(False)
-            methods[0].append('')
-            methods[1].append('')
-            pLDDTs[0].append('-')
-            pLDDTs[1].append('-')
-            is_interfaced.append(False)
-        else:
-            xl_type = "intra" if row["unip_id_a"] == row["unip_id_b"] else "inter"
+        if both_pdbs_found:
             # Search site_a in structure file
             pdb_pos_a, res_criteria_a, method_a, i_error_a, pLDDT_a, new_path, atom_coord_a = \
-                compute_site_pos(i, row, 'a', xl_type, pdb_uni_map, "", df_xl_res, verbose_level)
+                compute_site_pos(i, row, 'a', row["xl_type"], pdb_uni_map, "", xl_res_list, verbose_level)
             # If method used for site_a is alphafold, set method for set_b to alphafold as well
             method_b = "" if method_a != "alphafold" else "alphafold"
 
             # Search site_b in structure file
             pdb_pos_b, res_criteria_b, method_b, i_error_b, pLDDT_b, new_path, atom_coord_b = \
-                compute_site_pos(i, row, 'b', xl_type, pdb_uni_map, method_b, df_xl_res, verbose_level)
+                compute_site_pos(i, row, 'b', row["xl_type"], pdb_uni_map, method_b, xl_res_list, verbose_level)
 
             # If method for site_b was alphafold, but not for site_a, search site_a again with alphafold method
             # specified this time
             if method_b == "alphafold" and method_a != "alphafold":
                 pdb_pos_a, res_criteria_a, method_a, i_error_a, pLDDT_a, new_path, atom_coord_a = \
-                    compute_site_pos(i, row, 'a', xl_type, pdb_uni_map, "alphafold", df_xl_res,
+                    compute_site_pos(i, row, 'a', row["xl_type"], pdb_uni_map, "alphafold", xl_res_list,
                                      verbose_level)
 
             # Replace path if alphafold file was downloaded instead
-            if new_path and xl_type == "intra":
+            if new_path and row["xl_type"] == "intra":
                 new_res = [new_path,'A','A',new_path.split('_')[-1].split('.')[0],"ALPHAFOLD","ALPHAFOLD"]
                 data.loc[i,["path","chain_a","chain_b","pdb_id","pdb_method","pdb_resolution"]] = new_res
 
             # Append results to data container lists
-            pdb_pos_as.append(pdb_pos_a)
-            pdb_pos_bs.append(pdb_pos_b)
-            methods[0].append(method_a)
-            methods[1].append(method_b)
-            pLDDTs[0].append(pLDDT_a)
-            pLDDTs[1].append(pLDDT_b)
-            res_crit_site_specific[0].append(res_criteria_a)
-            res_crit_site_specific[1].append(res_criteria_b)
-            res_criteria.append(res_criteria_a and res_criteria_b)
+            res_cols = ["pdb_pos_a","pdb_pos_b","method_a","method_b","pLDDT_a","pLDDT_b","res_crit_a","res_crit_b","res_criteria_fulfilled"]
+            data.loc[i,res_cols] = [pdb_pos_a,pdb_pos_b,method_a,method_b,pLDDT_a,pLDDT_b,res_criteria_a,res_criteria_b,(res_criteria_a and res_criteria_b)]
 
             if atom_coord_a is not None and atom_coord_b is not None:
                 interface_distance = np.sqrt(np.sum((atom_coord_a - atom_coord_b) ** 2))
-                is_interfaced.append(interface_distance <= _MAX_INTERFACE_DISTANCE)
-            else:
-                is_interfaced.append(False)
+                data.loc[i,"is_interfaced"] = (interface_distance <= _MAX_INTERFACE_DISTANCE)
 
             # Increase counters for performance/success statistics
             true_res_crits[0] += 1 if res_criteria_a else 0
@@ -158,22 +145,10 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
                   f"\n\t\tTotal number of entries not found in databases: "
                   f"{len(data[data.path == '-'])}", 2, verbose_level)
 
-    # Append data container lists to dataset
-    data["pdb_pos_a"] = pdb_pos_as
-    data["pdb_pos_b"] = pdb_pos_bs
-    data["res_criteria_fulfilled"] = res_criteria
-    data["res_crit_a"] = res_crit_site_specific[0]
-    data["res_crit_b"] = res_crit_site_specific[1]
-    data["method_a"] = methods[0]
-    data["method_b"] = methods[1]
-    data["pLDDT_a"] = pLDDTs[0]
-    data["pLDDT_b"] = pLDDTs[1]
-    data["is_interfaced"] = is_interfaced
-
     return data
 
 
-def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_uni_map: pd.DataFrame, method: str, df_xl_res: pd.DataFrame,
+def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_uni_map: pd.DataFrame, method: str, xl_res_list: list,
                       verbose_level: int):
     """
     Search site in structure file and return threedimensional position
@@ -186,7 +161,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
     xl_type : str,
     pdb_uni_map : pd.DataFrame,
     method : str,
-    df_xl_res : pd.DataFrame,
+    xl_res_list : list,
     verbose_level : int
 
     Returns
@@ -210,7 +185,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
     # Test whether specified position is accessible in uniprot sequence, if not return fail with i_error = 0
     try:
         verbose_print(f"\n\tunip_pos:{data[f'pos_{site_id}']}, Acid at pos: {unip_seq[data[f'pos_{site_id}'] - 1]} ,"
-                      f" fulfills residue criteria: {unip_seq[data[f'pos_{site_id}'] - 1] in df_xl_res.res.tolist()}",
+                      f" fulfills residue criteria: {unip_seq[data[f'pos_{site_id}'] - 1] in xl_res_list}",
                       4, verbose_level)
     except IndexError:
         verbose_print(f"\n\tIndexError with unip_pos: {data[f'pos_{site_id}']} (entry: {i}, unip_id: {unip_id})", 4,
@@ -273,7 +248,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
             else:
                 residue_pos = None
 
-            # If method alphafold or realingment attempt failed, replace with rcsb structure alphafold structure
+            # If method alphafold or realignment attempt failed, replace with rcsb structure alphafold structure
             # and continue with method = "alphafold"
             if (residue_pos is None or method == "alphafold") and xl_type == "intra":
                 verbose_print(f"\tSelf computed res pos ({unip_id}, {data[f'pos_{site_id}']}): {residue_pos}\n"
@@ -303,7 +278,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
             # Else print computed position by realigning and continue with method = "realigning"
             else:
                 verbose_print(f"\tSelf computed res pos ({unip_id}, {data[f'pos_{site_id}']}): {residue_pos}, "
-                              f"fulfills residue criteria: {pdb_seq[residue_pos - 1] in df_xl_res.res.tolist()}:"
+                              f"fulfills residue criteria: {pdb_seq[residue_pos - 1] in xl_res_list}:"
                               f"{pdb_seq[residue_pos - 1]}", 4, verbose_level)
         # Else print position given by shift file and continue with method = "pdb_chain_uniprot"
         else:
@@ -378,7 +353,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
             verbose_print(f"\tWarning! Got non-aminoacid at residue position ({res.get_resname()}).\n\t\t\t"
                           f"(entry: {i}, pdb: {pdb_id}:{chain_id})", 2, verbose_level)
             return None, False, method, 5, '-', '', None
-        res_criteria = (resname in df_xl_res.res.tolist()) and (resname == unip_seq[data[f'pos_{site_id}'] - 1])
+        res_criteria = (resname in xl_res_list) and (resname == unip_seq[data[f'pos_{site_id}'] - 1])
         verbose_print(f"\tFinal residue is '{resname}' (thus res_criteria_{site_id}: {res_criteria})", 4, verbose_level)
         # If residue criteria fulfilled return result
         if res_criteria:
@@ -406,7 +381,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
                     verbose_print(f"\tReplacement attempt successful (new residue: "
                                   f"{Polypeptide.three_to_one(res.get_resname())}).", 2, verbose_level)
                     resname = Polypeptide.three_to_one(res.get_resname())
-                    res_criteria = resname in df_xl_res.res.tolist()
+                    res_criteria = resname in xl_res_list
                     verbose_print(f"\tFinal residue is '{resname}' (thus res_criteria_{site_id}: {res_criteria})", 4,
                                   verbose_level)
                     return int(res.get_id()[1]), res_criteria, method, -1, res["CB"].get_bfactor(), new_path, \
