@@ -3,6 +3,7 @@ import socket
 import time
 import requests as r
 import pandas as pd
+import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
