@@ -54,9 +54,10 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
     dataset : pd.DataFrame
     """
 
+    ind = 0
+    
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
-
     # Download pdb files for each datapoint
     def download_task(i,row, dataset):
         # Iterate over results
@@ -121,7 +122,8 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
             try:
                 if future.result() is not None:
                     dataset = future.result()
-                    verbose_print(f"\r\t[{round_self(len(futures) / len(dataset.index) * 100, 2)}%]", 1, verbose_level, end='')
+                    ind += 1
+                    verbose_print(f"\r\t[{round_self((ind * 100) / len(dataset.index), 2)}%]", 1, verbose_level, end='')
             except Exception as e:
                 print(e)
 
