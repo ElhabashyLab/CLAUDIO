@@ -7,9 +7,9 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_2LXJ
 color 3, chain A
 show cartoon, chain A
-dist intra_1197_out_range , resid 65 and blastp_2LXJ and chain A and name cb, resid 39 and blastp_2LXJ and chain A and name cb
-dist intra_1706_out_range , resid 13 and blastp_2LXJ and chain A and name cb, resid 65 and blastp_2LXJ and chain A and name cb
-dist intra_2982_out_range , resid 65 and blastp_2LXJ and chain A and name cb, resid 1 and blastp_2LXJ and chain A and name cb
+dist intra_1197_valid , resid 65 and blastp_2LXJ and chain A and name cb, resid 39 and blastp_2LXJ and chain A and name cb
+dist intra_1706_valid , resid 13 and blastp_2LXJ and chain A and name cb, resid 65 and blastp_2LXJ and chain A and name cb
+dist intra_2982_valid , resid 65 and blastp_2LXJ and chain A and name cb, resid 1 and blastp_2LXJ and chain A and name cb
 dist intra_3052_out_range , resid 13 and blastp_2LXJ and chain A and name cb, resid 1 and blastp_2LXJ and chain A and name cb
 show dashes
 set dash_gap, 0.1

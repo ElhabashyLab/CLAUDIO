@@ -1,10 +1,10 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
 2LXJ,A,A,65.0,,65,46,,intra
 2LXJ,A,A,65.0,,65,40,,intra
-2LXJ,A,A,65.0,39.0,65,39,,inter
-2LXJ,A,A,13.0,65.0,13,65,,inter
+2LXJ,A,A,65.0,39.0,65,39,,intra
+2LXJ,A,A,13.0,65.0,13,65,,intra
 2LXJ,A,A,1.0,,1,46,,intra
 2LXJ,A,A,65.0,,65,21,,intra
-2LXJ,A,A,65.0,1.0,65,1,,inter
+2LXJ,A,A,65.0,1.0,65,1,,intra
 2LXJ,A,A,13.0,1.0,13,1,,inter
 2LXJ,A,A,65.0,,65,14,,intra

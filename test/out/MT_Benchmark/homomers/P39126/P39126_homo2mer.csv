@@ -4,7 +4,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 1HQS,A,A,226.0,,226,166,homo2mer,intra
 1HQS,A,A,59.0,70.0,59,70,homo2mer,intra
 1HQS,B,B,55.0,70.0,55,70,homo2mer,intra
-1HQS,B,B,178.0,225.0,178,225,homo2mer,intra
+1HQS,A,A,178.0,225.0,178,225,homo2mer,intra
 1HQS,A,B,133.0,133.0,133,133,homo2mer,inter
 1HQS,A,A,6.0,55.0,6,55,homo2mer,inter
 1HQS,A,A,225.0,,225,166,homo2mer,intra

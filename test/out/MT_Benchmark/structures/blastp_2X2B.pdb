@@ -1,6 +1,6 @@
 HEADER    BIOSYNTHETIC PROTEIN                    12-JAN-10   2X2B              
-TITLE     CRYSTAL STRUCTURE OF MALONYL-ACP (ACYL CARRIER PROTEIN)               
-TITLE    2 FROM BACILLUS SUBTILIS                                               
+TITLE     CRYSTAL STRUCTURE OF MALONYL-ACP (ACYL CARRIER PROTEIN) FROM BACILLUS 
+TITLE    2 SUBTILIS                                                             
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: ACYL CARRIER PROTEIN;                                      
 COMPND   3 CHAIN: A;                                                            
@@ -18,6 +18,7 @@ KEYWDS    BIOSYNTHETIC PROTEIN, PHOSPHOPANTETHEINE, FATTY ACID BIOSYNTHESIS,
 KEYWDS   2 LIPID SYNTHESIS                                                      
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    M.BELLINZONI,M.A.MARTINEZ,D.DEMENDOZA,P.M.ALZARI                      
+REVDAT   4   16-OCT-24 2X2B    1       REMARK LINK                              
 REVDAT   3   12-OCT-11 2X2B    1       JRNL   REMARK                            
 REVDAT   2   13-JUL-11 2X2B    1       VERSN                                    
 REVDAT   1   16-MAR-10 2X2B    0                                                
@@ -33,35 +34,36 @@ REMARK   2 RESOLUTION.    2.69 ANGSTROMS.
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : REFMAC 5.5.0106                                      
-REMARK   3   AUTHORS     : MURSHUDOV,VAGIN,DODSON                               
+REMARK   3   AUTHORS     : MURSHUDOV,SKUBAK,LEBEDEV,PANNU,STEINER,              
+REMARK   3               : NICHOLLS,WINN,LONG,VAGIN                             
 REMARK   3                                                                      
 REMARK   3    REFINEMENT TARGET : MAXIMUM LIKELIHOOD                            
 REMARK   3                                                                      
 REMARK   3  DATA USED IN REFINEMENT.                                            
 REMARK   3   RESOLUTION RANGE HIGH (ANGSTROMS) : 2.69                           
 REMARK   3   RESOLUTION RANGE LOW  (ANGSTROMS) : 48.47                          
-REMARK   3   DATA CUTOFF            (SIGMA(F)) : NONE                           
-REMARK   3   COMPLETENESS FOR RANGE        (%) : 99.87                          
+REMARK   3   DATA CUTOFF            (SIGMA(F)) : NULL                           
+REMARK   3   COMPLETENESS FOR RANGE        (%) : 99.9                           
 REMARK   3   NUMBER OF REFLECTIONS             : 6489                           
 REMARK   3                                                                      
 REMARK   3  FIT TO DATA USED IN REFINEMENT.                                     
 REMARK   3   CROSS-VALIDATION METHOD          : THROUGHOUT                      
 REMARK   3   FREE R VALUE TEST SET SELECTION  : RANDOM                          
-REMARK   3   R VALUE     (WORKING + TEST SET) : 0.21261                         
-REMARK   3   R VALUE            (WORKING SET) : 0.21159                         
-REMARK   3   FREE R VALUE                     : 0.23297                         
-REMARK   3   FREE R VALUE TEST SET SIZE   (%) : 4.8                             
+REMARK   3   R VALUE     (WORKING + TEST SET) : 0.213                           
+REMARK   3   R VALUE            (WORKING SET) : 0.212                           
+REMARK   3   FREE R VALUE                     : 0.233                           
+REMARK   3   FREE R VALUE TEST SET SIZE   (%) : 4.800                           
 REMARK   3   FREE R VALUE TEST SET COUNT      : 327                             
 REMARK   3                                                                      
 REMARK   3  FIT IN THE HIGHEST RESOLUTION BIN.                                  
 REMARK   3   TOTAL NUMBER OF BINS USED           : 20                           
-REMARK   3   BIN RESOLUTION RANGE HIGH       (A) : 2.690                        
-REMARK   3   BIN RESOLUTION RANGE LOW        (A) : 2.760                        
+REMARK   3   BIN RESOLUTION RANGE HIGH       (A) : 2.69                         
+REMARK   3   BIN RESOLUTION RANGE LOW        (A) : 2.76                         
 REMARK   3   REFLECTION IN BIN     (WORKING SET) : 461                          
 REMARK   3   BIN COMPLETENESS (WORKING+TEST) (%) : 98.38                        
-REMARK   3   BIN R VALUE           (WORKING SET) : 0.294                        
+REMARK   3   BIN R VALUE           (WORKING SET) : 0.2940                       
 REMARK   3   BIN FREE R VALUE SET COUNT          : 26                           
-REMARK   3   BIN FREE R VALUE                    : 0.437                        
+REMARK   3   BIN FREE R VALUE                    : 0.4370                       
 REMARK   3                                                                      
 REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
 REMARK   3   PROTEIN ATOMS            : 590                                     
@@ -71,15 +73,15 @@ REMARK   3   SOLVENT ATOMS            : 0
 REMARK   3                                                                      
 REMARK   3  B VALUES.                                                           
 REMARK   3   B VALUE TYPE : LIKELY RESIDUAL                                     
-REMARK   3   FROM WILSON PLOT           (A**2) : 69.4                           
-REMARK   3   MEAN B VALUE      (OVERALL, A**2) : 27.911                         
+REMARK   3   FROM WILSON PLOT           (A**2) : 69.40                          
+REMARK   3   MEAN B VALUE      (OVERALL, A**2) : 27.91                          
 REMARK   3   OVERALL ANISOTROPIC B VALUE.                                       
-REMARK   3    B11 (A**2) : 0.15                                                 
-REMARK   3    B22 (A**2) : 0.15                                                 
-REMARK   3    B33 (A**2) : -0.30                                                
-REMARK   3    B12 (A**2) : 0.00                                                 
-REMARK   3    B13 (A**2) : 0.00                                                 
-REMARK   3    B23 (A**2) : 0.00                                                 
+REMARK   3    B11 (A**2) : 0.15000                                              
+REMARK   3    B22 (A**2) : 0.15000                                              
+REMARK   3    B33 (A**2) : -0.30000                                             
+REMARK   3    B12 (A**2) : 0.00000                                              
+REMARK   3    B13 (A**2) : 0.00000                                              
+REMARK   3    B23 (A**2) : 0.00000                                              
 REMARK   3                                                                      
 REMARK   3  ESTIMATED OVERALL COORDINATE ERROR.                                 
 REMARK   3   ESU BASED ON R VALUE                            (A): 0.223         
@@ -87,7 +89,7 @@ REMARK   3   ESU BASED ON FREE R VALUE                       (A): 0.195
 REMARK   3   ESU BASED ON MAXIMUM LIKELIHOOD                 (A): 0.147         
 REMARK   3   ESU FOR B VALUES BASED ON MAXIMUM LIKELIHOOD (A**2): 14.854        
 REMARK   3                                                                      
-REMARK   3  CORRELATION COEFFICIENTS.                                           
+REMARK   3 CORRELATION COEFFICIENTS.                                            
 REMARK   3   CORRELATION COEFFICIENT FO-FC      : 0.941                         
 REMARK   3   CORRELATION COEFFICIENT FO-FC FREE : 0.931                         
 REMARK   3                                                                      
@@ -122,10 +124,15 @@ REMARK   3  ISOTROPIC THERMAL FACTOR RESTRAINTS.     COUNT   RMS    WEIGHT
 REMARK   3   MAIN-CHAIN BOND REFINED ATOMS  (A**2):   376 ; 0.531 ; 1.500       
 REMARK   3   MAIN-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   MAIN-CHAIN ANGLE REFINED ATOMS (A**2):   606 ; 1.093 ; 2.000       
+REMARK   3   MAIN-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN BOND REFINED ATOMS  (A**2):   228 ; 1.966 ; 3.000       
+REMARK   3   SIDE-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN ANGLE REFINED ATOMS (A**2):   210 ; 3.429 ; 4.500       
+REMARK   3   SIDE-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B REFINED ATOMS     (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B OTHER ATOMS       (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3                                                                      
-REMARK   3  ANISOTROPIC THERMAL FACTOR RESTRAINTS.   COUNT   RMS    WEIGHT      
+REMARK   3 ANISOTROPIC THERMAL FACTOR RESTRAINTS.    COUNT   RMS   WEIGHT       
 REMARK   3   RIGID-BOND RESTRAINTS          (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SPHERICITY; FREE ATOMS         (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SPHERICITY; BONDED ATOMS       (A**2):  NULL ;  NULL ;  NULL       
@@ -161,13 +168,13 @@ REMARK   3   VDW PROBE RADIUS   : 1.40
 REMARK   3   ION PROBE RADIUS   : 0.80                                          
 REMARK   3   SHRINKAGE RADIUS   : 0.80                                          
 REMARK   3                                                                      
-REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE          
-REMARK   3   RIDING POSITIONS. RESIDUAL U VALUES ONLY.                          
+REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE RIDING   
+REMARK   3  POSITIONS. RESIDUAL U VALUES ONLY.                                  
 REMARK   4                                                                      
 REMARK   4 2X2B COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
-REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY PDBE ON 11-JAN-10.                  
-REMARK 100 THE PDBE ID CODE IS EBI-42419.                                       
+REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY PDBE ON 12-JAN-10.                  
+REMARK 100 THE DEPOSITION ID IS D_1290042419.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -186,30 +193,30 @@ REMARK 200  MONOCHROMATOR                  : SI CHANNEL-CUT
 REMARK 200  OPTICS                         : MIRRORS                            
 REMARK 200                                                                      
 REMARK 200  DETECTOR TYPE                  : CCD                                
-REMARK 200  DETECTOR MANUFACTURER          : ADSC                               
+REMARK 200  DETECTOR MANUFACTURER          : ADSC CCD                           
 REMARK 200  INTENSITY-INTEGRATION SOFTWARE : XDS                                
 REMARK 200  DATA SCALING SOFTWARE          : SCALA                              
 REMARK 200                                                                      
 REMARK 200  NUMBER OF UNIQUE REFLECTIONS   : 6824                               
-REMARK 200  RESOLUTION RANGE HIGH      (A) : 2.70                               
-REMARK 200  RESOLUTION RANGE LOW       (A) : 48.50                              
-REMARK 200  REJECTION CRITERIA  (SIGMA(I)) : 5.0                                
+REMARK 200  RESOLUTION RANGE HIGH      (A) : 2.700                              
+REMARK 200  RESOLUTION RANGE LOW       (A) : 48.500                             
+REMARK 200  REJECTION CRITERIA  (SIGMA(I)) : 5.000                              
 REMARK 200                                                                      
 REMARK 200 OVERALL.                                                             
 REMARK 200  COMPLETENESS FOR RANGE     (%) : 99.9                               
-REMARK 200  DATA REDUNDANCY                : 23.1                               
-REMARK 200  R MERGE                    (I) : 0.08                               
+REMARK 200  DATA REDUNDANCY                : 23.10                              
+REMARK 200  R MERGE                    (I) : 0.08000                            
 REMARK 200  R SYM                      (I) : NULL                               
-REMARK 200  <I/SIGMA(I)> FOR THE DATA SET  : 32.40                              
+REMARK 200  <I/SIGMA(I)> FOR THE DATA SET  : 32.4000                            
 REMARK 200                                                                      
 REMARK 200 IN THE HIGHEST RESOLUTION SHELL.                                     
 REMARK 200  HIGHEST RESOLUTION SHELL, RANGE HIGH (A) : 2.69                     
 REMARK 200  HIGHEST RESOLUTION SHELL, RANGE LOW  (A) : 2.84                     
 REMARK 200  COMPLETENESS FOR SHELL     (%) : 99.2                               
-REMARK 200  DATA REDUNDANCY IN SHELL       : 23.8                               
-REMARK 200  R MERGE FOR SHELL          (I) : 0.64                               
+REMARK 200  DATA REDUNDANCY IN SHELL       : 23.80                              
+REMARK 200  R MERGE FOR SHELL          (I) : 0.64000                            
 REMARK 200  R SYM FOR SHELL            (I) : NULL                               
-REMARK 200  <I/SIGMA(I)> FOR SHELL         : 5.80                               
+REMARK 200  <I/SIGMA(I)> FOR SHELL         : 5.800                              
 REMARK 200                                                                      
 REMARK 200 DIFFRACTION PROTOCOL: SINGLE WAVELENGTH                              
 REMARK 200 METHOD USED TO DETERMINE THE STRUCTURE: SAD                          
@@ -219,11 +226,11 @@ REMARK 200
 REMARK 200 REMARK: NONE                                                         
 REMARK 280                                                                      
 REMARK 280 CRYSTAL                                                              
-REMARK 280 SOLVENT CONTENT, VS   (%): 82.2                                      
+REMARK 280 SOLVENT CONTENT, VS   (%): 82.20                                     
 REMARK 280 MATTHEWS COEFFICIENT, VM (ANGSTROMS**3/DA): 6.89                     
 REMARK 280                                                                      
-REMARK 280 CRYSTALLIZATION CONDITIONS: 2M (NH4)2SO4, 0.1M                       
-REMARK 280  CITRATE-PHOSPHATE BUFFER PH 4.2                                     
+REMARK 280 CRYSTALLIZATION CONDITIONS: 2M (NH4)2SO4, 0.1M CITRATE-PHOSPHATE     
+REMARK 280  BUFFER PH 4.2                                                       
 REMARK 290                                                                      
 REMARK 290 CRYSTALLOGRAPHIC SYMMETRY                                            
 REMARK 290 SYMMETRY OPERATORS FOR SPACE GROUP: I 41 2 2                         
@@ -342,6 +349,7 @@ REMARK 465     GLY A     0
 REMARK 465     GLN A    77                                                      
 REMARK 600                                                                      
 REMARK 600 HETEROGEN                                                            
+REMARK 600                                                                      
 REMARK 600 THIOMALONIC ACID S-{2-[3-(2-HYDROXY-3,                               
 REMARK 600  3-DIMETHYL-4-PHOSPHONOOXY-BUTYRYLAMINO)-PROPIONYLAMINO]-ETHYL}      
 REMARK 600  ESTER                                                               
@@ -360,15 +368,14 @@ REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SXM A 101
 REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC2                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
-REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE  PT A1077                 
+REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE PT A 1077                 
 REMARK 900                                                                      
 REMARK 900 RELATED ENTRIES                                                      
 REMARK 900 RELATED ID: 1F80   RELATED DB: PDB                                   
-REMARK 900  HOLO-(ACYL CARRIER PROTEIN) SYNTHASE IN                             
-REMARK 900  COMPLEX WITH HOLO-(ACYL CARRIER PROTEIN)                            
+REMARK 900 HOLO-(ACYL CARRIER PROTEIN) SYNTHASE IN COMPLEX WITH HOLO-(ACYL      
+REMARK 900 CARRIER PROTEIN)                                                     
 REMARK 900 RELATED ID: 1HY8   RELATED DB: PDB                                   
-REMARK 900  SOLUTION STRUCTURE OF B. SUBTILIS ACYL                              
-REMARK 900  CARRIER PROTEIN                                                     
+REMARK 900 SOLUTION STRUCTURE OF B. SUBTILIS ACYL CARRIER PROTEIN               
 REMARK 999                                                                      
 REMARK 999 SEQUENCE                                                             
 REMARK 999 FIRST GLY RESIDUE IS A PURIFICATION TAG LEFTOVER                     
@@ -383,15 +390,15 @@ SEQRES   6 A   78  THR VAL GLY ASP ALA VAL ASN TYR ILE GLN ASN GLN GLN
 HET    SXM  A 101      13                                                       
 HET     PT  A1077       1                                                       
 HET     PT  A1078       1                                                       
-HETNAM      PT PLATINUM (II) ION                                                
 HETNAM     SXM 3-{[2-({N-[(2S)-2-HYDROXY-3,3-DIMETHYL-4-                        
-HETNAM   2 SXM  (PHOSPHONOOXY)BUTANOYL]-BETA-ALANYL}AMINO)ETHYL]                
-HETNAM   3 SXM  SULFANYL}-3-OXOPROPANOIC ACID                                   
-HETSYN     SXM THIOMALONIC ACID S-{2-[3-(2-HYDROXY-3,3-                         
-HETSYN   2 SXM  DIMETHYL-4-PHOSPHONOOXY-BUTYRYLAMINO)-                          
-HETSYN   3 SXM  PROPIONYLAMINO]-ETHYL} ESTER                                    
-FORMUL   2   PT    2(PT 2+)                                                     
-FORMUL   3  SXM    C14 H25 N2 O10 P S                                           
+HETNAM   2 SXM  (PHOSPHONOOXY)BUTANOYL]-BETA-ALANYL}AMINO)                      
+HETNAM   3 SXM  ETHYL]SULFANYL}-3-OXOPROPANOIC ACID                             
+HETNAM      PT PLATINUM (II) ION                                                
+HETSYN     SXM THIOMALONIC ACID S-{2-[3-(2-HYDROXY-3,3-DIMETHYL-4-              
+HETSYN   2 SXM  PHOSPHONOOXY-BUTYRYLAMINO)-PROPIONYLAMINO]-ETHYL}               
+HETSYN   3 SXM  ESTER                                                           
+FORMUL   2  SXM    C14 H25 N2 O10 P S                                           
+FORMUL   3   PT    2(PT 2+)                                                     
 HELIX    1   1 MET A    1  GLY A   17  1                                  17    
 HELIX    2   2 ASP A   19  VAL A   23  5                                   5    
 HELIX    3   3 ASP A   36  PHE A   51  1                                  16    
@@ -1002,32 +1009,32 @@ ATOM    590  NE2 GLN A  76      72.650  -1.778  22.008  1.00 46.09           N
 TER     591      GLN A  76                                                      
 HETATM  592  P24 SXM A 101      51.586  -8.165  31.227  1.00 19.07           P  
 HETATM  593  O26 SXM A 101      52.539  -8.810  32.303  1.00 21.03           O  
-HETATM  594  O10 SXM A 101      50.526  -7.341  31.843  1.00 23.74           O  
-HETATM  595  O27 SXM A 101      50.902  -9.272  30.351  1.00 19.72           O  
-HETATM  596  C28 SXM A 101      51.414  -9.803  29.134  1.00 21.15           C  
-HETATM  597  C29 SXM A 101      50.582 -11.042  28.920  1.00 22.97           C  
-HETATM  598  C30 SXM A 101      49.451 -10.634  27.984  1.00 22.04           C  
-HETATM  599  C31 SXM A 101      51.430 -12.119  28.255  1.00 21.77           C  
-HETATM  600  C32 SXM A 101      50.188 -11.490  30.403  1.00 25.00           C  
-HETATM  601  O33 SXM A 101      50.633 -12.801  30.694  1.00 23.85           O  
-HETATM  602  C34 SXM A 101      48.740 -11.179  30.987  1.00 27.27           C  
-HETATM  603  O35 SXM A 101      47.736 -11.058  30.299  1.00 29.43           O  
-HETATM  604  N36 SXM A 101      48.663 -11.084  32.312  1.00 28.29           N  
+HETATM  594  O27 SXM A 101      50.902  -9.272  30.351  1.00 19.72           O  
+HETATM  595  C28 SXM A 101      51.414  -9.803  29.134  1.00 21.15           C  
+HETATM  596  C29 SXM A 101      50.582 -11.042  28.920  1.00 22.97           C  
+HETATM  597  C30 SXM A 101      49.451 -10.634  27.984  1.00 22.04           C  
+HETATM  598  C31 SXM A 101      51.430 -12.119  28.255  1.00 21.77           C  
+HETATM  599  C32 SXM A 101      50.188 -11.490  30.403  1.00 25.00           C  
+HETATM  600  O33 SXM A 101      50.633 -12.801  30.694  1.00 23.85           O  
+HETATM  601  C34 SXM A 101      48.740 -11.179  30.987  1.00 27.27           C  
+HETATM  602  O35 SXM A 101      47.736 -11.058  30.299  1.00 29.43           O  
+HETATM  603  N36 SXM A 101      48.663 -11.084  32.312  1.00 28.29           N  
+HETATM  604  O10 SXM A 101      50.526  -7.341  31.843  1.00 23.74           O  
 HETATM  605 PT    PT A1077      76.803   7.850  29.382  1.00 94.24          PT2+
 HETATM  606 PT    PT A1078      73.587  -3.955  36.590  0.50123.70          PT2+
 CONECT  282  592                                                                
-CONECT  592  593  594  595                                                      
+CONECT  592  282  593  594  604                                                 
 CONECT  593  592                                                                
-CONECT  594  592                                                                
-CONECT  595  592  596                                                           
-CONECT  596  595  597                                                           
-CONECT  597  596  598  599  600                                                 
-CONECT  598  597                                                                
-CONECT  599  597                                                                
-CONECT  600  597  601  602                                                      
-CONECT  601  600                                                                
-CONECT  602  600  603  604                                                      
-CONECT  603  602                                                                
-CONECT  604  602                                                                
-MASTER      344    0    3    5    0    0    4    6  605    1   14    6          
+CONECT  594  592  595                                                           
+CONECT  595  594  596                                                           
+CONECT  596  595  597  598  599                                                 
+CONECT  597  596                                                                
+CONECT  598  596                                                                
+CONECT  599  596  600  601                                                      
+CONECT  600  599                                                                
+CONECT  601  599  602  603                                                      
+CONECT  602  601                                                                
+CONECT  603  601                                                                
+CONECT  604  592                                                                
+MASTER      350    0    3    5    0    0    4    6  605    1   14    6          
 END                                                                             

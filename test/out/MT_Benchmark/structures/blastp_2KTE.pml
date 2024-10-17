@@ -7,8 +7,8 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_2KTE
 color 3, chain A
 show cartoon, chain A
-dist intra_2515_out_range , resid 14 and blastp_2KTE and chain A and name cb, resid 118 and blastp_2KTE and chain A and name cb
-dist intra_3363_out_range , resid 114 and blastp_2KTE and chain A and name cb, resid 125 and blastp_2KTE and chain A and name cb
+dist intra_2515_valid , resid 14 and blastp_2KTE and chain A and name cb, resid 118 and blastp_2KTE and chain A and name cb
+dist intra_3363_valid , resid 114 and blastp_2KTE and chain A and name cb, resid 125 and blastp_2KTE and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

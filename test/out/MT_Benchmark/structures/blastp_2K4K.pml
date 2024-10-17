@@ -7,17 +7,17 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_2K4K
 color 3, chain A
 show cartoon, chain A
-dist intra_3598_valid , resid 125 and blastp_2K4K and chain A and name cb, resid 85 and blastp_2K4K and chain A and name cb
-dist intra_4770_valid , resid 85 and blastp_2K4K and chain A and name cb, resid 114 and blastp_2K4K and chain A and name cb
-dist intra_6134_valid , resid 85 and blastp_2K4K and chain A and name cb, resid 112 and blastp_2K4K and chain A and name cb
-dist intra_741_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
-dist intra_876_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 61 and blastp_2K4K and chain A and name cb
-dist intra_2211_out_range , resid 86 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
+dist intra_741_valid , resid 85 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
+dist intra_876_valid , resid 85 and blastp_2K4K and chain A and name cb, resid 61 and blastp_2K4K and chain A and name cb
+dist intra_2211_valid , resid 86 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
+dist intra_4040_valid , resid 92 and blastp_2K4K and chain A and name cb, resid 4 and blastp_2K4K and chain A and name cb
+dist intra_4705_valid , resid 85 and blastp_2K4K and chain A and name cb, resid 89 and blastp_2K4K and chain A and name cb
+dist intra_5554_valid , resid 69 and blastp_2K4K and chain A and name cb, resid 4 and blastp_2K4K and chain A and name cb
 dist intra_2481_out_range , resid 114 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
-dist intra_4040_out_range , resid 92 and blastp_2K4K and chain A and name cb, resid 4 and blastp_2K4K and chain A and name cb
-dist intra_4705_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 89 and blastp_2K4K and chain A and name cb
-dist intra_5554_out_range , resid 69 and blastp_2K4K and chain A and name cb, resid 4 and blastp_2K4K and chain A and name cb
+dist intra_3598_out_range , resid 125 and blastp_2K4K and chain A and name cb, resid 85 and blastp_2K4K and chain A and name cb
+dist intra_4770_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 114 and blastp_2K4K and chain A and name cb
 dist intra_5645_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 71 and blastp_2K4K and chain A and name cb
+dist intra_6134_out_range , resid 85 and blastp_2K4K and chain A and name cb, resid 112 and blastp_2K4K and chain A and name cb
 dist intra_6143_out_range , resid 69 and blastp_2K4K and chain A and name cb, resid 92 and blastp_2K4K and chain A and name cb
 dist intra_4195_unknown , resid 114 and blastp_2K4K and chain A and name cb, resid 71 and blastp_2K4K and chain A and name cb
 dist intra_5393_unknown , resid 125 and blastp_2K4K and chain A and name cb, resid 71 and blastp_2K4K and chain A and name cb

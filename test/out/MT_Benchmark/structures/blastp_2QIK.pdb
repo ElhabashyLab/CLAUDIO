@@ -22,6 +22,7 @@ EXPDTA    X-RAY DIFFRACTION
 AUTHOR    J.BENACH,Y.CHEN,F.FOROUHAR,J.SEETHARAMAN,M.C.BARAN,K.CUNNINGHAM,L.-   
 AUTHOR   2 C.MA,L.OWENS,C.X.CHEN,X.RONG,H.JANJUA,T.B.ACTON,G.T.MONTELIONE,      
 AUTHOR   3 L.TONG,J.F.HUNT,NORTHEAST STRUCTURAL GENOMICS CONSORTIUM (NESG)      
+REVDAT   5   16-OCT-24 2QIK    1       REMARK SEQADV LINK                       
 REVDAT   4   24-JAN-18 2QIK    1       AUTHOR JRNL                              
 REVDAT   3   18-OCT-17 2QIK    1       REMARK                                   
 REVDAT   2   24-FEB-09 2QIK    1       VERSN                                    
@@ -37,7 +38,8 @@ REMARK   2 RESOLUTION.    1.35 ANGSTROMS.
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : REFMAC                                               
-REMARK   3   AUTHORS     : MURSHUDOV,VAGIN,DODSON                               
+REMARK   3   AUTHORS     : MURSHUDOV,SKUBAK,LEBEDEV,PANNU,STEINER,              
+REMARK   3               : NICHOLLS,WINN,LONG,VAGIN                             
 REMARK   3                                                                      
 REMARK   3    REFINEMENT TARGET : MAXIMUM LIKELIHOOD                            
 REMARK   3                                                                      
@@ -5953,5 +5955,5 @@ CONECT 2238 2236
 CONECT 2239 2233 2240 2241                                                      
 CONECT 2240 2239                                                                
 CONECT 2241 2239                                                                
-MASTER      373    0    7   10   16    0    3    6 2637    1   72   22          
+MASTER      374    0    7   10   16    0    3    6 2637    1   72   22          
 END                                                                             

@@ -1,0 +1,12 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+-,-,-,,,182,30,homo6mer_homo9mer,intra
+-,-,-,,,30,248,homo6mer_homo9mer,intra
+-,-,-,,,248,214,homo6mer_homo9mer,intra
+-,-,-,,,182,21,homo6mer_homo9mer,intra
+-,-,-,,,26,248,homo6mer_homo9mer,intra
+-,-,-,,,196,196,homo6mer_homo9mer,inter
+-,-,-,,,182,248,homo6mer_homo9mer,intra
+-,-,-,,,182,13,homo6mer_homo9mer,intra
+-,-,-,,,17,30,homo6mer_homo9mer,intra
+-,-,-,,,27,182,homo6mer_homo9mer,intra
+-,-,-,,,182,17,homo6mer_homo9mer,intra

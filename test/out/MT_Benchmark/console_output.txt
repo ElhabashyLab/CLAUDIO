@@ -1,0 +1,64 @@
+PS C:\Dokumente\CLAUDIO> claudio -c .\config\benchmark_config.txt
+Start full CLAUDIO v1.0.1 pipeline
+===================================
+Configuration file given
+Start Unique Protein List Tool
+Read input
+Retrieve UniProt sequences from UniProtKB
+        Site_a:[100.0%]
+        Site_b:[100.0%]
+Check datapoints for inconsistencies
+        [100.0%]
+Changes made to dataset written to log-file
+Create unique protein list
+        Metadata search:[100.0%]
+        Structure search:[100.0%]
+Write output
+        Write list of unique proteins
+        Write SQCS-file (a CSV-file) for further steps in CLAUDIO
+
+End script (Elapsed time: 1619.17s)
+===================================
+Start Homo-signal analysis
+Read input
+Analyse homo signals
+Create homo-signal histograms
+Write output
+
+End script (Elapsed time: 1802.82s)
+===================================
+Start structure search
+Read input
+Perform blastp search
+        [100.0%]
+Download structures from RCSB database, or AlphaFold database if not found there
+        [100.0%]
+Creating datapoints for multiple chain options: 4423 -> 13753 datapoints (number of new datapoints: 9330)
+
+End script (Elapsed time: 1794.88s)
+===================================
+Start intra interaction check
+Read peptide information from uniprot search results
+Search site pos in pdb files (replace rcsb-pdb with alphafold-pdb if needed)
+        [100.0%]
+Calculate presumed interaction site distances and evaluate interaction likelihood
+        TopoLink:[100.0%]
+Create distance histograms
+Overwrite outputfile
+
+End script (Elapsed time: 4640.18s)
+===================================
+Start New Inter Interaction Analysis
+Read inputs
+Combine results of both reevaluations
+Retrieve known oligomeric states from SWISS-MODEL
+        [100.0%]
+Write pymol scripts
+Create score histogram
+Write full outputs
+
+End script (Elapsed time: 4883.04s)
+===================================
+
+End full CLAUDIO pipeline execution (Total elapsed time: 14740.32s)
+===================================

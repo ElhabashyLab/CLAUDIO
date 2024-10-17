@@ -17,8 +17,8 @@ dist intra_1456_4_valid , resid 290 and blastp_1DKR and chain B and name cb, res
 dist intra_1862_valid , resid 279 and blastp_1DKR and chain A and name cb, resid 22 and blastp_1DKR and chain A and name cb
 dist intra_1862_4_valid , resid 279 and blastp_1DKR and chain B and name cb, resid 22 and blastp_1DKR and chain B and name cb
 dist intra_3370_4_valid , resid 7 and blastp_1DKR and chain B and name cb, resid 88 and blastp_1DKR and chain B and name cb
-dist intra_3497_out_range , resid 197 and blastp_1DKR and chain A and name cb, resid 189 and blastp_1DKR and chain A and name cb
 dist intra_471_4_overlaps , resid 34 and blastp_1DKR and chain B and name cb, resid 7 and blastp_1DKR and chain B and name cb
+dist intra_3497_overlaps , resid 197 and blastp_1DKR and chain A and name cb, resid 189 and blastp_1DKR and chain A and name cb
 dist inter_3497_2_valid , resid 197 and blastp_1DKR and chain A and name cb, resid 189 and blastp_1DKR and chain B and name cb
 dist inter_3497_3_valid , resid 197 and blastp_1DKR and chain B and name cb, resid 189 and blastp_1DKR and chain A and name cb
 show dashes
