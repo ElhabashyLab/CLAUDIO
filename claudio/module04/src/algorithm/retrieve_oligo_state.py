@@ -17,7 +17,7 @@ def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     verbose_level : int
 
     Returns
-    -------
+    ------- 
     data : pd.DataFrame
     """
 
@@ -35,7 +35,7 @@ def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     return data
 
 
-def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str]], i_iteration: tuple[int,int], verbose_level: int):
+def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str, list[str]], i_iteration: list[int], verbose_level: int):
     """
     access SWISS-MODEL for given datapoint's uniprot id, if not previously encountered, else retrieve known result
     from known_unips
@@ -43,17 +43,17 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
     Parameters
     ----------
     data : pd.Series,
-    known_ostates : dict[str,list[str]],
-    i_iteration : tuple[int,int],
+    known_ostates : dict[str, list[str]],
+    i_iteration : list[int],
     verbose_level : int
 
     Returns
     -------
-    oligo_states : LiteralStr
+    oligo_states : str
     """
 
     NUMBER_OF_CALL_REPEATS = 5
-    DOWNLOAD_RATE_LIMITER_IN_SECONDS = .05
+    DOWNLOAD_RATE_LIMITER_IN_SECONDS = 0.05
 
     # progressbar
     ind, full_i = i_iteration
@@ -67,7 +67,7 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
 
     # if uniprot id not in already searched entries, do search in SWISS-MODEL
     for unip_id in unip_ids:
-        if unip_id not in known_ostates.keys():
+        if unip_id not in known_ostates:
             # set up json url with uniprot id
             url = f"{base_url}{unip_id}.json"
             # repeat SWISS-MODEL calls for consistency (SWISS-MODEL has shown to inconsistently return empty or only
@@ -75,8 +75,6 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
             ostates = []
             num_fails = 0
             for _ in range(NUMBER_OF_CALL_REPEATS):
-                list_of_states = {}
-                # use get-request, retrieve all known multimer complexes, isolate homomeric oligomer-states into list
                 try:
                     try:
                         list_of_states = {structure["template"].split('.')[0]: structure["oligo-state"]
@@ -110,15 +108,10 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
             # Add resulting oligomeric states to list of known, if results not empty
             if ostates:
                 # Ensure that missing data on repeats do not cause disturbances, by filling empty slots with "monomer"
-                unique_keys = []
+                unique_keys = set(key for ostate in ostates for key in ostate.keys())
                 for ostate in ostates:
-                    for key in ostate.keys():
-                        if key not in unique_keys:
-                            unique_keys.append(key)
-                for ostate in ostates:
-                    if not all([key in ostate.keys() for key in unique_keys]):
-                        for key in [key for key in unique_keys if key not in ostate.keys()]:
-                            ostate[key] = ["monomer"]
+                    for key in unique_keys:
+                        ostate.setdefault(key, ["monomer"])
 
                 # Collect unique ostates of repeats
                 ostates = {key: pd.unique([repeat[key] for repeat in ostates]).tolist() for key in unique_keys}
@@ -128,17 +121,16 @@ def get_oligo_state_from_swiss(data: pd.Series, known_ostates: dict[str,list[str
 
     # return homo-oligomer states if intra crosslink
     if data['unip_id_a'] == data['unip_id_b']:
-        unique_ostates = sorted(pd.unique([state for _, states in
-                                           known_ostates[data['unip_id_a']].items()
+        unique_ostates = sorted(pd.unique([state for states in known_ostates[data['unip_id_a']].values()
                                            for state in states]).tolist())
         unique_ostates = [state.replace('-', '') for state in unique_ostates if state not in ["heteromer", "monomer"]]
         return '_'.join(unique_ostates)
     # else, compute intersecting set of structures and return their oligomeric states
     else:
-        intsect_oligo_states = {key: value for key, value in known_ostates[data['unip_id_a']].items()
-                                if key in known_ostates[data['unip_id_b']].keys()}
-        unique_intersect_ostates = \
-            sorted(pd.unique([state for _, states in intsect_oligo_states.items() for state in states]).tolist())
+        intersect_oligo_states = {key: value for key, value in known_ostates[data['unip_id_a']].items()
+                                  if key in known_ostates[data['unip_id_b']]}
+        unique_intersect_ostates = sorted(pd.unique([state for states in intersect_oligo_states.values()
+                                                     for state in states]).tolist())
         unique_intersect_ostates = [state.replace('-', '') for state in unique_intersect_ostates
                                     if (state != "monomer") and not state.startswith("homo")]
         return '_'.join(unique_intersect_ostates)
