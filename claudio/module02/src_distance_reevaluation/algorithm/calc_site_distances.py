@@ -234,9 +234,9 @@ def isolate_pdb_chain(path: str, temp_dir: str, chain_ids: list[str]):
     """
 
     try:
-        structure = PDBParser().get_structure('', path)
+        structure = PDBParser().get_structure('', path).get_list()[0]
     except:
-        structure = MMCIFParser().get_structure('', path)
+        structure = MMCIFParser().get_structure('', path).get_list()[0]
 
     # overload chain accept method
     class ChainSelect(Select):

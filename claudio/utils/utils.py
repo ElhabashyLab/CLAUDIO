@@ -284,7 +284,7 @@ def clean_dataset(data: pd.DataFrame, method=""):
         for i, row in data.iterrows():
             if i not in drop_indeces:
                 for next_i, next_row in data.iterrows():
-                    if int(next_i.split('_')[0]) > int(i.split('_')[0]):
+                    if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
                         same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
                         same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
                         copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
