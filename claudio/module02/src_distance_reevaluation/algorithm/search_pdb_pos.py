@@ -7,10 +7,13 @@ from Bio.Align import PairwiseAligner
 import requests as r
 import sys
 import numpy as np
+import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
 _MAX_INTERFACE_DISTANCE = 50
+# cache for parsed pdb-structures to prevent multiple parsing of the same file
+pdb_cache = {}
 
 
 def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_level: int):
@@ -61,13 +64,14 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
     data["xl_type"] = np.where(data["unip_id_a"] == data["unip_id_b"], "intra", "inter")
     xl_res_list = df_xl_res.res.tolist()
 
+    global pdb_cache
+    pdb_cache = {}
+
     # Iterate over given dataset
-    for i, row in data.iterrows():
-        verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, verbose_level, end='')
+    def search_site_task(i, row, data):
+
         # If saved path is not '-' perform site distance calculation, else append values to list containers indicating
         # a fail here
-        if "path" not in row.index: #TODO
-            time.sleep(10000)
         both_pdbs_found = row["path"] != '-'
         if both_pdbs_found:
             # Search site_a in structure file
@@ -112,8 +116,20 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
             else:
                 successes[1] += 1
 
-        ind += 1
-        verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, verbose_level, end='')
+        return data
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(search_site_task, i, row, data) for i, row in data.iterrows()]
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                if future.result() is not None:
+                    data = future.result()
+                    ind += 1
+                    verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, verbose_level, end='')
+            except Exception as e:
+                print(e)
+
     verbose_print("", 1, verbose_level)
 
     # Print site specific error and success statistics
@@ -149,7 +165,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
 
 
 def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_uni_map: pd.DataFrame, method: str, xl_res_list: list,
-                      verbose_level: int):
+                     verbose_level: int):
     """
     Search site in structure file and return threedimensional position
 
@@ -192,11 +208,17 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
                       verbose_level)
         return None, False, method, 0, '-', '', None
 
-    # Parse structure file with normal PDBParser, if exception thrown use MMCIFParser
-    try:
-        models = PDBParser().get_structure('', data["path"]).get_list()
-    except:
-        models = MMCIFParser().get_structure('', data["path"]).get_list()
+    # Check whether structure file was already parsed, if not parse it and save it in cache
+    if data["path"] in pdb_cache:
+        models = pdb_cache[data["path"]]
+    else:
+        # Parse structure file with normal PDBParser, if exception thrown use MMCIFParser
+        try:
+            models = PDBParser().get_structure('', data["path"]).get_list()
+        except:
+            models = MMCIFParser().get_structure('', data["path"]).get_list()
+        
+        pdb_cache[data["path"]] = models
 
     # Try accessing list of chains, if exception is thrown, e.g. structure file is empty, return fail with i_error = 1
     try:
@@ -533,6 +555,9 @@ def replacement_alphafold_download(unip_id: str, path: str):
                 print(e)
                 sys.exit()
     try:
-        return PDBParser().get_structure('', new_path).get_list()[0].get_list()[0], new_path
+        models = PDBParser().get_structure('', new_path).get_list()
+        del pdb_cache[path]
+        pdb_cache[new_path] = models
+        return models[0].get_list()[0], new_path
     except:
         return None, ''
