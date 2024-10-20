@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 import requests as r
 from io import StringIO
+import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
@@ -86,14 +87,15 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     """
 
     # Create data container lists
-    infos = []
+    infos = [[]for _ in range(len(unique_proteins))]
 
-    ind = 1
+    ind = 0
     # Iterate over proteins (proteins = uniprot ids)
-    for protein in unique_proteins:
-        verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level,
-                      end='')
-        ind += 1
+    # for protein in unique_proteins:
+    def meta_search_task(i,protein):
+        # verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level,
+        #              end='')
+        #ind += 1
 
         # Retrieve uniprot information on protein
         urllib = f"https://rest.uniprot.org/uniprotkb/search?query={protein}&format=tsv"
@@ -104,8 +106,23 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
             print(e)
             sys.exit()
 
-        # Add information and sequence to container lists
-        infos.append(info)
+        # Return information and sequence to container lists
+        return i,info
+    
+    # Parallelize search for uniprot metadata
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(meta_search_task,i, protein) for i, protein in enumerate(unique_proteins)]
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                if future.result() is not None:
+                    i, info = (future.result())
+                    infos[i] = info
+                    ind += 1
+                    verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level, end='')
+            except Exception as e:
+                print(e)
+
     verbose_print("", 1, verbose_level)
 
     return infos
@@ -136,12 +153,13 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
     #TODO contains legacy code for hhsearch, could possibly be removed?
 
     # Create data container list
-    pdbs = []
+    pdbs = [[]for _ in range(len(proteins))]
 
-    ind = 1
+    ind = 0
     # Iterate over proteins (proteins = uniprot ids)
-    for i, protein in enumerate(proteins):
-        verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
+    # for i, protein in enumerate(proteins):
+    def pdb_entry_search_task(i,protein):
+        # verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
 
         # Create temporary fasta file at data/temp/unique_protein_list for commandline application in search tools
         with open(f"{unique_protein_temp_dir}tmp{i}.fasta", 'w') as tmp_file:
@@ -177,10 +195,25 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
                    if line.split('\t')[0] == protein][0]
         # If result is not False, append it to container list, else append alphafold entry id instead
         if res:
-            pdbs.append(res)
+            return i,res
         else:
-            pdbs.append(f"af{protein}_A")
-        ind += 1
+            return i,f"af{protein}_A"
+
+    # Parallelize search for uniprot metadata
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(pdb_entry_search_task,i, protein) for i, protein in enumerate(proteins)]
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                if future.result() is not None:
+                    i, pdb = (future.result())
+                    pdbs[i] = pdb
+                    ind += 1
+                    verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
+            except Exception as e:
+                print(e)
+
+
     verbose_print("", 1, verbose_level)
 
     return pdbs
