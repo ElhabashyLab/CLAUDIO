@@ -38,16 +38,16 @@ def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
         bool
     """
 
-    for i, row in data.iterrows():
-        if i != data_row.name:
-            same_proteins = (data_row.unip_id_a == row.unip_id_a) and (data_row.unip_id_b == row.unip_id_b)
-            same_peptides = (data_row.pep_a == row.pep_a) and (data_row.pep_b == row.pep_b)
-            if same_proteins and same_peptides:
-                a_copy_found = data_row.seq_a.count(data_row.pep_a) > 1
-                b_copy_found = data_row.seq_b.count(data_row.pep_b) > 1
-                copies_found = a_copy_found or b_copy_found
-                if copies_found:
-                    return True
+    same_proteins = (data_row.unip_id_a == data.unip_id_a) & (data_row.unip_id_b == data.unip_id_b)
+    same_peptides = (data_row.pep_a == data.pep_a) & (data_row.pep_b == data.pep_b)
+    filtered_data = data[same_proteins & same_peptides]
+
+    for _, row in filtered_data.iterrows():
+        if data_row.name != row.name:
+            a_copy_found = data_row.seq_a.count(data_row.pep_a) > 1
+            b_copy_found = data_row.seq_b.count(data_row.pep_b) > 1
+            if a_copy_found or b_copy_found:
+                return True
     return False
 
 
