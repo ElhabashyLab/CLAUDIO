@@ -1,12 +1,12 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
 4WO7,A,A,193.0,128.0,212,147,homo2mer_homo4mer,intra
-4WO7,A,A,140.0,202.0,159,221,homo2mer_homo4mer,intra
+4WO7,B,B,140.0,202.0,159,221,homo2mer_homo4mer,intra
 4WO7,B,B,136.0,128.0,155,147,homo2mer_homo4mer,intra
 4WO7,B,B,168.0,115.0,187,134,homo2mer_homo4mer,intra
 4WO7,A,A,202.0,143.0,221,162,homo2mer_homo4mer,intra
 4WO7,A,A,101.0,218.0,120,237,homo2mer_homo4mer,intra
 4WO7,B,B,83.0,63.0,102,82,homo2mer_homo4mer,intra
-4WO7,B,B,184.0,202.0,203,221,homo2mer_homo4mer,intra
+4WO7,A,A,184.0,202.0,203,221,homo2mer_homo4mer,intra
 4WO7,B,B,108.0,209.0,127,228,homo2mer_homo4mer,intra
 4WO7,A,A,214.0,218.0,233,237,homo2mer_homo4mer,intra
 4WO7,B,B,149.0,53.0,168,72,homo2mer_homo4mer,intra
@@ -28,7 +28,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 4WO7,B,B,218.0,238.0,237,257,homo2mer_homo4mer,intra
 4WO7,A,A,184.0,168.0,203,187,homo2mer_homo4mer,intra
 4WO7,A,A,242.0,,261,245,homo2mer_homo4mer,intra
-4WO7,B,B,63.0,75.0,82,94,homo2mer_homo4mer,intra
+4WO7,A,A,63.0,75.0,82,94,homo2mer_homo4mer,intra
 4WO7,A,A,242.0,238.0,261,257,homo2mer_homo4mer,intra
 4WO7,A,A,,128.0,204,147,homo2mer_homo4mer,intra
 4WO7,A,A,214.0,101.0,233,120,homo2mer_homo4mer,intra

@@ -13,12 +13,13 @@ SOURCE   6 EXPRESSION_SYSTEM_TAXID: 469008
 KEYWDS    FMN-BINDING, OXIDOREDUCTASE                                           
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    H.J.ROZEBOOM,S.RUSSO,M.W.FRAAIJE,G.J.POELARENDS                       
+REVDAT   3   23-OCT-24 8QYG    1       JRNL                                     
 REVDAT   2   21-AUG-24 8QYG    1       JRNL                                     
 REVDAT   1   08-MAY-24 8QYG    0                                                
 JRNL        AUTH   S.RUSSO,H.J.ROZEBOOM,H.J.WIJMA,G.J.POELARENDS,M.W.FRAAIJE    
 JRNL        TITL   BIOCHEMICAL, KINETIC, AND STRUCTURAL CHARACTERIZATION OF A   
 JRNL        TITL 2 BACILLUS TEQUILENSIS NITROREDUCTASE.                         
-JRNL        REF    FEBS J.                                    2024              
+JRNL        REF    FEBS J.                       V. 291  3889 2024              
 JRNL        REFN                   ISSN 1742-464X                               
 JRNL        PMID   38946302                                                     
 JRNL        DOI    10.1111/FEBS.17210                                           

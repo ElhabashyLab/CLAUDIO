@@ -29,6 +29,7 @@ dist intra_1531_out_range , resid 242 and blastp_1HQS and chain A and name cb, r
 dist intra_1312_overlaps , resid 6 and blastp_1HQS and chain A and name cb, resid 55 and blastp_1HQS and chain A and name cb
 dist intra_1312_4_overlaps , resid 6 and blastp_1HQS and chain B and name cb, resid 55 and blastp_1HQS and chain B and name cb
 dist intra_1065_same , resid 133 and blastp_1HQS and chain A and name cb, resid 133 and blastp_1HQS and chain A and name cb
+dist inter_13_2_valid , resid 226 and blastp_1HQS and chain A and name cb, resid 178 and blastp_1HQS and chain B and name cb
 dist inter_13_3_valid , resid 226 and blastp_1HQS and chain B and name cb, resid 178 and blastp_1HQS and chain A and name cb
 dist inter_113_2_valid , resid 393 and blastp_1HQS and chain A and name cb, resid 133 and blastp_1HQS and chain B and name cb
 dist inter_113_3_valid , resid 393 and blastp_1HQS and chain B and name cb, resid 133 and blastp_1HQS and chain A and name cb
