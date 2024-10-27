@@ -12,7 +12,7 @@ from claudio.module04.src.io.create_pymol_scripts import setup_pml_scripts
 from claudio.module04.src.io.write_outs import write_outputs
 
 from claudio.utils.utils import verbose_print, clean_input_paths, evaluate_boolean_input, \
-    create_out_path, clean_dataset, round_self
+    create_out_path, clean_dataset, round_self, minimize_dataset
 
 
 @click.command()
@@ -80,7 +80,7 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_m
         setup_pml_scripts(data)
 
         # Minimze dataset
-        data = clean_dataset(data, "minimize")
+        data = minimize_dataset(data)
 
         # Create inter score histogram
         verbose_print("Create score histogram", 0, verbose_level)
