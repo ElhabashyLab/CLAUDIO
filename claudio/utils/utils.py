@@ -252,45 +252,59 @@ def clean_dataset(data: pd.DataFrame, method=""):
             data["sort_index_i"] = [int(i.split('_')[0]) if type(i) == str else i for i in data.index]
             data["sort_index_j"] = [int(i.split('_')[1]) if type(i) == str and '_' in i else 1 for i in data.index]
             data = data.sort_values(["sort_index_i", "sort_index_j"]).drop("sort_index_i", axis=1).drop("sort_index_j", axis=1)
-    elif method == "minimize":
 
-        drop_indeces = []
-        for ind in [i for i in data.index if '_' not in str(i)]:
-            is_intra = data.loc[ind].XL_type == "intra"
-            data_ind_snippet = data.loc[[i for i in data.index if str(i).split('_')[0] == str(ind)]]
-            if len(data_ind_snippet.index) > 1:
-                inter_snip = data_ind_snippet[data_ind_snippet.XL_type == "inter"]
-                intra_snip = data_ind_snippet[data_ind_snippet.XL_type == "intra"]
-                no_evidence_found = inter_snip.evidence == ''
-                dist_calc = ~pd.isna(inter_snip.topo_dist)
-                if not inter_snip[no_evidence_found & dist_calc].empty:
-                    drop_indeces.extend([i for i in inter_snip.index if is_intra or
-                                         (i != inter_snip[no_evidence_found & dist_calc].topo_dist.idxmin())])
-                elif not inter_snip[dist_calc].empty:
-                    drop_indeces.extend([i for i in inter_snip.index if is_intra or
-                                         (i != inter_snip[dist_calc].topo_dist.idxmin())])
-                elif not inter_snip[no_evidence_found].empty:
-                    drop_indeces.extend([i for i in inter_snip.index if is_intra or
-                                         (i != inter_snip[no_evidence_found].topo_dist.idxmin())])
-                else:
-                    drop_indeces.extend([i for i in inter_snip.index
-                                         if is_intra or (i != inter_snip.topo_dist.idxmin())])
+    return data
 
-                drop_indeces.extend([i for i in intra_snip.index
-                                     if (not is_intra) or (i != intra_snip.topo_dist.idxmin())])
+def minimize_dataset(data: pd.DataFrame):
+    """
+    Cleaning of structure data dataset for outputs
 
-            if all((i in drop_indeces for i in data_ind_snippet.index)):
-                drop_indeces.remove(data_ind_snippet.index[0])
-        for i, row in data.iterrows():
-            if i not in drop_indeces:
-                for next_i, next_row in data.iterrows():
-                    if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
-                        same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
-                        same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
-                        copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
-                        if same_proteins and same_peptides and copies_found:
-                            drop_indeces.append(next_i)
+    Parameters
+    ----------
+    data : pd.DataFrame
 
-        data = data.drop(index=drop_indeces)
+    Returns 
+    -------
+    data : pd.DataFrame
+    """
+
+    drop_indeces = []
+    for ind in [i for i in data.index if '_' not in str(i)]:
+        is_intra = data.loc[ind].XL_type == "intra"
+        data_ind_snippet = data.loc[[i for i in data.index if str(i).split('_')[0] == str(ind)]]
+        if len(data_ind_snippet.index) > 1:
+            inter_snip = data_ind_snippet[data_ind_snippet.XL_type == "inter"]
+            intra_snip = data_ind_snippet[data_ind_snippet.XL_type == "intra"]
+            no_evidence_found = inter_snip.evidence == ''
+            dist_calc = ~pd.isna(inter_snip.topo_dist)
+            if not inter_snip[no_evidence_found & dist_calc].empty:
+                drop_indeces.extend([i for i in inter_snip.index if is_intra or
+                                        (i != inter_snip[no_evidence_found & dist_calc].topo_dist.idxmin())])
+            elif not inter_snip[dist_calc].empty:
+                drop_indeces.extend([i for i in inter_snip.index if is_intra or
+                                        (i != inter_snip[dist_calc].topo_dist.idxmin())])
+            elif not inter_snip[no_evidence_found].empty:
+                drop_indeces.extend([i for i in inter_snip.index if is_intra or
+                                        (i != inter_snip[no_evidence_found].topo_dist.idxmin())])
+            else:
+                drop_indeces.extend([i for i in inter_snip.index
+                                        if is_intra or (i != inter_snip.topo_dist.idxmin())])
+
+            drop_indeces.extend([i for i in intra_snip.index
+                                    if (not is_intra) or (i != intra_snip.topo_dist.idxmin())])
+
+        if all((i in drop_indeces for i in data_ind_snippet.index)):
+            drop_indeces.remove(data_ind_snippet.index[0])
+    for i, row in data.iterrows():
+        if i not in drop_indeces:
+            for next_i, next_row in data.iterrows():
+                if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
+                    same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
+                    same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
+                    copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
+                    if same_proteins and same_peptides and copies_found:
+                        drop_indeces.append(next_i)
+
+    data = data.drop(index=drop_indeces)
 
     return data
