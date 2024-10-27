@@ -98,7 +98,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
         for i, row in subset.iterrows():
             # Set boolean for whether pLDDT cutoff is unfulfilled if the used method was alphafold
             plddt_unfulfilled = (row["method_a"] == "alphafold") and \
-                                ((float(row["pLDDT_a"]) < plddt_cutoff) or (float(row["pLDDT_b"]) < plddt_cutoff))
+                                ((row["pLDDT_a"] != '-' and (float(row["pLDDT_a"]) < plddt_cutoff)) or \
+                                 (row["pLDDT_b"] != '-' and (float(row["pLDDT_b"]) < plddt_cutoff)))
             # Don't compute dist for datapoints which do not fulfill the residue, interface criteria, or pLDDT cutoff
             if row.res_criteria_fulfilled and row.is_interfaced and not plddt_unfulfilled:
                 try:
