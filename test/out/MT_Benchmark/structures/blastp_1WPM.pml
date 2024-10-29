@@ -13,7 +13,6 @@ color 5, chain B
 show cartoon, chain B
 dist intra_4913_valid , resid 29 and blastp_1WPM and chain A and name cb, resid 133 and blastp_1WPM and chain A and name cb
 dist intra_4913_4_valid , resid 29 and blastp_1WPM and chain B and name cb, resid 133 and blastp_1WPM and chain B and name cb
-dist inter_4913_2_valid , resid 29 and blastp_1WPM and chain A and name cb, resid 133 and blastp_1WPM and chain B and name cb
 dist inter_4913_3_valid , resid 29 and blastp_1WPM and chain B and name cb, resid 133 and blastp_1WPM and chain A and name cb
 show dashes
 set dash_gap, 0.1

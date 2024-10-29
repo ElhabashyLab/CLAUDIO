@@ -34,7 +34,6 @@ dist inter_13_3_valid , resid 226 and blastp_1HQS and chain B and name cb, resid
 dist inter_113_2_valid , resid 393 and blastp_1HQS and chain A and name cb, resid 133 and blastp_1HQS and chain B and name cb
 dist inter_113_3_valid , resid 393 and blastp_1HQS and chain B and name cb, resid 133 and blastp_1HQS and chain A and name cb
 dist inter_184_2_valid , resid 178 and blastp_1HQS and chain A and name cb, resid 225 and blastp_1HQS and chain B and name cb
-dist inter_184_3_valid , resid 178 and blastp_1HQS and chain B and name cb, resid 225 and blastp_1HQS and chain A and name cb
 dist inter_1065_2_valid , resid 133 and blastp_1HQS and chain A and name cb, resid 133 and blastp_1HQS and chain B and name cb
 dist inter_1531_2_valid , resid 242 and blastp_1HQS and chain A and name cb, resid 158 and blastp_1HQS and chain B and name cb
 dist inter_1531_3_valid , resid 242 and blastp_1HQS and chain B and name cb, resid 158 and blastp_1HQS and chain A and name cb

@@ -3,7 +3,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 4A3R,C,C,308.0,329.0,308,329,homo2mer_homo8mer,intra
 4A3R,A,A,,308.0,430,308,homo2mer_homo8mer,intra
 4A3R,C,C,323.0,299.0,323,299,homo2mer_homo8mer,intra
-4A3R,D,D,308.0,323.0,308,323,homo2mer_homo8mer,intra
+4A3R,A,A,308.0,323.0,308,323,homo2mer_homo8mer,intra
 4A3R,A,A,,308.0,229,308,homo2mer_homo8mer,intra
 4A3R,A,A,,238.0,430,238,homo2mer_homo8mer,intra
 4A3R,A,A,,323.0,430,323,homo2mer_homo8mer,intra
