@@ -524,7 +524,7 @@ def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int, verb
         return None
 
 
-def replacement_alphafold_download(unip_id: str, path: str):
+def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
     """
     Attempt to download a replacement alphafold structure model (also return path to new pdb),
     return None if attempt fails
@@ -539,7 +539,7 @@ def replacement_alphafold_download(unip_id: str, path: str):
     chain : Bio.PDB.Chain | None
     new_path : str |  ''
     """
-
+    max_try = 5
     # ex.: data/out/structure_search/blastp_6G2J.pdb
     new_path = f"{'_'.join(path.split('_')[:-1])}_af{unip_id}.pdb"
 
@@ -549,11 +549,17 @@ def replacement_alphafold_download(unip_id: str, path: str):
             try:
                 f.write(r.get(URL).text)
             except r.exceptions.Timeout:
-                pass
+                if i_try >= max_try:
+                    return None
+                else:
+                    time.sleep(1)
+                    return replacement_alphafold_download(unip_id, path, i_try + 1)
+                
             except (ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
-                print("No connection to AlphaFold API possible. Please try again later.")
-                print(e)
-                sys.exit()
+                if i_try == max_try:
+                    print("No connection to AlphaFold API possible. Please try again later.")
+                    print(e)
+                return replacement_alphafold_download(unip_id, path, i_try + 1)
     try:
         models = PDBParser().get_structure('', new_path).get_list()
         del pdb_cache[path]
