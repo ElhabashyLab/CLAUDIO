@@ -295,16 +295,17 @@ def minimize_dataset(data: pd.DataFrame):
 
         if all((i in drop_indeces for i in data_ind_snippet.index)):
             drop_indeces.remove(data_ind_snippet.index[0])
+
+    data = data.drop(index=drop_indeces)
+
     for i, row in data.iterrows():
-        if i not in drop_indeces:
+        copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
+        if copies_found:
             for next_i, next_row in data.iterrows():
                 if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
                     same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
                     same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
-                    copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
-                    if same_proteins and same_peptides and copies_found:
-                        drop_indeces.append(next_i)
-
-    data = data.drop(index=drop_indeces)
+                    if same_proteins and same_peptides:
+                        data = data.drop(index=next_i)
 
     return data
