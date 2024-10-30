@@ -119,7 +119,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
         return data
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(search_site_task, i, row, data) for i, row in data.iterrows()]
+        futures = {executor.submit(search_site_task, i, row, data): (i, row, data) for i, row in data.iterrows()}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -127,6 +127,8 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
                     data = future.result()
                     ind += 1
                     verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, verbose_level, end='')
+                    del futures[future]
+                    # gc.collect()
             except Exception as e:
                 print(e)
 
@@ -544,7 +546,7 @@ def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
     new_path = f"{'_'.join(path.split('_')[:-1])}_af{unip_id}.pdb"
 
     if not os.path.exists(new_path):
-        URL = f"https://alphafold.ebi.ac.uk/files/AF-{unip_id}-F1-model_v1.pdb"
+        URL = f"https://alphafold.ebi.ac.uk/files/AF-{unip_id}-F1-model_v4.pdb"
         with open(new_path, 'w') as f:
             try:
                 f.write(r.get(URL).text)

@@ -82,7 +82,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
                         chain = 'A'
                         chain_b = 'A'
                         filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
-                        url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v1.pdb"
+                        url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v4.pdb"
                 
                 # no download possible
                 else:
@@ -116,7 +116,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
         return dataset
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(download_task, i, row, dataset) for i, row in dataset.iterrows()]
+        futures = {executor.submit(download_task, i, row, dataset): (i,row) for i, row in dataset.iterrows()}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -124,6 +124,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
                     dataset = future.result()
                     ind += 1
                     verbose_print(f"\r\t[{round_self((ind * 100) / len(dataset.index), 2)}%]", 1, verbose_level, end='')
+                    del futures[future]
             except Exception as e:
                 print(e)
 

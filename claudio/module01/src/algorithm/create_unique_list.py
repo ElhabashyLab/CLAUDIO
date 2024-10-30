@@ -111,7 +111,7 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(meta_search_task,i, protein) for i, protein in enumerate(unique_proteins)]
+        futures = {executor.submit(meta_search_task,i, protein):(i,protein) for i, protein in enumerate(unique_proteins)}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -120,6 +120,7 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
                     infos[i] = info
                     ind += 1
                     verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level, end='')
+                    del futures[future]
             except Exception as e:
                 print(e)
 
@@ -201,7 +202,7 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
 
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(pdb_entry_search_task,i, protein) for i, protein in enumerate(proteins)]
+        futures = {executor.submit(pdb_entry_search_task,i, protein): (i,protein) for i, protein in enumerate(proteins)}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -210,6 +211,7 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
                     pdbs[i] = pdb
                     ind += 1
                     verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
+                    del futures[future]
             except Exception as e:
                 print(e)
 
