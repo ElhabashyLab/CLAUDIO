@@ -1,6 +1,6 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
 6GOW,D,D,219.0,136.0,219,136,homo2mer_homo33mer_homo41mer_homo46mer,inter
-6GOW,D,D,,277.0,25,277,homo2mer_homo33mer_homo41mer_homo46mer,intra
+6GOW,D,D,25.0,277.0,25,277,homo2mer_homo33mer_homo41mer_homo46mer,intra
 6GOW,D,D,136.0,51.0,136,51,homo2mer_homo33mer_homo41mer_homo46mer,inter
 6GOW,D,D,136.0,153.0,136,153,homo2mer_homo33mer_homo41mer_homo46mer,intra
-6GOW,D,D,51.0,,51,25,homo2mer_homo33mer_homo41mer_homo46mer,intra
+afP02968,A,A,51.0,25.0,51,25,homo2mer_homo33mer_homo41mer_homo46mer,intra

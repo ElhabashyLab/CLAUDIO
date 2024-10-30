@@ -13,6 +13,7 @@ color 5, chain B
 show cartoon, chain B
 dist intra_3545_valid , resid 54 and blastp_2GSV and chain A and name cb, resid 15 and blastp_2GSV and chain A and name cb
 dist intra_3545_4_valid , resid 54 and blastp_2GSV and chain B and name cb, resid 15 and blastp_2GSV and chain B and name cb
+dist inter_3545_3_valid , resid 54 and blastp_2GSV and chain B and name cb, resid 15 and blastp_2GSV and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

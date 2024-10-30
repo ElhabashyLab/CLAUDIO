@@ -1,7 +1,7 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
--,-,-,,,56,6,,intra
--,-,-,,,236,317,,intra
--,-,-,,,321,236,,intra
--,-,-,,,321,237,,intra
--,-,-,,,48,1,,intra
--,-,-,,,45,1,,inter
+afP17921,A,A,56.0,6.0,56,6,,intra
+afP17921,A,A,236.0,317.0,236,317,,intra
+afP17921,A,A,321.0,236.0,321,236,,intra
+afP17921,A,A,321.0,237.0,321,237,,intra
+afP17921,A,A,48.0,1.0,48,1,,intra
+afP17921,A,A,,1.0,45,1,,inter

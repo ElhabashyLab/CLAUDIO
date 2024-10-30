@@ -27,12 +27,9 @@ hide everything, show cartoon, chain F
 show surface, chain F and blastp_1OYP
 color 10, chain F
 show cartoon, chain F
-dist intra_1755_valid , resid 106 and blastp_1OYP and chain A and name cb, resid 151 and blastp_1OYP and chain A and name cb
-dist intra_1755_8_valid , resid 106 and blastp_1OYP and chain B and name cb, resid 151 and blastp_1OYP and chain B and name cb
-dist intra_1755_15_valid , resid 106 and blastp_1OYP and chain C and name cb, resid 151 and blastp_1OYP and chain C and name cb
-dist intra_1755_22_valid , resid 106 and blastp_1OYP and chain D and name cb, resid 151 and blastp_1OYP and chain D and name cb
-dist intra_1755_29_valid , resid 106 and blastp_1OYP and chain E and name cb, resid 151 and blastp_1OYP and chain E and name cb
-dist intra_1755_36_valid , resid 106 and blastp_1OYP and chain F and name cb, resid 151 and blastp_1OYP and chain F and name cb
+dist intra_1755_unknown , resid 106 and blastp_1OYP and chain A and name cb, resid 151 and blastp_1OYP and chain A and name cb
+dist intra_1982_unknown , resid 245 and blastp_1OYP and chain A and name cb, resid 106 and blastp_1OYP and chain A and name cb
+dist intra_2797_unknown , resid 245 and blastp_1OYP and chain A and name cb, resid 146 and blastp_1OYP and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

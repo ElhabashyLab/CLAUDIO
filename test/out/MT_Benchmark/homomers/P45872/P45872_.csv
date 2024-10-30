@@ -1,0 +1,7 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP45872,A,A,78.0,62.0,78,62,,intra
+afP45872,A,A,293.0,279.0,293,279,,intra
+afP45872,A,A,293.0,29.0,293,29,,inter
+afP45872,A,A,29.0,36.0,29,36,,intra
+afP45872,A,A,279.0,29.0,279,29,,intra
+afP45872,A,A,144.0,244.0,144,244,,intra

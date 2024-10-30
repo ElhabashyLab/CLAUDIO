@@ -1,2 +1,2 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
--,-,-,,,209,209,homo4mer,inter
+afO31668,A,A,209.0,209.0,209,209,homo4mer,inter

@@ -27,6 +27,7 @@ dist intra_3183_valid , resid 186 and blastp_6SDK and chain A and name cb, resid
 dist intra_3183_6_valid , resid 186 and blastp_6SDK and chain B and name cb, resid 190 and blastp_6SDK and chain B and name cb
 dist intra_3183_11_valid , resid 186 and blastp_6SDK and chain C and name cb, resid 190 and blastp_6SDK and chain C and name cb
 dist intra_3183_16_valid , resid 186 and blastp_6SDK and chain D and name cb, resid 190 and blastp_6SDK and chain D and name cb
+dist intra_4691_unknown , resid 225 and blastp_6SDK and chain A and name cb, resid 190 and blastp_6SDK and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

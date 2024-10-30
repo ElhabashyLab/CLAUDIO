@@ -40,6 +40,8 @@ dist intra_4252_6_valid , resid 1118 and blastp_1IY9 and chain B and name cb, re
 dist intra_4252_11_valid , resid 2118 and blastp_1IY9 and chain C and name cb, resid 2102 and blastp_1IY9 and chain C and name cb
 dist intra_4252_16_valid , resid 3118 and blastp_1IY9 and chain D and name cb, resid 3102 and blastp_1IY9 and chain D and name cb
 dist intra_2377_overlaps , resid 12 and blastp_1IY9 and chain A and name cb, resid 9 and blastp_1IY9 and chain A and name cb
+dist intra_3574_unknown , resid 276 and blastp_1IY9 and chain A and name cb, resid 208 and blastp_1IY9 and chain A and name cb
+dist intra_5095_unknown , resid 276 and blastp_1IY9 and chain A and name cb, resid 258 and blastp_1IY9 and chain A and name cb
 dist inter_2304_4_valid , resid 269 and blastp_1IY9 and chain A and name cb, resid 3258 and blastp_1IY9 and chain D and name cb
 dist inter_2304_7_valid , resid 1269 and blastp_1IY9 and chain B and name cb, resid 2258 and blastp_1IY9 and chain C and name cb
 dist inter_2304_10_valid , resid 2269 and blastp_1IY9 and chain C and name cb, resid 1258 and blastp_1IY9 and chain B and name cb

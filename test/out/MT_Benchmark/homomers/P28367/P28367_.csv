@@ -1,0 +1,5 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP28367,A,A,103.0,1.0,103,1,,intra
+afP28367,A,A,288.0,183.0,288,183,,inter
+afP28367,A,A,183.0,161.0,183,161,,inter
+afP28367,A,A,293.0,195.0,293,195,,inter

@@ -5,4 +5,4 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 1NG6,A,A,79.0,20.0,79,20,,intra
 1NG6,A,A,28.0,12.0,28,12,,inter
 1NG6,A,A,141.0,62.0,141,62,,intra
-1NG6,A,A,133.0,,133,60,,intra
+afP54464,A,A,133.0,60.0,133,60,,intra

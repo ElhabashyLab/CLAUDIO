@@ -15,24 +15,10 @@ hide everything, show cartoon, chain C
 show surface, chain C and blastp_3BHP
 color 7, chain C
 show cartoon, chain C
-dist intra_4512_valid , resid 32 and blastp_3BHP and chain A and name cb, resid 39 and blastp_3BHP and chain A and name cb
-dist intra_4512_5_valid , resid 32 and blastp_3BHP and chain B and name cb, resid 39 and blastp_3BHP and chain B and name cb
-dist intra_4512_9_valid , resid 32 and blastp_3BHP and chain C and name cb, resid 39 and blastp_3BHP and chain C and name cb
-dist intra_4529_valid , resid 39 and blastp_3BHP and chain A and name cb, resid 46 and blastp_3BHP and chain A and name cb
-dist intra_4529_5_valid , resid 39 and blastp_3BHP and chain B and name cb, resid 46 and blastp_3BHP and chain B and name cb
-dist intra_4529_9_valid , resid 39 and blastp_3BHP and chain C and name cb, resid 46 and blastp_3BHP and chain C and name cb
-dist inter_4512_2_valid , resid 32 and blastp_3BHP and chain A and name cb, resid 39 and blastp_3BHP and chain B and name cb
-dist inter_4512_3_valid , resid 32 and blastp_3BHP and chain A and name cb, resid 39 and blastp_3BHP and chain C and name cb
-dist inter_4512_4_valid , resid 32 and blastp_3BHP and chain B and name cb, resid 39 and blastp_3BHP and chain A and name cb
-dist inter_4512_6_valid , resid 32 and blastp_3BHP and chain B and name cb, resid 39 and blastp_3BHP and chain C and name cb
-dist inter_4512_7_valid , resid 32 and blastp_3BHP and chain C and name cb, resid 39 and blastp_3BHP and chain A and name cb
-dist inter_4512_8_valid , resid 32 and blastp_3BHP and chain C and name cb, resid 39 and blastp_3BHP and chain B and name cb
-dist inter_4529_2_valid , resid 39 and blastp_3BHP and chain A and name cb, resid 46 and blastp_3BHP and chain B and name cb
-dist inter_4529_3_valid , resid 39 and blastp_3BHP and chain A and name cb, resid 46 and blastp_3BHP and chain C and name cb
-dist inter_4529_4_valid , resid 39 and blastp_3BHP and chain B and name cb, resid 46 and blastp_3BHP and chain A and name cb
-dist inter_4529_6_valid , resid 39 and blastp_3BHP and chain B and name cb, resid 46 and blastp_3BHP and chain C and name cb
-dist inter_4529_7_valid , resid 39 and blastp_3BHP and chain C and name cb, resid 46 and blastp_3BHP and chain A and name cb
-dist inter_4529_8_valid , resid 39 and blastp_3BHP and chain C and name cb, resid 46 and blastp_3BHP and chain B and name cb
+dist intra_2945_unknown , resid 45 and blastp_3BHP and chain A and name cb, resid 39 and blastp_3BHP and chain A and name cb
+dist intra_3313_unknown , resid 1 and blastp_3BHP and chain A and name cb, resid 32 and blastp_3BHP and chain A and name cb
+dist intra_4512_unknown , resid 32 and blastp_3BHP and chain A and name cb, resid 39 and blastp_3BHP and chain A and name cb
+dist intra_4529_unknown , resid 39 and blastp_3BHP and chain A and name cb, resid 46 and blastp_3BHP and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

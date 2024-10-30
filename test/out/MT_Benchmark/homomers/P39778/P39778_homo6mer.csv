@@ -1,0 +1,9 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP39778,A,A,74.0,45.0,74,45,homo6mer,inter
+afP39778,A,A,1.0,45.0,1,45,homo6mer,intra
+afP39778,A,A,246.0,1.0,246,1,homo6mer,intra
+afP39778,A,A,246.0,122.0,246,122,homo6mer,intra
+afP39778,A,A,246.0,47.0,246,47,homo6mer,inter
+afP39778,A,A,177.0,141.0,177,141,homo6mer,intra
+afP39778,A,A,74.0,47.0,74,47,homo6mer,intra
+afP39778,A,A,141.0,143.0,141,143,homo6mer,intra

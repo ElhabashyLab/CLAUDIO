@@ -1,5 +1,5 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-3J9W,B3,B3,,,10,16,,inter
-3J9W,B3,B3,,,61,48,,intra
-3J9W,B3,B3,,,61,47,,intra
-3J9W,B3,B3,,,10,48,,intra
+afQ03223,A,A,10.0,16.0,10,16,,inter
+afQ03223,A,A,61.0,48.0,61,48,,intra
+afQ03223,A,A,61.0,47.0,61,47,,intra
+afQ03223,A,A,10.0,48.0,10,48,,intra

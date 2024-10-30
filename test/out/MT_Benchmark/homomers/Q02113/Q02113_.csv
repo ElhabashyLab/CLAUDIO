@@ -1,0 +1,8 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afQ02113,A,A,131.0,83.0,131,83,,intra
+afQ02113,A,A,655.0,666.0,655,666,,intra
+afQ02113,A,A,108.0,161.0,108,161,,intra
+afQ02113,A,A,53.0,378.0,53,378,,intra
+afQ02113,A,A,296.0,83.0,296,83,,intra
+afQ02113,A,A,108.0,153.0,108,153,,inter
+afQ02113,A,A,246.0,217.0,246,217,,intra

@@ -7,5 +7,5 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 2VSQ,A,A,6.0,76.0,6,76,homo2mer,intra
 2VSQ,A,A,1015.0,76.0,1015,76,homo2mer,intra
 2VSQ,A,A,195.0,76.0,195,76,homo2mer,intra
-2VSQ,A,A,,76.0,193,76,homo2mer,intra
+afQ08787,A,A,193.0,76.0,193,76,homo2mer,intra
 2VSQ,A,A,192.0,181.0,192,181,homo2mer,intra

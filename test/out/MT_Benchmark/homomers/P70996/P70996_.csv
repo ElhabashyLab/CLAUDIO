@@ -1,0 +1,5 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP70996,A,A,135.0,125.0,135,125,,intra
+afP70996,A,A,130.0,125.0,130,125,,inter
+afP70996,A,A,115.0,135.0,115,135,,intra
+afP70996,A,A,135.0,123.0,135,123,,intra

@@ -1,0 +1,13 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afO34425,A,A,193.0,105.0,193,105,homo4mer,intra
+afO34425,A,A,193.0,104.0,193,104,homo4mer,intra
+afO34425,A,A,193.0,200.0,193,200,homo4mer,intra
+afO34425,A,A,335.0,115.0,335,115,homo4mer,intra
+afO34425,A,A,71.0,4.0,71,4,homo4mer,intra
+afO34425,A,A,105.0,81.0,105,81,homo4mer,intra
+afO34425,A,A,124.0,193.0,124,193,homo4mer,intra
+afO34425,A,A,116.0,193.0,116,193,homo4mer,inter
+afO34425,A,A,103.0,193.0,103,193,homo4mer,intra
+afO34425,A,A,335.0,116.0,335,116,homo4mer,intra
+afO34425,A,A,116.0,105.0,116,105,homo4mer,intra
+afO34425,A,A,335.0,106.0,335,106,homo4mer,intra

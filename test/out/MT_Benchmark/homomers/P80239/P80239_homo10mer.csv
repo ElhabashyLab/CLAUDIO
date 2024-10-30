@@ -1,0 +1,5 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP80239,A,A,160.0,88.0,160,88,homo10mer,intra
+afP80239,A,A,160.0,153.0,160,153,homo10mer,intra
+afP80239,A,A,186.0,153.0,186,153,homo10mer,intra
+afP80239,A,A,186.0,88.0,186,88,homo10mer,inter

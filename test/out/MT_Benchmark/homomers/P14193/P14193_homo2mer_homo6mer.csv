@@ -5,4 +5,4 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 1DKR,B,B,279.0,22.0,280,23,homo2mer_homo6mer,intra
 1DKR,B,B,7.0,88.0,8,89,homo2mer_homo6mer,intra
 1DKR,A,B,197.0,189.0,198,190,homo2mer_homo6mer,inter
-1DKR,A,A,,,8,24,homo2mer_homo6mer,inter
+afP14193,A,A,8.0,24.0,8,24,homo2mer_homo6mer,inter

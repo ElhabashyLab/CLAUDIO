@@ -11,10 +11,10 @@ hide everything, show cartoon, chain B
 show surface, chain B and blastp_5CL2
 color 5, chain B
 show cartoon, chain B
-dist intra_64_valid , resid 70 and blastp_5CL2 and chain A and name cb, resid 63 and blastp_5CL2 and chain A and name cb
-dist intra_64_4_valid , resid 70 and blastp_5CL2 and chain B and name cb, resid 63 and blastp_5CL2 and chain B and name cb
-dist intra_1144_valid , resid 17 and blastp_5CL2 and chain A and name cb, resid 43 and blastp_5CL2 and chain A and name cb
-dist intra_1144_4_valid , resid 17 and blastp_5CL2 and chain B and name cb, resid 43 and blastp_5CL2 and chain B and name cb
+dist intra_64_unknown , resid 70 and blastp_5CL2 and chain A and name cb, resid 63 and blastp_5CL2 and chain A and name cb
+dist intra_355_unknown , resid 6 and blastp_5CL2 and chain A and name cb, resid 70 and blastp_5CL2 and chain A and name cb
+dist intra_1099_unknown , resid 6 and blastp_5CL2 and chain A and name cb, resid 43 and blastp_5CL2 and chain A and name cb
+dist intra_1144_unknown , resid 17 and blastp_5CL2 and chain A and name cb, resid 43 and blastp_5CL2 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

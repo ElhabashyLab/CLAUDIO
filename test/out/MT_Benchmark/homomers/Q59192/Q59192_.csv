@@ -1,0 +1,11 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afQ59192,A,A,342.0,287.0,342,287,,intra
+afQ59192,A,A,277.0,603.0,277,603,,intra
+afQ59192,A,A,380.0,422.0,380,422,,inter
+afQ59192,A,A,566.0,543.0,566,543,,intra
+afQ59192,A,A,340.0,105.0,340,105,,intra
+afQ59192,A,A,380.0,305.0,380,305,,intra
+afQ59192,A,A,438.0,411.0,438,411,,intra
+afQ59192,A,A,376.0,380.0,376,380,,intra
+afQ59192,A,A,277.0,342.0,277,342,,intra
+afQ59192,A,A,460.0,621.0,460,621,,intra

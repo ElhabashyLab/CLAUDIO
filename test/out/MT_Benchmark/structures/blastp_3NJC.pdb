@@ -21,6 +21,7 @@ EXPDTA    X-RAY DIFFRACTION
 AUTHOR    S.VOROBIEV,M.ABASHIDZE,J.SEETHARAMAN,D.WANG,K.CUNNINGHAM,L.-C.MA,     
 AUTHOR   2 L.OWENS,Y.FANG,R.XIAO,T.B.ACTON,G.T.MONTELIONE,J.F.HUNT,L.TONG,      
 AUTHOR   3 NORTHEAST STRUCTURAL GENOMICS CONSORTIUM (NESG)                      
+REVDAT   4   30-OCT-24 3NJC    1       SEQADV LINK                              
 REVDAT   3   24-JAN-18 3NJC    1       AUTHOR                                   
 REVDAT   2   25-OCT-17 3NJC    1       REMARK                                   
 REVDAT   1   22-SEP-10 3NJC    0                                                
@@ -417,6 +418,8 @@ SHEET    1   C 4 THR B  72  SER B  77  0
 SHEET    2   C 4 GLU B  82  GLU B  88 -1  O  GLU B  88   N  THR B  72           
 SHEET    3   C 4 LYS B 135  TRP B 142 -1  O  LEU B 138   N  PHE B  85           
 SHEET    4   C 4 ALA B 123  LYS B 130 -1  N  TYR B 126   O  THR B 139           
+LINK         C   HIS A   0                 N   MSE A   1     1555   1555  1.33  
+LINK         C   MSE A   1                 N   LYS A   2     1555   1555  1.33  
 LINK         C   GLU A  16                 N   MSE A  17     1555   1555  1.33  
 LINK         C   MSE A  17                 N   ASN A  18     1555   1555  1.32  
 LINK         C   ASP A  32                 N   MSE A  33     1555   1555  1.33  
@@ -439,8 +442,6 @@ LINK         C   MSE B  41                 N   MSE B  42     1555   1555  1.33
 LINK         C   MSE B  42                 N   TYR B  43     1555   1555  1.33  
 LINK         C   LEU B 117                 N   MSE B 118     1555   1555  1.33  
 LINK         C   MSE B 118                 N   ASN B 119     1555   1555  1.33  
-LINK         C   HIS A   0                 N   MSE A   1     1555   1555  1.33  
-LINK         C   MSE A   1                 N   LYS A   2     1555   1555  1.33  
 CRYST1   49.827   52.105  136.868  90.00  90.00  90.00 P 21 21 21    8          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         
 ORIGX2      0.000000  1.000000  0.000000        0.00000                         

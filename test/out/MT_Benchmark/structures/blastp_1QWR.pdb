@@ -1,6 +1,6 @@
 HEADER    ISOMERASE                               03-SEP-03   1QWR              
-TITLE     CRYSTAL STRUCTURE ANALYSIS OF THE MANNOSE 6-PHOSPHATE                 
-TITLE    2 ISOMERASE FROM BACILLUS SUBTILIS                                     
+TITLE     CRYSTAL STRUCTURE ANALYSIS OF THE MANNOSE 6-PHOSPHATE ISOMERASE FROM  
+TITLE    2 BACILLUS SUBTILIS                                                    
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: MANNOSE-6-PHOSPHATE ISOMERASE;                             
 COMPND   3 CHAIN: A, B;                                                         
@@ -13,28 +13,27 @@ SOURCE   3 ORGANISM_TAXID: 1423;
 SOURCE   4 GENE: PMI OR BSU35790;                                               
 SOURCE   5 EXPRESSION_SYSTEM: ESCHERICHIA COLI;                                 
 SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562                                         
-KEYWDS    STRUCTURAL GENOMICS, D-MANNOSE 6-PHOSPHATE, ISOMERASE, PSI,           
-KEYWDS   2 PROTEIN STRUCTURE INITIATIVE, MIDWEST CENTER FOR STRUCTURAL          
-KEYWDS   3 GENOMICS, MCSG                                                       
+KEYWDS    STRUCTURAL GENOMICS, D-MANNOSE 6-PHOSPHATE, ISOMERASE, PSI, PROTEIN   
+KEYWDS   2 STRUCTURE INITIATIVE, MIDWEST CENTER FOR STRUCTURAL GENOMICS, MCSG   
 EXPDTA    X-RAY DIFFRACTION                                                     
-AUTHOR    Y.KIM,L.LEZONDRA,A.JOACHIMIAK,MIDWEST CENTER FOR STRUCTURAL           
-AUTHOR   2 GENOMICS (MCSG)                                                      
+AUTHOR    Y.KIM,L.LEZONDRA,A.JOACHIMIAK,MIDWEST CENTER FOR STRUCTURAL GENOMICS  
+AUTHOR   2 (MCSG)                                                               
+REVDAT   4   30-OCT-24 1QWR    1       REMARK SEQADV LINK                       
 REVDAT   3   24-FEB-09 1QWR    1       VERSN                                    
 REVDAT   2   18-JAN-05 1QWR    1       AUTHOR KEYWDS REMARK                     
 REVDAT   1   02-MAR-04 1QWR    0                                                
 JRNL        AUTH   Y.KIM,L.LEZONDRA,A.JOACHIMIAK                                
-JRNL        TITL   CRYSTAL STRUCTURE ANALYSIS OF THE MANNOSE                    
-JRNL        TITL 2 6-PHOSPHATE ISOMERASE FROM BACILLUS SUBTILIS                 
+JRNL        TITL   CRYSTAL STRUCTURE ANALYSIS OF THE MANNOSE 6-PHOSPHATE        
+JRNL        TITL 2 ISOMERASE FROM BACILLUS SUBTILIS                             
 JRNL        REF    TO BE PUBLISHED                                              
 JRNL        REFN                                                                
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    1.80 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : CNS 1.1                                              
 REMARK   3   AUTHORS     : BRUNGER,ADAMS,CLORE,DELANO,GROS,GROSSE-              
-REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES, PANNU,             
+REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES,PANNU,              
 REMARK   3               : READ,RICE,SIMONSON,WARREN                            
 REMARK   3                                                                      
 REMARK   3  REFINEMENT TARGET : ENGH & HUBER                                    
@@ -70,10 +69,10 @@ REMARK   3   BIN FREE R VALUE TEST SET COUNT     : 874
 REMARK   3   ESTIMATED ERROR OF BIN FREE R VALUE : 0.010                        
 REMARK   3                                                                      
 REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
-REMARK   3   PROTEIN ATOMS            : 5101                                    
+REMARK   3   PROTEIN ATOMS            : 4971                                    
 REMARK   3   NUCLEIC ACID ATOMS       : 0                                       
-REMARK   3   HETEROGEN ATOMS          : 21                                      
-REMARK   3   SOLVENT ATOMS            : 561                                     
+REMARK   3   HETEROGEN ATOMS          : 24                                      
+REMARK   3   SOLVENT ATOMS            : 558                                     
 REMARK   3                                                                      
 REMARK   3  B VALUES.                                                           
 REMARK   3   FROM WILSON PLOT           (A**2) : 17.10                          
@@ -97,9 +96,9 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : 0.18
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.010                           
-REMARK   3   BOND ANGLES            (DEGREES) : 1.60                            
+REMARK   3   BOND ANGLES            (DEGREES) : 1.600                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : 25.00                           
-REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.86                            
+REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.860                           
 REMARK   3                                                                      
 REMARK   3  ISOTROPIC THERMAL MODEL : RESTRAINED                                
 REMARK   3                                                                      
@@ -133,10 +132,10 @@ REMARK   3  TOPOLOGY FILE  5   : NULL
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: NULL                                      
 REMARK   4                                                                      
-REMARK   4 1QWR COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1QWR COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 16-SEP-03.                  
-REMARK 100 THE RCSB ID CODE IS RCSB020161.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000020161.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -156,7 +155,7 @@ REMARK 200  OPTICS                         : MIRRORS
 REMARK 200                                                                      
 REMARK 200  DETECTOR TYPE                  : CCD                                
 REMARK 200  DETECTOR MANUFACTURER          : SBC-3                              
-REMARK 200  INTENSITY-INTEGRATION SOFTWARE : SBCCOLLECT, HKL-2000               
+REMARK 200  INTENSITY-INTEGRATION SOFTWARE : HKL-2000                           
 REMARK 200  DATA SCALING SOFTWARE          : HKL-2000                           
 REMARK 200                                                                      
 REMARK 200  NUMBER OF UNIQUE REFLECTIONS   : 54846                              
@@ -191,8 +190,8 @@ REMARK 280 CRYSTAL
 REMARK 280 SOLVENT CONTENT, VS   (%): 41.38                                     
 REMARK 280 MATTHEWS COEFFICIENT, VM (ANGSTROMS**3/DA): 2.10                     
 REMARK 280                                                                      
-REMARK 280 CRYSTALLIZATION CONDITIONS: LITIUM SULFATE, PEG 3350, BISTRIS,       
-REMARK 280  PH 5.5, VAPOR DIFFUSION, HANGING DROP, TEMPERATURE 298K             
+REMARK 280 CRYSTALLIZATION CONDITIONS: LITIUM SULFATE, PEG 3350, BISTRIS, PH    
+REMARK 280  5.5, VAPOR DIFFUSION, HANGING DROP, TEMPERATURE 298K                
 REMARK 290                                                                      
 REMARK 290 CRYSTALLOGRAPHIC SYMMETRY                                            
 REMARK 290 SYMMETRY OPERATORS FOR SPACE GROUP: P 1 21 1                         
@@ -290,64 +289,58 @@ REMARK 500    GLU A 282     -132.63     50.74
 REMARK 500    ASN B 107      -25.30   -143.29                                   
 REMARK 500    ASN B 256       81.87   -155.77                                   
 REMARK 500    PHE B 267      159.22    176.41                                   
+REMARK 500    PHE B 267      159.22    179.93                                   
 REMARK 500    GLU B 282     -121.32     47.49                                   
+REMARK 500    GLN B 299       31.36    -95.45                                   
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
-REMARK 525                                                                      
-REMARK 525 SOLVENT                                                              
-REMARK 525                                                                      
-REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
-REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
-REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
-REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
-REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
-REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
-REMARK 525 NUMBER; I=INSERTION CODE):                                           
-REMARK 525                                                                      
-REMARK 525  M RES CSSEQI                                                        
-REMARK 525    HOH B 668        DISTANCE =  5.02 ANGSTROMS                       
-REMARK 525    HOH B 805        DISTANCE =  6.12 ANGSTROMS                       
 REMARK 620                                                                      
 REMARK 620 METAL COORDINATION                                                   
-REMARK 620  (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN IDENTIFIER;              
-REMARK 620  SSEQ=SEQUENCE NUMBER; I=INSERTION CODE):                            
+REMARK 620 (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN IDENTIFIER;               
+REMARK 620 SSEQ=SEQUENCE NUMBER; I=INSERTION CODE):                             
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
 REMARK 620                              ZN A 604  ZN                            
 REMARK 620 N RES CSSEQI ATOM                                                    
-REMARK 620 1 GLU A 116   OE2                                                    
-REMARK 620 2 HIS A  98   NE2  92.5                                              
-REMARK 620 3 HOH A 737   O    89.8  74.6                                        
-REMARK 620 4 HIS A 173   NE2  82.1  86.6 159.2                                  
+REMARK 620 1 HIS A  98   NE2                                                    
+REMARK 620 2 GLU A 116   OE2  92.5                                              
+REMARK 620 3 HIS A 173   NE2  86.6  82.1                                        
+REMARK 620 4 HOH A 737   O    74.6  89.8 159.2                                  
 REMARK 620 N                    1     2     3                                   
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
 REMARK 620                              ZN B 605  ZN                            
 REMARK 620 N RES CSSEQI ATOM                                                    
-REMARK 620 1 HOH B 720   O                                                      
-REMARK 620 2 HIS B  98   NE2  81.3                                              
-REMARK 620 3 GLU B 116   OE2  97.0 111.1                                        
+REMARK 620 1 HIS B  98   NE2                                                    
+REMARK 620 2 GLU B 116   OE2 111.1                                              
+REMARK 620 3 HOH B 720   O    81.3  97.0                                        
 REMARK 620 N                    1     2                                         
 REMARK 800                                                                      
 REMARK 800 SITE                                                                 
 REMARK 800 SITE_IDENTIFIER: AC1                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SO4 A 601                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC2                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SO4 B 602                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC3                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SO4 A 603                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC4                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE ZN A 604                  
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC5                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE ZN B 605                  
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC6                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE ACT A 607                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC7                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE FMT A 606                 
@@ -431,12 +424,12 @@ HET    MSE  B 144       8
 HET    MSE  B 261       8                                                       
 HET    MSE  B 300       8                                                       
 HET    SO4  A 601       5                                                       
-HET    SO4  B 602       5                                                       
 HET    SO4  A 603       5                                                       
 HET     ZN  A 604       1                                                       
-HET     ZN  B 605       1                                                       
 HET    ACT  A 607       4                                                       
 HET    FMT  A 606       3                                                       
+HET    SO4  B 602       5                                                       
+HET     ZN  B 605       1                                                       
 HETNAM     MSE SELENOMETHIONINE                                                 
 HETNAM     SO4 SULFATE ION                                                      
 HETNAM      ZN ZINC ION                                                         
@@ -444,9 +437,9 @@ HETNAM     ACT ACETATE ION
 HETNAM     FMT FORMIC ACID                                                      
 FORMUL   1  MSE    6(C5 H11 N O2 SE)                                            
 FORMUL   3  SO4    3(O4 S 2-)                                                   
-FORMUL   6   ZN    2(ZN 2+)                                                     
-FORMUL   8  ACT    C2 H3 O2 1-                                                  
-FORMUL   9  FMT    C H2 O2                                                      
+FORMUL   5   ZN    2(ZN 2+)                                                     
+FORMUL   6  ACT    C2 H3 O2 1-                                                  
+FORMUL   7  FMT    C H2 O2                                                      
 FORMUL  10  HOH   *558(H2 O)                                                    
 HELIX    1   1 THR A   20  GLY A   27  1                                   8    
 HELIX    2   2 THR A   60  HIS A   68  1                                   9    
@@ -516,10 +509,6 @@ LINK         C   GLU A 260                 N   MSE A 261     1555   1555  1.33
 LINK         C   MSE A 261                 N   ALA A 262     1555   1555  1.33  
 LINK         C   GLN A 299                 N   MSE A 300     1555   1555  1.33  
 LINK         C   MSE A 300                 N   PRO A 301     1555   1555  1.35  
-LINK        ZN    ZN A 604                 OE2 GLU A 116     1555   1555  2.51  
-LINK        ZN    ZN A 604                 NE2 HIS A  98     1555   1555  2.51  
-LINK        ZN    ZN A 604                 O   HOH A 737     1555   1555  2.60  
-LINK        ZN    ZN A 604                 NE2 HIS A 173     1555   1555  2.57  
 LINK         C   THR B 143                 N   MSE B 144     1555   1555  1.33  
 LINK         C   MSE B 144                 N   ILE B 145     1555   1555  1.33  
 LINK         C  BGLU B 260                 N   MSE B 261     1555   1555  1.33  
@@ -527,9 +516,13 @@ LINK         C  AGLU B 260                 N   MSE B 261     1555   1555  1.33
 LINK         C   MSE B 261                 N   ALA B 262     1555   1555  1.33  
 LINK         C   GLN B 299                 N   MSE B 300     1555   1555  1.33  
 LINK         C   MSE B 300                 N   PRO B 301     1555   1555  1.34  
+LINK         NE2 HIS A  98                ZN    ZN A 604     1555   1555  2.51  
+LINK         OE2 GLU A 116                ZN    ZN A 604     1555   1555  2.51  
+LINK         NE2 HIS A 173                ZN    ZN A 604     1555   1555  2.57  
+LINK        ZN    ZN A 604                 O   HOH A 737     1555   1555  2.60  
+LINK         NE2 HIS B  98                ZN    ZN B 605     1555   1555  2.12  
+LINK         OE2 GLU B 116                ZN    ZN B 605     1555   1555  2.31  
 LINK        ZN    ZN B 605                 O   HOH B 720     1555   1555  2.44  
-LINK        ZN    ZN B 605                 NE2 HIS B  98     1555   1555  2.12  
-LINK        ZN    ZN B 605                 OE2 GLU B 116     1555   1555  2.31  
 CISPEP   1 VAL A  220    PRO A  221          0         0.21                     
 CISPEP   2 VAL B  220    PRO B  221          0        -0.06                     
 SITE     1 AC1  8 LYS A  15  TRP A  17  THR A  93  SER A  94                    
@@ -6329,5 +6322,5 @@ CONECT 5126 5122
 CONECT 5127 3348 3489 5533                                                      
 CONECT 5257 5114                                                                
 CONECT 5533 5127                                                                
-MASTER      327    0   13   14   48    0   13    6 5683    2   92   50          
+MASTER      320    0   13   14   48    0   13    6 5553    2   92   50          
 END                                                                             

@@ -20,6 +20,7 @@ SOURCE   9 EXPRESSION_SYSTEM_PLASMID: PET-15B
 KEYWDS    ISOMERASE, METHIONINE SALVAGE PATHWAY                                 
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    H.TAMURA,T.INOUE,Y.KAI,H.MATSUMURA                                    
+REVDAT   5   30-OCT-24 2YRF    1       REMARK                                   
 REVDAT   4   25-OCT-23 2YRF    1       REMARK SEQADV                            
 REVDAT   3   13-JUL-11 2YRF    1       VERSN                                    
 REVDAT   2   24-FEB-09 2YRF    1       VERSN                                    

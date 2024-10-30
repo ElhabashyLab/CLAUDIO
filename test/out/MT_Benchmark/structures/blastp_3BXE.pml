@@ -3,6 +3,15 @@ hide all
 bg_color white
 set transparency, 0.8
 zoom center, 50;
+hide everything, show cartoon, chain A
+show surface, chain A and blastp_3BXE
+color 3, chain A
+show cartoon, chain A
+hide everything, show cartoon, chain B
+show surface, chain B and blastp_3BXE
+color 5, chain B
+show cartoon, chain B
+dist intra_1891_unknown , resid 1 and blastp_3BXE and chain A and name cb, resid 99 and blastp_3BXE and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

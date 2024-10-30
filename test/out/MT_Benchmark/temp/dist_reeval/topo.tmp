@@ -10,7 +10,8 @@ experiment DSS
   linktype LYS all all CB MET all all N 35
   linktype MET all all N MET all all N 35
 
-  observed LYS A 86 LYS A 115
+  observed LYS A 443 LYS A 399
+  observed LYS A 395 LYS A 431
 
 end experiment DSS
 search_limit relative 2  # Search for topological distances of up to search_range*dmaxlink

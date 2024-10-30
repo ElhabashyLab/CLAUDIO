@@ -1,9 +1,9 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-3J3V,F,F,,,19,168,,intra
-3J3V,F,F,,,179,19,,intra
-3J3V,F,F,,,168,11,,inter
-3J3V,F,F,,,33,81,,intra
-3J3V,F,F,,,120,179,,intra
-3J3V,F,F,,,133,120,,intra
-3J3V,F,F,,,120,168,,intra
-3J3V,F,F,,,70,88,,intra
+afP12877,A,A,19.0,168.0,19,168,,intra
+afP12877,A,A,179.0,19.0,179,19,,intra
+afP12877,A,A,168.0,11.0,168,11,,inter
+afP12877,A,A,33.0,81.0,33,81,,intra
+afP12877,A,A,120.0,179.0,120,179,,intra
+afP12877,A,A,133.0,120.0,133,120,,intra
+afP12877,A,A,120.0,168.0,120,168,,intra
+afP12877,A,A,70.0,88.0,70,88,,intra

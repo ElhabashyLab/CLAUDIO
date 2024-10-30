@@ -1,0 +1,5 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP30950,A,A,218.0,290.0,218,290,homo8mer,inter
+afP30950,A,A,15.0,292.0,15,292,homo8mer,intra
+afP30950,A,A,2.0,181.0,2,181,homo8mer,intra
+afP30950,A,A,218.0,282.0,218,282,homo8mer,intra

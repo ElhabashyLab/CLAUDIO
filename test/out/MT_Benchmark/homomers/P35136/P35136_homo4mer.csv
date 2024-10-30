@@ -1,0 +1,9 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP35136,A,A,365.0,390.0,365,390,homo4mer,intra
+afP35136,A,A,316.0,323.0,316,323,homo4mer,intra
+afP35136,A,A,508.0,217.0,508,217,homo4mer,intra
+afP35136,A,A,51.0,207.0,51,207,homo4mer,intra
+afP35136,A,A,,323.0,302,323,homo4mer,intra
+afP35136,A,A,373.0,64.0,373,64,homo4mer,intra
+afP35136,A,A,178.0,390.0,178,390,homo4mer,inter
+afP35136,A,A,178.0,376.0,178,376,homo4mer,intra

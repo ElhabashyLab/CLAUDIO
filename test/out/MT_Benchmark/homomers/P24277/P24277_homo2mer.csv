@@ -1,0 +1,7 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afP24277,A,A,23.0,96.0,23,96,homo2mer,intra
+afP24277,A,A,96.0,1.0,96,1,homo2mer,intra
+afP24277,A,A,23.0,190.0,23,190,homo2mer,inter
+afP24277,A,A,98.0,1.0,98,1,homo2mer,intra
+afP24277,A,A,23.0,90.0,23,90,homo2mer,intra
+afP24277,A,A,23.0,1.0,23,1,homo2mer,intra

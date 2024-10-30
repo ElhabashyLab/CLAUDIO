@@ -1,0 +1,6 @@
+pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
+afQ06753,A,A,130.0,11.0,130,11,homo2mer,inter
+afQ06753,A,A,19.0,47.0,19,47,homo2mer,intra
+afQ06753,A,A,142.0,11.0,142,11,homo2mer,intra
+afQ06753,A,A,47.0,12.0,47,12,homo2mer,intra
+afQ06753,A,A,142.0,19.0,142,19,homo2mer,intra

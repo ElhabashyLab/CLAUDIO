@@ -2,4 +2,4 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 6PPF,L,L,127.0,110.0,127,110,,inter
 6PPF,L,L,72.0,127.0,72,127,,intra
 6PPF,L,L,29.0,36.0,29,36,,intra
-6PPF,L,L,,36.0,22,36,,intra
+afP19946,A,A,,36.0,22,36,,intra
