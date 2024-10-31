@@ -1,6 +1,6 @@
-HEADER                                            01-JUL-21                     
-TITLE     ALPHAFOLD V2.0 PREDICTION FOR CREATINE KINASE S-TYPE, MITOCHONDRIAL   
-TITLE    2 (Q6P8J7)                                                             
+HEADER                                            01-JUN-22                     
+TITLE     ALPHAFOLD MONOMER V2.0 PREDICTION FOR CREATINE KINASE S-TYPE,         
+TITLE    2 MITOCHONDRIAL (Q6P8J7)                                               
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: CREATINE KINASE S-TYPE, MITOCHONDRIAL;                     
 COMPND   3 CHAIN: A                                                             
@@ -20,7 +20,10 @@ REMARK   1  AUTH 8 MARTIN STEINEGGER, MICHALINA PACHOLSKA, TAMAS BERGHAMMER,
 REMARK   1  AUTH 9 DAVID SILVER, ORIOL VINYALS, ANDREW W SENIOR,                
 REMARK   1  AUTH10 KORAY KAVUKCUOGLU, PUSHMEET KOHLI, DEMIS HASSABIS            
 REMARK   1  TITL   HIGHLY ACCURATE PROTEIN STRUCTURE PREDICTION WITH ALPHAFOLD  
-REMARK   1  REF    NATURE                                     2021              
+REMARK   1  REF    NATURE                        V. 596   583 2021              
+REMARK   1  REFN                   ISSN 0028-0836                               
+REMARK   1  PMID   34265844                                                     
+REMARK   1  DOI    10.1038/s41586-021-03819-2                                   
 REMARK   1                                                                      
 REMARK   1 DISCLAIMERS                                                          
 REMARK   1 ALPHAFOLD DATA, COPYRIGHT (2021) DEEPMIND TECHNOLOGIES LIMITED. THE  
@@ -66,14 +69,14 @@ SEQRES  30 A  419  ARG SER GLU VAL GLU LEU VAL GLN ILE VAL ILE ASP GLY
 SEQRES  31 A  419  VAL ASN TYR LEU VAL ASP CYS GLU LYS LYS LEU GLU ARG          
 SEQRES  32 A  419  GLY GLN ASP ILE LYS VAL PRO PRO PRO LEU PRO GLN PHE          
 SEQRES  33 A  419  GLY ARG LYS                                                  
-CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1                      
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         
 ORIGX2      0.000000  1.000000  0.000000        0.00000                         
 ORIGX3      0.000000  0.000000  1.000000        0.00000                         
 SCALE1      1.000000  0.000000  0.000000        0.00000                         
 SCALE2      0.000000  1.000000  0.000000        0.00000                         
 SCALE3      0.000000  0.000000  1.000000        0.00000                         
-MODEL        0                                                                  
+MODEL        1                                                                  
 ATOM      1  N   MET A   1     -28.043  30.039 -44.635  1.00 39.64           N  
 ATOM      2  CA  MET A   1     -27.522  31.141 -43.798  1.00 39.64           C  
 ATOM      3  C   MET A   1     -26.156  30.701 -43.290  1.00 39.64           C  

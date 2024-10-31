@@ -10,7 +10,7 @@ show cartoon, chain A
 dist intra_356_unknown , resid 377 and blastp_afP37871 and chain A and name cb, resid 393 and blastp_afP37871 and chain A and name cb
 dist intra_2225_unknown , resid 148 and blastp_afP37871 and chain A and name cb, resid 161 and blastp_afP37871 and chain A and name cb
 dist intra_3061_unknown , resid 1011 and blastp_afP37871 and chain A and name cb, resid 1037 and blastp_afP37871 and chain A and name cb
-dist intra_4708_unknown , resid 616 and blastp_afP37871 and chain A and name cb, resid 565 and blastp_afP37871 and chain A and name cb
+dist intra_5088_unknown , resid 1170 and blastp_afP37871 and chain A and name cb, resid 1182 and blastp_afP37871 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

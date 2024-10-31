@@ -133,8 +133,10 @@ dist intra_5838_29_valid , resid 412 and blastp_3K8Z and chain E and name cb, re
 dist intra_5838_36_valid , resid 412 and blastp_3K8Z and chain F and name cb, resid 91 and blastp_3K8Z and chain F and name cb
 dist intra_241_out_range , resid 52 and blastp_3K8Z and chain A and name cb, resid 185 and blastp_3K8Z and chain A and name cb
 dist intra_702_out_range , resid 91 and blastp_3K8Z and chain A and name cb, resid 185 and blastp_3K8Z and chain A and name cb
+dist inter_105_3_valid , resid 52 and blastp_3K8Z and chain A and name cb, resid 79 and blastp_3K8Z and chain C and name cb
 dist inter_105_11_valid , resid 52 and blastp_3K8Z and chain B and name cb, resid 79 and blastp_3K8Z and chain E and name cb
 dist inter_105_13_valid , resid 52 and blastp_3K8Z and chain C and name cb, resid 79 and blastp_3K8Z and chain A and name cb
+dist inter_105_24_valid , resid 52 and blastp_3K8Z and chain D and name cb, resid 79 and blastp_3K8Z and chain F and name cb
 dist inter_105_26_valid , resid 52 and blastp_3K8Z and chain E and name cb, resid 79 and blastp_3K8Z and chain B and name cb
 dist inter_105_34_valid , resid 52 and blastp_3K8Z and chain F and name cb, resid 79 and blastp_3K8Z and chain D and name cb
 dist inter_241_2_valid , resid 52 and blastp_3K8Z and chain A and name cb, resid 185 and blastp_3K8Z and chain B and name cb
@@ -149,8 +151,8 @@ dist inter_258_13_valid , resid 52 and blastp_3K8Z and chain C and name cb, resi
 dist inter_258_24_valid , resid 52 and blastp_3K8Z and chain D and name cb, resid 91 and blastp_3K8Z and chain F and name cb
 dist inter_258_26_valid , resid 52 and blastp_3K8Z and chain E and name cb, resid 91 and blastp_3K8Z and chain B and name cb
 dist inter_258_34_valid , resid 52 and blastp_3K8Z and chain F and name cb, resid 91 and blastp_3K8Z and chain D and name cb
+dist inter_701_5_valid , resid 185 and blastp_3K8Z and chain A and name cb, resid 201 and blastp_3K8Z and chain E and name cb
 dist inter_701_16_valid , resid 185 and blastp_3K8Z and chain C and name cb, resid 201 and blastp_3K8Z and chain D and name cb
-dist inter_701_31_valid , resid 185 and blastp_3K8Z and chain F and name cb, resid 201 and blastp_3K8Z and chain A and name cb
 dist inter_1390_10_valid , resid 412 and blastp_3K8Z and chain B and name cb, resid 185 and blastp_3K8Z and chain D and name cb
 dist inter_1390_14_valid , resid 412 and blastp_3K8Z and chain C and name cb, resid 185 and blastp_3K8Z and chain B and name cb
 dist inter_1390_25_valid , resid 412 and blastp_3K8Z and chain E and name cb, resid 185 and blastp_3K8Z and chain A and name cb
@@ -158,6 +160,7 @@ dist inter_1390_35_valid , resid 412 and blastp_3K8Z and chain F and name cb, re
 dist inter_1616_2_valid , resid 63 and blastp_3K8Z and chain A and name cb, resid 185 and blastp_3K8Z and chain B and name cb
 dist inter_1616_7_valid , resid 63 and blastp_3K8Z and chain B and name cb, resid 185 and blastp_3K8Z and chain A and name cb
 dist inter_1616_18_valid , resid 63 and blastp_3K8Z and chain C and name cb, resid 185 and blastp_3K8Z and chain F and name cb
+dist inter_1616_23_valid , resid 63 and blastp_3K8Z and chain D and name cb, resid 185 and blastp_3K8Z and chain E and name cb
 dist inter_1616_28_valid , resid 63 and blastp_3K8Z and chain E and name cb, resid 185 and blastp_3K8Z and chain D and name cb
 dist inter_1616_33_valid , resid 63 and blastp_3K8Z and chain F and name cb, resid 185 and blastp_3K8Z and chain C and name cb
 dist inter_1920_3_valid , resid 52 and blastp_3K8Z and chain A and name cb, resid 43 and blastp_3K8Z and chain C and name cb

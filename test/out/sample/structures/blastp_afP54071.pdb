@@ -1,6 +1,6 @@
-HEADER                                            01-JUL-21                     
-TITLE     ALPHAFOLD V2.0 PREDICTION FOR ISOCITRATE DEHYDROGENASE [NADP],        
-TITLE    2 MITOCHONDRIAL (P54071)                                               
+HEADER                                            01-JUN-22                     
+TITLE     ALPHAFOLD MONOMER V2.0 PREDICTION FOR ISOCITRATE DEHYDROGENASE        
+TITLE    2 [NADP], MITOCHONDRIAL (P54071)                                       
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: ISOCITRATE DEHYDROGENASE [NADP], MITOCHONDRIAL;            
 COMPND   3 CHAIN: A                                                             
@@ -20,7 +20,10 @@ REMARK   1  AUTH 8 MARTIN STEINEGGER, MICHALINA PACHOLSKA, TAMAS BERGHAMMER,
 REMARK   1  AUTH 9 DAVID SILVER, ORIOL VINYALS, ANDREW W SENIOR,                
 REMARK   1  AUTH10 KORAY KAVUKCUOGLU, PUSHMEET KOHLI, DEMIS HASSABIS            
 REMARK   1  TITL   HIGHLY ACCURATE PROTEIN STRUCTURE PREDICTION WITH ALPHAFOLD  
-REMARK   1  REF    NATURE                                     2021              
+REMARK   1  REF    NATURE                        V. 596   583 2021              
+REMARK   1  REFN                   ISSN 0028-0836                               
+REMARK   1  PMID   34265844                                                     
+REMARK   1  DOI    10.1038/s41586-021-03819-2                                   
 REMARK   1                                                                      
 REMARK   1 DISCLAIMERS                                                          
 REMARK   1 ALPHAFOLD DATA, COPYRIGHT (2021) DEEPMIND TECHNOLOGIES LIMITED. THE  
@@ -68,14 +71,14 @@ SEQRES  32 A  452  GLN THR VAL GLU SER GLY ALA MET THR LYS ASP LEU ALA
 SEQRES  33 A  452  GLY CYS ILE HIS GLY LEU SER ASN VAL LYS LEU ASN GLU          
 SEQRES  34 A  452  HIS PHE LEU ASN THR THR ASP PHE LEU ASP THR ILE LYS          
 SEQRES  35 A  452  SER ASN LEU ASP ARG ALA LEU GLY LYS GLN                      
-CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1                      
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         
 ORIGX2      0.000000  1.000000  0.000000        0.00000                         
 ORIGX3      0.000000  0.000000  1.000000        0.00000                         
 SCALE1      1.000000  0.000000  0.000000        0.00000                         
 SCALE2      0.000000  1.000000  0.000000        0.00000                         
 SCALE3      0.000000  0.000000  1.000000        0.00000                         
-MODEL        0                                                                  
+MODEL        1                                                                  
 ATOM      1  N   MET A   1      50.702  -6.278 -31.169  1.00 39.35           N  
 ATOM      2  CA  MET A   1      51.921  -6.796 -30.515  1.00 39.35           C  
 ATOM      3  C   MET A   1      51.496  -7.804 -29.455  1.00 39.35           C  

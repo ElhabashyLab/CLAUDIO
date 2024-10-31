@@ -18,10 +18,10 @@ dist intra_3272_valid , resid 134 and blastp_afP21465 and chain A and name cb, r
 dist intra_3614_valid , resid 53 and blastp_afP21465 and chain A and name cb, resid 4 and blastp_afP21465 and chain A and name cb
 dist intra_3825_valid , resid 149 and blastp_afP21465 and chain A and name cb, resid 134 and blastp_afP21465 and chain A and name cb
 dist intra_3897_valid , resid 88 and blastp_afP21465 and chain A and name cb, resid 37 and blastp_afP21465 and chain A and name cb
-dist intra_3941_valid , resid 53 and blastp_afP21465 and chain A and name cb, resid 134 and blastp_afP21465 and chain A and name cb
-dist intra_4277_valid , resid 4 and blastp_afP21465 and chain A and name cb, resid 71 and blastp_afP21465 and chain A and name cb
 dist intra_4525_valid , resid 106 and blastp_afP21465 and chain A and name cb, resid 71 and blastp_afP21465 and chain A and name cb
 dist intra_5544_valid , resid 21 and blastp_afP21465 and chain A and name cb, resid 37 and blastp_afP21465 and chain A and name cb
+dist intra_3941_out_range , resid 53 and blastp_afP21465 and chain A and name cb, resid 134 and blastp_afP21465 and chain A and name cb
+dist intra_4277_out_range , resid 4 and blastp_afP21465 and chain A and name cb, resid 71 and blastp_afP21465 and chain A and name cb
 dist intra_2977_same , resid 149 and blastp_afP21465 and chain A and name cb, resid 149 and blastp_afP21465 and chain A and name cb
 dist intra_713_unknown , resid 106 and blastp_afP21465 and chain A and name cb, resid 210 and blastp_afP21465 and chain A and name cb
 dist intra_1134_unknown , resid 210 and blastp_afP21465 and chain A and name cb, resid 71 and blastp_afP21465 and chain A and name cb

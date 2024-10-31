@@ -9,6 +9,7 @@ color 3, chain A
 show cartoon, chain A
 dist intra_3458_valid , resid 245 and blastp_afP37945 and chain A and name cb, resid 278 and blastp_afP37945 and chain A and name cb
 dist intra_2389_unknown , resid 517 and blastp_afP37945 and chain A and name cb, resid 509 and blastp_afP37945 and chain A and name cb
+dist intra_5257_unknown , resid 237 and blastp_afP37945 and chain A and name cb, resid 278 and blastp_afP37945 and chain A and name cb
 dist intra_5388_unknown , resid 237 and blastp_afP37945 and chain A and name cb, resid 245 and blastp_afP37945 and chain A and name cb
 dist intra_5985_unknown , resid 509 and blastp_afP37945 and chain A and name cb, resid 346 and blastp_afP37945 and chain A and name cb
 dist intra_6038_unknown , resid 224 and blastp_afP37945 and chain A and name cb, resid 233 and blastp_afP37945 and chain A and name cb

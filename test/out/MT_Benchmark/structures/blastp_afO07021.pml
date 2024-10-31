@@ -14,7 +14,7 @@ dist intra_3259_valid , resid 393 and blastp_afO07021 and chain A and name cb, r
 dist intra_4545_valid , resid 440 and blastp_afO07021 and chain A and name cb, resid 423 and blastp_afO07021 and chain A and name cb
 dist intra_5032_valid , resid 437 and blastp_afO07021 and chain A and name cb, resid 459 and blastp_afO07021 and chain A and name cb
 dist intra_5718_valid , resid 446 and blastp_afO07021 and chain A and name cb, resid 437 and blastp_afO07021 and chain A and name cb
-dist intra_6041_out_range , resid 402 and blastp_afO07021 and chain A and name cb, resid 440 and blastp_afO07021 and chain A and name cb
+dist intra_6041_valid , resid 402 and blastp_afO07021 and chain A and name cb, resid 440 and blastp_afO07021 and chain A and name cb
 dist intra_2586_unknown , resid 385 and blastp_afO07021 and chain A and name cb, resid 388 and blastp_afO07021 and chain A and name cb
 show dashes
 set dash_gap, 0.1

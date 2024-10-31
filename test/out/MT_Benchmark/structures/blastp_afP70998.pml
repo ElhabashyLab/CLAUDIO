@@ -7,8 +7,8 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP70998
 color 3, chain A
 show cartoon, chain A
-dist intra_3574_9_valid , resid 276 and blastp_afP70998 and chain A and name cb, resid 208 and blastp_afP70998 and chain A and name cb
-dist intra_5095_7_valid , resid 276 and blastp_afP70998 and chain A and name cb, resid 258 and blastp_afP70998 and chain A and name cb
+dist intra_3574_8_valid , resid 276 and blastp_afP70998 and chain A and name cb, resid 208 and blastp_afP70998 and chain A and name cb
+dist intra_5095_5_valid , resid 276 and blastp_afP70998 and chain A and name cb, resid 258 and blastp_afP70998 and chain A and name cb
 dist intra_2210_overlaps , resid 10 and blastp_afP70998 and chain A and name cb, resid 9 and blastp_afP70998 and chain A and name cb
 show dashes
 set dash_gap, 0.1

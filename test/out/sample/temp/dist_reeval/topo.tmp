@@ -1,4 +1,4 @@
-structure /mnt/c/Users/ar/Documents/PhD/CLAUDIO/Dev/test/out/sample/temp/dist_reeval/tmp.pdb
+structure C:/Dokumente/CLAUDIO/test/out/sample/temp/dist_reeval/tmp.pdb
 readatoms backplusCB # Which atoms to consider (all/heavy(no-H)/backbone/backplusCB)
 printlinks no
 compute observed

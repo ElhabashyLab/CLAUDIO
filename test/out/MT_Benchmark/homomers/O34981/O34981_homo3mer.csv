@@ -1,6 +1,6 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
 afO34981,A,A,18.0,230.0,18,230,homo3mer,inter
 afO34981,A,A,226.0,222.0,226,222,homo3mer,intra
-afO34981,A,A,230.0,215.0,230,215,homo3mer,inter
+afO34981,A,A,230.0,215.0,230,215,homo3mer,intra
 afO34981,A,A,226.0,215.0,226,215,homo3mer,intra
 afO34981,A,A,91.0,3.0,91,3,homo3mer,intra

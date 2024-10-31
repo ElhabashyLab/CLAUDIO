@@ -17,7 +17,7 @@ Write output
         Write list of unique proteins
         Write SQCS-file (a CSV-file) for further steps in CLAUDIO
 
-End script (Elapsed time: 451.39s)
+End script (Elapsed time: 211.57s)
 ===================================
 Start Homo-signal analysis
 Read input
@@ -25,7 +25,7 @@ Analyse homo signals
 Create homo-signal histograms
 Write output
 
-End script (Elapsed time: 8.64s)
+End script (Elapsed time: 9.14s)
 ===================================
 Start structure search
 Read input
@@ -35,7 +35,7 @@ Download structures from RCSB database, or AlphaFold database if not found there
         [100.0%]
 Creating datapoints for multiple chain options: 4423 -> 13738 datapoints (number of new datapoints: 9315)
 
-End script (Elapsed time: 1694.5s)
+End script (Elapsed time: 552.92s)
 ===================================
 Start intra interaction check
 Read peptide information from uniprot search results
@@ -46,7 +46,7 @@ Calculate presumed interaction site distances and evaluate interaction likelihoo
 Create distance histograms
 Overwrite outputfile
 
-End script (Elapsed time: 5844.52s)
+End script (Elapsed time: 5904.96s)
 ===================================
 Start New Inter Interaction Analysis
 Read inputs
@@ -57,8 +57,8 @@ Write pymol scripts
 Create score histogram
 Write full outputs
 
-End script (Elapsed time: 1306.54s)
+End script (Elapsed time: 1211.02s)
 ===================================
 
-End full CLAUDIO pipeline execution (Total elapsed time: 9305.83s)
+End full CLAUDIO pipeline execution (Total elapsed time: 7889.84s)
 ===================================

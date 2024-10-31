@@ -7,7 +7,7 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP19669
 color 3, chain A
 show cartoon, chain A
-dist intra_329_5_valid , resid 195 and blastp_afP19669 and chain A and name cb, resid 212 and blastp_afP19669 and chain A and name cb
+dist intra_329_valid , resid 195 and blastp_afP19669 and chain A and name cb, resid 212 and blastp_afP19669 and chain A and name cb
 dist intra_259_out_range , resid 212 and blastp_afP19669 and chain A and name cb, resid 188 and blastp_afP19669 and chain A and name cb
 dist intra_1212_out_range , resid 212 and blastp_afP19669 and chain A and name cb, resid 34 and blastp_afP19669 and chain A and name cb
 dist intra_5292_unknown , resid 195 and blastp_afP19669 and chain A and name cb, resid 85 and blastp_afP19669 and chain A and name cb

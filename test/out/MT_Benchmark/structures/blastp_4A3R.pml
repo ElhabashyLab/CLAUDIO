@@ -53,7 +53,6 @@ dist intra_3238_11_valid , resid 322 and blastp_4A3R and chain C and name cb, re
 dist intra_3238_16_valid , resid 322 and blastp_4A3R and chain D and name cb, resid 323 and blastp_4A3R and chain D and name cb
 dist intra_1147_out_range , resid 56 and blastp_4A3R and chain A and name cb, resid 190 and blastp_4A3R and chain A and name cb
 dist intra_24_unknown , resid 430 and blastp_4A3R and chain A and name cb, resid 308 and blastp_4A3R and chain A and name cb
-dist intra_133_unknown , resid 430 and blastp_4A3R and chain A and name cb, resid 238 and blastp_4A3R and chain A and name cb
 dist intra_360_unknown , resid 430 and blastp_4A3R and chain A and name cb, resid 323 and blastp_4A3R and chain A and name cb
 dist intra_625_unknown , resid 430 and blastp_4A3R and chain A and name cb, resid 322 and blastp_4A3R and chain A and name cb
 dist intra_767_unknown , resid 430 and blastp_4A3R and chain A and name cb, resid 329 and blastp_4A3R and chain A and name cb

@@ -1,6 +1,6 @@
-HEADER                                            01-JUL-21                     
-TITLE     ALPHAFOLD V2.0 PREDICTION FOR NADH DEHYDROGENASE [UBIQUINONE] 1 ALPHA 
-TITLE    2 SUBCOMPLEX SUBUNIT 2 (Q9CQ75)                                        
+HEADER                                            01-JUN-22                     
+TITLE     ALPHAFOLD MONOMER V2.0 PREDICTION FOR NADH DEHYDROGENASE [UBIQUINONE] 
+TITLE    2 1 ALPHA SUBCOMPLEX SUBUNIT 2 (Q9CQ75)                                
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: NADH DEHYDROGENASE [UBIQUINONE] 1 ALPHA SUBCOMPLEX SUBUNIT 
 COMPND   3 2;                                                                   
@@ -21,7 +21,10 @@ REMARK   1  AUTH 8 MARTIN STEINEGGER, MICHALINA PACHOLSKA, TAMAS BERGHAMMER,
 REMARK   1  AUTH 9 DAVID SILVER, ORIOL VINYALS, ANDREW W SENIOR,                
 REMARK   1  AUTH10 KORAY KAVUKCUOGLU, PUSHMEET KOHLI, DEMIS HASSABIS            
 REMARK   1  TITL   HIGHLY ACCURATE PROTEIN STRUCTURE PREDICTION WITH ALPHAFOLD  
-REMARK   1  REF    NATURE                                     2021              
+REMARK   1  REF    NATURE                        V. 596   583 2021              
+REMARK   1  REFN                   ISSN 0028-0836                               
+REMARK   1  PMID   34265844                                                     
+REMARK   1  DOI    10.1038/s41586-021-03819-2                                   
 REMARK   1                                                                      
 REMARK   1 DISCLAIMERS                                                          
 REMARK   1 ALPHAFOLD DATA, COPYRIGHT (2021) DEEPMIND TECHNOLOGIES LIMITED. THE  
@@ -42,14 +45,14 @@ SEQRES   5 A   99  ILE LEU ILE ARG GLU CYS SER GLU VAL GLN PRO LYS LEU
 SEQRES   6 A   99  TRP ALA ARG TYR ALA PHE GLY GLN GLU LYS THR VAL SER          
 SEQRES   7 A   99  LEU ASN ASN LEU SER ALA ASP GLU VAL THR ARG ALA MET          
 SEQRES   8 A   99  GLN ASN VAL LEU SER GLY LYS ALA                              
-CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1                      
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         
 ORIGX2      0.000000  1.000000  0.000000        0.00000                         
 ORIGX3      0.000000  0.000000  1.000000        0.00000                         
 SCALE1      1.000000  0.000000  0.000000        0.00000                         
 SCALE2      0.000000  1.000000  0.000000        0.00000                         
 SCALE3      0.000000  0.000000  1.000000        0.00000                         
-MODEL        0                                                                  
+MODEL        1                                                                  
 ATOM      1  N   MET A   1     -43.183  -5.191   2.637  1.00 42.69           N  
 ATOM      2  CA  MET A   1     -42.207  -4.380   1.875  1.00 42.69           C  
 ATOM      3  C   MET A   1     -40.817  -4.744   2.384  1.00 42.69           C  

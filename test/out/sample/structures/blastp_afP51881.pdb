@@ -1,5 +1,5 @@
-HEADER                                            01-JUL-21                     
-TITLE     ALPHAFOLD V2.0 PREDICTION FOR ADP/ATP TRANSLOCASE 2 (P51881)          
+HEADER                                            01-JUN-22                     
+TITLE     ALPHAFOLD MONOMER V2.0 PREDICTION FOR ADP/ATP TRANSLOCASE 2 (P51881)  
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: ADP/ATP TRANSLOCASE 2;                                     
 COMPND   3 CHAIN: A                                                             
@@ -19,7 +19,10 @@ REMARK   1  AUTH 8 MARTIN STEINEGGER, MICHALINA PACHOLSKA, TAMAS BERGHAMMER,
 REMARK   1  AUTH 9 DAVID SILVER, ORIOL VINYALS, ANDREW W SENIOR,                
 REMARK   1  AUTH10 KORAY KAVUKCUOGLU, PUSHMEET KOHLI, DEMIS HASSABIS            
 REMARK   1  TITL   HIGHLY ACCURATE PROTEIN STRUCTURE PREDICTION WITH ALPHAFOLD  
-REMARK   1  REF    NATURE                                     2021              
+REMARK   1  REF    NATURE                        V. 596   583 2021              
+REMARK   1  REFN                   ISSN 0028-0836                               
+REMARK   1  PMID   34265844                                                     
+REMARK   1  DOI    10.1038/s41586-021-03819-2                                   
 REMARK   1                                                                      
 REMARK   1 DISCLAIMERS                                                          
 REMARK   1 ALPHAFOLD DATA, COPYRIGHT (2021) DEEPMIND TECHNOLOGIES LIMITED. THE  
@@ -55,14 +58,14 @@ SEQRES  20 A  298  ASP ILE MET TYR THR GLY THR LEU ASP CYS TRP ARG LYS
 SEQRES  21 A  298  ILE ALA ARG ASP GLU GLY SER LYS ALA PHE PHE LYS GLY          
 SEQRES  22 A  298  ALA TRP SER ASN VAL LEU ARG GLY MET GLY GLY ALA PHE          
 SEQRES  23 A  298  VAL LEU VAL LEU TYR ASP GLU ILE LYS LYS TYR THR              
-CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1                      
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         
 ORIGX2      0.000000  1.000000  0.000000        0.00000                         
 ORIGX3      0.000000  0.000000  1.000000        0.00000                         
 SCALE1      1.000000  0.000000  0.000000        0.00000                         
 SCALE2      0.000000  1.000000  0.000000        0.00000                         
 SCALE3      0.000000  0.000000  1.000000        0.00000                         
-MODEL        0                                                                  
+MODEL        1                                                                  
 ATOM      1  N   MET A   1      11.594  -2.824  35.249  1.00 52.80           N  
 ATOM      2  CA  MET A   1      10.637  -2.426  34.192  1.00 52.80           C  
 ATOM      3  C   MET A   1       9.284  -2.962  34.603  1.00 52.80           C  
