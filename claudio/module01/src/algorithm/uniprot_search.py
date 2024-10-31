@@ -2,6 +2,7 @@ import socket
 import sys
 import pandas as pd
 import requests as r
+import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
@@ -21,9 +22,13 @@ def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str, verbose_level: int)
     data : pd.DataFrame
     """
 
+    unip_ids_a = data["unip_id_a"].unique().tolist()
+    unip_ids_b = data["unip_id_b"].unique().tolist()
+    unip_ids = list(set(unip_ids_a + unip_ids_b))
+    already_searched = query_uniprot(unip_ids, verbose_level)
     # retrieve sequences from uniprot entries
-    data["seq_a"], search_result_dict = search_uniprot(data, verbose_level, site='a')
-    data["seq_b"], _ = search_uniprot(data, verbose_level, already_searched=search_result_dict, site='b')
+    data["seq_a"] = search_uniprot(data, verbose_level, already_searched, site='a')
+    data["seq_b"] = search_uniprot(data, verbose_level, already_searched, site='b')
 
     # save results in temporary save file (can be used on rerun, instead of searching results again)
     data[["seq_a", "seq_b"]].to_csv(tmp_filepath, index=False)
@@ -31,7 +36,7 @@ def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str, verbose_level: int)
     return data
 
 
-def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched={}, site='a'):
+def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched, site='a'):
     """
     search uniprot database for sequences
 
@@ -49,13 +54,72 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched={}, 
     """
     #TODO why is site defaulted?
 
-    seqs = []
+    seqs = [[]for _ in range(len(data.index))]
 
-    # create list of unique uniprot ids
-    unip_ids = data[f"unip_id_{site}"].unique().tolist()
+    # Sort uniprot search result sequences to datapoints
+    ind = 0
+    def retrieve_seqs_task(i,row):
+        id = row[f"unip_id_{site}"]
+        # If search failed, or no uniprot id was given, return nan
+        if pd.isna(id) or already_searched[id] is None or not already_searched[id]:
+            return i, float('nan')
+        # Else, parse through all possible sequences discovered
+        else:
+            result = already_searched[id]
+            fitting_seq_found = False
+            seq = ''
+            if len(result) > 1:
+                # Check for each sequence whether both peptides were discovered in the sequences
+                for seq in result:
+                    peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
+                        if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
+                    # If a fitting sequences, containing both peptides was found set argument to True
+                    if peptide_arg:
+                        fitting_seq_found = True
+                        break
+            # If argument is not True, return the first discovered sequence
+            if not fitting_seq_found:
+                seq = result[0]
+            # Add final sequence to list
+            return i, seq
+        
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(retrieve_seqs_task, i, row): (i,row) for i, row in data.iterrows()}
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                i, seq = future.result()
+                seqs[i] = seq
+                ind += 1
+                verbose_print(f"\r\tSite_{site}:[{round_self(ind * 100 / len(data.index), 2)}%]", 1, verbose_level, end='')
+                del futures[future]
+            except Exception as e:
+                print(e)
+    verbose_print("", 1, verbose_level)
+
+    return seqs
+
+
+def query_uniprot(unip_ids: list, verbose_level: int):
+    """
+    Query the uniprot database for sequences
+
+    Parameters
+    ----------
+
+    unip_ids : list[str],
+    already_searched : dict[str,list[str]],
+    verbose_level : int
+
+    Returns
+    -------
+    already_searched : dict[str,list[str]]
+    """
+
+    already_searched = {}
 
     # retrieve uniprot sequences for all uniquely discovered uniprot ids
-    for id in unip_ids:
+    def query_task(id):
         # if search for unip id has not been performed yet, do so, and add it to already_searched dictionary
         if id not in already_searched.keys() or already_searched[id] is None:
             url = f"https://rest.uniprot.org/uniprotkb/search?format=fasta&query={id}"
@@ -79,34 +143,15 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched={}, 
                 print("Error! Encountered at least one faulty return from the UniProt database.")
                 sys.exit()
 
-    # Sort uniprot search result sequences to datapoints
-    ind = 0
-    for _, row in data.iterrows():
-        id = row[f"unip_id_{site}"]
-        ind += 1
-        verbose_print(f"\r\tSite_{site}:[{round_self(ind * 100 / len(data.index), 2)}%]", 1, verbose_level, end='')
-        # If search failed, or no uniprot id was given, return nan
-        if pd.isna(id) or already_searched[id] is None or not already_searched[id]:
-            seqs.append(float('nan'))
-        # Else, parse through all possible sequences discovered
-        else:
-            result = already_searched[id]
-            fitting_seq_found = False
-            seq = ''
-            if len(result) > 1:
-                # Check for each sequence whether both peptides were discovered in the sequences
-                for seq in result:
-                    peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
-                        if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
-                    # If a fitting sequences, containing both peptides was found set argument to True
-                    if peptide_arg:
-                        fitting_seq_found = True
-                        break
-            # If argument is not True, return the first discovered sequence
-            if not fitting_seq_found:
-                seq = result[0]
-            # Add final sequence to list
-            seqs.append(seq)
-    verbose_print("", 1, verbose_level)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(query_task, id): id for id in unip_ids}
 
-    return seqs, already_searched
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                if future.result() is not None:
+                    _ = future.result()
+                del futures[future]
+            except Exception as e:
+                print(e)
+
+    return already_searched

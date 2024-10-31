@@ -4,6 +4,7 @@ import time
 import socket
 import pandas as pd
 import os
+import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
@@ -42,7 +43,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query
     # the same search)
     already_searched = {}
 
-    for i, row in data.iterrows():
+    def search_task(i,row,data):
         # If encountered a new uniprot entry at site_a, do search and save results
         if row["unip_id_a"] not in already_searched.keys():
             best_results, pdb_id, chain = perform_search(row, 'a', search_tool, e_value, query_id, coverage,
@@ -76,8 +77,19 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query
                 data.loc[i,["pdb_id","chain_a","chain_b","all_results"]] = new_cols
         else:
             not_found.append(i)
-        ind += 1
-        verbose_print(f"\r\t[{round_self(ind * 100 / len(data.index), 2)}%]", 1, verbose_level, end='')
+        return already_searched
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(search_task, i, row, data): (i, row, data) for i, row in data.iterrows()}
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                already_searched = future.result()
+                ind += 1
+                verbose_print(f"\r\t[{round_self(ind * 100 / len(data.index), 2)}%]", 1, verbose_level, end='')
+                del futures[future]
+            except Exception as e:
+                print(e)
     verbose_print("", 1, verbose_level)
 
     # Save results to temporary save file
@@ -121,7 +133,7 @@ def perform_search(data: pd.Series, site: str, search_tool: str, e_value: float,
     # Save uniprot sequence in a temporary fasta file for search tool commandline call
     # (override before each new search)
     temp_path = '/'.join(tmp_filepath.split('/')[:-1]) + '/'
-    with open(f"{temp_path}tmp{data.name}.fasta", 'w') as tmp_file:
+    with open(f"{temp_path}tmp{data[f'unip_id_{site}']}.fasta", 'w') as tmp_file:
         tmp_file.write(f">{data[f'unip_id_{site}']}\n{data[f'seq_{site}']}\n")
         tmp_file.close()
         search_results = []
@@ -130,7 +142,7 @@ def perform_search(data: pd.Series, site: str, search_tool: str, e_value: float,
         # $HHDB to be set according to instructions found in README.md)
         if search_tool == "blastp":
             blast_call = "blastp" if blast_bin is None else f"{blast_bin}blastp"
-            command = f"\"{blast_call}\" -query \"{temp_path}tmp{data.name}.fasta\" -db \"{blast_db}pdbaa\" " \
+            command = f"\"{blast_call}\" -query \"{temp_path}tmp{data[f'unip_id_{site}']}.fasta\" -db \"{blast_db}pdbaa\" " \
                       f"-evalue {e_value} -outfmt \"6 delim=, saccver pident qcovs evalue\""
             res = pd.read_csv(StringIO(os.popen(command).read()), sep=',', names=["pdb", "ident", "cov", "eval"],
                               dtype={"pdb": str, "ident": float, "cov": float, "eval": float})
@@ -139,11 +151,11 @@ def perform_search(data: pd.Series, site: str, search_tool: str, e_value: float,
 
         elif search_tool == "hhsearch":
             hhsearch_call = "hhsearch" if hhsearch_bin is None else f"{hhsearch_bin}hhsearch"
-            command = f"\"{hhsearch_call}\" -i \"{temp_path}tmp{data.name}.fasta\" -d \"{hhsearch_db}pdb70\" -e {e_value} " \
-                      f"-qid {query_id} -cov {coverage} -blasttab \"{temp_path}tmp{data.name}.hhr\" -v 0 -cpu 20"
+            command = f"\"{hhsearch_call}\" -i \"{temp_path}tmp{data[f'unip_id_{site}']}.fasta\" -d \"{hhsearch_db}pdb70\" -e {e_value} " \
+                      f"-qid {query_id} -cov {coverage} -blasttab \"{temp_path}tmp{data[f'unip_id_{site}']}.hhr\" -v 0 -cpu 20"
             os.system(command)
             search_results = [line.split('\t')[1]
-                              for line in open(f"{temp_path}tmp{data.name}.hhr", 'r').read().split('\n')
+                              for line in open(f"{temp_path}tmp{data[f'unip_id_{site}']}.hhr", 'r').read().split('\n')
                               if line.split('\t')[0] == data[f'unip_id_{site}']][:20]
 
         # Search identical Chain IDs for (inter) cross-links

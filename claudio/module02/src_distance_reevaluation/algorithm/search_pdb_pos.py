@@ -127,8 +127,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
                     data = future.result()
                     ind += 1
                     verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, verbose_level, end='')
-                    del futures[future]
-                    # gc.collect()
+                del futures[future]
             except Exception as e:
                 print(e)
 
