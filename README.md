@@ -240,6 +240,10 @@ claudio --help
 * **Hadeer Elhabashy**
 * **Eugen Netz**
 
+## Citation
+If you use CLAUDIO, please cite:
+Röhl, Alexander, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." Bioinformatics 40, no. 4 (2024): btae146.
+
 ## References
 * [1] Ferrari, Allan JR, et al. "TopoLink: evaluation of structural models using chemical crosslinking distance constraints." Bioinformatics 35.17 (2019): 3169-3170.
 * [2] Altschul, Stephen F., et al. "Basic local alignment search tool." Journal of molecular biology 215.3 (1990): 403-410.
