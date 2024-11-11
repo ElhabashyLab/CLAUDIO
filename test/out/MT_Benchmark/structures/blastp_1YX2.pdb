@@ -1,6 +1,6 @@
 HEADER    TRANSFERASE                             19-FEB-05   1YX2              
-TITLE     CRYSTAL STRUCTURE OF THE PROBABLE AMINOMETHYLTRANSFERASE              
-TITLE    2 FROM BACILLUS SUBTILIS                                               
+TITLE     CRYSTAL STRUCTURE OF THE PROBABLE AMINOMETHYLTRANSFERASE FROM BACILLUS
+TITLE    2 SUBTILIS                                                             
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: AMINOMETHYLTRANSFERASE;                                    
 COMPND   3 CHAIN: A, B;                                                         
@@ -16,26 +16,27 @@ SOURCE   6 EXPRESSION_SYSTEM_TAXID: 469008;
 SOURCE   7 EXPRESSION_SYSTEM_STRAIN: BL21DE3;                                   
 SOURCE   8 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
 SOURCE   9 EXPRESSION_SYSTEM_PLASMID: PMCSG7                                    
-KEYWDS    AMINOMETHYLTRANSFERASE, GLYCINE CLEAVAGE SYSTEM T PROTEIN,            
-KEYWDS   2 ALPHA-BETA, BETA-BARREL, STRUCTURAL GENOMICS, PSI, PROTEIN           
-KEYWDS   3 STRUCTURE INITIATIVE, MIDWEST CENTER FOR STRUCTURAL                  
-KEYWDS   4 GENOMICS, MCSG                                                       
+KEYWDS    AMINOMETHYLTRANSFERASE, GLYCINE CLEAVAGE SYSTEM T PROTEIN, ALPHA-     
+KEYWDS   2 BETA, BETA-BARREL, STRUCTURAL GENOMICS, PSI, PROTEIN STRUCTURE       
+KEYWDS   3 INITIATIVE, MIDWEST CENTER FOR STRUCTURAL GENOMICS, MCSG,            
+KEYWDS   4 TRANSFERASE                                                          
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    MIDWEST CENTER FOR STRUCTURAL GENOMICS (MCSG)                         
+REVDAT   3   06-NOV-24 1YX2    1       REMARK SEQADV LINK                       
 REVDAT   2   24-FEB-09 1YX2    1       VERSN                                    
 REVDAT   1   05-APR-05 1YX2    0                                                
 JRNL        AUTH   Y.KIM,P.QUARTEY,L.LEZONDRA,F.COLLART,A.JOACHIMIAK            
-JRNL        TITL   CRYSTAL STRUCTURE OF THE PROBABLE                            
-JRNL        TITL 2 AMINOMETHYLTRANSFERASE FROM BACILLUS SUBTILIS                
+JRNL        TITL   CRYSTAL STRUCTURE OF THE PROBABLE AMINOMETHYLTRANSFERASE     
+JRNL        TITL 2 FROM BACILLUS SUBTILIS                                       
 JRNL        REF    TO BE PUBLISHED                                              
 JRNL        REFN                                                                
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    2.08 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : REFMAC 5.2.0000                                      
-REMARK   3   AUTHORS     : MURSHUDOV,VAGIN,DODSON                               
+REMARK   3   AUTHORS     : MURSHUDOV,SKUBAK,LEBEDEV,PANNU,STEINER,              
+REMARK   3               : NICHOLLS,WINN,LONG,VAGIN                             
 REMARK   3                                                                      
 REMARK   3    REFINEMENT TARGET : MAXIMUM LIKELIHOOD                            
 REMARK   3                                                                      
@@ -66,7 +67,7 @@ REMARK   3   BIN FREE R VALUE SET COUNT          : 202
 REMARK   3   BIN FREE R VALUE                    : 0.3500                       
 REMARK   3                                                                      
 REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
-REMARK   3   PROTEIN ATOMS            : 5954                                    
+REMARK   3   PROTEIN ATOMS            : 5561                                    
 REMARK   3   NUCLEIC ACID ATOMS       : 0                                       
 REMARK   3   HETEROGEN ATOMS          : 4                                       
 REMARK   3   SOLVENT ATOMS            : 524                                     
@@ -123,8 +124,13 @@ REMARK   3  ISOTROPIC THERMAL FACTOR RESTRAINTS.     COUNT   RMS    WEIGHT
 REMARK   3   MAIN-CHAIN BOND REFINED ATOMS  (A**2):  3953 ; 0.505 ; 1.500       
 REMARK   3   MAIN-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   MAIN-CHAIN ANGLE REFINED ATOMS (A**2):  6181 ; 0.856 ; 2.000       
+REMARK   3   MAIN-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN BOND REFINED ATOMS  (A**2):  2439 ; 1.195 ; 3.000       
+REMARK   3   SIDE-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN ANGLE REFINED ATOMS (A**2):  2095 ; 1.852 ; 4.500       
+REMARK   3   SIDE-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B REFINED ATOMS     (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B OTHER ATOMS       (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3                                                                      
 REMARK   3 ANISOTROPIC THERMAL FACTOR RESTRAINTS.    COUNT   RMS   WEIGHT       
 REMARK   3   RIGID-BOND RESTRAINTS          (A**2):  NULL ;  NULL ;  NULL       
@@ -144,13 +150,13 @@ REMARK   3   VDW PROBE RADIUS   : 1.20
 REMARK   3   ION PROBE RADIUS   : 0.80                                          
 REMARK   3   SHRINKAGE RADIUS   : 0.80                                          
 REMARK   3                                                                      
-REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE          
-REMARK   3  RIDING POSITIONS                                                    
+REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE RIDING   
+REMARK   3  POSITIONS                                                           
 REMARK   4                                                                      
-REMARK   4 1YX2 COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1YX2 COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
-REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 07-MAR-05.                  
-REMARK 100 THE RCSB ID CODE IS RCSB032020.                                      
+REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 03-MAR-05.                  
+REMARK 100 THE DEPOSITION ID IS D_1000032020.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -205,8 +211,8 @@ REMARK 280 CRYSTAL
 REMARK 280 SOLVENT CONTENT, VS   (%): 46.40                                     
 REMARK 280 MATTHEWS COEFFICIENT, VM (ANGSTROMS**3/DA): 2.30                     
 REMARK 280                                                                      
-REMARK 280 CRYSTALLIZATION CONDITIONS: AMMONIUM SULFATE, HEPES, PEG, PH         
-REMARK 280  7.5, VAPOR DIFFUSION, HANGING DROP, TEMPERATURE 295K                
+REMARK 280 CRYSTALLIZATION CONDITIONS: AMMONIUM SULFATE, HEPES, PEG, PH 7.5,    
+REMARK 280  VAPOR DIFFUSION, HANGING DROP, TEMPERATURE 295K                     
 REMARK 290                                                                      
 REMARK 290 CRYSTALLOGRAPHIC SYMMETRY                                            
 REMARK 290 SYMMETRY OPERATORS FOR SPACE GROUP: P 1 21 1                         
@@ -301,7 +307,7 @@ REMARK 500 EXPECTED VALUES NUCLEIC ACID: CLOWNEY ET AL 1996
 REMARK 500                                                                      
 REMARK 500  M RES CSSEQI ATM1   ATM2   ATM3                                     
 REMARK 500    LEU A  98   CA  -  CB  -  CG  ANGL. DEV. =  17.0 DEGREES          
-REMARK 500    LEU B  98   CA  -  CB  -  CG  ANGL. DEV. =  19.2 DEGREES          
+REMARK 500    LEU B  98   CA  -  CB  -  CG  ANGL. DEV. =  19.1 DEGREES          
 REMARK 500    LEU B 220   CA  -  CB  -  CG  ANGL. DEV. =  15.5 DEGREES          
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
@@ -324,14 +330,22 @@ REMARK 500    ASP A   9        0.05    -61.77
 REMARK 500    SER A  31      -55.25   -145.04                                   
 REMARK 500    ALA A  43     -117.88   -112.90                                   
 REMARK 500    VAL A  49       31.83   -144.04                                   
+REMARK 500    ASN A 106      -42.05     80.64                                   
 REMARK 500    SER A 178       56.56     39.69                                   
 REMARK 500    TYR A 189       47.98   -156.03                                   
 REMARK 500    THR A 190      -24.99   -148.09                                   
 REMARK 500    GLN A 242      -76.39   -124.78                                   
+REMARK 500    GLN A 242      -80.35   -124.78                                   
+REMARK 500    LYS A 263      137.60    -39.98                                   
 REMARK 500    LYS A 293      123.20    -36.45                                   
+REMARK 500    THR A 316     -164.83   -160.61                                   
+REMARK 500    ARG A 346       71.89     20.64                                   
 REMARK 500    LYS A 347       18.18     54.79                                   
 REMARK 500    SER B  31      -82.83   -106.35                                   
 REMARK 500    ALA B  43     -109.35   -130.35                                   
+REMARK 500    HIS B  51       47.89    -71.77                                   
+REMARK 500    LYS B 125       26.51    -65.32                                   
+REMARK 500    GLU B 126      -18.22   -140.11                                   
 REMARK 500    SER B 178       60.07     32.38                                   
 REMARK 500    GLN B 242      -71.01   -130.09                                   
 REMARK 500    LYS B 347       14.01     54.23                                   
@@ -7187,5 +7201,5 @@ CONECT 5957 5958 5959
 CONECT 5958 5957                                                                
 CONECT 5959 5957 5960                                                           
 CONECT 5960 5959                                                                
-MASTER      316    0   14   27   40    0    1    6 6482    2  137   58          
+MASTER      329    0   14   27   40    0    1    6 6089    2  137   58          
 END                                                                             

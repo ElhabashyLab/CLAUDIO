@@ -1,6 +1,5 @@
 HEADER    OXIDOREDUCTASE                          08-JUL-03   1PYF              
-TITLE     STRUCTURE OF NADPH-DEPENDENT FAMILY 11 ALDO-KETO REDUCTASE            
-TITLE    2 AKR11A(APO)                                                          
+TITLE     STRUCTURE OF NADPH-DEPENDENT FAMILY 11 ALDO-KETO REDUCTASE AKR11A(APO)
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: IOLS PROTEIN;                                              
 COMPND   3 CHAIN: A;                                                            
@@ -15,27 +14,26 @@ SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562;
 SOURCE   7 EXPRESSION_SYSTEM_STRAIN: BL21*;                                     
 SOURCE   8 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
 SOURCE   9 EXPRESSION_SYSTEM_PLASMID: PTYB2                                     
-KEYWDS    BETA-ALPHA BARREL, ALDO-KETO REDUCTASE, TIM BARREL,                   
-KEYWDS   2 OXIDOREDUCTASE                                                       
+KEYWDS    BETA-ALPHA BARREL, ALDO-KETO REDUCTASE, TIM BARREL, OXIDOREDUCTASE    
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    A.H.EHRENSBERGER,D.K.WILSON                                           
+REVDAT   3   06-NOV-24 1PYF    1       REMARK SEQADV LINK                       
 REVDAT   2   24-FEB-09 1PYF    1       VERSN                                    
 REVDAT   1   23-MAR-04 1PYF    0                                                
 JRNL        AUTH   A.H.EHRENSBERGER,D.K.WILSON                                  
-JRNL        TITL   STRUCTURAL AND CATALYTIC DIVERSITY IN THE TWO                
-JRNL        TITL 2 FAMILY 11 ALDO-KETO REDUCTASES                               
+JRNL        TITL   STRUCTURAL AND CATALYTIC DIVERSITY IN THE TWO FAMILY 11      
+JRNL        TITL 2 ALDO-KETO REDUCTASES                                         
 JRNL        REF    J.MOL.BIOL.                   V. 337   661 2004              
 JRNL        REFN                   ISSN 0022-2836                               
 JRNL        PMID   15019785                                                     
 JRNL        DOI    10.1016/J.JMB.2004.01.059                                    
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    1.80 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : CNS                                                  
 REMARK   3   AUTHORS     : BRUNGER,ADAMS,CLORE,DELANO,GROS,GROSSE-              
-REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES, PANNU,             
+REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES,PANNU,              
 REMARK   3               : READ,RICE,SIMONSON,WARREN                            
 REMARK   3                                                                      
 REMARK   3  REFINEMENT TARGET : ENGH & HUBER                                    
@@ -98,7 +96,7 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : NULL
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.019                           
-REMARK   3   BOND ANGLES            (DEGREES) : 1.78                            
+REMARK   3   BOND ANGLES            (DEGREES) : 1.780                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : NULL                            
 REMARK   3   IMPROPER ANGLES        (DEGREES) : NULL                            
 REMARK   3                                                                      
@@ -126,10 +124,10 @@ REMARK   3  TOPOLOGY FILE  1   : NULL
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: NULL                                      
 REMARK   4                                                                      
-REMARK   4 1PYF COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1PYF COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 17-JUL-03.                  
-REMARK 100 THE RCSB ID CODE IS RCSB019698.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000019698.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -266,42 +264,31 @@ REMARK 500    ASP A  93     -150.62   -139.44
 REMARK 500    THR A 188      -66.65   -101.67                                   
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
-REMARK 525                                                                      
-REMARK 525 SOLVENT                                                              
-REMARK 525                                                                      
-REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
-REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
-REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
-REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
-REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
-REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
-REMARK 525 NUMBER; I=INSERTION CODE):                                           
-REMARK 525                                                                      
-REMARK 525  M RES CSSEQI                                                        
-REMARK 525    HOH A 554        DISTANCE =  6.36 ANGSTROMS                       
 REMARK 620                                                                      
 REMARK 620 METAL COORDINATION                                                   
-REMARK 620  (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN IDENTIFIER;              
-REMARK 620  SSEQ=SEQUENCE NUMBER; I=INSERTION CODE):                            
+REMARK 620 (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN IDENTIFIER;               
+REMARK 620 SSEQ=SEQUENCE NUMBER; I=INSERTION CODE):                             
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
 REMARK 620                              NA A 315  NA                            
 REMARK 620 N RES CSSEQI ATOM                                                    
-REMARK 620 1 ARG A 270   O                                                      
-REMARK 620 2 ILE A 273   O    90.5                                              
-REMARK 620 3 HOH A 343   O    92.3  83.0                                        
-REMARK 620 4 HOH A 396   O   169.2  98.4  94.9                                  
-REMARK 620 5 HOH A 400   O    87.1 171.7  89.1  85.0                            
-REMARK 620 6 LEU A 268   O    95.0  95.4 172.6  78.1  92.7                      
+REMARK 620 1 LEU A 268   O                                                      
+REMARK 620 2 ARG A 270   O    95.0                                              
+REMARK 620 3 ILE A 273   O    95.4  90.5                                        
+REMARK 620 4 HOH A 343   O   172.6  92.3  83.0                                  
+REMARK 620 5 HOH A 396   O    78.1 169.2  98.4  94.9                            
+REMARK 620 6 HOH A 400   O    92.7  87.1 171.7  89.1  85.0                      
 REMARK 620 N                    1     2     3     4     5                       
 REMARK 800                                                                      
 REMARK 800 SITE                                                                 
 REMARK 800 SITE_IDENTIFIER: AC1                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE NA A 315                  
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC2                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE EDO A 313                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC3                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE EDO A 314                 
@@ -382,12 +369,12 @@ LINK         C   THR A  50                 N   MSE A  51     1555   1555  1.33
 LINK         C   MSE A  51                 N   LEU A  52     1555   1555  1.33  
 LINK         C   GLU A 142                 N   MSE A 143     1555   1555  1.34  
 LINK         C   MSE A 143                 N   LYS A 144     1555   1555  1.33  
-LINK        NA    NA A 315                 O   ARG A 270     1555   1555  2.41  
-LINK        NA    NA A 315                 O   ILE A 273     1555   1555  2.34  
+LINK         O   LEU A 268                NA    NA A 315     1555   1555  2.40  
+LINK         O   ARG A 270                NA    NA A 315     1555   1555  2.41  
+LINK         O   ILE A 273                NA    NA A 315     1555   1555  2.34  
 LINK        NA    NA A 315                 O   HOH A 343     1555   1555  2.50  
 LINK        NA    NA A 315                 O   HOH A 396     1555   1555  2.44  
 LINK        NA    NA A 315                 O   HOH A 400     1555   1555  2.45  
-LINK        NA    NA A 315                 O   LEU A 268     1555   1555  2.40  
 SITE     1 AC1  6 LEU A 268  ARG A 270  ILE A 273  HOH A 343                    
 SITE     2 AC1  6 HOH A 396  HOH A 400                                          
 SITE     1 AC2  8 GLY A   7  ASN A 197  ILE A 198  PRO A 271                    
@@ -3176,5 +3163,5 @@ CONECT 2498 2497
 CONECT 2526 2490                                                                
 CONECT 2579 2490                                                                
 CONECT 2583 2490                                                                
-MASTER      277    0    5   17   11    0    6    6 2738    1   36   24          
+MASTER      265    0    5   17   11    0    6    6 2738    1   36   24          
 END                                                                             

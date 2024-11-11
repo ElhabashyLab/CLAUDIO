@@ -3,14 +3,14 @@ hide all
 bg_color white
 set transparency, 0.8
 zoom center, 50;
-hide everything, show cartoon, chain A
-show surface, chain A and blastp_3OQM
-color 3, chain A
-show cartoon, chain A
 hide everything, show cartoon, chain C
 show surface, chain C and blastp_3OQM
-color 5, chain C
+color 3, chain C
 show cartoon, chain C
+hide everything, show cartoon, chain A
+show surface, chain A and blastp_3OQM
+color 5, chain A
+show cartoon, chain A
 dist intra_1487_valid , resid 31 and blastp_3OQM and chain A and name cb, resid 36 and blastp_3OQM and chain A and name cb
 dist intra_1487_4_valid , resid 31 and blastp_3OQM and chain C and name cb, resid 36 and blastp_3OQM and chain C and name cb
 dist intra_2873_valid , resid 31 and blastp_3OQM and chain A and name cb, resid 37 and blastp_3OQM and chain A and name cb

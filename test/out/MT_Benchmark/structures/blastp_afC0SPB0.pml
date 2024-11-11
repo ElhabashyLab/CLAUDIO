@@ -9,9 +9,9 @@ color 3, chain A
 show cartoon, chain A
 dist intra_1415_valid , resid 309 and blastp_afC0SPB0 and chain A and name cb, resid 277 and blastp_afC0SPB0 and chain A and name cb
 dist intra_1729_valid , resid 65 and blastp_afC0SPB0 and chain A and name cb, resid 69 and blastp_afC0SPB0 and chain A and name cb
+dist intra_2064_valid , resid 518 and blastp_afC0SPB0 and chain A and name cb, resid 104 and blastp_afC0SPB0 and chain A and name cb
 dist intra_3284_valid , resid 505 and blastp_afC0SPB0 and chain A and name cb, resid 444 and blastp_afC0SPB0 and chain A and name cb
 dist intra_5108_valid , resid 282 and blastp_afC0SPB0 and chain A and name cb, resid 309 and blastp_afC0SPB0 and chain A and name cb
-dist intra_2064_out_range , resid 518 and blastp_afC0SPB0 and chain A and name cb, resid 104 and blastp_afC0SPB0 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

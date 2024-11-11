@@ -15,6 +15,7 @@ KEYWDS    PARB, CHROMOSOME SEGREGATION, CHROMOSOME ORGANIZATION, DNA BINDING
 KEYWDS   2 PROTEIN                                                              
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    Y.M.SOH,J.BASQUIN,S.GRUBER                                            
+REVDAT   5   06-NOV-24 6SDK    1       LINK                                     
 REVDAT   4   11-DEC-19 6SDK    1       JRNL                                     
 REVDAT   3   06-NOV-19 6SDK    1       JRNL                                     
 REVDAT   2   30-OCT-19 6SDK    1       JRNL                                     
@@ -327,9 +328,9 @@ REMARK 620 1 GLU A 111   OE1
 REMARK 620 2 ASN A 112   OD1  85.8                                              
 REMARK 620 3 CDP A 301   O3B 114.0 159.9                                        
 REMARK 620 4 CDP A 301   O1A 134.2  80.5  87.5                                  
-REMARK 620 5 HOH A 436   O   142.1  77.8  83.8  76.7                            
-REMARK 620 6 HOH A 499   O    73.3  93.8  88.6 150.6  73.9                      
-REMARK 620 7 HOH A 413   O    68.6 115.2  77.6  78.2 149.2 129.1                
+REMARK 620 5 HOH A 413   O    68.6 115.2  77.6  78.2                            
+REMARK 620 6 HOH A 436   O   142.1  77.8  83.8  76.7 149.2                      
+REMARK 620 7 HOH A 499   O    73.3  93.8  88.6 150.6 129.1  73.9                
 REMARK 620 N                    1     2     3     4     5     6                 
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
@@ -339,9 +340,9 @@ REMARK 620 1 GLU B 111   OE1
 REMARK 620 2 ASN B 112   OD1  85.6                                              
 REMARK 620 3 CDP B 301   O2B 111.6 162.5                                        
 REMARK 620 4 CDP B 301   O2A 135.0  84.2  85.5                                  
-REMARK 620 5 HOH B 411   O   143.8  84.8  79.4  78.4                            
-REMARK 620 6 HOH B 408   O    68.9 117.1  74.0  77.2 145.0                      
-REMARK 620 7 HOH B 475   O    75.2  94.6  87.1 149.3  70.9 128.8                
+REMARK 620 5 HOH B 408   O    68.9 117.1  74.0  77.2                            
+REMARK 620 6 HOH B 411   O   143.8  84.8  79.4  78.4 145.0                      
+REMARK 620 7 HOH B 475   O    75.2  94.6  87.1 149.3 128.8  70.9                
 REMARK 620 N                    1     2     3     4     5     6                 
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
@@ -350,9 +351,9 @@ REMARK 620 N RES CSSEQI ATOM
 REMARK 620 1 GLU C 111   OE1                                                    
 REMARK 620 2 CDP C 301   O2B 115.5                                              
 REMARK 620 3 CDP C 301   O2A 132.8  83.9                                        
-REMARK 620 4 HOH C 427   O   143.1  79.5  79.8                                  
-REMARK 620 5 HOH C 477   O    73.2  89.4 153.3  73.6                            
-REMARK 620 6 HOH C 417   O    71.6  77.0  72.0 144.8 131.5                      
+REMARK 620 4 HOH C 417   O    71.6  77.0  72.0                                  
+REMARK 620 5 HOH C 427   O   143.1  79.5  79.8 144.8                            
+REMARK 620 6 HOH C 477   O    73.2  89.4 153.3 131.5  73.6                      
 REMARK 620 N                    1     2     3     4     5                       
 REMARK 620                                                                      
 REMARK 620 COORDINATION ANGLES FOR:  M RES CSSEQI METAL                         
@@ -362,8 +363,8 @@ REMARK 620 1 GLU D 111   OE1
 REMARK 620 2 CDP D 301   O1B 116.7                                              
 REMARK 620 3 CDP D 301   O1A 138.1  86.7                                        
 REMARK 620 4 HOH D 402   O    73.3  74.4  81.3                                  
-REMARK 620 5 HOH D 464   O    68.2  89.4 151.0 125.1                            
-REMARK 620 6 HOH D 453   O   137.2  82.6  76.4 148.7  74.6                      
+REMARK 620 5 HOH D 453   O   137.2  82.6  76.4 148.7                            
+REMARK 620 6 HOH D 464   O    68.2  89.4 151.0 125.1  74.6                      
 REMARK 620 N                    1     2     3     4     5                       
 REMARK 800                                                                      
 REMARK 800 SITE                                                                 
@@ -594,50 +595,50 @@ SHEET   10 AA210 LEU D  31  ARG D  32  1  N  ARG D  32   O  TYR D  72
 LINK         C   MSE A  20                 N   GLU A  21     1555   1555  1.33  
 LINK         C   LEU A 103                 N   MSE A 104     1555   1555  1.34  
 LINK         C   MSE A 104                 N   ARG A 105     1555   1555  1.34  
-LINK         OE1 GLU A 111                CA    CA A 302     1555   1555  2.50  
-LINK         OD1 ASN A 112                CA    CA A 302     1555   1555  2.29  
 LINK         C   SER A 175                 N   MSE A 176     1555   1555  1.32  
 LINK         C   MSE A 176                 N   GLY A 177     1555   1555  1.33  
 LINK         C   MSE B  20                 N   GLU B  21     1555   1555  1.34  
 LINK         C   LEU B 103                 N   MSE B 104     1555   1555  1.34  
 LINK         C   MSE B 104                 N   ARG B 105     1555   1555  1.34  
-LINK         OE1 GLU B 111                CA    CA B 302     1555   1555  2.45  
-LINK         OD1 ASN B 112                CA    CA B 302     1555   1555  2.25  
 LINK         C   SER B 175                 N   MSE B 176     1555   1555  1.34  
 LINK         C   MSE B 176                 N   GLY B 177     1555   1555  1.34  
 LINK         C   MSE C  20                 N   GLU C  21     1555   1555  1.34  
 LINK         C   LEU C 103                 N   MSE C 104     1555   1555  1.33  
 LINK         C   MSE C 104                 N   ARG C 105     1555   1555  1.33  
-LINK         OE1 GLU C 111                CA    CA C 302     1555   1555  2.43  
 LINK         C   SER C 175                 N   MSE C 176     1555   1555  1.33  
 LINK         C   MSE C 176                 N   GLY C 177     1555   1555  1.34  
 LINK         C   MSE D  20                 N   GLU D  21     1555   1555  1.34  
 LINK         C   LEU D 103                 N   MSE D 104     1555   1555  1.33  
 LINK         C   MSE D 104                 N   ARG D 105     1555   1555  1.33  
-LINK         OE1 GLU D 111                CA    CA D 302     1555   1555  2.41  
 LINK         C   SER D 175                 N   MSE D 176     1555   1555  1.33  
 LINK         C   MSE D 176                 N   GLY D 177     1555   1555  1.33  
+LINK         OE1 GLU A 111                CA    CA A 302     1555   1555  2.50  
+LINK         OD1 ASN A 112                CA    CA A 302     1555   1555  2.29  
 LINK         O3B CDP A 301                CA    CA A 302     1555   1555  2.20  
 LINK         O1A CDP A 301                CA    CA A 302     1555   1555  2.39  
+LINK        CA    CA A 302                 O   HOH A 413     1555   1555  2.58  
 LINK        CA    CA A 302                 O   HOH A 436     1555   1555  2.59  
 LINK        CA    CA A 302                 O   HOH A 499     1555   1555  2.57  
-LINK        CA    CA A 302                 O   HOH A 413     1555   1555  2.58  
 LINK        CA    CA A 303                 O   HOH A 499     1555   1555  3.19  
+LINK         OE1 GLU B 111                CA    CA B 302     1555   1555  2.45  
+LINK         OD1 ASN B 112                CA    CA B 302     1555   1555  2.25  
 LINK         O2B CDP B 301                CA    CA B 302     1555   1555  2.30  
 LINK         O2A CDP B 301                CA    CA B 302     1555   1555  2.37  
-LINK        CA    CA B 302                 O   HOH B 411     1555   1555  2.66  
 LINK        CA    CA B 302                 O   HOH B 408     1555   1555  2.72  
+LINK        CA    CA B 302                 O   HOH B 411     1555   1555  2.66  
 LINK        CA    CA B 302                 O   HOH B 475     1555   1555  2.42  
+LINK         OE1 GLU C 111                CA    CA C 302     1555   1555  2.43  
 LINK         O2B CDP C 301                CA    CA C 302     1555   1555  2.29  
 LINK         O2A CDP C 301                CA    CA C 302     1555   1555  2.36  
+LINK        CA    CA C 302                 O   HOH C 417     1555   1555  2.72  
 LINK        CA    CA C 302                 O   HOH C 427     1555   1555  2.38  
 LINK        CA    CA C 302                 O   HOH C 477     1555   1555  2.39  
-LINK        CA    CA C 302                 O   HOH C 417     1555   1555  2.72  
+LINK         OE1 GLU D 111                CA    CA D 302     1555   1555  2.41  
 LINK         O1B CDP D 301                CA    CA D 302     1555   1555  2.33  
 LINK         O1A CDP D 301                CA    CA D 302     1555   1555  2.30  
 LINK        CA    CA D 302                 O   HOH D 402     1555   1555  2.50  
-LINK        CA    CA D 302                 O   HOH D 464     1555   1555  2.52  
 LINK        CA    CA D 302                 O   HOH D 453     1555   1555  2.68  
+LINK        CA    CA D 302                 O   HOH D 464     1555   1555  2.52  
 LINK        CA    CA D 303                 O   HOH D 456     1555   1555  3.19  
 SITE     1 AC1 21 ARG A  39  LEU A  50  SER A  53  GLY A  58                    
 SITE     2 AC1 21 ILE A  59  LEU A  60  GLN A  61  GLY A  77                    

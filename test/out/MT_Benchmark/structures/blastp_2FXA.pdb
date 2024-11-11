@@ -20,6 +20,7 @@ KEYWDS   3 STRUCTURAL GENOMICS, MCSG, TRANSCRIPTION
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    M.E.CUFF,T.SKARINA,A.EDWARDS,A.SAVCHENKO,A.JOACHIMIAK,MIDWEST CENTER  
 AUTHOR   2 FOR STRUCTURAL GENOMICS (MCSG)                                       
+REVDAT   6   06-NOV-24 2FXA    1       REMARK SEQADV LINK                       
 REVDAT   5   18-OCT-17 2FXA    1       REMARK                                   
 REVDAT   4   09-DEC-15 2FXA    1       REMARK                                   
 REVDAT   3   13-JUL-11 2FXA    1       VERSN                                    
@@ -35,7 +36,8 @@ REMARK   2 RESOLUTION.    2.40 ANGSTROMS.
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : REFMAC 5.2.0005                                      
-REMARK   3   AUTHORS     : MURSHUDOV,VAGIN,DODSON                               
+REMARK   3   AUTHORS     : MURSHUDOV,SKUBAK,LEBEDEV,PANNU,STEINER,              
+REMARK   3               : NICHOLLS,WINN,LONG,VAGIN                             
 REMARK   3                                                                      
 REMARK   3    REFINEMENT TARGET : MAXIMUM LIKELIHOOD WITH PHASES                
 REMARK   3                                                                      
@@ -7328,5 +7330,5 @@ CONECT 5777 5775 5779
 CONECT 5778 5779 5780                                                           
 CONECT 5779 5777 5778                                                           
 CONECT 5780 5778                                                                
-MASTER      657    0   42   45   14    0   31    6 5737    4  350   64          
+MASTER      658    0   42   45   14    0   31    6 5737    4  350   64          
 END                                                                             

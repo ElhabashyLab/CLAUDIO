@@ -7,6 +7,7 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP37869
 color 3, chain A
 show cartoon, chain A
+dist intra_725_unknown , resid 229 and blastp_afP37869 and chain A and name cb, resid 430 and blastp_afP37869 and chain A and name cb
 dist intra_1961_unknown , resid 409 and blastp_afP37869 and chain A and name cb, resid 323 and blastp_afP37869 and chain A and name cb
 dist intra_2216_unknown , resid 409 and blastp_afP37869 and chain A and name cb, resid 308 and blastp_afP37869 and chain A and name cb
 dist intra_2752_unknown , resid 409 and blastp_afP37869 and chain A and name cb, resid 238 and blastp_afP37869 and chain A and name cb

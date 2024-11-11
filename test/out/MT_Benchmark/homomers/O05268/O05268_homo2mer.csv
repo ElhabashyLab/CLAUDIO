@@ -2,8 +2,8 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 afO05268,A,A,63.0,332.0,63,332,homo2mer,intra
 afO05268,A,A,320.0,63.0,320,63,homo2mer,intra
 3LZW,A,A,125.0,128.0,125,128,homo2mer,intra
-afO05268,A,A,128.0,114.0,128,114,homo2mer,intra
-3LZW,A,A,,79.0,332,79,homo2mer,intra
+3LZW,A,A,,114.0,128,114,homo2mer,intra
+3LZW,A,A,332.0,79.0,332,79,homo2mer,intra
 afO05268,A,A,317.0,332.0,317,332,homo2mer,intra
 3LZW,A,A,317.0,264.0,317,264,homo2mer,inter
 3LZW,A,A,63.0,79.0,63,79,homo2mer,intra

@@ -1,0 +1,35 @@
+structure C:/Dokumente/CLAUDIO/test/out/MT_Benchmark/temp/dist_reeval/struct/afP71013_tmp.pdb
+readatoms backplusCB # Which atoms to consider (all/heavy(no-H)/backbone/backplusCB)
+printlinks no
+compute observed
+scorecut 0.d0
+experiment DSS
+  # Possible types of cross-links and maximum distances
+  #        ResType  Chain  ResNum   AtomType    ResType  Chain  ResNum   AtomType  MaxDist
+  linktype LYS all all CB LYS all all CB 35
+  linktype LYS all all CB MET all all N 35
+  linktype MET all all N MET all all N 35
+
+  observed LYS A 116 LYS A 106
+
+end experiment DSS
+search_limit relative 2  # Search for topological distances of up to search_range*dmaxlink
+printallfound yes    # Prints, or not, the structure of the links that were found but violate the distances
+printPDBnotfound yes # Prints, or not, PDB files for the links which were not found at all (prints a straight line)
+pgood 0.70 # Probability of observing a link which is within link reach
+pbad  0.05 # Probability of observing a link which is NOT within linker reach
+vdwrad 3.         # Radius to be used for excluded atom volume computation
+print 0           # Extensive or concise printing
+printnotfound yes # Print data for pairs for links which were not found
+quitgood no       # Quit whenever a valid link is found (stop searching for shortest one)
+dbond 1.5         # Bond distance of link atoms
+kbond 10.         # Energy constant for link bonds
+kpath 10.         # Energy constant for the complete path distension, used for computing probability
+kvdw  2.          # Force constant of overlap function
+ntrial 400  # Maximum number of trials for best link search
+nbest 5     # Number of times the same best link is found until satisfied
+maxfunc 50  # Maximum number of function evaluations of CG-Newton
+maxcg 40    # Maximum number of CG iterations
+seed random # Seed for random number generator (random or integer number)
+iguess 2
+exit # You can add anything after this

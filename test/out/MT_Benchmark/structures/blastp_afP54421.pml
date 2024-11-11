@@ -7,11 +7,12 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP54421
 color 3, chain A
 show cartoon, chain A
-dist intra_1663_valid , resid 172 and blastp_afP54421 and chain A and name cb, resid 193 and blastp_afP54421 and chain A and name cb
+dist intra_1663_2_valid , resid 172 and blastp_afP54421 and chain A and name cb, resid 193 and blastp_afP54421 and chain A and name cb
 dist intra_2325_valid , resid 154 and blastp_afP54421 and chain A and name cb, resid 165 and blastp_afP54421 and chain A and name cb
 dist intra_3621_valid , resid 112 and blastp_afP54421 and chain A and name cb, resid 128 and blastp_afP54421 and chain A and name cb
 dist intra_5579_valid , resid 165 and blastp_afP54421 and chain A and name cb, resid 201 and blastp_afP54421 and chain A and name cb
 dist intra_6124_valid , resid 201 and blastp_afP54421 and chain A and name cb, resid 172 and blastp_afP54421 and chain A and name cb
+dist intra_1582_unknown , resid 228 and blastp_afP54421 and chain A and name cb, resid 201 and blastp_afP54421 and chain A and name cb
 dist intra_3007_unknown , resid 228 and blastp_afP54421 and chain A and name cb, resid 152 and blastp_afP54421 and chain A and name cb
 dist intra_4693_unknown , resid 228 and blastp_afP54421 and chain A and name cb, resid 212 and blastp_afP54421 and chain A and name cb
 dist intra_5261_unknown , resid 228 and blastp_afP54421 and chain A and name cb, resid 172 and blastp_afP54421 and chain A and name cb

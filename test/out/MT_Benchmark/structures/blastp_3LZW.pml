@@ -10,6 +10,7 @@ show cartoon, chain A
 dist intra_1631_valid , resid 125 and blastp_3LZW and chain A and name cb, resid 128 and blastp_3LZW and chain A and name cb
 dist intra_3729_valid , resid 63 and blastp_3LZW and chain A and name cb, resid 79 and blastp_3LZW and chain A and name cb
 dist intra_3210_out_range , resid 317 and blastp_3LZW and chain A and name cb, resid 264 and blastp_3LZW and chain A and name cb
+dist intra_2908_unknown , resid 332 and blastp_3LZW and chain A and name cb, resid 79 and blastp_3LZW and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

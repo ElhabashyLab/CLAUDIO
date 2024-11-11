@@ -50,7 +50,6 @@ dist inter_3479_4_valid , resid 322 and blastp_7ABR and chain A and name cb, res
 dist inter_3479_5_valid , resid 322 and blastp_7ABR and chain A and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_3479_10_valid , resid 322 and blastp_7ABR and chain B and name cb, resid 580 and blastp_7ABR and chain D and name cb
 dist inter_3479_11_valid , resid 322 and blastp_7ABR and chain B and name cb, resid 580 and blastp_7ABR and chain E and name cb
-dist inter_3479_16_valid , resid 322 and blastp_7ABR and chain C and name cb, resid 580 and blastp_7ABR and chain D and name cb
 dist inter_3479_17_valid , resid 322 and blastp_7ABR and chain C and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_3479_35_valid , resid 322 and blastp_7ABR and chain F and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_4560_6_valid , resid 401 and blastp_7ABR and chain A and name cb, resid 187 and blastp_7ABR and chain F and name cb

@@ -57,7 +57,6 @@ dist intra_66_valid , resid 384 and blastp_5I96 and chain A and name cb, resid 1
 dist intra_66_4_valid , resid 384 and blastp_5I96 and chain B and name cb, resid 166 and blastp_5I96 and chain B and name cb
 dist intra_67_valid , resid 193 and blastp_5I96 and chain A and name cb, resid 180 and blastp_5I96 and chain A and name cb
 dist intra_67_4_valid , resid 193 and blastp_5I96 and chain B and name cb, resid 180 and blastp_5I96 and chain B and name cb
-dist intra_68_4_valid , resid 299 and blastp_5I96 and chain B and name cb, resid 413 and blastp_5I96 and chain B and name cb
 dist intra_69_valid , resid 256 and blastp_5I96 and chain A and name cb, resid 272 and blastp_5I96 and chain A and name cb
 dist intra_69_4_valid , resid 256 and blastp_5I96 and chain B and name cb, resid 272 and blastp_5I96 and chain B and name cb
 dist intra_70_valid , resid 166 and blastp_5I96 and chain A and name cb, resid 400 and blastp_5I96 and chain A and name cb

@@ -33,6 +33,8 @@ dist intra_105_15_valid , resid 52 and blastp_3K8Z and chain C and name cb, resi
 dist intra_105_22_valid , resid 52 and blastp_3K8Z and chain D and name cb, resid 79 and blastp_3K8Z and chain D and name cb
 dist intra_105_29_valid , resid 52 and blastp_3K8Z and chain E and name cb, resid 79 and blastp_3K8Z and chain E and name cb
 dist intra_105_36_valid , resid 52 and blastp_3K8Z and chain F and name cb, resid 79 and blastp_3K8Z and chain F and name cb
+dist intra_241_22_valid , resid 52 and blastp_3K8Z and chain D and name cb, resid 185 and blastp_3K8Z and chain D and name cb
+dist intra_241_29_valid , resid 52 and blastp_3K8Z and chain E and name cb, resid 185 and blastp_3K8Z and chain E and name cb
 dist intra_258_valid , resid 52 and blastp_3K8Z and chain A and name cb, resid 91 and blastp_3K8Z and chain A and name cb
 dist intra_258_8_valid , resid 52 and blastp_3K8Z and chain B and name cb, resid 91 and blastp_3K8Z and chain B and name cb
 dist intra_258_15_valid , resid 52 and blastp_3K8Z and chain C and name cb, resid 91 and blastp_3K8Z and chain C and name cb
@@ -153,6 +155,7 @@ dist inter_258_26_valid , resid 52 and blastp_3K8Z and chain E and name cb, resi
 dist inter_258_34_valid , resid 52 and blastp_3K8Z and chain F and name cb, resid 91 and blastp_3K8Z and chain D and name cb
 dist inter_701_5_valid , resid 185 and blastp_3K8Z and chain A and name cb, resid 201 and blastp_3K8Z and chain E and name cb
 dist inter_701_16_valid , resid 185 and blastp_3K8Z and chain C and name cb, resid 201 and blastp_3K8Z and chain D and name cb
+dist inter_701_20_valid , resid 185 and blastp_3K8Z and chain D and name cb, resid 201 and blastp_3K8Z and chain B and name cb
 dist inter_1390_10_valid , resid 412 and blastp_3K8Z and chain B and name cb, resid 185 and blastp_3K8Z and chain D and name cb
 dist inter_1390_14_valid , resid 412 and blastp_3K8Z and chain C and name cb, resid 185 and blastp_3K8Z and chain B and name cb
 dist inter_1390_25_valid , resid 412 and blastp_3K8Z and chain E and name cb, resid 185 and blastp_3K8Z and chain A and name cb

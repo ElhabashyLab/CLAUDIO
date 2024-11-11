@@ -7,9 +7,9 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP50735
 color 3, chain A
 show cartoon, chain A
-dist intra_662_3_valid , resid 80 and blastp_afP50735 and chain A and name cb, resid 98 and blastp_afP50735 and chain A and name cb
+dist intra_662_valid , resid 80 and blastp_afP50735 and chain A and name cb, resid 98 and blastp_afP50735 and chain A and name cb
 dist intra_1390_valid , resid 416 and blastp_afP50735 and chain A and name cb, resid 189 and blastp_afP50735 and chain A and name cb
-dist intra_2000_valid , resid 31 and blastp_afP50735 and chain A and name cb, resid 338 and blastp_afP50735 and chain A and name cb
+dist intra_2000_4_valid , resid 31 and blastp_afP50735 and chain A and name cb, resid 338 and blastp_afP50735 and chain A and name cb
 dist intra_3168_valid , resid 416 and blastp_afP50735 and chain A and name cb, resid 80 and blastp_afP50735 and chain A and name cb
 dist intra_3658_valid , resid 416 and blastp_afP50735 and chain A and name cb, resid 389 and blastp_afP50735 and chain A and name cb
 dist intra_5838_valid , resid 416 and blastp_afP50735 and chain A and name cb, resid 92 and blastp_afP50735 and chain A and name cb
