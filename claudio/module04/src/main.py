@@ -79,7 +79,7 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_m
         verbose_print("Write pymol scripts", 0, verbose_level)
         setup_pml_scripts(data)
 
-        # Minimze dataset
+        # Minimize dataset
         data = minimize_dataset(data)
 
         # Create inter score histogram

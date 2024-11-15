@@ -180,7 +180,8 @@ def clean_dataset(data: pd.DataFrame, method=""):
         if "pdb_id" in data.columns:
             drop_indeces,\
                 already_checked = ([] for _ in range(2))
-            for i, row in data.iterrows():
+            for row in data.itertuples():
+                i = row.Index
                 if ('_' in str(i)) and (i not in already_checked):
                     drop_criteria = (data.pos_a == row.pos_a) & (data.pos_b == row.pos_b) & \
                                     (data.pep_a == row.pep_a) & (data.pep_b == row.pep_b) & \
@@ -231,7 +232,8 @@ def clean_dataset(data: pd.DataFrame, method=""):
         if "evidence" in data.columns:
             drop_indeces,\
                 already_checked = ([] for _ in range(2))
-            for i, row in data.iterrows():
+            for row in data.itertuples():
+                i = row.Index
                 if ('_' in str(i)) and (i not in already_checked):
                     multi_chain_criteria = (data.unip_id_a == row.unip_id_a) & \
                                            (data.unip_id_b == row.unip_id_b) & \
@@ -298,10 +300,12 @@ def minimize_dataset(data: pd.DataFrame):
 
     data = data.drop(index=drop_indeces)
 
-    for i, row in data.iterrows():
+    for row in data.itertuples():
         copies_found = (row.seq_a.count(row.pep_a) > 1) or (row.seq_b.count(row.pep_b) > 1)
         if copies_found:
-            for next_i, next_row in data.iterrows():
+            i = row.Index
+            for next_row in data.itertuples():
+                next_i = next_row.Index
                 if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
                     same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
                     same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)

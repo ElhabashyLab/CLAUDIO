@@ -65,10 +65,10 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query
     verbose_print(f"Write {search_tool} results", 2, verbose_level)
     ind = 0
     def write_res_task(i, row):
-        if already_searched[row["unip_id_a"]][2] and already_searched[row["unip_id_b"]][2]:
+        if already_searched[row.unip_id_a][2] and already_searched[row.unip_id_b][2]:
             # Sort results into dataset
-            _, _, best_results_a = already_searched[row["unip_id_a"]]
-            _, _, best_results_b = already_searched[row["unip_id_b"]]
+            _, _, best_results_a = already_searched[row.unip_id_a]
+            _, _, best_results_b = already_searched[row.unip_id_b]
 
             # Join search results
             results_a = {result.split('_')[0]: '_'.join(result.split('_')[1:])
@@ -91,7 +91,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float, query
         return
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(write_res_task, i, row): (i, row) for i, row in data.iterrows()}
+        futures = {executor.submit(write_res_task, row.Index, row): row for row in data.itertuples()}
 
         for future in concurrent.futures.as_completed(futures):
             try:

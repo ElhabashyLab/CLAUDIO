@@ -43,13 +43,10 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float, linker_
             x, plddt_cutoff, linker_minimum, linker_maximum, euclidean_strictness
         ), axis=1
     )
-    data["XL_type"] = data.apply(
-        lambda x: "intra" if (x.unip_id_a == x.unip_id_b) and
-                             (x.chain_a == x.chain_b) and
-                             (not x.evidence)
-        else "inter", axis=1
-    )
-    data["XL_confirmed"] = data.apply(lambda x: (not pd.isna(x.topo_dist)) and ("distance" not in x.evidence), axis=1)
+    data["XL_type"] = "inter"
+    data.loc[(data.unip_id_a == data.unip_id_b) & (data.chain_a == data.chain_b) & (data.evidence == ""), "XL_type"] = "intra"
+
+    data["XL_confirmed"] =  (pd.notna(data.topo_dist)) & (~data.evidence.str.contains("distance",na=False))
     return data
 
 

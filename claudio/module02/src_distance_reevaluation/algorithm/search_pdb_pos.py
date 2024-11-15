@@ -68,7 +68,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
     pdb_cache = {}
 
     # Iterate over given dataset
-    def search_site_task(i, row, data):
+    def search_site_task(i, row):
 
         # If saved path is not '-' perform site distance calculation, else append values to list containers indicating
         # a fail here
@@ -119,7 +119,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
         return data
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(search_site_task, i, row, data): (i, row, data) for i, row in data.iterrows()}
+        futures = {executor.submit(search_site_task, i, row): (i, row) for i, row in data.iterrows()}
 
         for future in concurrent.futures.as_completed(futures):
             try:

@@ -29,7 +29,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
     if (data.XL_type == "inter").any() and not os.path.exists(output_hetero_dir):
         os.mkdir(output_hetero_dir)
 
-    for i, row in data.iterrows():
+    for row in data.itertuples():
         unip_id = f"{row.unip_id_a}_{row.unip_id_b}" if row.unip_id_a != row.unip_id_b else row.unip_id_a
 
         # only write new result files if results for uniprot entry were not written yet

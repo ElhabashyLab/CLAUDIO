@@ -59,9 +59,9 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
     # Download pdb files for each datapoint
-    def download_task(i,row, dataset):
+    def download_task(i,row):
         # Iterate over results
-        for j, res in enumerate((row["all_results"] + ' ').split(' ')):
+        for j, res in enumerate((row.all_results + ' ').split(' ')):
 
             pdb_id = res.split('_')[0]
             chain = '_'.join(res.split('|')[0].split('_')[1:]) if pdb_id else '-'
@@ -116,7 +116,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
         return dataset
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(download_task, i, row, dataset): (i,row) for i, row in dataset.iterrows()}
+        futures = {executor.submit(download_task, row.Index, row): row for row in dataset.itertuples()}
 
         for future in concurrent.futures.as_completed(futures):
             try:

@@ -92,22 +92,24 @@ def compute_interaction_overlap(data_row: pd.Series):
         if data_row["pos_a"] == data_row["pos_b"]:
             return 1.0
         else:
-            site1 = 'a' if data_row["pos_a"] < data_row["pos_b"] else 'b'
-            site2 = 'a' if data_row["pos_a"] > data_row["pos_b"] else 'b'
+            site1, site2 = ('a', 'b') if data_row["pos_a"] < data_row["pos_b"] else ('b', 'a')
             seq, pep_a, pep_b, pos_a, pos_b = (data_row["seq_a"], data_row[f"pep_{site1}"],
                                                data_row[f"pep_{site2}"], int(data_row[f"pos_{site1}"]) - 1,
                                                int(data_row[f"pos_{site2}"]) - 1)
 
             # save indices of residues in peptides between/including interacting residues
-            seq_a_inds = [ind for ind in range(seq.find(pep_a), seq.find(pep_a) + len(pep_a)) if ind >= pos_a]
-            seq_b_inds = [ind for ind in range(seq.find(pep_b), seq.find(pep_b) + len(pep_b)) if ind <= pos_b]
+            seq_a_inds = set(range(seq.find(pep_a), seq.find(pep_a) + len(pep_a)))
+            seq_b_inds = set(range(seq.find(pep_b), seq.find(pep_b) + len(pep_b)))
 
-            # compute intersect and union of index lists
-            seq_intersect = [ind for ind in seq_a_inds if ind in seq_b_inds]
-            seq_union = seq_a_inds.copy()
-            seq_union.extend([ind for ind in seq_b_inds if ind not in seq_a_inds])
+            # filter indices based on positions
+            seq_a_inds = {ind for ind in seq_a_inds if ind >= pos_a}
+            seq_b_inds = {ind for ind in seq_b_inds if ind <= pos_b}
 
-            if len(seq_intersect) == 0:
+            # compute intersect and union of index sets
+            seq_intersect = seq_a_inds & seq_b_inds
+            seq_union = seq_a_inds | seq_b_inds
+
+            if not seq_intersect:
                 return 0.0
             else:
                 return round_self(len(seq_intersect) / len(seq_union), 3)

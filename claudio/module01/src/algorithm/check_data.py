@@ -27,7 +27,7 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
     data_len = len(data.index)
 
     # Save known interactions (drop duplicates)
-    known_inters = []
+    known_inters = set()
 
     # Save newly created datapoints (in order to ensure that they aren't duplicated multiple times)
     new_datapoints = []
@@ -98,9 +98,9 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
             new_datapoints.append(datapoints)
 
         # If not in known interactions, save unip ids and positions in known interactions, else drop datapoint
-        interaction_info = sorted([row["unip_id_a"], row["unip_id_b"], str(row["pos_a"]), str(row["pos_b"])])
+        interaction_info = tuple(sorted([row["unip_id_a"], row["unip_id_b"], str(row["pos_a"]), str(row["pos_b"])]))
         if interaction_info not in [x for _, x in known_inters]:
-            known_inters.append((i, interaction_info))
+            known_inters.add((i, interaction_info))
         else:
             for known_i, known_inter in known_inters:
                 if interaction_info == known_inter:
@@ -113,8 +113,8 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
     verbose_print("", 1, verbose_level)
 
     # Add aforementioned possible variations to the end of the dataset (*)
-    for dp in new_datapoints:
-        data = pd.concat([data, dp]).drop_duplicates().reset_index(drop=True)
+    if new_datapoints:
+        data = pd.concat([data] + new_datapoints).drop_duplicates().reset_index(drop=True)
 
     log_text += f"\n======================================================================\nFinal result:\n" \
                 f"\tFAILS: {log_text.count('FAIL')}\n" \
@@ -159,7 +159,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
     try:
         # Collect booleans whether aminoacid at given position is any of the residues with specified position
         fits_specification = []
-        for _, dp in df_xl_res.iterrows():
+        for dp in df_xl_res.itertuples():
             # residue may be found anywhere in the peptide
             if dp.pos == 0:
                 fits_position = True
@@ -190,7 +190,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
         pep_count_in_seq = seq.count(peptide)
 
         # Parse through possible residues
-        for _, dp in df_xl_res.iterrows():
+        for dp in df_xl_res.itertuples():
             # Peptide occurred exactly once in sequence (uniquely identified peptide)
             if pep_count_in_seq == 1:
                 # If position has not been replaced yet
@@ -365,7 +365,7 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
     shift_a, \
         shift_b = (-1 for _ in range(2))
 
-    for _, dp in df_xl_res.iterrows():
+    for dp in df_xl_res.itertuples():
         # set sequences
         seq_a = row.seq_a
         seq_b = row.seq_b

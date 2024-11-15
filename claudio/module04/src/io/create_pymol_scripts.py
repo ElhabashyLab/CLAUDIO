@@ -44,7 +44,8 @@ def setup_pml_scripts(data, bg_color="white"):
                                "overlaps": [],
                                "same": [],
                                "unknown": []}}
-            for i, row in xl_set.iterrows():
+            for row in xl_set.itertuples():
+                i = row.Index
                 if not (pd.isna(row.pdb_pos_a) or pd.isna(row.pdb_pos_b)) and (row.XL_confirmed or '_' not in str(i)):
                     dist_data = (i, (row.chain_a, row.pdb_pos_a, row.chain_b, row.pdb_pos_b))
                     dists[
