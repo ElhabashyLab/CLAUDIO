@@ -61,7 +61,6 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
 
     toplink_dists = []
     ind = 0
-    structures = {}
     
     # create directory for topolink input files
     os.makedirs(f"{temp_dir}in/", exist_ok=True)
@@ -79,16 +78,15 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
 
     # Iterate over unique structures
     len_structures = len(data["path"].unique())
-    for structure in sorted(data["path"].unique()):
-        verbose_print(f"\r\tWrite inputs for Topolink:[{round_self((ind * 100) / len_structures, 2)}%]", 1, verbose_level,end='')
-
+    def topo_task(structure):
+        nonlocal ind
         # subselect only interactions belonging to structure
         subset = data[data["path"] == structure]
 
         # If empty structure marker found, skip this iteration
         if structure == '-':
             ind += 1
-            continue
+            return
         # If not empty structure marker found, save pdb id and isolate needed chains from structure to reduce
         # computation
         else:
@@ -97,7 +95,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
             # Check again if isolation of chains was successful, if not skip iteration
             if structure == '-':
                 ind += 1
-                continue
+                return
 
         # obs_inds is container to save tuples: (index of observation in dataset, string of observed link, boolean
         # whether link was found in topolink results (initialized as False))
@@ -106,21 +104,22 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
         obs_str = ''
         known_link_strs = []
         subset = subset[subset["res_criteria_fulfilled"] & subset["is_interfaced"]]
-        for i, row in subset.iterrows():
+        for row in subset.itertuples():
+            i = row.Index
             # Set boolean for whether pLDDT cutoff is unfulfilled if the used method was alphafold
-            plddt_unfulfilled = (row["method_a"] == "alphafold") and \
-                                ((row["pLDDT_a"] != '-' and (float(row["pLDDT_a"]) < plddt_cutoff)) or \
-                                 (row["pLDDT_b"] != '-' and (float(row["pLDDT_b"]) < plddt_cutoff)))
+            plddt_unfulfilled = (row.method_a == "alphafold") and \
+                                ((row.pLDDT_a != '-' and (float(row.pLDDT_a) < plddt_cutoff)) or \
+                                 (row.pLDDT_b != '-' and (float(row.pLDDT_b) < plddt_cutoff)))
             # Don't compute dist for datapoints which do not fulfill the residue, interface criteria, or pLDDT cutoff
             if not plddt_unfulfilled:
                 try:
                     # observed LYS A 468 LYS A 457
                     # LINK: LYS A 457 CA LYS A 468 CA 11.814 12.568 YES 0.000 35.000 OK: FOUND 1 / 1 1 / 1 YY YY
                     link_strs = [
-                        ' '.join([Polypeptide.one_to_three(row['seq_a'][row['pos_a'] - 1]), row['chain_a'],
-                                  str(int(row['pdb_pos_a']))]),
-                        ' '.join([Polypeptide.one_to_three(row['seq_b'][row['pos_b'] - 1]), row['chain_b'],
-                                  str(int(row['pdb_pos_b']))])]
+                        ' '.join([Polypeptide.one_to_three(row.seq_a[row.pos_a - 1]), row.chain_a,
+                                  str(int(row.pdb_pos_a))]),
+                        ' '.join([Polypeptide.one_to_three(row.seq_b[row.pos_b - 1]), row.chain_b,
+                                  str(int(row.pdb_pos_b))])]
                     if link_strs not in known_link_strs:
                         obs_str += f"  observed {' '.join(link_strs)}\n"
                         obs_inds.append((i, link_strs, False))
@@ -143,8 +142,9 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
                 topo_in.append(obs_str)
             elif line.startswith("  linktype"):
                 # "  linktype   MET     all      1       N           LYS     all     all       CB        35"
-                for i, row_a in df_xl_res.iterrows():
-                    for _, row_b in df_xl_res.iloc[i:].iterrows():
+                for row_a in df_xl_res.itertuples():
+                    i = row_a.Index
+                    for row_b in df_xl_res.iloc[i:].itertuples():
                         type_str = ' '.join(["  linktype",
                                              Polypeptide.one_to_three(row_a.res), "all", "all", row_a.atom,
                                              Polypeptide.one_to_three(row_b.res), "all", "all", row_b.atom,
@@ -154,20 +154,10 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
                 topo_in.append(line)
         topo_in = ''.join(topo_in)
         # Write inputfile to temporary path (will be overwritten during next iteration)
-        with open(f"{temp_dir}in/topo_{pdb_id}_.tmp", 'w') as f:
+        input = f"{temp_dir}in/topo_{pdb_id}_.tmp"
+        with open(input, 'w') as f:
             f.write(topo_in)
-        structures[pdb_id] = [obs_inds,topo_in]
 
-        ind += 1
-        verbose_print(f"\r\tWrite inputs for Topolink:[{round_self((ind * 100) / len_structures, 2)}%]", 1, verbose_level,end='')
-
-    verbose_print("", 1, verbose_level)
-    in_files = [os.path.join(f"{temp_dir}in/", f) for f in os.listdir(f"{temp_dir}in/") if os.path.isfile(os.path.join(f"{temp_dir}in/", f))]
-    ind = 0
-
-    def topo_task(input):
-        pdb_id = input.split('_')[-2]
-        topo_in = structures[pdb_id][1]
         # Run topolink and pop terminal print to variable
         topolink_call = "topolink" if topolink_bin is None else f"{topolink_bin}topolink"
         res = os.popen(f"\"{topolink_call}\" \"{input}\"").read()
@@ -175,24 +165,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
         # in case the user wishes to review them later
         with open(f"{temp_dir}topo_{pdb_id}.log", 'w') as f:
             f.write(f"IN:\n{topo_in}\n\n\nOUT:\n{res}")
-        structures[pdb_id] = structures[pdb_id] + [res]
-        return None
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(topo_task, input): input for input in in_files}
-        verbose_print(f"\r\tTopoLink:[{round_self((ind * 100) / len(in_files), 2)}%]", 1, verbose_level,end='')
 
-    for future in concurrent.futures.as_completed(futures):
-        try:
-            ind += 1
-            verbose_print(f"\r\tTopoLink:[{round_self((ind * 100) / len(in_files), 2)}%]", 1, verbose_level,end='')
-            del futures[future]
-        except Exception as e:
-            print(e)
-
-    for container in structures.values():
-        obs_inds = container[0]
-        res = container[2]
         # zip topolink results with obs_inds
         # -> toplink_dists = [(index, eucl_dist, top_dist), ...]
         link_results = [' '.join(line.split()) for line in res.split('\n') if line.startswith("  LINK:")]
@@ -231,6 +205,19 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
             data_index, _, obs_res_found = obs_ind
             if not obs_res_found:
                 toplink_dists.append((data_index, float('Nan'), float('Nan')))
+        ind += 1
+        verbose_print(f"\r\tTopoLink:[{round_self((ind * 100) / len_structures, 2)}%]", 1, verbose_level,end='')
+        return
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(topo_task, structure): structure for structure in sorted(data["path"].unique())}
+        verbose_print(f"\r\tTopoLink:[{round_self((ind * 100) / len_structures, 2)}%]", 1, verbose_level,end='')
+
+    for future in concurrent.futures.as_completed(futures):
+        try:
+            del futures[future]
+        except Exception as e:
+            print(e)
 
     verbose_print("", 1, verbose_level)
 
@@ -245,12 +232,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, df_xl_res: pd
         data.loc[index, "topo_dist_tplk"] = round_self(top_dist, 3)
 
     # Fill topolink distances with zero, if positions equal
-    data["eucl_dist_tplk"] = data.apply(lambda x: 0.0 if (x.pos_a == x.pos_b) &
-                                                         (x.unip_id_a == x.unip_id_b) &
-                                                         (x.chain_a == x.chain_b) else x.eucl_dist_tplk, axis=1)
-    data["topo_dist_tplk"] = data.apply(lambda x: 0.0 if (x.pos_a == x.pos_b) &
-                                                         (x.unip_id_a == x.unip_id_b) &
-                                                         (x.chain_a == x.chain_b) else x.topo_dist_tplk, axis=1)
+    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b) & (data.chain_a == data.chain_b), "eucl_dist_tplk"] = 0.0
+    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b) & (data.chain_a == data.chain_b), "topo_dist_tplk"] = 0.0
 
     return data
 
