@@ -2,7 +2,7 @@ import os
 import socket
 import time
 import pandas as pd
-from Bio.PDB import Polypeptide, PDBParser, MMCIFParser
+from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser
 from Bio.Align import PairwiseAligner
 import requests as r
 import sys
@@ -217,7 +217,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
         try:
             models = PDBParser().get_structure('', data["path"]).get_list()
         except:
-            models = MMCIFParser().get_structure('', data["path"]).get_list()
+            models = FastMMCIFParser().get_structure('', data["path"]).get_list()
         
         pdb_cache[data["path"]] = models
 
