@@ -10,6 +10,7 @@ show cartoon, chain A
 dist intra_268_valid , resid 152 and blastp_afP80244 and chain A and name cb, resid 196 and blastp_afP80244 and chain A and name cb
 dist intra_1424_unknown , resid 152 and blastp_afP80244 and chain A and name cb, resid 197 and blastp_afP80244 and chain A and name cb
 dist intra_3277_unknown , resid 1 and blastp_afP80244 and chain A and name cb, resid 188 and blastp_afP80244 and chain A and name cb
+dist intra_3469_unknown , resid 197 and blastp_afP80244 and chain A and name cb, resid 85 and blastp_afP80244 and chain A and name cb
 dist intra_4688_unknown , resid 189 and blastp_afP80244 and chain A and name cb, resid 152 and blastp_afP80244 and chain A and name cb
 show dashes
 set dash_gap, 0.1

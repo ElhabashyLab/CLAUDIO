@@ -1,4 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-2JSY,A,A,43.0,139.0,43,139,homo2mer,inter
-2JSY,A,A,,43.0,130,43,homo2mer,intra
-2JSY,A,A,,37.0,93,37,homo2mer,intra

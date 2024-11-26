@@ -8,10 +8,10 @@ show surface, chain A and blastp_afO34981
 color 3, chain A
 show cartoon, chain A
 dist intra_2672_valid , resid 226 and blastp_afO34981 and chain A and name cb, resid 222 and blastp_afO34981 and chain A and name cb
-dist intra_2969_valid , resid 230 and blastp_afO34981 and chain A and name cb, resid 215 and blastp_afO34981 and chain A and name cb
 dist intra_4201_valid , resid 226 and blastp_afO34981 and chain A and name cb, resid 215 and blastp_afO34981 and chain A and name cb
 dist intra_5509_valid , resid 91 and blastp_afO34981 and chain A and name cb, resid 3 and blastp_afO34981 and chain A and name cb
 dist intra_1939_out_range , resid 18 and blastp_afO34981 and chain A and name cb, resid 230 and blastp_afO34981 and chain A and name cb
+dist intra_2969_out_range , resid 230 and blastp_afO34981 and chain A and name cb, resid 215 and blastp_afO34981 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

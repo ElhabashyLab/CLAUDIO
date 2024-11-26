@@ -8,13 +8,12 @@ show surface, chain A and blastp_afP37870
 color 3, chain A
 show cartoon, chain A
 dist intra_1288_valid , resid 1067 and blastp_afP37870 and chain A and name cb, resid 849 and blastp_afP37870 and chain A and name cb
+dist intra_1394_valid , resid 803 and blastp_afP37870 and chain A and name cb, resid 849 and blastp_afP37870 and chain A and name cb
 dist intra_168_unknown , resid 709 and blastp_afP37870 and chain A and name cb, resid 669 and blastp_afP37870 and chain A and name cb
 dist intra_817_unknown , resid 868 and blastp_afP37870 and chain A and name cb, resid 849 and blastp_afP37870 and chain A and name cb
 dist intra_933_unknown , resid 709 and blastp_afP37870 and chain A and name cb, resid 685 and blastp_afP37870 and chain A and name cb
-dist intra_1445_unknown , resid 1067 and blastp_afP37870 and chain A and name cb, resid 1040 and blastp_afP37870 and chain A and name cb
 dist intra_2491_unknown , resid 868 and blastp_afP37870 and chain A and name cb, resid 803 and blastp_afP37870 and chain A and name cb
 dist intra_4045_unknown , resid 849 and blastp_afP37870 and chain A and name cb, resid 1192 and blastp_afP37870 and chain A and name cb
-dist intra_4834_unknown , resid 919 and blastp_afP37870 and chain A and name cb, resid 1047 and blastp_afP37870 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

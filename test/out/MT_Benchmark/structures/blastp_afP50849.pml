@@ -8,6 +8,7 @@ show surface, chain A and blastp_afP50849
 color 3, chain A
 show cartoon, chain A
 dist intra_157_valid , resid 682 and blastp_afP50849 and chain A and name cb, resid 575 and blastp_afP50849 and chain A and name cb
+dist intra_460_valid , resid 575 and blastp_afP50849 and chain A and name cb, resid 420 and blastp_afP50849 and chain A and name cb
 dist intra_681_valid , resid 274 and blastp_afP50849 and chain A and name cb, resid 263 and blastp_afP50849 and chain A and name cb
 dist intra_729_valid , resid 575 and blastp_afP50849 and chain A and name cb, resid 629 and blastp_afP50849 and chain A and name cb
 dist intra_799_valid , resid 682 and blastp_afP50849 and chain A and name cb, resid 662 and blastp_afP50849 and chain A and name cb
@@ -30,7 +31,6 @@ dist intra_3724_valid , resid 280 and blastp_afP50849 and chain A and name cb, r
 dist intra_4439_valid , resid 303 and blastp_afP50849 and chain A and name cb, resid 263 and blastp_afP50849 and chain A and name cb
 dist intra_4722_valid , resid 611 and blastp_afP50849 and chain A and name cb, resid 608 and blastp_afP50849 and chain A and name cb
 dist intra_5070_valid , resid 676 and blastp_afP50849 and chain A and name cb, resid 698 and blastp_afP50849 and chain A and name cb
-dist intra_460_out_range , resid 575 and blastp_afP50849 and chain A and name cb, resid 420 and blastp_afP50849 and chain A and name cb
 dist intra_2733_out_range , resid 263 and blastp_afP50849 and chain A and name cb, resid 49 and blastp_afP50849 and chain A and name cb
 dist intra_1925_overlaps , resid 575 and blastp_afP50849 and chain A and name cb, resid 565 and blastp_afP50849 and chain A and name cb
 dist intra_2649_overlaps , resid 79 and blastp_afP50849 and chain A and name cb, resid 72 and blastp_afP50849 and chain A and name cb

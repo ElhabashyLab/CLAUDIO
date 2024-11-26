@@ -1,4 +1,4 @@
-load blastp_afQ9CQ62.pdb
+load blastp_afQ9CQ62.cif
 hide all
 bg_color white
 set transparency, 0.8
@@ -7,7 +7,7 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afQ9CQ62
 color 3, chain A
 show cartoon, chain A
-dist intra_6_valid , resid 110 and blastp_afQ9CQ62 and chain A and name cb, resid 97 and blastp_afQ9CQ62 and chain A and name cb
+dist intra_6_unknown , resid 110 and blastp_afQ9CQ62 and chain A and name cb, resid 97 and blastp_afQ9CQ62 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

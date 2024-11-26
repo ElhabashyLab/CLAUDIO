@@ -10,11 +10,11 @@ show cartoon, chain A
 dist intra_67_valid , resid 37 and blastp_afP08821 and chain A and name cb, resid 75 and blastp_afP08821 and chain A and name cb
 dist intra_595_valid , resid 80 and blastp_afP08821 and chain A and name cb, resid 41 and blastp_afP08821 and chain A and name cb
 dist intra_851_valid , resid 86 and blastp_afP08821 and chain A and name cb, resid 80 and blastp_afP08821 and chain A and name cb
+dist intra_1026_valid , resid 83 and blastp_afP08821 and chain A and name cb, resid 37 and blastp_afP08821 and chain A and name cb
 dist intra_1476_valid , resid 92 and blastp_afP08821 and chain A and name cb, resid 83 and blastp_afP08821 and chain A and name cb
 dist intra_4274_valid , resid 41 and blastp_afP08821 and chain A and name cb, resid 75 and blastp_afP08821 and chain A and name cb
 dist intra_564_out_range , resid 92 and blastp_afP08821 and chain A and name cb, resid 75 and blastp_afP08821 and chain A and name cb
 dist intra_762_out_range , resid 92 and blastp_afP08821 and chain A and name cb, resid 37 and blastp_afP08821 and chain A and name cb
-dist intra_1026_out_range , resid 83 and blastp_afP08821 and chain A and name cb, resid 37 and blastp_afP08821 and chain A and name cb
 dist intra_3472_out_range , resid 92 and blastp_afP08821 and chain A and name cb, resid 59 and blastp_afP08821 and chain A and name cb
 dist intra_4204_unknown , resid 38 and blastp_afP08821 and chain A and name cb, resid 75 and blastp_afP08821 and chain A and name cb
 dist intra_6117_unknown , resid 92 and blastp_afP08821 and chain A and name cb, resid 62 and blastp_afP08821 and chain A and name cb

@@ -11,7 +11,7 @@ dist intra_1812_valid , resid 399 and blastp_afP21879 and chain A and name cb, r
 dist intra_2992_valid , resid 133 and blastp_afP21879 and chain A and name cb, resid 159 and blastp_afP21879 and chain A and name cb
 dist intra_4831_valid , resid 399 and blastp_afP21879 and chain A and name cb, resid 115 and blastp_afP21879 and chain A and name cb
 dist intra_535_unknown , resid 66 and blastp_afP21879 and chain A and name cb, resid 399 and blastp_afP21879 and chain A and name cb
-dist intra_1199_unknown , resid 117 and blastp_afP21879 and chain A and name cb, resid 75 and blastp_afP21879 and chain A and name cb
+dist intra_1190_unknown , resid 411 and blastp_afP21879 and chain A and name cb, resid 66 and blastp_afP21879 and chain A and name cb
 dist intra_1437_unknown , resid 22 and blastp_afP21879 and chain A and name cb, resid 441 and blastp_afP21879 and chain A and name cb
 dist intra_3613_unknown , resid 412 and blastp_afP21879 and chain A and name cb, resid 66 and blastp_afP21879 and chain A and name cb
 dist intra_4118_unknown , resid 480 and blastp_afP21879 and chain A and name cb, resid 1 and blastp_afP21879 and chain A and name cb

@@ -18,6 +18,7 @@ SOURCE   8 EXPRESSION_SYSTEM_STRAIN: BL21(DE3)
 KEYWDS    LYTR, CPSA, PSR, TRANSFERASE                                          
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    F.K.K.LI,N.C.J.STRYNADKA                                              
+REVDAT   4   20-NOV-24 6UF6    1       REMARK                                   
 REVDAT   3   11-MAR-20 6UF6    1       JRNL                                     
 REVDAT   2   05-FEB-20 6UF6    1       JRNL                                     
 REVDAT   1   29-JAN-20 6UF6    0                                                

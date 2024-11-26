@@ -1,7 +1,7 @@
 HEADER    STRUCTURAL GENOMICS, UNKNOWN FUNCTION   07-JUL-05   2A8E              
-TITLE     THREE-DIMENSIONAL STRUCTURE OF BACILLUS SUBTILIS Q45498               
-TITLE    2 PUTATIVE PROTEIN AT RESOLUTION 2.5A. NORTHEAST STRUCTURAL            
-TITLE    3 GENOMICS CONSORTIUM TARGET SR204.                                    
+TITLE     THREE-DIMENSIONAL STRUCTURE OF BACILLUS SUBTILIS Q45498 PUTATIVE      
+TITLE    2 PROTEIN AT RESOLUTION 2.5A. NORTHEAST STRUCTURAL GENOMICS CONSORTIUM 
+TITLE    3 TARGET SR204.                                                        
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: HYPOTHETICAL PROTEIN YKTB;                                 
 COMPND   3 CHAIN: A;                                                            
@@ -15,32 +15,30 @@ SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562;
 SOURCE   7 EXPRESSION_SYSTEM_STRAIN: BL21(DE3)+MAGIC;                           
 SOURCE   8 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
 SOURCE   9 EXPRESSION_SYSTEM_PLASMID: PET21                                     
-KEYWDS    X-RAY, NESG, Q45498, YKTB, STRUCTURAL GENOMICS, PSI,                  
-KEYWDS   2 PROTEIN STRUCTURE INITIATIVE, NORTHEAST STRUCTURAL GENOMICS          
-KEYWDS   3 CONSORTIUM, UNKNOWN FUNCTION                                         
+KEYWDS    NESG, Q45498, YKTB, STRUCTURAL GENOMICS, PSI, PROTEIN STRUCTURE       
+KEYWDS   2 INITIATIVE, NORTHEAST STRUCTURAL GENOMICS CONSORTIUM, UNKNOWN        
+KEYWDS   3 FUNCTION                                                             
 EXPDTA    X-RAY DIFFRACTION                                                     
-AUTHOR    A.P.KUZIN,M.SU,W.YONG,S.VOROBIEV,T.ACTON,R.XIAO,K.CONOVER,            
-AUTHOR   2 L.-C.MA,K.E.CUNNINGHAM,G.T.MONTELIONE,J.F.HUNT,L.TONG,               
-AUTHOR   3 NORTHEAST STRUCTURAL GENOMICS CONSORTIUM (NESG)                      
+AUTHOR    A.P.KUZIN,M.SU,W.YONG,S.VOROBIEV,T.ACTON,R.XIAO,K.CONOVER,L.-C.MA,    
+AUTHOR   2 K.E.CUNNINGHAM,G.T.MONTELIONE,J.F.HUNT,L.TONG,NORTHEAST STRUCTURAL   
+AUTHOR   3 GENOMICS CONSORTIUM (NESG)                                           
+REVDAT   3   13-NOV-24 2A8E    1       REMARK SEQADV LINK                       
 REVDAT   2   24-FEB-09 2A8E    1       VERSN                                    
 REVDAT   1   26-JUL-05 2A8E    0                                                
-JRNL        AUTH   A.P.KUZIN,M.SU,W.YONG,S.VOROBIEV,T.ACTON,R.XIAO,             
-JRNL        AUTH 2 K.CONOVER,L.-C.MA,K.E.CUNNINGHAM,G.T.MONTELIONE,             
-JRNL        AUTH 3 J.F.HUNT,L.TONG                                              
-JRNL        TITL   THREE-DIMENSIONAL STRUCTURE OF BACILLUS SUBTILIS             
-JRNL        TITL 2 Q45498 PUTATIVE PROTEIN AT RESOLUTION 2.5A.                  
-JRNL        TITL 3 NORTHEAST STRUCTURAL GENOMICS CONSORTIUM TARGET              
-JRNL        TITL 4 SR204.                                                       
+JRNL        AUTH   A.P.KUZIN,M.SU,W.YONG,S.VOROBIEV,T.ACTON,R.XIAO,K.CONOVER,   
+JRNL        AUTH 2 L.-C.MA,K.E.CUNNINGHAM,G.T.MONTELIONE,J.F.HUNT,L.TONG        
+JRNL        TITL   THREE-DIMENSIONAL STRUCTURE OF BACILLUS SUBTILIS Q45498      
+JRNL        TITL 2 PUTATIVE PROTEIN AT RESOLUTION 2.5A. NORTHEAST STRUCTURAL    
+JRNL        TITL 3 GENOMICS CONSORTIUM TARGET SR204.                            
 JRNL        REF    TO BE PUBLISHED                                              
 JRNL        REFN                                                                
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    2.50 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : CNS 1.1                                              
 REMARK   3   AUTHORS     : BRUNGER,ADAMS,CLORE,DELANO,GROS,GROSSE-              
-REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES, PANNU,             
+REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES,PANNU,              
 REMARK   3               : READ,RICE,SIMONSON,WARREN                            
 REMARK   3                                                                      
 REMARK   3  REFINEMENT TARGET : ENGH & HUBER                                    
@@ -76,10 +74,10 @@ REMARK   3   BIN FREE R VALUE TEST SET COUNT     : 143
 REMARK   3   ESTIMATED ERROR OF BIN FREE R VALUE : 0.024                        
 REMARK   3                                                                      
 REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
-REMARK   3   PROTEIN ATOMS            : 1724                                    
+REMARK   3   PROTEIN ATOMS            : 1723                                    
 REMARK   3   NUCLEIC ACID ATOMS       : 0                                       
-REMARK   3   HETEROGEN ATOMS          : 10                                      
-REMARK   3   SOLVENT ATOMS            : 108                                     
+REMARK   3   HETEROGEN ATOMS          : 17                                      
+REMARK   3   SOLVENT ATOMS            : 95                                      
 REMARK   3                                                                      
 REMARK   3  B VALUES.                                                           
 REMARK   3   FROM WILSON PLOT           (A**2) : 26.80                          
@@ -103,9 +101,9 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : 0.36
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.006                           
-REMARK   3   BOND ANGLES            (DEGREES) : 1.30                            
+REMARK   3   BOND ANGLES            (DEGREES) : 1.300                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : 21.40                           
-REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.76                            
+REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.760                           
 REMARK   3                                                                      
 REMARK   3  ISOTROPIC THERMAL MODEL : RESTRAINED                                
 REMARK   3                                                                      
@@ -139,10 +137,10 @@ REMARK   3  TOPOLOGY FILE  5   : NULL
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: NULL                                      
 REMARK   4                                                                      
-REMARK   4 2A8E COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 2A8E COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 15-JUL-05.                  
-REMARK 100 THE RCSB ID CODE IS RCSB033616.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000033616.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -330,9 +328,11 @@ REMARK 800 SITE
 REMARK 800 SITE_IDENTIFIER: AC1                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SO4 A 221                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC2                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE SO4 A 222                 
+REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC3                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
 REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE PEG A 301                 
@@ -2333,5 +2333,5 @@ CONECT 1738 1737 1739
 CONECT 1739 1738 1740                                                           
 CONECT 1740 1739 1741                                                           
 CONECT 1741 1740                                                                
-MASTER      306    0    8   10    7    0    5    6 1835    1   67   17          
+MASTER      307    0    8   10    7    0    5    6 1835    1   67   17          
 END                                                                             

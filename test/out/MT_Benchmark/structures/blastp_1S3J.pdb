@@ -1,6 +1,5 @@
 HEADER    TRANSCRIPTION                           13-JAN-04   1S3J              
-TITLE     X-RAY CRYSTAL STRUCTURE OF YUSO PROTEIN FROM BACILLUS                 
-TITLE    2 SUBTILIS                                                             
+TITLE     X-RAY CRYSTAL STRUCTURE OF YUSO PROTEIN FROM BACILLUS SUBTILIS        
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: YUSO PROTEIN;                                              
 COMPND   3 CHAIN: A, B;                                                         
@@ -13,28 +12,28 @@ SOURCE   5 EXPRESSION_SYSTEM: ESCHERICHIA COLI;
 SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562;                                        
 SOURCE   7 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
 SOURCE   8 EXPRESSION_SYSTEM_PLASMID: PMCSG7                                    
-KEYWDS    STRUCTURAL GENOMICS, YUSO PROTEIN, MARR TRANSCRIPTIONAL               
-KEYWDS   2 REGULATOR FAMILY, PSI, PROTEIN STRUCTURE INITIATIVE,                 
-KEYWDS   3 MIDWEST CENTER FOR STRUCTURAL GENOMICS, MCSG                         
+KEYWDS    STRUCTURAL GENOMICS, YUSO PROTEIN, MARR TRANSCRIPTIONAL REGULATOR     
+KEYWDS   2 FAMILY, PSI, PROTEIN STRUCTURE INITIATIVE, MIDWEST CENTER FOR        
+KEYWDS   3 STRUCTURAL GENOMICS, MCSG, TRANSCRIPTION                             
 EXPDTA    X-RAY DIFFRACTION                                                     
-AUTHOR    J.OSIPIUK,R.WU,S.MOY,F.COLLART,A.JOACHIMIAK,MIDWEST CENTER            
-AUTHOR   2 FOR STRUCTURAL GENOMICS (MCSG)                                       
+AUTHOR    J.OSIPIUK,R.WU,S.MOY,F.COLLART,A.JOACHIMIAK,MIDWEST CENTER FOR        
+AUTHOR   2 STRUCTURAL GENOMICS (MCSG)                                           
+REVDAT   4   13-NOV-24 1S3J    1       SEQADV LINK                              
 REVDAT   3   24-FEB-09 1S3J    1       VERSN                                    
 REVDAT   2   18-JAN-05 1S3J    1       AUTHOR KEYWDS REMARK                     
 REVDAT   1   13-APR-04 1S3J    0                                                
 JRNL        AUTH   J.OSIPIUK,R.WU,S.MOY,F.COLLART,A.JOACHIMIAK                  
-JRNL        TITL   X-RAY CRYSTAL STRUCTURE OF YUSO PROTEIN FROM                 
-JRNL        TITL 2 BACILLUS SUBTILIS, A MEMBER OF MARR                          
-JRNL        TITL 3 TRANSCRIPTIONAL REGULATOR FAMILY                             
+JRNL        TITL   X-RAY CRYSTAL STRUCTURE OF YUSO PROTEIN FROM BACILLUS        
+JRNL        TITL 2 SUBTILIS, A MEMBER OF MARR TRANSCRIPTIONAL REGULATOR FAMILY  
 JRNL        REF    TO BE PUBLISHED                                              
 JRNL        REFN                                                                
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    2.25 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : REFMAC 5.1.24                                        
-REMARK   3   AUTHORS     : MURSHUDOV,VAGIN,DODSON                               
+REMARK   3   AUTHORS     : MURSHUDOV,SKUBAK,LEBEDEV,PANNU,STEINER,              
+REMARK   3               : NICHOLLS,WINN,LONG,VAGIN                             
 REMARK   3                                                                      
 REMARK   3    REFINEMENT TARGET : MAXIMUM LIKELIHOOD                            
 REMARK   3                                                                      
@@ -65,7 +64,7 @@ REMARK   3   BIN FREE R VALUE SET COUNT          : 97
 REMARK   3   BIN FREE R VALUE                    : 0.3490                       
 REMARK   3                                                                      
 REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
-REMARK   3   PROTEIN ATOMS            : 2231                                    
+REMARK   3   PROTEIN ATOMS            : 2219                                    
 REMARK   3   NUCLEIC ACID ATOMS       : 0                                       
 REMARK   3   HETEROGEN ATOMS          : 0                                       
 REMARK   3   SOLVENT ATOMS            : 126                                     
@@ -122,8 +121,13 @@ REMARK   3  ISOTROPIC THERMAL FACTOR RESTRAINTS.     COUNT   RMS    WEIGHT
 REMARK   3   MAIN-CHAIN BOND REFINED ATOMS  (A**2):  1419 ; 0.771 ; 1.500       
 REMARK   3   MAIN-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   MAIN-CHAIN ANGLE REFINED ATOMS (A**2):  2280 ; 1.498 ; 2.000       
+REMARK   3   MAIN-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN BOND REFINED ATOMS  (A**2):   832 ; 2.385 ; 3.000       
+REMARK   3   SIDE-CHAIN BOND OTHER ATOMS    (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3   SIDE-CHAIN ANGLE REFINED ATOMS (A**2):   740 ; 4.189 ; 4.500       
+REMARK   3   SIDE-CHAIN ANGLE OTHER ATOMS   (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B REFINED ATOMS     (A**2):  NULL ;  NULL ;  NULL       
+REMARK   3   LONG RANGE B OTHER ATOMS       (A**2):  NULL ;  NULL ;  NULL       
 REMARK   3                                                                      
 REMARK   3 ANISOTROPIC THERMAL FACTOR RESTRAINTS.    COUNT   RMS   WEIGHT       
 REMARK   3   RIGID-BOND RESTRAINTS          (A**2):  NULL ;  NULL ;  NULL       
@@ -143,13 +147,13 @@ REMARK   3   VDW PROBE RADIUS   : 1.40
 REMARK   3   ION PROBE RADIUS   : 0.80                                          
 REMARK   3   SHRINKAGE RADIUS   : 0.80                                          
 REMARK   3                                                                      
-REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE          
-REMARK   3  RIDING POSITIONS                                                    
+REMARK   3  OTHER REFINEMENT REMARKS: HYDROGENS HAVE BEEN ADDED IN THE RIDING   
+REMARK   3  POSITIONS                                                           
 REMARK   4                                                                      
-REMARK   4 1S3J COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1S3J COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 14-JAN-04.                  
-REMARK 100 THE RCSB ID CODE IS RCSB021321.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000021321.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -179,7 +183,7 @@ REMARK 200  REJECTION CRITERIA  (SIGMA(I)) : 0.000
 REMARK 200                                                                      
 REMARK 200 OVERALL.                                                             
 REMARK 200  COMPLETENESS FOR RANGE     (%) : 99.5                               
-REMARK 200  DATA REDUNDANCY                : 13.590                             
+REMARK 200  DATA REDUNDANCY                : 13.59                              
 REMARK 200  R MERGE                    (I) : 0.10100                            
 REMARK 200  R SYM                      (I) : NULL                               
 REMARK 200  <I/SIGMA(I)> FOR THE DATA SET  : 8.0000                             
@@ -325,22 +329,6 @@ REMARK 500  M RES CSSEQI ATM1   ATM2   ATM3
 REMARK 500    ASP A 145   CB  -  CG  -  OD2 ANGL. DEV. =   5.5 DEGREES          
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
-REMARK 525                                                                      
-REMARK 525 SOLVENT                                                              
-REMARK 525                                                                      
-REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
-REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
-REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
-REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
-REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
-REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
-REMARK 525 NUMBER; I=INSERTION CODE):                                           
-REMARK 525                                                                      
-REMARK 525  M RES CSSEQI                                                        
-REMARK 525    HOH A 210        DISTANCE =  5.51 ANGSTROMS                       
-REMARK 525    HOH B 219        DISTANCE =  5.77 ANGSTROMS                       
-REMARK 525    HOH B 225        DISTANCE =  5.50 ANGSTROMS                       
-REMARK 525    HOH B 226        DISTANCE =  5.22 ANGSTROMS                       
 REMARK 900                                                                      
 REMARK 900 RELATED ENTRIES                                                      
 REMARK 900 RELATED ID: APC1698   RELATED DB: TARGETDB                           
@@ -2979,5 +2967,5 @@ CONECT 2132 2130 2134
 CONECT 2133 2131                                                                
 CONECT 2134 2132                                                                
 CONECT 2135 2125                                                                
-MASTER      316    0   14   12    6    0    0    6 2357    2  148   24          
+MASTER      305    0   14   12    6    0    0    6 2345    2  148   24          
 END                                                                             

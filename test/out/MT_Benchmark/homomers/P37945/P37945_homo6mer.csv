@@ -7,7 +7,7 @@ afP37945,A,A,245.0,278.0,245,278,homo6mer,intra
 3M6A,B,B,718.0,327.0,718,327,homo6mer,intra
 3M6A,F,F,409.0,255.0,409,255,homo6mer,intra
 afP37945,A,A,237.0,278.0,237,278,homo6mer,intra
-afP37945,A,A,237.0,245.0,237,245,homo6mer,intra
+3M6A,A,A,237.0,,237,245,homo6mer,intra
 3M6A,A,A,278.0,,278,233,homo6mer,intra
 afP37945,A,A,242.0,237.0,242,237,homo6mer,inter
 3M6A,A,A,,346.0,509,346,homo6mer,intra

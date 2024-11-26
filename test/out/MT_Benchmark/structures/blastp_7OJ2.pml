@@ -8,6 +8,8 @@ show surface, chain A and blastp_7OJ2
 color 3, chain A
 show cartoon, chain A
 dist intra_41_unknown , resid 399 and blastp_7OJ2 and chain A and name cb, resid 74 and blastp_7OJ2 and chain A and name cb
+dist intra_106_unknown , resid 117 and blastp_7OJ2 and chain A and name cb, resid 87 and blastp_7OJ2 and chain A and name cb
+dist intra_1489_unknown , resid 412 and blastp_7OJ2 and chain A and name cb, resid 480 and blastp_7OJ2 and chain A and name cb
 dist intra_1959_unknown , resid 399 and blastp_7OJ2 and chain A and name cb, resid 87 and blastp_7OJ2 and chain A and name cb
 dist intra_2469_unknown , resid 412 and blastp_7OJ2 and chain A and name cb, resid 74 and blastp_7OJ2 and chain A and name cb
 dist intra_3174_unknown , resid 411 and blastp_7OJ2 and chain A and name cb, resid 74 and blastp_7OJ2 and chain A and name cb

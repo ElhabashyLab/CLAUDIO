@@ -57,6 +57,7 @@ dist intra_66_valid , resid 384 and blastp_5I96 and chain A and name cb, resid 1
 dist intra_66_4_valid , resid 384 and blastp_5I96 and chain B and name cb, resid 166 and blastp_5I96 and chain B and name cb
 dist intra_67_valid , resid 193 and blastp_5I96 and chain A and name cb, resid 180 and blastp_5I96 and chain A and name cb
 dist intra_67_4_valid , resid 193 and blastp_5I96 and chain B and name cb, resid 180 and blastp_5I96 and chain B and name cb
+dist intra_68_valid , resid 299 and blastp_5I96 and chain A and name cb, resid 413 and blastp_5I96 and chain A and name cb
 dist intra_69_valid , resid 256 and blastp_5I96 and chain A and name cb, resid 272 and blastp_5I96 and chain A and name cb
 dist intra_69_4_valid , resid 256 and blastp_5I96 and chain B and name cb, resid 272 and blastp_5I96 and chain B and name cb
 dist intra_70_valid , resid 166 and blastp_5I96 and chain A and name cb, resid 400 and blastp_5I96 and chain A and name cb
@@ -108,7 +109,6 @@ dist intra_45_out_range , resid 130 and blastp_5I96 and chain A and name cb, res
 dist intra_57_out_range , resid 193 and blastp_5I96 and chain A and name cb, resid 166 and blastp_5I96 and chain A and name cb
 dist intra_61_out_range , resid 130 and blastp_5I96 and chain A and name cb, resid 193 and blastp_5I96 and chain A and name cb
 dist intra_65_out_range , resid 243 and blastp_5I96 and chain A and name cb, resid 256 and blastp_5I96 and chain A and name cb
-dist intra_68_out_range , resid 299 and blastp_5I96 and chain A and name cb, resid 413 and blastp_5I96 and chain A and name cb
 dist intra_73_out_range , resid 282 and blastp_5I96 and chain A and name cb, resid 413 and blastp_5I96 and chain A and name cb
 dist intra_74_out_range , resid 384 and blastp_5I96 and chain A and name cb, resid 426 and blastp_5I96 and chain A and name cb
 dist intra_75_out_range , resid 155 and blastp_5I96 and chain A and name cb, resid 112 and blastp_5I96 and chain A and name cb

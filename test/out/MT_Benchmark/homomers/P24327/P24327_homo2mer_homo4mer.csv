@@ -6,7 +6,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 4WO7,A,A,202.0,143.0,221,162,homo2mer_homo4mer,intra
 4WO7,A,A,101.0,218.0,120,237,homo2mer_homo4mer,intra
 4WO7,B,B,83.0,63.0,102,82,homo2mer_homo4mer,intra
-4WO7,B,B,184.0,202.0,203,221,homo2mer_homo4mer,intra
+4WO7,A,A,184.0,202.0,203,221,homo2mer_homo4mer,intra
 4WO7,B,B,108.0,209.0,127,228,homo2mer_homo4mer,intra
 4WO7,A,A,214.0,218.0,233,237,homo2mer_homo4mer,intra
 4WO7,B,B,149.0,53.0,168,72,homo2mer_homo4mer,intra
@@ -40,6 +40,6 @@ afP24327,A,A,98.0,80.0,98,80,homo2mer_homo4mer,intra
 4WO7,B,B,242.0,97.0,261,116,homo2mer_homo4mer,intra
 4WO7,B,B,60.0,83.0,79,102,homo2mer_homo4mer,intra
 4WO7,A,A,209.0,115.0,228,134,homo2mer_homo4mer,intra
-afP24327,A,A,237.0,114.0,237,114,homo2mer_homo4mer,intra
-4WO7,A,A,,75.0,80,94,homo2mer_homo4mer,intra
+4WO7,A,A,,114.0,237,114,homo2mer_homo4mer,intra
+afP24327,A,A,80.0,94.0,80,94,homo2mer_homo4mer,intra
 4WO7,A,A,,53.0,163,72,homo2mer_homo4mer,intra

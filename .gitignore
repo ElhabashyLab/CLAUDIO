@@ -118,3 +118,6 @@ dist/
 
 # profiling results
 **/profile*
+
+# local pdb
+claudio/data/pdb/

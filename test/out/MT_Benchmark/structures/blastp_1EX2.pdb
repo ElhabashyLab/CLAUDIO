@@ -16,6 +16,7 @@ KEYWDS   2 INITIATIVE, MIDWEST CENTER FOR STRUCTURAL GENOMICS, MCSG
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    G.MINASOV,M.TEPLOVA,G.C.STEWART,E.V.KOONIN,W.F.ANDERSON,M.EGLI,       
 AUTHOR   2 MIDWEST CENTER FOR STRUCTURAL GENOMICS (MCSG)                        
+REVDAT   6   20-NOV-24 1EX2    1       HETSYN                                   
 REVDAT   5   29-JUL-20 1EX2    1       COMPND REMARK HET    HETNAM              
 REVDAT   5 2                   1       FORMUL LINK   SITE   ATOM                
 REVDAT   4   24-FEB-09 1EX2    1       VERSN                                    
@@ -322,6 +323,8 @@ HET    PO4  B 202      10
 HETNAM     GLC ALPHA-D-GLUCOPYRANOSE                                            
 HETNAM     FRU BETA-D-FRUCTOFURANOSE                                            
 HETNAM     PO4 PHOSPHATE ION                                                    
+HETSYN     GLC ALPHA-D-GLUCOSE; D-GLUCOSE; GLUCOSE                              
+HETSYN     FRU BETA-D-FRUCTOSE; D-FRUCTOSE; FRUCTOSE                            
 FORMUL   3  GLC    C6 H12 O6                                                    
 FORMUL   3  FRU    C6 H12 O6                                                    
 FORMUL   4  PO4    3(O4 P 3-)                                                   

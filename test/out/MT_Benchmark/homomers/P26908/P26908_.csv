@@ -1,7 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-7SAE,R,R,99.0,61.0,99,61,,intra
-7SAE,R,R,94.0,64.0,94,64,,inter
-afP26908,A,A,90.0,64.0,90,64,,intra
-7SAE,R,R,1.0,13.0,1,13,,intra
-afP26908,A,A,86.0,64.0,86,64,,intra
-7SAE,R,R,94.0,61.0,94,61,,intra

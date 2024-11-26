@@ -14,10 +14,10 @@ experiment DSS
   observed LYS A 32 LYS A 39
   observed LYS A 39 LYS A 46
   observed MET B 45 LYS A 39
-  observed MET C 45 LYS A 39
-  observed MET C 45 LYS C 39
+  observed MET B 45 LYS C 39
   observed MET A 1 LYS C 32
   observed MET B 1 LYS C 32
+  observed MET C 1 LYS C 32
   observed LYS A 32 LYS B 39
   observed LYS A 32 LYS C 39
   observed LYS B 32 LYS A 39

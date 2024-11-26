@@ -29,6 +29,7 @@ KEYWDS   4 BINDING PROTEIN, SIDEROPHORE BINDING PROTEIN, LIPOPROTEIN, CELL
 KEYWDS   5 MEMBRANE, ION TRANSPORT                                              
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    F.PEUCKERT,M.MIETHKE,A.G.ALBRECHT,L.-O.ESSEN,M.A.MARAHIEL             
+REVDAT   6   13-NOV-24 2WHY    1       REMARK                                   
 REVDAT   5   29-MAY-24 2WHY    1       COMPND SOURCE REMARK DBREF               
 REVDAT   5 2                   1       SEQRES LINK   SITE   ATOM                
 REVDAT   4   13-DEC-23 2WHY    1       COMPND SOURCE REMARK DBREF               

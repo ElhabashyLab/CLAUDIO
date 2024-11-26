@@ -1,7 +1,7 @@
 HEADER    STRUCTURAL GENOMICS, UNKNOWN FUNCTION   28-NOV-07   3BHP              
-TITLE     CRYSTAL STRUCTURE OF UPF0291 PROTEIN YNZC FROM BACILLUS               
-TITLE    2 SUBTILIS AT RESOLUTION 2.0 A. NORTHEAST STRUCTURAL                   
-TITLE    3 GENOMICS CONSORTIUM TARGET SR384                                     
+TITLE     CRYSTAL STRUCTURE OF UPF0291 PROTEIN YNZC FROM BACILLUS SUBTILIS AT   
+TITLE    2 RESOLUTION 2.0 A. NORTHEAST STRUCTURAL GENOMICS CONSORTIUM TARGET    
+TITLE    3 SR384                                                                
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: UPF0291 PROTEIN YNZC;                                      
 COMPND   3 CHAIN: A, B, C;                                                      
@@ -14,32 +14,30 @@ SOURCE   4 STRAIN: 168;
 SOURCE   5 GENE: YNZC, BSU17880;                                                
 SOURCE   6 EXPRESSION_SYSTEM: ESCHERICHIA COLI;                                 
 SOURCE   7 EXPRESSION_SYSTEM_TAXID: 562                                         
-KEYWDS    X-RAY STRUCTURE, NESG, SR384, O31818, UPF0291 PROTEIN YNZC,           
-KEYWDS   2 STRUCTURAL GENOMICS, PSI-2, PROTEIN STRUCTURE INITIATIVE,            
-KEYWDS   3 NORTHEAST STRUCTURAL GENOMICS CONSORTIUM, CYTOPLASM,                 
-KEYWDS   4 UNKNOWN FUNCTION                                                     
+KEYWDS    NESG, SR384, O31818, UPF0291 PROTEIN YNZC, STRUCTURAL GENOMICS, PSI-  
+KEYWDS   2 2, PROTEIN STRUCTURE INITIATIVE, NORTHEAST STRUCTURAL GENOMICS       
+KEYWDS   3 CONSORTIUM, CYTOPLASM, UNKNOWN FUNCTION                              
 EXPDTA    X-RAY DIFFRACTION                                                     
-AUTHOR    A.P.KUZIN,M.SU,J.SEETHARAMAN,H.JANJUA,K.CUNNINGHAM,                   
-AUTHOR   2 M.MAGLAQUI,L.A.OWENS,L.ZHAO,R.XIAO,M.C.BARAN,T.B.ACTON,              
-AUTHOR   3 B.ROST,G.T.MONTELIONE,J.F.HUNT,L.TONG,NORTHEAST STRUCTURAL           
-AUTHOR   4 GENOMICS CONSORTIUM (NESG)                                           
+AUTHOR    A.P.KUZIN,M.SU,J.SEETHARAMAN,H.JANJUA,K.CUNNINGHAM,M.MAGLAQUI,        
+AUTHOR   2 L.A.OWENS,L.ZHAO,R.XIAO,M.C.BARAN,T.B.ACTON,B.ROST,G.T.MONTELIONE,   
+AUTHOR   3 J.F.HUNT,L.TONG,NORTHEAST STRUCTURAL GENOMICS CONSORTIUM (NESG)      
+REVDAT   3   20-NOV-24 3BHP    1       SEQADV LINK                              
 REVDAT   2   24-FEB-09 3BHP    1       VERSN                                    
 REVDAT   1   11-DEC-07 3BHP    0                                                
 JRNL        AUTH   A.P.KUZIN,M.SU,J.SEETHARAMAN,H.JANJUA,K.CUNNINGHAM,          
-JRNL        AUTH 2 M.MAGLAQUI,L.A.OWENS,L.ZHAO,R.XIAO,M.C.BARAN,                
-JRNL        AUTH 3 T.B.ACTON,B.ROST,G.T.MONTELIONE,J.F.HUNT,L.TONG              
-JRNL        TITL   CRYSTAL STRUCTURE OF THE UPF0291 PROTEIN YNZC FROM           
-JRNL        TITL 2 BACILLUS SUBTILIS AT THE RESOLUTION 2.0 A.                   
+JRNL        AUTH 2 M.MAGLAQUI,L.A.OWENS,L.ZHAO,R.XIAO,M.C.BARAN,T.B.ACTON,      
+JRNL        AUTH 3 B.ROST,G.T.MONTELIONE,J.F.HUNT,L.TONG                        
+JRNL        TITL   CRYSTAL STRUCTURE OF THE UPF0291 PROTEIN YNZC FROM BACILLUS  
+JRNL        TITL 2 SUBTILIS AT THE RESOLUTION 2.0 A.                            
 JRNL        REF    TO BE PUBLISHED                                              
 JRNL        REFN                                                                
-REMARK   1                                                                      
 REMARK   2                                                                      
 REMARK   2 RESOLUTION.    2.01 ANGSTROMS.                                       
 REMARK   3                                                                      
 REMARK   3 REFINEMENT.                                                          
 REMARK   3   PROGRAM     : CNS 1.2                                              
 REMARK   3   AUTHORS     : BRUNGER,ADAMS,CLORE,DELANO,GROS,GROSSE-              
-REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES, PANNU,             
+REMARK   3               : KUNSTLEVE,JIANG,KUSZEWSKI,NILGES,PANNU,              
 REMARK   3               : READ,RICE,SIMONSON,WARREN                            
 REMARK   3                                                                      
 REMARK   3  REFINEMENT TARGET : ENGH & HUBER                                    
@@ -93,7 +91,7 @@ REMARK   3    B23 (A**2) : 0.00000
 REMARK   3                                                                      
 REMARK   3  ESTIMATED COORDINATE ERROR.                                         
 REMARK   3   ESD FROM LUZZATI PLOT        (A) : 0.23                            
-REMARK   3   ESD FROM SIGMAA              (A) : -0.14                           
+REMARK   3   ESD FROM SIGMAA              (A) : -0.1                            
 REMARK   3   LOW RESOLUTION CUTOFF        (A) : 5.00                            
 REMARK   3                                                                      
 REMARK   3  CROSS-VALIDATED ESTIMATED COORDINATE ERROR.                         
@@ -102,9 +100,9 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : NULL
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.005                           
-REMARK   3   BOND ANGLES            (DEGREES) : 0.82                            
+REMARK   3   BOND ANGLES            (DEGREES) : 0.822                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : 16.30                           
-REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.63                            
+REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.630                           
 REMARK   3                                                                      
 REMARK   3  ISOTROPIC THERMAL MODEL : RESTRAINED                                
 REMARK   3                                                                      
@@ -132,13 +130,13 @@ REMARK   3  TOPOLOGY FILE  1   : PROTEIN.TOP
 REMARK   3  TOPOLOGY FILE  2   : WATER.TOP                                      
 REMARK   3  TOPOLOGY FILE  3   : NULL                                           
 REMARK   3                                                                      
-REMARK   3  OTHER REFINEMENT REMARKS: THE FRIEDEL PAIRS WERE USED IN            
-REMARK   3  PHASING. BULK SOLVENT MODEL USED IN REFINEMENT                      
+REMARK   3  OTHER REFINEMENT REMARKS: THE FRIEDEL PAIRS WERE USED IN PHASING.   
+REMARK   3  BULK SOLVENT MODEL USED IN REFINEMENT                               
 REMARK   4                                                                      
-REMARK   4 3BHP COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 3BHP COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 29-NOV-07.                  
-REMARK 100 THE RCSB ID CODE IS RCSB045534.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000045534.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -168,7 +166,7 @@ REMARK 200  REJECTION CRITERIA  (SIGMA(I)) : -3.000
 REMARK 200                                                                      
 REMARK 200 OVERALL.                                                             
 REMARK 200  COMPLETENESS FOR RANGE     (%) : 98.9                               
-REMARK 200  DATA REDUNDANCY                : 15.500                             
+REMARK 200  DATA REDUNDANCY                : 15.50                              
 REMARK 200  R MERGE                    (I) : 0.05800                            
 REMARK 200  R SYM                      (I) : NULL                               
 REMARK 200  <I/SIGMA(I)> FOR THE DATA SET  : 25.4000                            
@@ -180,7 +178,7 @@ REMARK 200  COMPLETENESS FOR SHELL     (%) : 99.2
 REMARK 200  DATA REDUNDANCY IN SHELL       : NULL                               
 REMARK 200  R MERGE FOR SHELL          (I) : 0.12300                            
 REMARK 200  R SYM FOR SHELL            (I) : NULL                               
-REMARK 200  <I/SIGMA(I)> FOR SHELL         : 10.700                             
+REMARK 200  <I/SIGMA(I)> FOR SHELL         : 10.70                              
 REMARK 200                                                                      
 REMARK 200 DIFFRACTION PROTOCOL: SINGLE WAVELENGTH                              
 REMARK 200 METHOD USED TO DETERMINE THE STRUCTURE: SAD                          
@@ -193,9 +191,8 @@ REMARK 280 CRYSTAL
 REMARK 280 SOLVENT CONTENT, VS   (%): 49.96                                     
 REMARK 280 MATTHEWS COEFFICIENT, VM (ANGSTROMS**3/DA): 2.46                     
 REMARK 280                                                                      
-REMARK 280 CRYSTALLIZATION CONDITIONS: 0.1M KH2PO4, 0.1M NA CITRATE, 40%        
-REMARK 280  PEG 1000, PH 4.0, VAPOR DIFFUSION, HANGING DROP, TEMPERATURE        
-REMARK 280  293K                                                                
+REMARK 280 CRYSTALLIZATION CONDITIONS: 0.1M KH2PO4, 0.1M NA CITRATE, 40% PEG    
+REMARK 280  1000, PH 4.0, VAPOR DIFFUSION, HANGING DROP, TEMPERATURE 293K       
 REMARK 290                                                                      
 REMARK 290 CRYSTALLOGRAPHIC SYMMETRY                                            
 REMARK 290 SYMMETRY OPERATORS FOR SPACE GROUP: C 1 2 1                          
@@ -332,25 +329,6 @@ REMARK 500    SER C  51     -145.76     56.37
 REMARK 500    LEU C  53       79.86     40.83                                   
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
-REMARK 525                                                                      
-REMARK 525 SOLVENT                                                              
-REMARK 525                                                                      
-REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
-REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
-REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
-REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
-REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
-REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
-REMARK 525 NUMBER; I=INSERTION CODE):                                           
-REMARK 525                                                                      
-REMARK 525  M RES CSSEQI                                                        
-REMARK 525    HOH C 162        DISTANCE =  6.44 ANGSTROMS                       
-REMARK 525    HOH C 185        DISTANCE =  8.20 ANGSTROMS                       
-REMARK 525    HOH C 190        DISTANCE = 12.07 ANGSTROMS                       
-REMARK 525    HOH A 122        DISTANCE =  6.70 ANGSTROMS                       
-REMARK 525    HOH C 195        DISTANCE =  5.95 ANGSTROMS                       
-REMARK 525    HOH C 196        DISTANCE =  6.78 ANGSTROMS                       
-REMARK 525    HOH A 133        DISTANCE =  5.13 ANGSTROMS                       
 REMARK 900                                                                      
 REMARK 900 RELATED ENTRIES                                                      
 REMARK 900 RELATED ID: SR384   RELATED DB: TARGETDB                             
@@ -1906,5 +1884,5 @@ CONECT 1140 1139 1141
 CONECT 1141 1140 1142                                                           
 CONECT 1142 1141                                                                
 CONECT 1143 1137                                                                
-MASTER      326    0    6    8    0    0    0    6 1407    3   57   15          
+MASTER      305    0    6    8    0    0    0    6 1407    3   57   15          
 END                                                                             

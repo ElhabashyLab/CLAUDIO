@@ -7,8 +7,8 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP37105
 color 3, chain A
 show cartoon, chain A
-dist intra_2076_valid , resid 364 and blastp_afP37105 and chain A and name cb, resid 418 and blastp_afP37105 and chain A and name cb
-dist intra_5295_valid , resid 316 and blastp_afP37105 and chain A and name cb, resid 323 and blastp_afP37105 and chain A and name cb
+dist intra_2076_unknown , resid 364 and blastp_afP37105 and chain A and name cb, resid 418 and blastp_afP37105 and chain A and name cb
+dist intra_5295_unknown , resid 316 and blastp_afP37105 and chain A and name cb, resid 323 and blastp_afP37105 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

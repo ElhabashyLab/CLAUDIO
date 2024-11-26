@@ -16,6 +16,7 @@ SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562
 KEYWDS    STRUCTURAL GENOMICS, TRANSFERASE                                      
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    STRUCTURAL GENOMIX                                                    
+REVDAT   8   13-NOV-24 1O6B    1       REMARK                                   
 REVDAT   7   27-DEC-23 1O6B    1       REMARK DBREF  SEQADV LINK                
 REVDAT   6   04-OCT-17 1O6B    1       REMARK                                   
 REVDAT   5   13-JUL-11 1O6B    1       VERSN                                    

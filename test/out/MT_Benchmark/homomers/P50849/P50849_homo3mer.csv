@@ -1,7 +1,7 @@
 pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
 afP50849,A,A,682.0,575.0,682,575,homo3mer,intra
 afP50849,A,A,263.0,26.0,263,26,homo3mer,intra
-afP50849,A,A,575.0,420.0,575,420,homo3mer,inter
+afP50849,A,A,575.0,420.0,575,420,homo3mer,intra
 afP50849,A,A,274.0,263.0,274,263,homo3mer,intra
 afP50849,A,A,575.0,629.0,575,629,homo3mer,intra
 afP50849,A,A,682.0,662.0,682,662,homo3mer,intra

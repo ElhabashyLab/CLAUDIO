@@ -7,7 +7,7 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP37522
 color 3, chain A
 show cartoon, chain A
-dist intra_2306_valid , resid 11 and blastp_afP37522 and chain A and name cb, resid 227 and blastp_afP37522 and chain A and name cb
+dist intra_2306_out_range , resid 11 and blastp_afP37522 and chain A and name cb, resid 227 and blastp_afP37522 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

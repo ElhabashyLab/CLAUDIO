@@ -15,6 +15,7 @@ KEYWDS   2 CENTER FOR STRUCTURAL GENOMICS, MCSG, UNKNOWN FUNCTION
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    Y.KIM,O.KOROLEV,A.JOACHIMIAK,MIDWEST CENTER FOR STRUCTURAL GENOMICS   
 AUTHOR   2 (MCSG)                                                               
+REVDAT   5   20-NOV-24 1NJH    1       REMARK SEQADV LINK                       
 REVDAT   4   13-JUL-11 1NJH    1       VERSN                                    
 REVDAT   3   24-FEB-09 1NJH    1       VERSN                                    
 REVDAT   2   18-JAN-05 1NJH    1       AUTHOR KEYWDS REMARK                     
@@ -92,9 +93,9 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : 0.19
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.007                           
-REMARK   3   BOND ANGLES            (DEGREES) : 1.40                            
+REMARK   3   BOND ANGLES            (DEGREES) : 1.400                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : 25.60                           
-REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.88                            
+REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.880                           
 REMARK   3                                                                      
 REMARK   3  ISOTROPIC THERMAL MODEL : RESTRAINED                                
 REMARK   3                                                                      
@@ -128,13 +129,13 @@ REMARK   3  TOPOLOGY FILE  5   : NULL
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: THE NUMBER OF REFLECTIONS FOR             
 REMARK   3  REFINEMENT IS GREATER THAN THE NUMBER OF REFLECTIONS FOR DATA       
-REMARK   3  COLLECTION, BECAUSE IN CNS (HLML TAGET) REFINEMENT, THE FRIEDEL'S   
-REMARK   3  PAIR WAS TREATED AS TWO SEPERATED REFLECTIONS.                      
+REMARK   3  COLLECTION, BECAUSE IN CNS (HLML TAGET) REFINEMENT, THE FRIEDEL'    
+REMARK   3  S PAIR WAS TREATED AS TWO SEPERATED REFLECTIONS.                    
 REMARK   4                                                                      
 REMARK   4 1NJH COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 20-JAN-03.                  
-REMARK 100 THE RCSB ID CODE IS RCSB017920.                                      
+REMARK 100 THE DEPOSITION ID IS D_1000017920.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -182,7 +183,7 @@ REMARK 200  <I/SIGMA(I)> FOR SHELL         : 2.400
 REMARK 200                                                                      
 REMARK 200 DIFFRACTION PROTOCOL: SINGLE WAVELENGTH; MAD                         
 REMARK 200 METHOD USED TO DETERMINE THE STRUCTURE: MAD                          
-REMARK 200 SOFTWARE USED: SOLVE/RESOLVE                                         
+REMARK 200 SOFTWARE USED: SOLVE, RESOLVE                                        
 REMARK 200 STARTING MODEL: NULL                                                 
 REMARK 200                                                                      
 REMARK 200 REMARK: NULL                                                         
@@ -330,20 +331,6 @@ REMARK 500  M RES CSSEQI        PSI       PHI
 REMARK 500    THR A 115      -98.78   -124.26                                   
 REMARK 500                                                                      
 REMARK 500 REMARK: NULL                                                         
-REMARK 525                                                                      
-REMARK 525 SOLVENT                                                              
-REMARK 525                                                                      
-REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
-REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
-REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
-REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
-REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
-REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
-REMARK 525 NUMBER; I=INSERTION CODE):                                           
-REMARK 525                                                                      
-REMARK 525  M RES CSSEQI                                                        
-REMARK 525    HOH A 189        DISTANCE =  7.18 ANGSTROMS                       
-REMARK 525    HOH A 190        DISTANCE =  6.04 ANGSTROMS                       
 REMARK 800                                                                      
 REMARK 800 SITE                                                                 
 REMARK 800 SITE_IDENTIFIER: AC1                                                 
@@ -1427,5 +1414,5 @@ CONECT  881  879  882  883
 CONECT  882  881                                                                
 CONECT  883  881  884                                                           
 CONECT  884  883                                                                
-MASTER      333    0    5    1    9    0    2    6  950    1   39   10          
+MASTER      319    0    5    1    9    0    2    6  950    1   39   10          
 END                                                                             
