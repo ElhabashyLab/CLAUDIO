@@ -551,7 +551,7 @@ def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
                 f.write(r.get(URL).text)
             except r.exceptions.Timeout:
                 if i_try >= max_try:
-                    return None
+                    return None, ''
                 else:
                     time.sleep(1)
                     return replacement_alphafold_download(unip_id, path, i_try + 1)
