@@ -66,6 +66,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame, verbose_
 
     global pdb_cache
     pdb_cache = {}
+    populate_pdb_cache(data, verbose_level)
 
     # Iterate over given dataset
     def search_site_task(i, row):
@@ -191,14 +192,14 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
     new_path_a : str,
     atom_coord : [float, float, float] | None
     """
-    #TODO check output type
-
+    
     # Extract pdb_id, chain_id and unip_id from data
     pdb_id = data["pdb_id"]
     chain_id = data[f"chain_{site_id}"]
     unip_id = data[f"unip_id_{site_id}"]
     unip_seq = data[f"seq_{site_id}"]
     new_path = ''
+    
     # Test whether specified position is accessible in uniprot sequence, if not return fail with i_error = 0
     try:
         verbose_print(f"\n\tunip_pos:{data[f'pos_{site_id}']}, Acid at pos: {unip_seq[data[f'pos_{site_id}'] - 1]} ,"
@@ -210,16 +211,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
         return None, False, method, 0, '-', '', None
 
     # Check whether structure file was already parsed, if not parse it and save it in cache
-    if data["path"] in pdb_cache:
-        models = pdb_cache[data["path"]]
-    else:
-        # Parse structure file with normal PDBParser, if exception thrown use MMCIFParser
-        try:
-            models = PDBParser().get_structure('', data["path"]).get_list()
-        except:
-            models = FastMMCIFParser().get_structure('', data["path"]).get_list()
-        
-        pdb_cache[data["path"]] = models
+    models = pdb_cache.get(data["path"])
 
     # Try accessing list of chains, if exception is thrown, e.g. structure file is empty, return fail with i_error = 1
     try:
@@ -321,9 +313,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, pdb_un
     try:
         if method in ["alphafold", "pdb_chain_uniprot"]:
             res = chain.__getitem__(residue_pos)
-            if pdb_id == "2HLD":
-                print("HHsearch: 2HLD", shift, residue_pos, Polypeptide.three_to_one(res.get_resname()))
-                print()
+
         else:
             res = None
             chain_index = 0
@@ -562,9 +552,51 @@ def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
                     print(e)
                 return replacement_alphafold_download(unip_id, path, i_try + 1)
     try:
-        models = PDBParser().get_structure('', new_path).get_list()
-        del pdb_cache[path]
-        pdb_cache[new_path] = models
+        models = pdb_cache.get(new_path,None)
+        if models is None:
+            models = PDBParser().get_structure('', new_path).get_list()
+            pdb_cache[new_path] = models
+
         return models[0].get_list()[0], new_path
     except:
         return None, ''
+
+
+def populate_pdb_cache(data: pd.DataFrame, verbose_level: int):
+    """
+    Populate pdb_cache with parsed pdb structures to prevent multiple parsing of the same file
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    verbose_level : int
+
+    Returns
+    -------
+    None
+    """
+
+    ind = 0
+    def parse_task(path):
+        global pdb_cache
+        # Parse structure file with normal PDBParser, if exception thrown use FastMMCIFParser
+        if path != '-':
+            try:
+                models = PDBParser().get_structure('', path).get_list()
+            except:
+                models = FastMMCIFParser().get_structure('', path).get_list()
+            
+            pdb_cache[path] = models
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        len_paths = len(data["path"].unique().tolist())
+        futures = {executor.submit(parse_task, path): path for path in data["path"].unique().tolist()}
+
+    for future in concurrent.futures.as_completed(futures):
+        try:
+            ind += 1
+            verbose_print(f"\r\tParsing: [{round_self((ind * 100) / len_paths, 2)}%]", 1, verbose_level, end='')
+            del futures[future]
+        except Exception as e:
+            print(e)
+    verbose_print("", 1, verbose_level)
