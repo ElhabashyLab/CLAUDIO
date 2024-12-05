@@ -2,6 +2,7 @@ import os
 import click
 import time
 import sys
+import cProfile, pstats
 
 from claudio.module02.src_distance_reevaluation.io.read_uniprot_search_out import read_unipsearch_out
 from claudio.module02.src_distance_reevaluation.algorithm.search_pdb_pos import search_site_pos_in_pdb
@@ -29,6 +30,8 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
          linker_maximum, output_directory, topolink_bin, verbose_level):
     verbose_print("Start intra interaction check", 0, verbose_level)
     start_time = time.time()
+    profile = cProfile.Profile()
+    profile.enable()   # --- start profiling
 
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory, topolink_bin]
@@ -73,6 +76,13 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
 
     verbose_print(f"\nEnd script (Elapsed time: {round_self(time.time() - start_time, 2)}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
+    
+    profile.disable()  # --- stop profiling
+    profile.create_stats()
+    with open("profileM02_DR.txt", 'w') as fp:
+        stats = pstats.Stats(profile, stream=fp)
+        stats.sort_stats('cumtime')
+        stats.print_stats()
     sys.exit()
 
 
