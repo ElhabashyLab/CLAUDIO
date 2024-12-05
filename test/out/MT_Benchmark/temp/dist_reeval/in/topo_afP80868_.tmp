@@ -15,9 +15,13 @@ experiment DSS
   observed LYS A 594 LYS A 490
   observed MET A 422 LYS A 469
   observed LYS A 589 LYS A 687
+  observed LYS A 589 LYS A 494
+  observed LYS A 594 LYS A 494
   observed LYS A 323 LYS A 421
   observed LYS A 341 LYS A 494
+  observed LYS A 416 LYS A 428
   observed LYS A 341 LYS A 421
+  observed LYS A 589 LYS A 688
   observed LYS A 679 LYS A 688
 
 end experiment DSS

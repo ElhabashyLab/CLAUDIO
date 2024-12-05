@@ -12,6 +12,7 @@ experiment DSS
 
   observed LYS A 81 LYS A 17
   observed LYS A 10 LYS A 71
+  observed LYS A 81 LYS A 10
 
 end experiment DSS
 search_limit relative 2  # Search for topological distances of up to search_range*dmaxlink

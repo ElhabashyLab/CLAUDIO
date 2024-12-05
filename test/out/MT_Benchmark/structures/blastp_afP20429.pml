@@ -8,6 +8,7 @@ show surface, chain A and blastp_afP20429
 color 3, chain A
 show cartoon, chain A
 dist intra_4389_valid , resid 302 and blastp_afP20429 and chain A and name cb, resid 294 and blastp_afP20429 and chain A and name cb
+dist intra_599_unknown , resid 88 and blastp_afP20429 and chain A and name cb, resid 1 and blastp_afP20429 and chain A and name cb
 dist intra_1544_unknown , resid 1 and blastp_afP20429 and chain A and name cb, resid 84 and blastp_afP20429 and chain A and name cb
 show dashes
 set dash_gap, 0.1

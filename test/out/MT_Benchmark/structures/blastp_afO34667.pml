@@ -7,6 +7,7 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afO34667
 color 3, chain A
 show cartoon, chain A
+dist intra_962_overlaps , resid 2 and blastp_afO34667 and chain A and name cb, resid 21 and blastp_afO34667 and chain A and name cb
 dist intra_6141_unknown , resid 48 and blastp_afO34667 and chain A and name cb, resid 125 and blastp_afO34667 and chain A and name cb
 show dashes
 set dash_gap, 0.1

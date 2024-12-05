@@ -7,18 +7,18 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_3OIF
 color 3, chain A
 show cartoon, chain A
+hide everything, show cartoon, chain D
+show surface, chain D and blastp_3OIF
+color 5, chain D
+show cartoon, chain D
 hide everything, show cartoon, chain B
 show surface, chain B and blastp_3OIF
-color 5, chain B
+color 7, chain B
 show cartoon, chain B
 hide everything, show cartoon, chain C
 show surface, chain C and blastp_3OIF
-color 7, chain C
+color 8, chain C
 show cartoon, chain C
-hide everything, show cartoon, chain D
-show surface, chain D and blastp_3OIF
-color 8, chain D
-show cartoon, chain D
 dist intra_145_valid , resid 200 and blastp_3OIF and chain A and name cb, resid 18 and blastp_3OIF and chain A and name cb
 dist intra_145_16_valid , resid 200 and blastp_3OIF and chain D and name cb, resid 18 and blastp_3OIF and chain D and name cb
 dist intra_745_valid , resid 18 and blastp_3OIF and chain A and name cb, resid 47 and blastp_3OIF and chain A and name cb

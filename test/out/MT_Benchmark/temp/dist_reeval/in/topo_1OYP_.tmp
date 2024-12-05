@@ -19,8 +19,20 @@ experiment DSS
   observed LYS E 106 LYS E 151
   observed LYS F 106 LYS F 151
   observed LYS B 245 LYS A 106
+  observed LYS C 245 LYS A 106
+  observed LYS D 245 LYS A 106
+  observed LYS E 245 LYS A 106
   observed LYS F 245 LYS A 106
+  observed LYS A 245 LYS F 146
+  observed LYS B 245 LYS A 146
+  observed LYS B 245 LYS F 146
+  observed LYS C 245 LYS A 146
+  observed LYS C 245 LYS F 146
+  observed LYS D 245 LYS A 146
+  observed LYS D 245 LYS F 146
   observed LYS E 245 LYS A 146
+  observed LYS E 245 LYS F 146
+  observed LYS F 245 LYS A 146
   observed LYS F 245 LYS F 146
 
 end experiment DSS

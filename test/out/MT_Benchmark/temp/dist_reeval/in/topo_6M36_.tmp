@@ -10,11 +10,17 @@ experiment DSS
   linktype LYS all all CB MET all all N 35
   linktype MET all all N MET all all N 35
 
+  observed MET B 1 LYS J 33
+  observed MET B 1 LYS P 33
   observed MET D 1 LYS J 33
   observed MET D 1 LYS P 33
   observed MET F 1 LYS J 33
+  observed MET F 1 LYS P 33
   observed MET H 1 LYS J 33
+  observed MET H 1 LYS P 33
   observed MET J 1 LYS J 33
+  observed MET J 1 LYS P 33
+  observed MET L 1 LYS J 33
   observed MET L 1 LYS P 33
   observed MET N 1 LYS J 33
   observed MET N 1 LYS P 33

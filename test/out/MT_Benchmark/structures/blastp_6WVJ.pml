@@ -11,18 +11,18 @@ hide everything, show cartoon, chain D
 show surface, chain D and blastp_6WVJ
 color 5, chain D
 show cartoon, chain D
+hide everything, show cartoon, chain F
+show surface, chain F and blastp_6WVJ
+color 7, chain F
+show cartoon, chain F
 hide everything, show cartoon, chain A
 show surface, chain A and blastp_6WVJ
-color 7, chain A
+color 8, chain A
 show cartoon, chain A
 hide everything, show cartoon, chain B
 show surface, chain B and blastp_6WVJ
-color 8, chain B
+color 9, chain B
 show cartoon, chain B
-hide everything, show cartoon, chain F
-show surface, chain F and blastp_6WVJ
-color 9, chain F
-show cartoon, chain F
 dist intra_14_valid , resid 1067 and blastp_6WVJ and chain C and name cb, resid 1047 and blastp_6WVJ and chain C and name cb
 dist intra_94_valid , resid 622 and blastp_6WVJ and chain D and name cb, resid 616 and blastp_6WVJ and chain D and name cb
 dist intra_100_valid , resid 649 and blastp_6WVJ and chain D and name cb, resid 351 and blastp_6WVJ and chain D and name cb

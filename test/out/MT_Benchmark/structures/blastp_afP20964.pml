@@ -8,6 +8,7 @@ show surface, chain A and blastp_afP20964
 color 3, chain A
 show cartoon, chain A
 dist intra_1984_unknown , resid 65 and blastp_afP20964 and chain A and name cb, resid 380 and blastp_afP20964 and chain A and name cb
+dist intra_5693_unknown , resid 65 and blastp_afP20964 and chain A and name cb, resid 378 and blastp_afP20964 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

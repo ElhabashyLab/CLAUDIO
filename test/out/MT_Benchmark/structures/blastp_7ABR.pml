@@ -3,26 +3,26 @@ hide all
 bg_color white
 set transparency, 0.8
 zoom center, 50;
-hide everything, show cartoon, chain A
-show surface, chain A and blastp_7ABR
-color 3, chain A
-show cartoon, chain A
 hide everything, show cartoon, chain D
 show surface, chain D and blastp_7ABR
-color 5, chain D
+color 3, chain D
 show cartoon, chain D
 hide everything, show cartoon, chain E
 show surface, chain E and blastp_7ABR
-color 7, chain E
+color 5, chain E
 show cartoon, chain E
 hide everything, show cartoon, chain B
 show surface, chain B and blastp_7ABR
-color 8, chain B
+color 7, chain B
 show cartoon, chain B
 hide everything, show cartoon, chain C
 show surface, chain C and blastp_7ABR
-color 9, chain C
+color 8, chain C
 show cartoon, chain C
+hide everything, show cartoon, chain A
+show surface, chain A and blastp_7ABR
+color 9, chain A
+show cartoon, chain A
 hide everything, show cartoon, chain F
 show surface, chain F and blastp_7ABR
 color 10, chain F
@@ -50,7 +50,6 @@ dist inter_3479_4_valid , resid 322 and blastp_7ABR and chain A and name cb, res
 dist inter_3479_5_valid , resid 322 and blastp_7ABR and chain A and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_3479_10_valid , resid 322 and blastp_7ABR and chain B and name cb, resid 580 and blastp_7ABR and chain D and name cb
 dist inter_3479_11_valid , resid 322 and blastp_7ABR and chain B and name cb, resid 580 and blastp_7ABR and chain E and name cb
-dist inter_3479_16_valid , resid 322 and blastp_7ABR and chain C and name cb, resid 580 and blastp_7ABR and chain D and name cb
 dist inter_3479_17_valid , resid 322 and blastp_7ABR and chain C and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_3479_35_valid , resid 322 and blastp_7ABR and chain F and name cb, resid 580 and blastp_7ABR and chain E and name cb
 dist inter_4560_6_valid , resid 401 and blastp_7ABR and chain A and name cb, resid 187 and blastp_7ABR and chain F and name cb

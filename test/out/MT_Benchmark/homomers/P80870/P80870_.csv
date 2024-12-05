@@ -11,6 +11,6 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 2K4K,A,A,125.0,71.0,125,71,,intra
 afP80870,A,A,78.0,92.0,78,92,,intra
 2K4K,A,A,69.0,4.0,69,4,,intra
-2K4K,A,A,85.0,71.0,85,71,,intra
+2K4K,A,A,85.0,71.0,85,71,,inter
 2K4K,A,A,85.0,112.0,85,112,,inter
 2K4K,A,A,69.0,92.0,69,92,,inter

@@ -7,6 +7,9 @@ hide everything, show cartoon, chain A
 show surface, chain A and blastp_afP14193
 color 3, chain A
 show cartoon, chain A
+dist intra_784_valid , resid 23 and blastp_afP14193 and chain A and name cb, resid 8 and blastp_afP14193 and chain A and name cb
+dist intra_3370_valid , resid 8 and blastp_afP14193 and chain A and name cb, resid 89 and blastp_afP14193 and chain A and name cb
+dist intra_471_overlaps , resid 35 and blastp_afP14193 and chain A and name cb, resid 8 and blastp_afP14193 and chain A and name cb
 dist intra_5559_overlaps , resid 8 and blastp_afP14193 and chain A and name cb, resid 24 and blastp_afP14193 and chain A and name cb
 show dashes
 set dash_gap, 0.1

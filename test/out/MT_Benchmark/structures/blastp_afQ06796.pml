@@ -9,6 +9,7 @@ color 3, chain A
 show cartoon, chain A
 dist intra_1472_valid , resid 81 and blastp_afQ06796 and chain A and name cb, resid 17 and blastp_afQ06796 and chain A and name cb
 dist intra_3155_valid , resid 10 and blastp_afQ06796 and chain A and name cb, resid 71 and blastp_afQ06796 and chain A and name cb
+dist intra_3274_valid , resid 81 and blastp_afQ06796 and chain A and name cb, resid 10 and blastp_afQ06796 and chain A and name cb
 dist intra_3256_unknown , resid 81 and blastp_afQ06796 and chain A and name cb, resid 105 and blastp_afQ06796 and chain A and name cb
 show dashes
 set dash_gap, 0.1

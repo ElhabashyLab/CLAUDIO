@@ -3,6 +3,14 @@ hide all
 bg_color white
 set transparency, 0.8
 zoom center, 50;
+hide everything, show cartoon, chain A
+show surface, chain A and blastp_afO31662
+color 3, chain A
+show cartoon, chain A
+dist intra_1988_overlaps , resid 2 and blastp_afO31662 and chain A and name cb, resid 183 and blastp_afO31662 and chain A and name cb
+dist intra_2345_overlaps , resid 2 and blastp_afO31662 and chain A and name cb, resid 182 and blastp_afO31662 and chain A and name cb
+dist intra_612_unknown , resid 2 and blastp_afO31662 and chain A and name cb, resid 181 and blastp_afO31662 and chain A and name cb
+dist intra_5268_unknown , resid 2 and blastp_afO31662 and chain A and name cb, resid 14 and blastp_afO31662 and chain A and name cb
 show dashes
 set dash_gap, 0.1
 color 2, intra*_valid

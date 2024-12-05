@@ -13,16 +13,18 @@ experiment DSS
   observed LYS A 56 LYS A 79
   observed LYS A 56 LYS A 75
   observed LYS A 56 LYS D 79
-  observed LYS B 56 LYS A 79
-  observed LYS F 56 LYS B 79
+  observed LYS C 56 LYS A 79
+  observed LYS E 56 LYS B 79
   observed LYS A 56 LYS D 75
   observed LYS B 56 LYS A 75
+  observed LYS B 56 LYS B 75
   observed LYS C 56 LYS A 75
   observed LYS C 56 LYS B 75
   observed LYS D 56 LYS A 75
   observed LYS D 56 LYS B 75
   observed LYS E 56 LYS A 75
   observed LYS E 56 LYS B 75
+  observed LYS F 56 LYS A 75
   observed LYS F 56 LYS B 75
 
 end experiment DSS
