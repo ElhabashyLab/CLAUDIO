@@ -60,10 +60,11 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float, out
     
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
-
-    pdb_infos = pd.read_csv('./claudio/data/pdb/pdb_ids.csv')
-    files = [f for f in os.listdir('./claudio/data/pdb/') if f.endswith(".pdb.gz") or f.endswith(".cif.gz")]
-
+    if os.path.exists('./claudio/data/pdb/pdb_ids.csv'):
+        pdb_infos = pd.read_csv('./claudio/data/pdb/pdb_ids.csv')
+        files = [f for f in os.listdir('./claudio/data/pdb/') if f.endswith(".pdb.gz") or f.endswith(".cif.gz")]
+    else: 
+        pdb_infos = pd.DataFrame(columns=["pdb_id","method","resolution"])
     # Download pdb files for each datapoint
     def download_task(i,row):
         # Iterate over results

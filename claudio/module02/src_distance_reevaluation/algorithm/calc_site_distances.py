@@ -4,7 +4,7 @@ import warnings
 import pandas as pd
 import concurrent.futures
 
-from Bio.PDB import Polypeptide, PDBParser, MMCIFParser, Select, PDBIO
+from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser, Select, PDBIO
 
 from claudio.utils.utils import verbose_print, round_self
 
@@ -257,7 +257,7 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str, chain_ids: list[str
     try:
         structure = PDBParser().get_structure('', path).get_list()[0]
     except:
-        structure = MMCIFParser().get_structure('', path).get_list()[0]
+        structure = FastMMCIFParser().get_structure('', path).get_list()[0]
 
     # overload chain accept method
     class ChainSelect(Select):
