@@ -136,7 +136,6 @@ def download_pdbs(data, output_dir):
                     if method in resolution_excepted_methods:
                         resolution = np.NaN
                         data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
-                    print(method)
                     break
                 # If line contains _em_3d_reconstruction.resolution or _refine.ls_d_res_high, depending on the used method,
                 # it contains the float value of the resolution, accept it if it
@@ -146,7 +145,6 @@ def download_pdbs(data, output_dir):
                     if line.startswith("_em_3d_reconstruction.resolution ") and accept_method:
                         resolution = float([w for w in line.replace('  ', ' ').split() if w][1])
                         data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
-                        print(method,resolution)
                         break
             else: 
                 if method in accepted_pdb_methods:
@@ -154,7 +152,6 @@ def download_pdbs(data, output_dir):
                         if line.startswith("_refine.ls_d_res_high") and accept_method:
                             resolution = float([w for w in line.replace('  ', ' ').split() if w][1])
                             data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
-                            print(method,resolution)
                             break
         else:
             lines = pdb_file.split('\n')

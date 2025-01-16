@@ -1,7 +1,7 @@
 # CLAUDIO 
 
 *CLAUDIO*, the tool for "**C**ross-**l**inking **a**nalysis **u**sing **di**stances and **o**verlaps", allows
-for an in-depth evaluation of structure and sequence information, automating many necessary post-experiment analysis. 
+for an in-depth evaluation of structure and sequence information, automating necessary post-experiment analysis. 
 It downloads protein structures for this, and returns protein-link-specific small-datasets containing structural 
 restraints in CSV-format, and the input dataset extended by its results.
 These include...
@@ -64,7 +64,7 @@ In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS
 [[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references). The file in question can be found 
 [here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/pdb_chain_uniprot.csv).\
 We also recommend updating this file from time to time ([download here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz)) 
-in order to keep up its efficiency, though this is not a necessity (last updated: 28.09.2024).
+in order to keep up its efficiency, though this is not a necessity (last updated: 16.01.2025).
 
 ### Optional: Packages (background info)
 This tool is written in and has to be run with python 3 (last tested v3.11).\
@@ -75,6 +75,7 @@ It has the following requirements:
 * matplotlib 3.6.3
 * pandas 1.5.3
 * requests 2.28.2
+* numpy==1.23.5
 
 The packages may be installed all at once with the file [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
 ```
@@ -87,6 +88,7 @@ pip install click==8.1.3
 pip install matplotlib==3.6.3
 pip install pandas==1.5.3
 pip install requests==2.28.2
+pip install numpy==1.23.5
 ```
 Note: Both approaches need to refer to the pip-installer associated to the python installation, that will be used to run
 the tool.
@@ -236,6 +238,7 @@ claudio --help
 ```
 
 ## Authors
+* **Tobias Löser**
 * **Alexander Röhl**
 * **Hadeer Elhabashy**
 * **Eugen Netz**
