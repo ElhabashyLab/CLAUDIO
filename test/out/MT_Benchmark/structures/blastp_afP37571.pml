@@ -8,7 +8,7 @@ show surface, chain A and blastp_afP37571
 color 3, chain A
 show cartoon, chain A
 dist intra_454_valid , resid 438 and blastp_afP37571 and chain A and name cb, resid 419 and blastp_afP37571 and chain A and name cb
-dist intra_570_valid , resid 609 and blastp_afP37571 and chain A and name cb, resid 605 and blastp_afP37571 and chain A and name cb
+dist intra_570_2_valid , resid 609 and blastp_afP37571 and chain A and name cb, resid 605 and blastp_afP37571 and chain A and name cb
 dist intra_714_valid , resid 376 and blastp_afP37571 and chain A and name cb, resid 498 and blastp_afP37571 and chain A and name cb
 dist intra_1367_valid , resid 59 and blastp_afP37571 and chain A and name cb, resid 133 and blastp_afP37571 and chain A and name cb
 dist intra_1819_valid , resid 457 and blastp_afP37571 and chain A and name cb, resid 414 and blastp_afP37571 and chain A and name cb

@@ -11,7 +11,6 @@ experiment DSS
   linktype MET all all N MET all all N 35
 
   observed LYS A 438 LYS A 419
-  observed LYS A 609 LYS A 605
   observed LYS A 376 LYS A 498
   observed LYS A 59 LYS A 133
   observed LYS A 133 LYS A 175
@@ -26,6 +25,7 @@ experiment DSS
   observed LYS A 263 LYS A 133
   observed MET A 685 LYS A 771
   observed LYS A 694 LYS A 771
+  observed LYS A 609 LYS A 605
   observed LYS A 643 LYS A 326
   observed LYS A 401 LYS A 187
   observed LYS A 322 LYS A 326

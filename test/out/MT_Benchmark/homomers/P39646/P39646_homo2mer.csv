@@ -2,7 +2,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 1TD9,B,B,92.0,141.0,92,141,homo2mer,intra
 1TD9,F,F,206.0,222.0,206,222,homo2mer,intra
 1TD9,D,D,222.0,210.0,222,210,homo2mer,intra
-1TD9,C,C,35.0,11.0,35,11,homo2mer,intra
+1TD9,A,A,35.0,11.0,35,11,homo2mer,intra
 1TD9,F,F,40.0,18.0,40,18,homo2mer,intra
 afP39646,A,A,222.0,198.0,222,198,homo2mer,intra
 1TD9,A,A,141.0,148.0,141,148,homo2mer,intra

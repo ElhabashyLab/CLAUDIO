@@ -29,14 +29,14 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 5I96,A,A,243.0,256.0,243,256,homo2mer,inter
 5I96,A,A,384.0,166.0,384,166,homo2mer,intra
 5I96,B,B,193.0,180.0,193,180,homo2mer,intra
-5I96,A,A,299.0,413.0,299,413,homo2mer,intra
+5I96,A,B,299.0,413.0,299,413,homo2mer,inter
 5I96,A,A,256.0,272.0,256,272,homo2mer,intra
 5I96,A,A,166.0,400.0,166,400,homo2mer,intra
 5I96,A,A,166.0,413.0,166,413,homo2mer,intra
 5I96,B,B,282.0,299.0,282,299,homo2mer,intra
 5I96,A,B,282.0,413.0,282,413,homo2mer,inter
 5I96,B,B,384.0,426.0,384,426,homo2mer,inter
-5I96,B,B,155.0,112.0,155,112,homo2mer,inter
+5I96,A,A,155.0,112.0,155,112,homo2mer,inter
 5I96,B,B,256.0,166.0,256,166,homo2mer,inter
 5I96,A,A,243.0,166.0,243,166,homo2mer,intra
 5I96,A,A,243.0,155.0,243,155,homo2mer,intra
@@ -44,7 +44,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 5I96,B,B,180.0,106.0,180,106,homo2mer,intra
 5I96,B,B,67.0,45.0,67,45,homo2mer,intra
 5I96,A,A,199.0,106.0,199,106,homo2mer,intra
-5I96,B,B,384.0,48.0,384,48,homo2mer,intra
+5I96,A,A,384.0,48.0,384,48,homo2mer,intra
 5I96,A,A,360.0,413.0,360,413,homo2mer,intra
 5I96,A,A,256.0,282.0,256,282,homo2mer,intra
 5I96,A,A,243.0,400.0,243,400,homo2mer,intra
@@ -55,7 +55,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 5I96,B,B,166.0,299.0,166,299,homo2mer,intra
 5I96,A,A,45.0,106.0,45,106,homo2mer,intra
 5I96,A,B,280.0,413.0,280,413,homo2mer,inter
-5I96,B,B,280.0,263.0,280,263,homo2mer,intra
+5I96,A,A,280.0,263.0,280,263,homo2mer,intra
 5I96,A,A,256.0,263.0,256,263,homo2mer,intra
 5I96,A,A,384.0,45.0,384,45,homo2mer,intra
 5I96,A,A,155.0,400.0,155,400,homo2mer,intra

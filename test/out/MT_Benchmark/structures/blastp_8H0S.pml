@@ -19,8 +19,8 @@ hide everything, show cartoon, chain B
 show surface, chain B and blastp_8H0S
 color 8, chain B
 show cartoon, chain B
-dist intra_5893_valid , resid 189 and blastp_8H0S and chain A and name cb, resid 5 and blastp_8H0S and chain A and name cb
 dist intra_5893_11_valid , resid 189 and blastp_8H0S and chain C and name cb, resid 5 and blastp_8H0S and chain C and name cb
+dist intra_5893_out_range , resid 189 and blastp_8H0S and chain A and name cb, resid 5 and blastp_8H0S and chain A and name cb
 dist inter_5893_4_valid , resid 189 and blastp_8H0S and chain A and name cb, resid 5 and blastp_8H0S and chain D and name cb
 dist inter_5893_10_valid , resid 189 and blastp_8H0S and chain C and name cb, resid 5 and blastp_8H0S and chain B and name cb
 show dashes

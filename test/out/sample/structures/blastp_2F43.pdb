@@ -31,6 +31,7 @@ KEYWDS    ATP SYNTHASE, F0F1-ATPASE, OXIDATIVE PHOSPHORYLATION, MITOCHONDRIA,
 KEYWDS   2 HYDROLASE, VANADATE                                                  
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    C.CHEN,A.K.SAXENA,W.N.SIMCOKE,D.N.GARBOCZI,P.L.PEDERSEN,Y.H.KO        
+REVDAT   5   25-DEC-24 2F43    1       REMARK LINK                              
 REVDAT   4   23-AUG-23 2F43    1       REMARK LINK                              
 REVDAT   3   24-FEB-09 2F43    1       VERSN                                    
 REVDAT   2   16-MAY-06 2F43    1       JRNL                                     
@@ -553,6 +554,16 @@ REMARK 465     TYR G   207
 REMARK 465     ASN G   208                                                      
 REMARK 500                                                                      
 REMARK 500 GEOMETRY AND STEREOCHEMISTRY                                         
+REMARK 500 SUBTOPIC: CLOSE CONTACTS IN SAME ASYMMETRIC UNIT                     
+REMARK 500                                                                      
+REMARK 500 THE FOLLOWING ATOMS ARE IN CLOSE CONTACT.                            
+REMARK 500                                                                      
+REMARK 500  ATM1  RES C  SSEQI   ATM2  RES C  SSEQI           DISTANCE          
+REMARK 500   OE2  GLU B   188     O2   VO4 B   601              1.91            
+REMARK 500                                                                      
+REMARK 500 REMARK: NULL                                                         
+REMARK 500                                                                      
+REMARK 500 GEOMETRY AND STEREOCHEMISTRY                                         
 REMARK 500 SUBTOPIC: COVALENT BOND ANGLES                                       
 REMARK 500                                                                      
 REMARK 500 THE STEREOCHEMICAL PARAMETERS OF THE FOLLOWING RESIDUES              
@@ -888,7 +899,6 @@ SHEET    4   F 5 VAL B 251  ASP B 256  1  O  ASP B 256   N  ALA B 184
 SHEET    5   F 5 ILE B 304  VAL B 307  1  O  VAL B 307   N  LEU B 253           
 SHEET    1   G 2 PHE B 155  GLY B 156  0                                        
 SHEET    2   G 2 ILE B 310  TYR B 311  1  O  ILE B 310   N  GLY B 156           
-LINK         OE2 GLU B 188                 O2  VO4 B 601     1555   1555  1.91  
 LINK         OG1 THR A 176                MG    MG A 602     1555   1555  2.49  
 LINK        MG    MG A 602                 O2G ATP A 603     1555   1555  2.73  
 LINK        MG    MG A 602                 O3B ATP A 603     1555   1555  3.00  
@@ -9159,7 +9169,6 @@ HETATM 8236  N3  ADP B 604      64.980  96.681  98.874  1.00100.18           N
 HETATM 8237  C4  ADP B 604      64.390  96.862  97.639  1.00100.59           C  
 CONECT 1142 8173                                                                
 CONECT 4847 8210                                                                
-CONECT 5029 8207                                                                
 CONECT 5039 8210                                                                
 CONECT 8173 1142 8176 8181                                                      
 CONECT 8174 8175 8176 8177 8181                                                 
@@ -9196,7 +9205,7 @@ CONECT 8204 8195 8198 8203
 CONECT 8205 8206 8207 8208 8209                                                 
 CONECT 8205 8212                                                                
 CONECT 8206 8205                                                                
-CONECT 8207 5029 8205 8210                                                      
+CONECT 8207 8205 8210                                                           
 CONECT 8208 8205                                                                
 CONECT 8209 8205                                                                
 CONECT 8210 4847 5039 8207 8213                                                 
@@ -9228,5 +9237,5 @@ CONECT 8234 8232 8235
 CONECT 8235 8234 8236                                                           
 CONECT 8236 8235 8237                                                           
 CONECT 8237 8228 8231 8236                                                      
-MASTER      650    0    5   48   32    0   13    6 8234    3   71   98          
+MASTER      660    0    5   48   32    0   13    6 8234    3   70   98          
 END                                                                             

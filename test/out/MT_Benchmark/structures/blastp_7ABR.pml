@@ -3,26 +3,26 @@ hide all
 bg_color white
 set transparency, 0.8
 zoom center, 50;
+hide everything, show cartoon, chain A
+show surface, chain A and blastp_7ABR
+color 3, chain A
+show cartoon, chain A
 hide everything, show cartoon, chain D
 show surface, chain D and blastp_7ABR
-color 3, chain D
+color 5, chain D
 show cartoon, chain D
 hide everything, show cartoon, chain E
 show surface, chain E and blastp_7ABR
-color 5, chain E
+color 7, chain E
 show cartoon, chain E
 hide everything, show cartoon, chain B
 show surface, chain B and blastp_7ABR
-color 7, chain B
+color 8, chain B
 show cartoon, chain B
 hide everything, show cartoon, chain C
 show surface, chain C and blastp_7ABR
-color 8, chain C
+color 9, chain C
 show cartoon, chain C
-hide everything, show cartoon, chain A
-show surface, chain A and blastp_7ABR
-color 9, chain A
-show cartoon, chain A
 hide everything, show cartoon, chain F
 show surface, chain F and blastp_7ABR
 color 10, chain F

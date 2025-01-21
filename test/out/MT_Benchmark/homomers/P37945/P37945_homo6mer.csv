@@ -2,7 +2,7 @@ pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_t
 3M6A,A,D,579.0,327.0,579,327,homo6mer,inter
 3M6A,B,B,511.0,517.0,511,517,homo6mer,intra
 afP37945,A,A,517.0,509.0,517,509,homo6mer,intra
-3M6A,F,F,365.0,346.0,365,346,homo6mer,intra
+3M6A,D,D,365.0,346.0,365,346,homo6mer,intra
 afP37945,A,A,245.0,278.0,245,278,homo6mer,intra
 3M6A,B,B,718.0,327.0,718,327,homo6mer,intra
 3M6A,F,F,409.0,255.0,409,255,homo6mer,intra
