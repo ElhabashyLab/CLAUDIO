@@ -129,6 +129,9 @@ def query_uniprot(unip_ids: list, verbose_level: int):
                 # if successful continue
                 if not return_failed:
                     result = [''.join(x.split('\n')[1:]) for x in url_return_text.split('>') if x]
+                    # remove empty strings, should not occur if uniprot fasta-files are properly formatted,
+                    # added due to a '>' which was included in the header of the fasta file
+                    result = [part.strip() for part in result if part.strip()]
                     already_searched[id] = result
                 # else print error message and raise ValueError
                 else:
