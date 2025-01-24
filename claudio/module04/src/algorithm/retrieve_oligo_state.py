@@ -36,7 +36,7 @@ def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     return data
 
 
-def query_oligo_states_from_swiss(data: pd.DataFrame):
+def query_oligo_states_from_swiss_old(data: pd.DataFrame):
     """
     query oligomeric states from SWISS-MODEL for all uniprot ids in the dataset
     
@@ -114,7 +114,7 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
             known_ostates[unip_id] = ostates
     return known_ostates
 
-def query_oligo_states_from_swiss_new(data: pd.DataFrame):
+def query_oligo_states_from_swiss(data: pd.DataFrame):
     """
     query oligomeric states from SWISS-MODEL for all uniprot ids in the dataset
     
@@ -134,19 +134,18 @@ def query_oligo_states_from_swiss_new(data: pd.DataFrame):
     QUERY_SIZE = 250
 
     known_ostates = {}
-    base_url = "XXXXXX"
+    base_url = "https://swissmodel.expasy.org/repository/uniprot/"
 
     # get all unique uniprot ids from the dataset
     unip_ids = pd.unique(data[['unip_id_a', 'unip_id_b']].values.ravel()).tolist()
 
     if len(unip_ids) == 1:
-        return query_oligo_states_from_swiss(data)
+        return query_oligo_states_from_swiss_old(data)
     
     query_elements = [unip_ids[i:i + QUERY_SIZE] for i in range(0, len(unip_ids), QUERY_SIZE)]
     query_results = {}
     for query in query_elements:
         url = f"{base_url}{'%2C'.join(query)}.json"
-        print(url)
 
         # repeat SWISS-MODEL calls for consistency (SWISS-MODEL has shown to inconsistently return empty or only
         # partial API call results)

@@ -3,7 +3,6 @@ import pandas as pd
 import time
 import os
 import gzip
-import shutil
 import numpy as np
 import concurrent.futures
 from Bio import PDB
@@ -206,7 +205,7 @@ def update_pdb_database():
         date_str = oldest_date.strftime('%Y-%m-%d')
     else:
         df = pd.DataFrame(columns=['pdb_id', 'modification_date', 'method', 'resolution'])
-        date_str = '2000-01-01'
+        date_str = '1970-01-01'
     # query the PDB database for all files which were updated after the oldest update-date
     # and download them
 

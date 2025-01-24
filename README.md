@@ -142,7 +142,7 @@ For details on how to run the **full** pipeline continue below.
 -e,    --e-value,               e-value used in structure search, default=1e-5
 -qi,   --query-id,              query identity used in structure search, default=90.0
 -cv,   --coverage,              coverage used in structure search, default=50.0
--r,    --res-cutoff,            float value used as cutoff in angstrom for resolution of structure files, default=4
+-r,    --res-cutoff,            float value used as cutoff in angstrom for resolution of structure files, default=4.0
 -rt,   --read-temps,            if the tool has been run before with the same input a temporary file was saved, which
                                 can be used to skip some of the steps, default=False
 -pc,   --plddt-cutoff,          float value used as cutoff for alphafold structure prediction confidences (plddt), 
@@ -238,8 +238,8 @@ claudio --help
 ```
 
 ## Authors
-* **Tobias Löser**
 * **Alexander Röhl**
+* **Tobias Löser**
 * **Hadeer Elhabashy**
 * **Eugen Netz**
 

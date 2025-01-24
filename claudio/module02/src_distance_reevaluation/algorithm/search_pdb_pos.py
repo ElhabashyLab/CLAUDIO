@@ -5,7 +5,6 @@ import pandas as pd
 from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser
 from Bio.Align import PairwiseAligner
 import requests as r
-import sys
 import numpy as np
 import concurrent.futures
 
