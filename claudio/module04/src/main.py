@@ -99,7 +99,7 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum, linker_m
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def inputs_valid(input_filepath: str, input_filepath2: str, plddt_cutoff: float, linker_minimum: float, linker_maximum: float,

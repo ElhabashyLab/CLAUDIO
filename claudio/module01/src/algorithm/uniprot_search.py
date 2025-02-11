@@ -141,10 +141,10 @@ def query_uniprot(unip_ids: list, verbose_level: int):
             except (r.exceptions.Timeout, ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
                 print("No connection to UniProt API possible. Please try again later.")
                 print(e)
-                sys.exit()
+                sys.exit(1)
             except ValueError:
                 print("Error! Encountered at least one faulty return from the UniProt database.")
-                sys.exit()
+                sys.exit(1)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(query_task, id): id for id in unip_ids}

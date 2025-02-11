@@ -57,7 +57,7 @@ def main(input_filepath, output_directory, verbose_level):
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def inputs_valid(input_filepath: str, output_directory: str):

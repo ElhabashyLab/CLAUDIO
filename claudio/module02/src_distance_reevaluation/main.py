@@ -83,7 +83,7 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def inputs_valid(input_directory: str, input_filename: str, search_tool: str, xl_residues: str, plddt_cutoff: float, output_directory: str,

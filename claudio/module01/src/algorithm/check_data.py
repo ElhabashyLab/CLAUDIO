@@ -172,7 +172,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
             else:
                 print("Error! Unforeseen value for residue position specification (this should not be able to "
                       "happen here)!")
-                sys.exit()
+                sys.exit(1)
             fits_specification.append((seq[pep_pos - 1] == dp.res) and fits_position)
         # Check whether aminoacid at given position is any of the residues with specified position
         if not any(fits_specification):

@@ -93,7 +93,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool, e_val
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def inputs_valid(input_filepath: str, input_temppath: str, do_structure_search: bool, search_tool: str, e_value: float, query_id: float, 

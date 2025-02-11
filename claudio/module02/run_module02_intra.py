@@ -60,4 +60,4 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, p
     except SystemExit:
         pass
     
-    sys.exit()
+    sys.exit(0)

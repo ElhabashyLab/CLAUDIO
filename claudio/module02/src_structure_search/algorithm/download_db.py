@@ -113,7 +113,7 @@ def download_pdbs(data, output_dir):
         # Attempt regular .pdb call from RCSB database
         pdb_file = ''
         url = f'https://files.rcsb.org/download/{pdb_id}.pdb'
-        pdb_file = ''.join(r.post(url).text)
+        pdb_file = ''.join(r.post(url,timeout=1).text)
         filename = f'{output_dir}{pdb_id}.pdb'
 
         # If ordinary download call fails attempt .cif call (for mmCIF file)

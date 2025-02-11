@@ -64,7 +64,7 @@ def create_list_of_unique_proteins(data: pd.DataFrame, unique_protein_temp_dir: 
                     _ = info[1].split('\t')[i].replace('\"', '')
                 except:
                     print(info)
-                    sys.exit()
+                    sys.exit(1)
     unique_proteins_list["Sequence"] = unique_sequences
     unique_proteins_list["PDB"] = pdbs
     unique_proteins_list["Count"] = unique_protein_counts
@@ -104,7 +104,7 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
         except (r.exceptions.Timeout, ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
             print("No connection to UniProt API possible. Please try again later.")
             print(e)
-            sys.exit()
+            sys.exit(1)
 
         # Return information and sequence to container lists
         return i,info

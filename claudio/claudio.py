@@ -80,7 +80,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
     except SystemExit:
         pass
     if not os.path.exists(f"{output_directory}{filename}.sqcs"):
-        sys.exit()
+        sys.exit(1)
 
     # Run Module03
     try:
@@ -88,7 +88,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
     except SystemExit:
         pass
     if not os.path.exists(f"{output_directory}{filename}.sqcs_ops.csv"):
-        sys.exit()
+        sys.exit(1)
 
     # Run Module02
     try:
@@ -100,7 +100,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
     except SystemExit:
         pass
     if not os.path.exists(f"{output_directory}{filename}.sqcs_structdi.csv"):
-        sys.exit()
+        sys.exit(1)
 
     # Run Module04
     try:
@@ -128,7 +128,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues, s
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def parse_params(params: list[str]):

@@ -21,6 +21,6 @@ def read_inputfile(input_filepath: str, projections: dict):
         data.rename(columns=projections, inplace=True)
     except:
         print("Error! Given projection of column names failed! Check given comma-separated list!")
-        sys.exit()
+        sys.exit(1)
 
     return data

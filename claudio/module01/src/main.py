@@ -107,7 +107,7 @@ def main(input_filepath, input_temppath, projections, uniprot_search, xl_residue
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
-    sys.exit()
+    sys.exit(0)
 
 
 def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str, unique_protein_temp_dir: str, projections: str, uniprot_search: bool,
