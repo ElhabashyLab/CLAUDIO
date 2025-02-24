@@ -113,14 +113,14 @@ def download_pdbs(data, output_dir):
         # Attempt regular .pdb call from RCSB database
         pdb_file = ''
         url = f'https://files.rcsb.org/download/{pdb_id}.pdb'
-        pdb_file = ''.join(r.post(url,timeout=1).text)
+        pdb_file = ''.join(r.get(url,timeout=60).text)
         filename = f'{output_dir}{pdb_id}.pdb'
 
         # If ordinary download call fails attempt .cif call (for mmCIF file)
-        if pdb_file.startswith("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">"):
+        if pdb_file.startswith("<!doctype html>"):
             print("is cif",pdb_id)
             cif_url = f"{'.'.join(url.split('.')[:-1])}.cif"
-            pdb_file = ''.join(r.post(cif_url, timeout=1).text)
+            pdb_file = ''.join(r.get(cif_url, timeout=60).text)
             filename = f'{output_dir}{pdb_id}.cif'
 
             accept_method = False         
@@ -180,7 +180,8 @@ def download_pdbs(data, output_dir):
             for future in concurrent.futures.as_completed(futures):
                 try:
                     ind += 1
-                    verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, 2, end='')
+                    if ind % 500 == 0:
+                        verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, 2, end='')
                     del futures[future]
                 except Exception as e:
                     print(e)
@@ -225,4 +226,4 @@ def update_pdb_database():
         df["modification_date"] = time.strftime("%Y-%m-%d")
         df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
 
-# update_pdb_database()
+update_pdb_database()

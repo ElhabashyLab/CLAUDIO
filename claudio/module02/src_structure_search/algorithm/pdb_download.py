@@ -196,11 +196,11 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
     try:
         if url.startswith("https://files.rcsb.org/"):
             # Attempt regular .pdb call from RCSB database
-            pdb_file = ''.join(r.post(url).text)
+            pdb_file = ''.join(r.get(url).text)
             # If ordinary download call fails attempt .cif call (for mmCIF file)
-            if pdb_file.startswith("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">"):
+            if pdb_file.startswith("<!doctype html>"):
                 cif_url = f"{'.'.join(url.split('.')[:-1])}.cif"
-                pdb_file = ''.join(r.post(cif_url, timeout=1).text)
+                pdb_file = ''.join(r.get(cif_url, timeout=5).text)
             return pdb_file
         else:
             # Attempt .pdb call from AlphaFold database
