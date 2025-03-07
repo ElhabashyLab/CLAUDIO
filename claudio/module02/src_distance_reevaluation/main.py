@@ -16,7 +16,8 @@ from claudio.utils.utils import verbose_print, create_out_path, clean_input_path
 
 @click.command()
 @click.option("-i", "--input-directory", default="test/out/sample/structures")
-@click.option("-i2", "--input-filepath", default="test/out/sample/sample_data_random.sqcs_structdi.csv")
+@click.option("-i2", "--input-filepath", 
+              default="test/out/sample/sample_data_random.sqcs_structdi.csv")
 @click.option("-it", "--input-temppath", default=None)
 @click.option("-t", "--search-tool", default="blastp")
 @click.option("-x", "--xl-residues", default="K,M:N:1")
@@ -26,15 +27,17 @@ from claudio.utils.utils import verbose_print, create_out_path, clean_input_path
 @click.option("-o", "--output-directory", default="test/out/sample")
 @click.option("-tl", "--topolink-bin", default=None)
 @click.option("-v", "--verbose-level", default=2)
-def main(input_directory, input_filepath, input_temppath, search_tool, xl_residues, plddt_cutoff, linker_minimum,
-         linker_maximum, output_directory, topolink_bin, verbose_level):
+def main(input_directory, input_filepath, input_temppath, search_tool, 
+         xl_residues, plddt_cutoff, linker_minimum, linker_maximum, 
+         output_directory, topolink_bin, verbose_level):
     verbose_print("Start intra interaction check", 0, verbose_level)
     start_time = time.time()
     profile = cProfile.Profile()
     profile.enable()   # --- start profiling
 
     # Get absolute paths and translate eventual windows paths
-    list_of_paths = [input_filepath, input_temppath, output_directory, topolink_bin]
+    list_of_paths = [input_filepath, input_temppath, output_directory,
+                     topolink_bin]
     input_filepath, input_temppath, output_directory, topolink_bin = clean_input_paths(list_of_paths)
 
     # Check output directory
@@ -45,36 +48,44 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
                                output_directory + "temp/dist_reeval", input_filepath)
 
     # If parameters inputted by user valid
-    if inputs_valid(input_directory, input_filepath, search_tool, xl_residues, plddt_cutoff, output_directory,
-                    topolink_bin, verbose_level):
-        # Define dataset for crosslink residues including possible positions and atom types
+    if inputs_valid(input_directory, input_filepath, search_tool, xl_residues,
+                    plddt_cutoff, output_directory, topolink_bin, 
+                    verbose_level):
+        # Define dataset for crosslink residues including possible positions 
+        # and atom types
         df_xl_res = build_xl_dataset(xl_residues)
 
         # Read result from uniprot_search, e.g. sqcs-file
-        verbose_print("Read peptide information from uniprot search results", 0, verbose_level)
+        verbose_print("Read peptide information from uniprot search results", 
+                      0, verbose_level)
         data = read_unipsearch_out(input_filepath)
 
-        # Search for site positions in pdb files (replace rcsb pdb with alphafold, if not able to find it there)
-        verbose_print("Search site pos in pdb files (replace rcsb-pdb with alphafold-pdb if needed)", 0, verbose_level)
+        # Search for site positions in pdb files (replace rcsb pdb 
+        # with alphafold, if not able to find it there)
+        verbose_print("Search site pos in pdb files (replace rcsb-pdb with alphafold-pdb if needed)",
+                      0, verbose_level)
         data = search_site_pos_in_pdb(data, df_xl_res, verbose_level)
 
-        # Compute distances of sites, and if distance calculation successful compute new xl_type
-        verbose_print("Calculate presumed interaction site distances and evaluate interaction likelihood", 0,
-                      verbose_level)
-        data = calculate_site_dists(data, temp_dir, df_xl_res, plddt_cutoff, topolink_bin, verbose_level)
+        # Compute distances of sites, and if distance calculation successful 
+        # compute new xl_type
+        verbose_print("Calculate presumed interaction site distances and evaluate interaction likelihood",
+                      0, verbose_level)
+        data = calculate_site_dists(data, temp_dir, df_xl_res, plddt_cutoff,
+                                    topolink_bin, verbose_level)
 
         # Clean dataset for output
         data = clean_dataset(data)
 
         # Plot histograms of distances
         verbose_print("Create distance histograms", 0, verbose_level)
-        create_histogram(data, input_filepath.split('/')[-1], output_directory, linker_minimum, linker_maximum)
+        create_histogram(data, input_filepath.split('/')[-1], output_directory, 
+                         linker_minimum, linker_maximum)
 
         # Overwrite previous outputfile of module02
         verbose_print("Overwrite outputfile", 0, verbose_level)
         write_output(data, input_filepath)
-
-    verbose_print(f"\nEnd script (Elapsed time: {round_self(time.time() - start_time, 2)}s)", 0, verbose_level)
+    runtime = round_self(time.time() - start_time, 2)
+    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
     
     profile.disable()  # --- stop profiling
@@ -86,7 +97,8 @@ def main(input_directory, input_filepath, input_temppath, search_tool, xl_residu
     sys.exit(0)
 
 
-def inputs_valid(input_directory: str, input_filename: str, search_tool: str, xl_residues: str, plddt_cutoff: float, output_directory: str,
+def inputs_valid(input_directory: str, input_filename: str, search_tool: str, 
+                 xl_residues: str, plddt_cutoff: float, output_directory: str,
                  topolink_bin: str | None, verbose_level: int):
     """
     check validity of inputted parameters
@@ -114,7 +126,8 @@ def inputs_valid(input_directory: str, input_filename: str, search_tool: str, xl
     if any([".pdb" in filename for filename in os.listdir(input_directory)]):
         if input_filename.endswith(".sqcs_structdi.csv"):
             if search_tool in ["blastp", "hhsearch"]:
-                # check whether xl_residues can be turned into a proper DataFrame, else return False
+                # check whether xl_residues can be turned into a proper DataFrame,
+                #  else return False
                 build_xl_dataset(xl_residues)
                 # check whether plddt cutoff has valid value
                 try:

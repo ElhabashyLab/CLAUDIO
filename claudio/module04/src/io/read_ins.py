@@ -25,8 +25,9 @@ def read_inputs(file1: str, file2: str):
 
 def merge_datasets(df1: pd.DataFrame, df2: pd.DataFrame):
     """
-    merge ops analysis dataset into structural distance analysis dataset. Furthermore,
-    ensure that results of ops analysis are integrated for new datapoints of structural distance analysis
+    merge ops analysis dataset into structural distance analysis dataset. 
+    Furthermore, ensure that results of ops analysis are integrated for new
+    datapoints of structural distance analysis
 
     Parameters
     ----------
@@ -44,7 +45,8 @@ def merge_datasets(df1: pd.DataFrame, df2: pd.DataFrame):
                 df1[column] = False
                 for i in df1.index:
                     if '_' in str(i):
-                        df1.loc[i, column] = df2.loc[int(str(i).split('_')[0]), column]
+                        df1.loc[i, column] = df2.loc[int(str(i).split('_')[0]),
+                                                     column]
                     else:
                         df1.loc[i, column] = df2.loc[int(i), column]
             else:

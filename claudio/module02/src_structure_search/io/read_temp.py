@@ -3,8 +3,8 @@ import pandas as pd
 
 def read_temp_file(data: pd.DataFrame, tmp_filepath: str):
     """
-    read temporary save file containing earlier hhsearch or blastp search results and concatenate them to the dataset,
-    for quick reruns
+    read temporary save file containing earlier hhsearch or blastp 
+    search results and concatenate them to the dataset, for quick reruns
 
     Parameters
     ----------

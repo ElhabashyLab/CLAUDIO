@@ -5,7 +5,9 @@ import pandas as pd
 from claudio.utils.utils import verbose_print, round_self
 
 
-def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame, output_directory: str, verbose_level: int):
+def double_check_data(data: pd.DataFrame, filename: str, 
+                      df_xl_res: pd.DataFrame, output_directory: str, 
+                      verbose_level: int):
     """
     Check given datapoints and correct it, if possible/needed
 
@@ -29,27 +31,30 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
     # Save known interactions (drop duplicates)
     known_inters = set()
 
-    # Save newly created datapoints (in order to ensure that they aren't duplicated multiple times)
+    # Save newly created datapoints (in order to ensure that they 
+    # aren't duplicated multiple times)
     new_datapoints = []
 
     for i, row in data.iterrows():
-        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1, verbose_level, end='')
+        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1, 
+                      verbose_level, end='')
         ind += 1
 
         # SUCCESS: Remove empty entry
-        pos_information_missing = (sum([not pd.isna(row.pos_a), not pd.isna(row.res_pos_a)]) < 1) or \
+        pos_info_missing = (sum([not pd.isna(row.pos_a), not pd.isna(row.res_pos_a)]) < 1) or \
                                   (sum([not pd.isna(row.pos_b), not pd.isna(row.res_pos_b)]) < 1)
         is_erroneous_data = (type(row["seq_a"]) != str) or (type(row["seq_b"]) != str) or \
-                            (type(row["pep_a"]) != str) or (type(row["pep_b"]) != str) or pos_information_missing
+                            (type(row["pep_a"]) != str) or (type(row["pep_b"]) != str) or pos_info_missing
         if is_erroneous_data:
             log_text += f"{i}: erroneous entry (missing " \
-                        f"{'sequence or peptide info' if not pos_information_missing else 'position info'}" \
+                        f"{'position info' if pos_info_missing else 'sequence or peptide info'}" \
                         f"). will be dropped\n"
             data.drop(i, inplace=True)
             log_text += "\tREMOVE\n"
             continue
 
-        # FAIL: Neither of the specified residues are in the peptide (wrong peptide, or faulty interaction found)
+        # FAIL: Neither of the specified residues are in the peptide 
+        # (wrong peptide, or faulty interaction found)
         if all(res not in row["pep_a"] for res in df_xl_res.res.tolist()):
             log_text += f"{i}_a: pep_a does not contain any of the specified residues!\n"
             log_text += "\tFAIL\n"
@@ -67,38 +72,45 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
             log_text += f"{i}_b: Found 'Mo' in pep_b.\n"
             log_text += "\tREPLACE: Mo -> M\n"
 
-        # ISSUE: Check if peptide is in full sequence as is (possible insertions are not considered)
+        # ISSUE: Check if peptide is in full sequence as is 
+        # (possible insertions are not considered)
         if row["pep_a"] not in row["seq_a"]:
             log_text += f"{i}_a: pep_a is not completely in full seq_a\n"
-            log_text += f"\tISSUE\n"
+            log_text += "\tISSUE\n"
         if row["pep_b"] not in row["seq_b"]:
             log_text += f"{i}_b: pep_b is not completely in full seq_b\n"
-            log_text += f"\tISSUE\n"
+            log_text += "\tISSUE\n"
 
         # Recompute residue positions for site a and b
-        row, log_text = check_pep_pos(i, row, 'a', df_xl_res, log_text, verbose_level)
-        row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text, verbose_level)
+        row, log_text = check_pep_pos(i, row, 'a', df_xl_res, log_text, 
+                                      verbose_level)
+        row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text, 
+                                      verbose_level)
         # Update row
         data.loc[i, :] = row
 
-        # ISSUE: Check if peptide occurs multiple times in full sequence as is (possible insertions are not considered)
+        # ISSUE: Check if peptide occurs multiple times in full sequence 
+        # as is (possible insertions are not considered)
         pep_found_multiple_times = False
         if row["seq_a"].count(row["pep_a"]) > 1:
             log_text += f"{i}_a: pep_a was found more than once in full seq_a\n"
-            log_text += f"\tISSUE\n"
+            log_text += "\tISSUE\n"
             pep_found_multiple_times = True
         if row["seq_b"].count(row["pep_b"]) > 1:
             log_text += f"{i}_b: pep_b was found more than once in full seq_b\n"
-            log_text += f"\tISSUE\n"
+            log_text += "\tISSUE\n"
             pep_found_multiple_times = True
 
-        # If any peptide was found multiple times, create possible variations (add them later (*))
+        # If any peptide was found multiple times, create possible variations 
+        # (add them later (*))
         if pep_found_multiple_times:
             datapoints, log_text = create_duplicates(row, df_xl_res, log_text)
             new_datapoints.append(datapoints)
 
-        # If not in known interactions, save unip ids and positions in known interactions, else drop datapoint
-        interaction_info = tuple(sorted([row["unip_id_a"], row["unip_id_b"], str(row["pos_a"]), str(row["pos_b"])]))
+        # If not in known interactions, save unip ids and positions in known 
+        # interactions, else drop datapoint
+        interaction_info = tuple(sorted([row["unip_id_a"], row["unip_id_b"], 
+                                         str(row["pos_a"]), str(row["pos_b"])]))
         if interaction_info not in [x for _, x in known_inters]:
             known_inters.add((i, interaction_info))
         else:
@@ -109,7 +121,8 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
                     log_text += "\tSUCCESS\n"
                     break
 
-        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1, verbose_level, end='')
+        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1, 
+                      verbose_level, end='')
     verbose_print("", 1, verbose_level)
 
     # Add aforementioned possible variations to the end of the dataset (*)
@@ -132,7 +145,8 @@ def double_check_data(data: pd.DataFrame, filename: str, df_xl_res: pd.DataFrame
     return data
 
 
-def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, log_text: str, verbose_level: int):
+def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, 
+                  log_text: str, verbose_level: int):
     """
     Check given positions and correct it, if possible/needed
 
@@ -157,7 +171,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
 
     wrong_pos = False
     try:
-        # Collect booleans whether aminoacid at given position is any of the residues with specified position
+        # Collect booleans whether aminoacid at given position is any of the 
+        # residues with specified position
         fits_specification = []
         for dp in df_xl_res.itertuples():
             # residue may be found anywhere in the peptide
@@ -174,7 +189,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                       "happen here)!")
                 sys.exit(1)
             fits_specification.append((seq[pep_pos - 1] == dp.res) and fits_position)
-        # Check whether aminoacid at given position is any of the residues with specified position
+        # Check whether aminoacid at given position is any of the residues 
+        # with specified position
         if not any(fits_specification):
             log_text += f"{i}_{site}: residue in peptide at pos_{site} is not any of the specified residues.\n"
             wrong_pos = True
@@ -183,7 +199,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
         log_text += f"{i}_{site}: given pos_{site} is out of bounds of sequence.\n"
         wrong_pos = True
 
-    # Recompute position if acid at position is not of the specified ones, or if position out of bounds
+    # Recompute position if acid at position is not of the specified ones, 
+    # or if position out of bounds
     if wrong_pos:
         pos_replaced = False
         # Count peptide-as-is-occurences in full sequence
@@ -191,7 +208,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
 
         # Parse through possible residues
         for dp in df_xl_res.itertuples():
-            # Peptide occurred exactly once in sequence (uniquely identified peptide)
+            # Peptide occurred exactly once in sequence 
+            # (uniquely identified peptide)
             if pep_count_in_seq == 1:
                 # If position has not been replaced yet
                 if not pos_replaced:
@@ -200,7 +218,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                     if res_count == 0:
                         log_text += f"\tno {dp.res} found in pep_{site}\n"
                     else:
-                        # Check if residue at specified position is the searched one
+                        # Check if residue at specified position is the 
+                        # searched one
                         if dp.pos != 0:
                             log_text += f"\tcheck {dp.res} at specified position (={dp.pos}) in seq\n"
                             log_text += f"\t\tVERIFY: new residue is '{dp.res}': " \
@@ -209,13 +228,14 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                                 row[f"pos_{site}"] = dp.pos if dp.pos == 1 else pep_pos + (len(peptide) - 1)
                                 log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> " \
                                             f"{dp.pos if dp.pos == 1 else pep_pos + (len(peptide) - 1)}\n"
-                                log_text += f"\tSUCCESS\n"
+                                log_text += "\tSUCCESS\n"
                                 pos_replaced = True
                             else:
-                                log_text += f"\tFAIL\n"
+                                log_text += "\tFAIL\n"
                         # Else, try to find searched residue
                         else:
-                            # SUCCESS: Uniquely identified residue, replace given position with its (Verify,
+                            # SUCCESS: Uniquely identified residue, 
+                            # replace given position with its (Verify,
                             # FAIL if wrong)
                             if res_count == 1:
                                 log_text += f"\tfound {dp.res} exactly once in pep_{site}\n"
@@ -224,17 +244,19 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                                 if seq[new_pos - 1] == dp.res:
                                     row[f"pos_{site}"] = new_pos
                                     log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                    log_text += f"\tSUCCESS\n"
+                                    log_text += "\tSUCCESS\n"
                                     pos_replaced = True
                                 else:
-                                    log_text += f"\tFAIL\n"
+                                    log_text += "\tFAIL\n"
 
-                            # More than one searched residue in peptide (impossible to identify correct one, if not
+                            # More than one searched residue in peptide 
+                            # (impossible to identify correct one, if not
                             # specified by data)
                             else:
                                 log_text += f"\tfound {dp.res} more than once in pep_{site}\n"
-                                # SUCCESS: Try res_pos specification (only for data by Liu et al.), if so replace given
-                                # position with it (Verify, FAIL if wrong)
+                                # SUCCESS: Try res_pos specification 
+                                # (only for data by Liu et al.), if so replace 
+                                # given position with it (Verify, FAIL if wrong)
                                 try:
                                     res_pos = int(row[f"res_pos_{site}"])
                                     log_text += f"\tres_pos_{site} was given\n"
@@ -243,16 +265,17 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                                     if seq[new_pos - 1] == dp.res:
                                         row[f"pos_{site}"] = new_pos
                                         log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                        log_text += f"\tSUCCESS\n"
+                                        log_text += "\tSUCCESS\n"
                                         pos_replaced = True
                                     else:
-                                        log_text += f"\tFAIL\n"
+                                        log_text += "\tFAIL\n"
                                 # FAIL: res_pos not given
                                 except:
                                     log_text += f"\tres_pos_{site} was not given\n"
                                     log_text += "\tFAIL\n"
 
-            # Align peptide to sequence, if peptide found more than once or not found
+            # Align peptide to sequence, if peptide found more than once 
+            # or not found
             else:
                 # If position has not been replaced yet
                 if not pos_replaced:
@@ -261,7 +284,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
                         res_pos = int(row[f"res_pos_{site}"])
                         log_text += f"\tres_pos_{site} was given\n"
                         log_text += "\talign peptide to sequence\n"
-                        new_pos = realign_pep_to_seq(seq, peptide, res_pos, verbose_level)
+                        new_pos = realign_pep_to_seq(seq, peptide, res_pos, 
+                                                     verbose_level)
                         if new_pos is None:
                             log_text += f"\talignment attempt failed for residue '{dp.res}'\n"
                             log_text += "\tFAIL\n"
@@ -282,9 +306,11 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame, lo
     return row, log_text
 
 
-def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, verbose_level:int):
+def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, 
+                       verbose_level:int):
     """
-    Align peptide to sequence and based on res_pos in peptide compute res_pos in sequence, return None if this fails
+    Align peptide to sequence and based on res_pos in peptide compute res_pos
+    in sequence, return None if this fails
 
     Parameters
     ----------
@@ -326,8 +352,8 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, verbose_level:int):
         if aligned_pep_pos == res_pos:
             break
 
-    # Find res_pos in aligned sequence and compute according new_res_pos in unaligned sequence, return new_res_pos if
-    # successful, else return None
+    # Find res_pos in aligned sequence and compute according new_res_pos in 
+    # unaligned sequence, return new_res_pos if successful, else return None
     try:
         _ = aligned_seq[aligned_pep_i + 1]
         new_res_pos = len(aligned_seq[:aligned_pep_i + 1].replace(' ', '').replace('-', ''))
@@ -336,7 +362,8 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, verbose_level:int):
             verbose_print(f"\tAligned site (index: {aligned_pep_i}):\n"
                           f"\t\t{aligned_seq[aligned_pep_i]}\n"
                           f"\t\t{al_seq[aligned_pep_i]}\n"
-                          f"\t\t{aligned_pep[aligned_pep_i]}", 2, verbose_level)
+                          f"\t\t{aligned_pep[aligned_pep_i]}", 2, 
+                          verbose_level)
             return new_res_pos
         else:
             return None
@@ -346,7 +373,8 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int, verbose_level:int):
 
 def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
     """
-    Check if peptides in datapoint occur multiple times in sequence, if so create dataset with possible permutations
+    Check if peptides in datapoint occur multiple times in sequence, 
+    if so create dataset with possible permutations
     
     Parameters
     ----------
@@ -370,11 +398,13 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
         seq_a = row.seq_a
         seq_b = row.seq_b
 
-        # Only create new datapoints, if the current residue can be placed in multiple positions
+        # Only create new datapoints, if the current residue can be placed in 
+        # multiple positions
         if dp.pos == 0:
             row.res_pos_a = str(row.res_pos_a)
             row.res_pos_b = str(row.res_pos_b)
-            # Make sure that the crosslinked residue can be uniquely identified for pep_a
+            # Make sure that the crosslinked residue can be uniquely 
+            # identified for pep_a
             if ((row.pep_a.count(dp.res) == 1) or row.res_pos_a.replace(' ', '')) and seq_a.count(row.pep_a) != 1:
                 # Find all positions of pep_a
                 pep_a_positions = [i for i in range(len(seq_a)) if seq_a[i:].startswith(row.pep_a)]
@@ -386,7 +416,8 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                     pep_a_positions.append(old_pos_a)
                 pep_a_positions = sorted(pep_a_positions)
 
-            # Make sure that the crosslinked residue can be uniquely identified for pep_b
+            # Make sure that the crosslinked residue can be uniquely 
+            # identified for pep_b
             if ((row.pep_b.count(dp.res) == 1) or row.res_pos_b) and seq_b.count(row.pep_b) != 1:
                 # Find all positions of pep_b
                 pep_b_positions = [i for i in range(len(seq_b)) if seq_b[i:].startswith(row.pep_b)]
@@ -419,18 +450,18 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                             log_text += f"\t\tpos_a: {row.pos_a} -> {new_pos_a}\n" \
                                         f"\t\tVERIFY: new residue is '{dp.res}': {seq_a[new_pos_a - 1] == dp.res}\n"
                             if seq_a[new_pos_a - 1] == dp.res:
-                                log_text += f"\t\t\tCREATED\n"
+                                log_text += "\t\t\tCREATED\n"
                             else:
-                                log_text += f"\t\t\tFAIL\n"
+                                log_text += "\t\t\tFAIL\n"
                             new_datapoint.pos_a = new_pos_a
 
                             # Verify new_pos_b
                             log_text += f"\t\tpos_b: {row.pos_b} -> {new_pos_b}\n" \
                                         f"\t\tVERIFY: new residue is '{dp.res}': {seq_b[new_pos_b - 1] == dp.res}\n"
                             if seq_b[new_pos_b - 1] == dp.res:
-                                log_text += f"\t\t\tSUCCESS\n"
+                                log_text += "\t\t\tSUCCESS\n"
                             else:
-                                log_text += f"\t\t\tFAIL\n"
+                                log_text += "\t\t\tFAIL\n"
                             new_datapoint.pos_b = new_pos_b
 
                             new_datapoints.append(new_datapoint)
@@ -480,9 +511,9 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                         log_text += f"\t\tpos_b: {row.pos_b} -> {new_pos_b}\n" \
                                     f"\t\tVERIFY: new residue is '{dp.res}': {seq_b[new_pos_b - 1] == dp.res}\n"
                         if seq_b[new_pos_b - 1] == dp.res:
-                            log_text += f"\t\t\tCREATED\n"
+                            log_text += "\t\t\tCREATED\n"
                         else:
-                            log_text += f"\t\t\tFAIL\n"
+                            log_text += "\t\t\tFAIL\n"
                         new_datapoint.pos_b = new_pos_b
 
                         new_datapoints.append(new_datapoint)
@@ -491,7 +522,7 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                         ind += 1
 
             else:
-                log_text += f"\tattempt to create new datapoints for peptide copies in full protein sequence failed\n" \
-                            f"\tFAIL\n"
+                log_text += "\tattempt to create new datapoints for peptide copies in full protein sequence failed\n" \
+                            "\tFAIL\n"
 
     return pd.concat(new_datapoints, axis=1).transpose(), log_text

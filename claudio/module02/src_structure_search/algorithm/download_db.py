@@ -9,11 +9,13 @@ from Bio import PDB
 from claudio.utils.utils import verbose_print, round_self
 import warnings
 
-warnings.filterwarnings("ignore", category=PDB.StructureBuilder.PDBConstructionWarning)
+warnings.filterwarnings("ignore", 
+                        category=PDB.StructureBuilder.PDBConstructionWarning)
 
 def query_pdb_after_date(date_str: str):
     """
-    Query the PDB database for all IDs of files which were modified or created after a certain date.
+    Query the PDB database for all IDs of files which were modified or created
+    after a certain date.
 
     Parameters
     ----------
@@ -88,7 +90,8 @@ def query_pdb_after_date(date_str: str):
         data = response.json()
         pdb_ids = [entry['identifier'] for entry in data['result_set']]
         print(len(pdb_ids))
-        df = pd.DataFrame({'pdb_id': pdb_ids, 'modification_date': time.strftime("%Y-%m-%d")})
+        df = pd.DataFrame({'pdb_id': pdb_ids, 
+                           'modification_date': time.strftime("%Y-%m-%d")})
         return df
 
 def download_pdbs(data, output_dir):
@@ -103,11 +106,13 @@ def download_pdbs(data, output_dir):
     Returns
     -------
     data : pd.DataFrame
-        DataFrame containing the PDB IDs and their corresponding dates, methods and resolutions.
+        DataFrame containing the PDB IDs and their corresponding dates, 
+        methods and resolutions.
     None
     """
-    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", "ELECTRON CRYSTALLOGRAPHY",
-                            "NEUTRON DIFFRACTION", "FIBER DIFFRACTION"]
+    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", 
+                            "ELECTRON CRYSTALLOGRAPHY", "NEUTRON DIFFRACTION", 
+                            "FIBER DIFFRACTION"]
     resolution_excepted_methods = ["SOLUTION NMR", "SOLID-STATE NMR"]
     def download_pdb_task(pdb_id):
         # Attempt regular .pdb call from RCSB database
@@ -126,8 +131,8 @@ def download_pdbs(data, output_dir):
             accept_method = False         
             lines = pdb_file.split('\n')
             for line in lines:
-                # If line startswith _exptl.method, it contains the information of the experimental method used for structure
-                # determination
+                # If line startswith _exptl.method, it contains the information 
+                # of the experimental method used for structure determination
                 if line.startswith("_exptl.method "):
                     method = ''.join([w for w in line.split(sep="\'") if w][1])
                     accept_method = method in accepted_pdb_methods
@@ -136,7 +141,8 @@ def download_pdbs(data, output_dir):
                         resolution = np.NaN
                         data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
                     break
-                # If line contains _em_3d_reconstruction.resolution or _refine.ls_d_res_high, depending on the used method,
+                # If line contains _em_3d_reconstruction.resolution 
+                # or _refine.ls_d_res_high, depending on the used method,
                 # it contains the float value of the resolution, accept it if it
                 # is below or equal to the threshhold
             if method == "ELECTRON MICROSCOPY":
@@ -175,13 +181,15 @@ def download_pdbs(data, output_dir):
     else:
         verbose_print(f"Download progress:", 1, 2)
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = {executor.submit(download_pdb_task, pdb_id): pdb_id for pdb_id in data['pdb_id']}
+            futures = {executor.submit(download_pdb_task, pdb_id): 
+                       pdb_id for pdb_id in data['pdb_id']}
             ind = 0
             for future in concurrent.futures.as_completed(futures):
                 try:
                     ind += 1
                     if ind % 500 == 0:
-                        verbose_print(f"\r\t[{round_self((ind * 100) / len(data.index), 2)}%]", 1, 2, end='')
+                        progress = round_self((ind * 100) / len(data.index), 2)
+                        verbose_print(f"\r\t[{progress}%]", 1, 2, end='')
                     del futures[future]
                 except Exception as e:
                     print(e)
@@ -205,10 +213,11 @@ def update_pdb_database():
         oldest_date = pd.to_datetime(df["modification_date"]).min()
         date_str = oldest_date.strftime('%Y-%m-%d')
     else:
-        df = pd.DataFrame(columns=['pdb_id', 'modification_date', 'method', 'resolution'])
+        df = pd.DataFrame(columns=['pdb_id', 'modification_date', 'method',
+                                   'resolution'])
         date_str = '1970-01-01'
-    # query the PDB database for all files which were updated after the oldest update-date
-    # and download them
+    # query the PDB database for all files which were updated after the 
+    # oldest update-date and download them
 
     new_pdbs = query_pdb_after_date(date_str)
     if new_pdbs.empty:
@@ -226,4 +235,4 @@ def update_pdb_database():
         df["modification_date"] = time.strftime("%Y-%m-%d")
         df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
 
-update_pdb_database()
+# update_pdb_database()

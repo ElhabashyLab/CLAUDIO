@@ -3,9 +3,11 @@ import numpy as np
 import pandas as pd
 
 
-def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring: bool, output_directory: str):
+def create_histograms(data: pd.DataFrame, filename: str, cutoff, 
+                      compute_scoring: bool, output_directory: str):
     """
-    create histograms for inter scores, and pie charts for final validation results
+    create histograms for inter scores, and pie charts for final 
+    validation results
 
     Parameters
     ----------
@@ -22,7 +24,8 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring
 
     colors = ["#9ACE9A", "#464444"]
     if compute_scoring:
-        inter_data = data[(data.inter_score > cutoff) & (data.unip_id_a == data.unip_id_b)][["inter_score"]]
+        inter_data = data[(data.inter_score > cutoff) 
+                          & (data.unip_id_a == data.unip_id_b)][["inter_score"]]
         if not inter_data.empty:
             label = "experimental confidence score for intra crosslinks (" \
                     + "$n_{>cutoff}$" + f" = {sum(inter_data.inter_score > cutoff)})"
@@ -30,7 +33,8 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring
             bin_centers = np.diff(bins) * .5 + bins[:-1]
             plt.figure(figsize=(6.5, 6), constrained_layout=True)
             known_xy = []
-            freq, _, _ = plt.hist(inter_data, bins=bins, color=colors[0], label=label)
+            freq, _, _ = plt.hist(inter_data, bins=bins, color=colors[0],
+                                  label=label)
             for fr, x in zip(freq, bin_centers):
                 height = int(fr)
                 y = height
@@ -39,7 +43,8 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring
                     rad = int(round(max(int(f) for f in freq) / 40) + 1)
                     if y in range(known_y - rad, known_y + rad + 1) and y != known_y:
                         y = known_y - rad if y <= known_y else known_y + rad
-                plt.annotate(str(height) if height > 0 else '', xy=(x, y), xytext=(0, .2), textcoords="offset points",
+                plt.annotate(str(height) if height > 0 else '', xy=(x, y),
+                             xytext=(0, .2), textcoords="offset points",
                              ha="center", va="bottom")
                 known_xy.append((x, y))
             plt.xlabel(f"score")
@@ -63,7 +68,8 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring
                           len(intra_data[(intra_data.pdb_id != '-') & (intra_data.XL_type == "intra")].index),
                           len(intra_data[(intra_data.XL_type == "inter") & (intra_data.swiss_model_homology != '')].index),
                           len(intra_data[(intra_data.XL_type == "inter") & (intra_data.swiss_model_homology == '')].index)])
-        label_sets.append(["remains intra (no structure found)", "remains intra (structure found)",
+        label_sets.append(["remains intra (no structure found)",
+                           "remains intra (structure found)",
                            "homology reference found", "new lead"])
         color_sets.append(["#464444", "#FFCC00", "#9ACE9A", "lightblue"])
     if not inter_data.empty:
@@ -72,19 +78,24 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff, compute_scoring
                           len(inter_data[(inter_data.pdb_id != '-') & (np.isnan(inter_data.topo_dist))]),
                           len(inter_data[(inter_data.pdb_id != '-') & (~np.isnan(inter_data.topo_dist)) & (inter_data.evidence == '')].index),
                           len(inter_data[(inter_data.pdb_id != '-') & (~np.isnan(inter_data.topo_dist)) & (inter_data.evidence != '')].index)])
-        label_sets.append(["no structure found", "not analyzed (structure found)", "reference structure found",
+        label_sets.append(["no structure found",
+                           "not analyzed (structure found)", 
+                           "reference structure found",
                            "new lead"])
         color_sets.append(["#464444", "red", "#9ACE9A", "lightblue"])
 
-    for charts_str, dataset, labels, colors in zip(charts_strs, data_sets, label_sets, color_sets):
+    for charts_str, dataset, labels, colors in zip(charts_strs, data_sets,
+                                                   label_sets, color_sets):
         plt.figure(figsize=(6.5, 6), constrained_layout=True)
 
         def percentages(pct, all_vals):
             abs_val = int(np.round(pct / 100 * np.sum(all_vals)))
             return f"{pct:.1f}%\n(n={abs_val})" if abs_val > 0 else ''
 
-        wedges, _, autos = plt.pie(dataset, autopct=lambda x: percentages(x, dataset),
-                                   colors=colors, textprops=dict(weight="bold"))
+        wedges, _, autos = plt.pie(dataset, 
+                                   autopct=lambda x: percentages(x, dataset),
+                                   colors=colors, 
+                                   textprops=dict(weight="bold"))
         autos[0].set_color('w')
         plt.legend(wedges, labels)
         plt.title(f"Final distribution of {charts_str} cross-links (n={sum(dataset)})")

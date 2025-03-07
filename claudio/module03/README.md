@@ -7,7 +7,7 @@
 -i,   --input-filepath,         path to inputfile,
                                 default="test/out/sample/sample_data_random.sqcs"
 -o,   --output-directory,       output directory for produced csv-files, default="test/out/sample/"
--v,   --verbose-level,          verbose level value, default=3:
+-v,   --verbose-level,          verbose level value, default=2:
                                     0: no outputs at all will be written to the commandline
                                     1: write tool inits and passed time
                                     2: write progressbars (where implemented)

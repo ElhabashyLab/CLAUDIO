@@ -7,7 +7,8 @@ import concurrent.futures
 from claudio.utils.utils import verbose_print, round_self
 
 
-def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str, verbose_level: int):
+def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str,
+                      verbose_level: int):
     """
     Retrieve full uniprot sequences and IDs if not given
     
@@ -27,16 +28,20 @@ def do_uniprot_search(data: pd.DataFrame, tmp_filepath: str, verbose_level: int)
     unip_ids = list(set(unip_ids_a + unip_ids_b))
     already_searched = query_uniprot(unip_ids, verbose_level)
     # retrieve sequences from uniprot entries
-    data["seq_a"] = search_uniprot(data, verbose_level, already_searched, site='a')
-    data["seq_b"] = search_uniprot(data, verbose_level, already_searched, site='b')
+    data["seq_a"] = search_uniprot(data, verbose_level, already_searched,
+                                   site='a')
+    data["seq_b"] = search_uniprot(data, verbose_level, already_searched,
+                                   site='b')
 
-    # save results in temporary save file (can be used on rerun, instead of searching results again)
+    # save results in temporary save file (can be used on rerun, instead of
+    # searching results again)
     data[["seq_a", "seq_b"]].to_csv(tmp_filepath, index=False)
 
     return data
 
 
-def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched, site='a'):
+def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
+                   site='a'):
     """
     search uniprot database for sequences
 
@@ -69,11 +74,13 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched, sit
             fitting_seq_found = False
             seq = ''
             if len(result) > 1:
-                # Check for each sequence whether both peptides were discovered in the sequences
+                # Check for each sequence whether both peptides were 
+                # discovered in the sequences
                 for seq in result:
                     peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
                         if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
-                    # If a fitting sequences, containing both peptides was found set argument to True
+                    # If a fitting sequences, containing both peptides was 
+                    # found set argument to True
                     if peptide_arg:
                         fitting_seq_found = True
                         break
@@ -84,14 +91,17 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched, sit
             return i, seq
         
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(retrieve_seqs_task, i, row): (i,row) for i, row in data.iterrows()}
+        futures = {executor.submit(retrieve_seqs_task, i, row): 
+                   (i,row) for i, row in data.iterrows()}
 
         for future in concurrent.futures.as_completed(futures):
             try:
                 i, seq = future.result()
                 seqs[i] = seq
                 ind += 1
-                verbose_print(f"\r\tSite_{site}:[{round_self(ind * 100 / len(data.index), 2)}%]", 1, verbose_level, end='')
+                progress = round_self(ind * 100 / len(data.index), 2)
+                verbose_print(f"\r\tSite_{site}:[{progress}%]", 1, 
+                              verbose_level, end='')
                 del futures[future]
             except Exception as e:
                 print(e)
@@ -120,17 +130,20 @@ def query_uniprot(unip_ids: list, verbose_level: int):
 
     # retrieve uniprot sequences for all uniquely discovered uniprot ids
     def query_task(id):
-        # if search for unip id has not been performed yet, do so, and add it to already_searched dictionary
+        # if search for unip id has not been performed yet, do so, and add it
+        # to already_searched dictionary
         if id not in already_searched.keys() or already_searched[id] is None:
             url = f"https://rest.uniprot.org/uniprotkb/search?format=fasta&query={id}"
             try:
-                url_return_text = r.get(url).text
+                url_return_text = r.get(url,timeout=60).text
                 return_failed = "Error encountered when streaming data. Please try again later." in url_return_text
                 # if successful continue
                 if not return_failed:
-                    result = [''.join(x.split('\n')[1:]) for x in url_return_text.split('>') if x]
-                    # remove empty strings, should not occur if uniprot fasta-files are properly formatted,
-                    # added due to a '>' which was included in the header of the fasta file
+                    result = [''.join(x.split('\n')[1:]) 
+                              for x in url_return_text.split('>') if x]
+                    # remove empty strings, should not occur if uniprot 
+                    # fasta-files are properly formatted, added due to a '>' 
+                    # which was included in the header of the fasta file
                     result = [part.strip() for part in result if part.strip()]
                     already_searched[id] = result
                 # else print error message and raise ValueError
@@ -138,7 +151,8 @@ def query_uniprot(unip_ids: list, verbose_level: int):
                     verbose_print(f"\tWarning! UniProt API call failed for UniProt_ID={id}.\n\tReturned message: "
                                   f"{url_return_text}", 2, verbose_level)
                     already_searched[id] = None
-            except (r.exceptions.Timeout, ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
+            except (r.exceptions.Timeout, ConnectionError, socket.gaierror,
+                    r.exceptions.ConnectionError) as e:
                 print("No connection to UniProt API possible. Please try again later.")
                 print(e)
                 sys.exit(1)

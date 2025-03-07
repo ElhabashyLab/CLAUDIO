@@ -2,7 +2,8 @@ import os
 import pandas as pd
 
 
-def verbose_print(print_string: str, threshold: int, verbose_level: int, end='\n'):
+def verbose_print(print_string: str, threshold: int, verbose_level: int, 
+                  end='\n'):
     """
     print given string, if verbose_level is higher than threshold
 
@@ -24,8 +25,9 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int, end='\n
 
 def clean_input_paths(path_strs):
     """
-    get absolute paths and apply windowsos path translation, if not NoneType (else return None) and if it does not
-    contain an environmental variable (else return it as is)
+    get absolute paths and apply windowsos path translation, if not NoneType 
+    (else return None) and if it does not contain an environmental variable 
+    (else return it as is)
 
     Parameters
     ----------
@@ -62,7 +64,8 @@ def create_out_path(output_directory: str, input_filepath: str):
     output_directory = output_directory.replace('\\', '/')
     output_directory += '' if output_directory.endswith('/') else '/'
     output_directory_splits = output_directory.split('/')
-    sub_paths = ['/'.join(output_directory_splits[:i + 1]) for i in range(len(output_directory_splits))]
+    sub_paths = ['/'.join(output_directory_splits[:i + 1]) 
+                 for i in range(len(output_directory_splits))]
     sub_paths = [e for e in sub_paths if e]
     for sub_path in sub_paths:
         if not os.path.exists(sub_path):
@@ -97,7 +100,8 @@ def evaluate_boolean_input(input_str: str):
 
 def build_xl_dataset(xl_residues: str):
     """
-    build residue dataset from comma-separated xl_residues input string, specifying residue, atom type, and position
+    build residue dataset from comma-separated xl_residues input string,
+    specifying residue, atom type, and position
 
     Parameters
     ----------
@@ -138,7 +142,8 @@ def build_xl_dataset(xl_residues: str):
 
 def round_self(value: float, decimals: int):
     """
-    simple decimal rounding function (python by itself has a tendency to round fragmented with the built-in function)
+    simple decimal rounding function (python by itself has a tendency to 
+    round fragmented with the built-in function)
 
     Parameters 
     ----------
@@ -182,15 +187,26 @@ def clean_dataset(data: pd.DataFrame):
         for row in data.itertuples():
             i = row.Index
             if ('_' in str(i)) and (i not in already_checked):
-                drop_criteria = (data.pos_a == row.pos_a) & (data.pos_b == row.pos_b) & \
-                                (data.pep_a == row.pep_a) & (data.pep_b == row.pep_b) & \
-                                ((data.res_pos_a == row.res_pos_a) | (pd.isna(data.res_pos_a) & pd.isna(row.res_pos_a))) & \
-                                ((data.res_pos_b == row.res_pos_b) | (pd.isna(data.res_pos_b) & pd.isna(row.res_pos_b)))
-                if all([rename_col in data.columns for rename_col in ["chain_a", "chain_b", "pdb_id"]]):
-                    drop_criteria = drop_criteria & (data.chain_a == row.chain_a) & (data.chain_b == row.chain_b) & \
-                                    (data.pdb_id == row.pdb_id)
-                if all([rename_col in data.columns for rename_col in ["evidence"]]):
-                    drop_criteria = drop_criteria & (data.evidence == row.evidence)
+                drop_criteria = (data.pos_a == row.pos_a) \
+                                & (data.pos_b == row.pos_b) \
+                                & (data.pep_a == row.pep_a) \
+                                & (data.pep_b == row.pep_b) \
+                                & ((data.res_pos_a == row.res_pos_a) 
+                                 | (pd.isna(data.res_pos_a) 
+                                    & pd.isna(row.res_pos_a))) \
+                                & ((data.res_pos_b == row.res_pos_b) 
+                                 | (pd.isna(data.res_pos_b) 
+                                    & pd.isna(row.res_pos_b)))
+                if all([rename_col in data.columns 
+                        for rename_col in ["chain_a", "chain_b", "pdb_id"]]):
+                    drop_criteria = drop_criteria \
+                                    & (data.chain_a == row.chain_a) \
+                                    & (data.chain_b == row.chain_b) \
+                                    & (data.pdb_id == row.pdb_id)
+                if all([rename_col in data.columns 
+                        for rename_col in ["evidence"]]):
+                    drop_criteria = (drop_criteria
+                                    & (data.evidence == row.evidence))
 
                 if len(data[drop_criteria].index) > 1:
                     drop_indeces.extend(list(data[drop_criteria].index)[1:])
@@ -198,34 +214,44 @@ def clean_dataset(data: pd.DataFrame):
         data = data.drop(index=drop_indeces)
 
     # Drop specified data columns
-    for drop_col in ["all_results", "best_res_pdb_method", "best_res_pdb_resolution",
-                        "res_criteria_fulfilled", "res_crit_a", "res_crit_b", "method_a", "method_b", "is_interfaced","xl_type"]:
+    for drop_col in ["all_results", "best_res_pdb_method", 
+                     "best_res_pdb_resolution", "res_criteria_fulfilled",
+                     "res_crit_a", "res_crit_b", "method_a", "method_b", 
+                     "is_interfaced","xl_type"]:
         if drop_col in data.columns:
             data = data.drop(drop_col, axis=1)
 
     # Rename certain result columns
-    if all([rename_col in data.columns for rename_col in ["eucl_dist_tplk", "topo_dist_tplk"]]):
-        data = data.rename(columns={"eucl_dist_tplk": "eucl_dist", "topo_dist_tplk": "topo_dist"})
+    if all([rename_col in data.columns 
+            for rename_col in ["eucl_dist_tplk", "topo_dist_tplk"]]):
+        data = data.rename(columns={"eucl_dist_tplk": "eucl_dist", 
+                                    "topo_dist_tplk": "topo_dist"})
 
     # Ascertain data types
-    data = data.astype({"pos_a": int, "pos_b": int, "pep_a": str, "pep_b": str, "res_pos_a": int, "res_pos_b": int},
+    data = data.astype({"pos_a": int, "pos_b": int, "pep_a": str, 
+                        "pep_b": str, "res_pos_a": int, "res_pos_b": int},
                         errors="ignore")
     if "unip_id" in data.columns:
         data = data.astype({"unip_id": str, "seq": str}, errors="ignore")
     else:
-        data = data.astype({"unip_id_a": str, "unip_id_b": str, "seq_a": str, "seq_b": str}, errors="ignore")
+        data = data.astype({"unip_id_a": str, "unip_id_b": str, "seq_a": str,
+                            "seq_b": str}, errors="ignore")
     if "pdb_id" in data.columns:
-        data = data.astype({"pdb_id": str, "pdb_method": str, "pdb_resolution": str,
-                            "pdb_pos_a": int, "pdb_pos_b": int, "pLDDT_a": float, "pLDDT_b": float,
-                            "topo_dist": float}, errors="ignore")
+        data = data.astype({"pdb_id": str, "pdb_method": str, 
+                            "pdb_resolution": str, "pdb_pos_a": int, 
+                            "pdb_pos_b": int, "pLDDT_a": float, 
+                            "pLDDT_b": float, "topo_dist": float},
+                            errors="ignore")
         if "unip_id" in data.columns:
             data.astype({"chain": str}, errors="ignore")
         else:
             data.astype({"chain_a": str, "chain_b": str}, errors="ignore")
     if "homo_pep_overl" in data.columns:
-        data = data.astype({"homo_adjacency": float, "homo_int_overl": float, "homo_pep_overl": bool}, errors="ignore")
+        data = data.astype({"homo_adjacency": float, "homo_int_overl": float,
+                            "homo_pep_overl": bool}, errors="ignore")
     if "evidence" in data.columns:
-        data = data.astype({"evidence": str, "XL_type": str, "swiss_model_homology": str}, errors="ignore")
+        data = data.astype({"evidence": str, "XL_type": str, 
+                            "swiss_model_homology": str}, errors="ignore")
 
     # Reduce multichain examples to fitting ones (if present)
     if "evidence" in data.columns:

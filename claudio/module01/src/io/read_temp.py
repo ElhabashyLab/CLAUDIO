@@ -3,7 +3,8 @@ import pandas as pd
 
 def read_temp_search_save(data: pd.DataFrame, tmp_filepath: str):
     """
-    read temporary save file containing earlier uniprot search results, for quick reruns
+    read temporary save file containing earlier uniprot search results,
+    for quick reruns
 
     Parameters
     ----------

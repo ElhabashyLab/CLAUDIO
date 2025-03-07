@@ -4,7 +4,8 @@ import pandas as pd
 
 def analyse_homo_signals(data: pd.DataFrame):
     """
-    compute homology signals of interaction sites based on site adjacency and peptide overlap
+    compute homology signals of interaction sites based on site adjacency 
+    and peptide overlap
     
     Parameters
     ----------
@@ -25,8 +26,8 @@ def analyse_homo_signals(data: pd.DataFrame):
 
 def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
     """
-    search the dataset for in-sequence peptide copies. If so, return True marking them to be excluded from
-    the ops analysis
+    search the dataset for in-sequence peptide copies. If so, return True 
+    marking them to be excluded from the ops analysis
     
     Parameters
     ----------
@@ -53,8 +54,8 @@ def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
 
 def compute_interaction_adj(data_row: pd.Series):
     """
-    compute interactions site adjacency, represented by value between 0 (residues far away on sequence) and 1
-    (residues are the same)
+    compute interactions site adjacency, represented by value between 0 
+    (residues far away on sequence) and 1 (residues are the same)
     
     Parameters
     ----------
@@ -76,8 +77,10 @@ def compute_interaction_adj(data_row: pd.Series):
 
 def compute_interaction_overlap(data_row: pd.Series):
     """
-    compute peptide overlap between/including interacting residues, represented by value between 0
-    (no peptide overlap between/including interacting residues) and 1 (both interacting residues are in both peptides)
+    compute peptide overlap between/including interacting residues, 
+    represented by value between 0 (no peptide overlap between/including
+    interacting residues) and 1 (both interacting residues are in both 
+    peptides)
     
     Parameters
     ----------
@@ -93,13 +96,18 @@ def compute_interaction_overlap(data_row: pd.Series):
             return 1.0
         else:
             site1, site2 = ('a', 'b') if data_row["pos_a"] < data_row["pos_b"] else ('b', 'a')
-            seq, pep_a, pep_b, pos_a, pos_b = (data_row["seq_a"], data_row[f"pep_{site1}"],
-                                               data_row[f"pep_{site2}"], int(data_row[f"pos_{site1}"]) - 1,
+            seq, pep_a, pep_b, pos_a, pos_b = (data_row["seq_a"],
+                                               data_row[f"pep_{site1}"],
+                                               data_row[f"pep_{site2}"], 
+                                               int(data_row[f"pos_{site1}"]) - 1,
                                                int(data_row[f"pos_{site2}"]) - 1)
 
-            # save indices of residues in peptides between/including interacting residues
-            seq_a_inds = set(range(seq.find(pep_a), seq.find(pep_a) + len(pep_a)))
-            seq_b_inds = set(range(seq.find(pep_b), seq.find(pep_b) + len(pep_b)))
+            # save indices of residues in peptides between/including 
+            # interacting residues
+            seq_a_inds = set(range(seq.find(pep_a), 
+                                   seq.find(pep_a) + len(pep_a)))
+            seq_b_inds = set(range(seq.find(pep_b), 
+                                   seq.find(pep_b) + len(pep_b)))
 
             # filter indices based on positions
             seq_a_inds = {ind for ind in seq_a_inds if ind >= pos_a}

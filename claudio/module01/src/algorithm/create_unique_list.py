@@ -9,7 +9,10 @@ import concurrent.futures
 from claudio.utils.utils import verbose_print, round_self
 
 
-def create_list_of_unique_proteins(data: pd.DataFrame, unique_protein_temp_dir: str, search_tool: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None,
+def create_list_of_unique_proteins(data: pd.DataFrame,
+                                   unique_protein_temp_dir: str,
+                                   search_tool: str, blast_bin: str | None,
+                                   blast_db: str, hhsearch_bin: str | None,
                                    hhsearch_db : str, verbose_level: int):
     """
     create pandas dataframe of unique proteins depending on uniprot ids
@@ -47,16 +50,21 @@ def create_list_of_unique_proteins(data: pd.DataFrame, unique_protein_temp_dir: 
 
     # Apply uniprot search for information on unique proteins
     infos = search_uniprot_metadata(unique_proteins, verbose_level)
-    # Apply blastp or hhsearch search for pdb entries on unique proteins by their sequences
-    pdbs = search_pdb_entries(unique_proteins, unique_sequences, unique_protein_temp_dir, search_tool, blast_bin,
-                              blast_db, hhsearch_bin, hhsearch_db, verbose_level)
+    # Apply blastp or hhsearch search for pdb entries 
+    # on unique proteins by their sequences
+    pdbs = search_pdb_entries(unique_proteins, unique_sequences, 
+                              unique_protein_temp_dir, search_tool, blast_bin,
+                              blast_db, hhsearch_bin, hhsearch_db, 
+                              verbose_level)
 
-    # Collect information of unique proteins for final unique protein list dataset
+    # Collect information of unique proteins 
+    # for final unique protein list dataset
     unique_proteins_list = pd.DataFrame()
     unique_proteins_list["Index"] = unique_protein_indeces
     for i, head in enumerate(infos[0][0].split('\t')):
         try:
-            unique_proteins_list[head] = [info[1].split('\t')[i].replace('\"', '') for info in infos]
+            unique_proteins_list[head] = [info[1].split('\t')[i].replace('\"', '') 
+                                          for info in infos]
         except:
             print(head)
             for info in infos:
@@ -100,8 +108,9 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
         # Retrieve uniprot information on protein
         urllib = f"https://rest.uniprot.org/uniprotkb/search?query={protein}&format=tsv"
         try:
-            info = r.get(urllib).text.split('\n')
-        except (r.exceptions.Timeout, ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
+            info = r.get(urllib,timeout=60).text.split('\n')
+        except (r.exceptions.Timeout, ConnectionError, socket.gaierror,
+                r.exceptions.ConnectionError) as e:
             print("No connection to UniProt API possible. Please try again later.")
             print(e)
             sys.exit(1)
@@ -111,7 +120,8 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(meta_search_task,i, protein):(i,protein) for i, protein in enumerate(unique_proteins)}
+        futures = {executor.submit(meta_search_task,i, protein):
+                   (i,protein) for i, protein in enumerate(unique_proteins)}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -119,7 +129,8 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
                     i, info = (future.result())
                     infos[i] = info
                     ind += 1
-                    verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level, end='')
+                    verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]",
+                                  1, verbose_level, end='')
                     del futures[future]
             except Exception as e:
                 print(e)
@@ -129,11 +140,15 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     return infos
 
 
-def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein_temp_dir: str, search_tool: str, blast_bin: str | None, blast_db: str, hhsearch_bin: str | None,
-                       hhsearch_db: str, verbose_level: int):
+def search_pdb_entries(proteins: list[str], sequences: list[str],
+                       unique_protein_temp_dir: str, search_tool: str,
+                       blast_bin: str | None, blast_db: str,
+                       hhsearch_bin: str | None, hhsearch_db: str,
+                       verbose_level: int):
     """
-    use either hhsearch or blastp as search tool on protein sequence in order to retrieve matching pdb id, if no
-    result was found add an alphafold entry id instead (id: af<uniprot_id>_A)
+    use either hhsearch or blastp as search tool on protein sequence in order
+    to retrieve matching pdb id, if no result was found add an alphafold entry
+    id instead (id: af<uniprot_id>_A)
 
     Parameters
     ----------
@@ -162,7 +177,8 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
     def pdb_entry_search_task(i,protein):
         # verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
 
-        # Create temporary fasta file at data/temp/unique_protein_list for commandline application in search tools
+        # Create temporary fasta file at data/temp/unique_protein_list for
+        # commandline application in search tools
         with open(f"{unique_protein_temp_dir}tmp{i}.fasta", 'w') as tmp_file:
             tmp_file.write(f">{protein}\n{sequences[i]}\n")
 
@@ -177,10 +193,13 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
             res = pd.read_csv(StringIO(os.popen(cmd).read()),
                               sep=',',
                               names=["pdb", "ident", "cov", "eval"],
-                              dtype={"pdb": str, "ident": float, "cov": float, "eval": float})
-            # Isolate search result to entries with identity of at least 90% and coverage of at least 50%
+                              dtype={"pdb": str, "ident": float, "cov": float,
+                                     "eval": float})
+            # Isolate search result to entries with identity of at least 90% 
+            # and coverage of at least 50%
             res = res[(res["ident"] >= 90) & (res["cov"] >= 50)]
-            # If no result remains reset result to False, else take first fitting entry from pdb column
+            # If no result remains reset result to False, else take first 
+            # fitting entry from pdb column
             if res.empty:
                 res = False
             else:
@@ -190,11 +209,12 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
             cmd = f"\"{hhearch_call}\" -i \"{unique_protein_temp_dir}tmp{i}.fasta\" -d \"{hhsearch_db}pdb70\"" \
                   f" -e 1e-5 -blasttab \"{unique_protein_temp_dir}tmp{i}.hhr\" -qid 90 -cov 50 -v 0 -cpu 20"
             os.system(cmd)
-            # Open hhsearch output (Note: hhsearch outs cannot be retrieved from the commandline, as it is the case with
-            # blastp)
+            # Open hhsearch output (Note: hhsearch outs cannot be retrieved 
+            # from the commandline, as it is the case with blastp)
             res = [line.split('\t')[1] for line in open(f"{unique_protein_temp_dir}tmp{i}.hhr", 'r').read().split('\n')
                    if line.split('\t')[0] == protein][0]
-        # If result is not False, append it to container list, else append alphafold entry id instead
+        # If result is not False, append it to container list,
+        # else append alphafold entry id instead
         if res:
             return i,res
         else:
@@ -202,7 +222,8 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
 
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(pdb_entry_search_task,i, protein): (i,protein) for i, protein in enumerate(proteins)}
+        futures = {executor.submit(pdb_entry_search_task,i, protein): 
+                   (i,protein) for i, protein in enumerate(proteins)}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -210,7 +231,9 @@ def search_pdb_entries(proteins: list[str], sequences: list[str], unique_protein
                     i, pdb = (future.result())
                     pdbs[i] = pdb
                     ind += 1
-                    verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
+                    progress = round_self(ind * 100 / len(proteins), 2)
+                    verbose_print((f"\r\tStructure search:[{progress}%]"), 1,
+                                  verbose_level, end='')
                     del futures[future]
             except Exception as e:
                 print(e)

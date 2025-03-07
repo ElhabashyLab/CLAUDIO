@@ -8,7 +8,7 @@
                                 default="test/out/sample/sample_data_random.sqcs"
 -it,   --input-temppath,        path to directory for temporary files, default=None
 -rt,   --read-temps,            if the tool has been run before with the same input a temporary file was saved, which 
-                                can be used to retireve the previouse results of the uniprot and structure searches,
+                                can be used to retrieve the previous results of the uniprot and structure searches,
                                 default=False
 -t,    --search-tool,           always set to "blastp" (as of this version), specifying the tool which should be used for pdb 
                                 search, default="blastp"
@@ -33,7 +33,7 @@
 -hhdb, --hhsearch-db,           database directory for hh-suite installation, default="$HHDB"
 -tl,   --topolink-bin,          binary directory in topolink installation, or None if binary directory has been added to
                                 PATH variable (e.g. if topolink can be called from anywhere), default=None
--v,    --verbose-level,         verbose level value, default=3:
+-v,    --verbose-level,         verbose level value, default=2:
                                     0: no outputs at all will be written to the commandline
                                     1: write tool inits and passed time
                                     2: write progressbars (where implemented)

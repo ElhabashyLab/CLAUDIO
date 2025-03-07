@@ -9,7 +9,8 @@ from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
 
 
 @click.command()
-@click.option("-i", "--input-filepath", default="test/out/sample/sample_data_random.sqcs")
+@click.option("-i", "--input-filepath", 
+              default="test/out/sample/sample_data_random.sqcs")
 @click.option("-it", "--input-temppath", default="")
 @click.option("-rt", "--read-temps", default=False)
 @click.option("-t", "--search-tool", default="blastp")
@@ -28,12 +29,14 @@ from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-tl", "--topolink-bin", default=None)
 @click.option("-v", "--verbose-level", default=2)
-def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, plddt_cutoff, linker_minimum,
-         linker_maximum, e_value, query_id, coverage, res_cutoff, output_directory, blast_bin, blast_db, hhsearch_bin,
-         hhsearch_db, topolink_bin, verbose_level):
+def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
+         plddt_cutoff, linker_minimum, linker_maximum, e_value, query_id, 
+         coverage, res_cutoff, output_directory, blast_bin, blast_db, 
+         hhsearch_bin, hhsearch_db, topolink_bin, verbose_level):
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
-                     blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin]
+                     blast_bin, blast_db, hhsearch_bin, hhsearch_db,
+                     topolink_bin]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin = \
         clean_input_paths(list_of_paths)
 
@@ -45,17 +48,24 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues, p
 
     filename = input_filepath.split('/')[-1]
     try:
-        run_structure_search(["-i", input_filepath, "-it", input_temppath, "-s", not read_temps, "-t", search_tool,
-                              "-e", e_value, "-q", query_id, "-c", coverage, "-r", res_cutoff, "-o", output_directory,
-                              "-bl", blast_bin, "-bldb", blast_db, "-hh", hhsearch_bin, "-hhdb", hhsearch_db,
+        run_structure_search(["-i", input_filepath, "-it", input_temppath, 
+                              "-s", not read_temps, "-t", search_tool,
+                              "-e", e_value, "-q", query_id, "-c", coverage,
+                              "-r", res_cutoff, "-o", output_directory,
+                              "-bl", blast_bin, "-bldb", blast_db, 
+                              "-hh", hhsearch_bin, "-hhdb", hhsearch_db,
                               "-v", verbose_level])
     except SystemExit:
         pass
     try:
         run_distance_analysis(["-i", f"{output_directory}structures",
-                               "-i2", f"{output_directory}{filename}_structdi.csv", "-it", input_temppath,
-                               "-t", search_tool, "-x", xl_residues, "-p", plddt_cutoff, "-lmin", linker_minimum,
-                               "-lmax", linker_maximum, "-o", output_directory, "-tl", topolink_bin,
+                               "-i2", 
+                               f"{output_directory}{filename}_structdi.csv",
+                               "-it", input_temppath, "-t", search_tool, 
+                               "-x", xl_residues, "-p", plddt_cutoff, 
+                               "-lmin", linker_minimum, 
+                               "-lmax", linker_maximum, 
+                               "-o", output_directory, "-tl", topolink_bin,
                                "-v", verbose_level])
     except SystemExit:
         pass

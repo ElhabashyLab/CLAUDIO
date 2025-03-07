@@ -15,8 +15,10 @@ def setup_pml_scripts(data, bg_color="white"):
             chains_dict = {}
             color_i = 3
             for chain in chains:
-                dps_with_chain = xl_set[(xl_set.chain_a == chain) | (xl_set.chain_b == chain)]
-                if np.any(~(pd.isna(dps_with_chain.pdb_pos_a) | pd.isna(dps_with_chain.pdb_pos_b))):
+                dps_with_chain = xl_set[(xl_set.chain_a == chain) 
+                                        | (xl_set.chain_b == chain)]
+                if np.any(~(pd.isna(dps_with_chain.pdb_pos_a) 
+                            | pd.isna(dps_with_chain.pdb_pos_b))):
                     color_i = color_i + 1 if color_i in [2, 4, 6, 13] else color_i
                     chains_dict[chain] = color_i
                     color_i += 1
@@ -47,7 +49,10 @@ def setup_pml_scripts(data, bg_color="white"):
             for row in xl_set.itertuples():
                 i = row.Index
                 if not (pd.isna(row.pdb_pos_a) or pd.isna(row.pdb_pos_b)) and (row.XL_confirmed or '_' not in str(i)):
-                    dist_data = (i, (row.chain_a, row.pdb_pos_a, row.chain_b, row.pdb_pos_b))
+                    dist_data = (i, 
+                                 (row.chain_a, row.pdb_pos_a, 
+                                  row.chain_b, row.pdb_pos_b)
+                                )
                     dists[
                         "intra" if row.chain_a == row.chain_b else "inter"
                     ][

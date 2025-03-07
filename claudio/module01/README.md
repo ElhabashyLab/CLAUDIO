@@ -19,9 +19,9 @@
                                 for the positions in the peptides instead and leave them empty.
                                 default="peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2"
 -s,    --uniprot_search,        if the tool has been run before with the same input a temporary file was saved, which 
-                                can be used to retrieve the previouse results of the uniprot and structure searches. In 
+                                can be used to retrieve the previous results of the uniprot and structure searches. In 
                                 this case you can set uniprot_search=False and it will try to retrieve said temporary 
-                                save file, instead of rerunning the uniprot sequence search, default=False
+                                save file, instead of rerunning the uniprot sequence search, default=True
 -x,    --xl-residues,           comma-separated one-letter-code residues, optional: add two ':' after the 
                                 one-letter-code symbol of the residue in order to specify full sequence position 
                                 (either 1 for start, or -1 for end position) and/or the atom used for the distance
@@ -35,7 +35,7 @@
 -hh,   --hhsearch-bin,          binary directory in hh-suite installation, or None if binary directory has been added to
                                 PATH variable (e.g. if hhsearch can be called from anywhere), default=None
 -hhdb, --hhsearch-db,           database directory for hh-suite installation, default="$HHDB"
--v,    --verbose-level,         verbose level value, default=3:
+-v,    --verbose-level,         verbose level value, default=2:
                                     0: no outputs at all will be written to the commandline
                                     1: write tool inits and passed time
                                     2: write progressbars (where implemented)

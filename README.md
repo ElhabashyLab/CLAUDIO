@@ -149,7 +149,7 @@ For details on how to run the **full** pipeline continue below.
                                 default=70.0
 -s,    --compute-scoring,       boolean, for whether experimental scoring and resulting XL-type evluations should be 
                                 computed and appended to result dataset, default=False
--v,    --verbose-level,         verbose level value, default=3:
+-v,    --verbose-level,         verbose level value, default=2:
                                     0: no outputs at all will be written to the commandline
                                     1: write tool inits and passed time
                                     2: write progressbars (where implemented)

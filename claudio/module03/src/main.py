@@ -8,11 +8,13 @@ from claudio.module03.src.algorithm.signal_analysis import analyse_homo_signals
 from claudio.module03.src.algorithm.create_histograms import create_homo_signal_histograms
 from claudio.module03.src.io.write_out import write_output
 
-from claudio.utils.utils import verbose_print, clean_input_paths, create_out_path, clean_dataset, round_self
+from claudio.utils.utils import verbose_print, clean_input_paths, \
+                                create_out_path, clean_dataset, round_self
 
 
 @click.command()
-@click.option("-i", "--input-filepath", default="test/out/sample/sample_data_random.sqcs")
+@click.option("-i", "--input-filepath", 
+              default="test/out/sample/sample_data_random.sqcs")
 @click.option("-o", "--output-directory", default="test/out/sample/")
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, output_directory, verbose_level):
@@ -43,13 +45,14 @@ def main(input_filepath, output_directory, verbose_level):
 
         # Create Homo-signal statistic histograms
         verbose_print("Create homo-signal histograms", 0, verbose_level)
-        create_homo_signal_histograms(data, input_filepath.split('/')[-1], output_directory)
+        create_homo_signal_histograms(data, input_filepath.split('/')[-1], 
+                                      output_directory)
 
         # Write Output
         verbose_print("Write output", 0, verbose_level)
         write_output(data, input_filepath.split('/')[-1], output_directory)
-
-    verbose_print(f"\nEnd script (Elapsed time: {round_self(time.time() - start_time, 2)}s)", 0, verbose_level)
+    runtime = round_self(time.time() - start_time, 2)
+    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
     profile.disable()  # --- stop profiling
     profile.create_stats()

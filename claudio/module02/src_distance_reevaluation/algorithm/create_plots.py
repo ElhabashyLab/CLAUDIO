@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 
 
-def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, linker_minimum: float, linker_maximum: float,
-                      add_labels=False):
+def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, 
+                     linker_minimum: float, linker_maximum: float,
+                     add_labels=False):
     """
     Create histogram plots with matplotlib
 
@@ -44,14 +45,17 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
                     rad = int(round(max(int(f) for f in freq) / 40) + 1)
                     if y in range(known_y-rad, known_y+rad+1) and y != known_y:
                         y = known_y - rad if y <= known_y else known_y + rad
-                plt.annotate(str(height) if height > 0 else '', xy=(x, y), xytext=(0, .2), textcoords="offset points",
+                plt.annotate(str(height) if height > 0 else '', xy=(x, y),
+                             xytext=(0, .2), textcoords="offset points",
                              ha="center", va="bottom")
                 known_xy.append((x, y))
     plt.axvline(linker_minimum, color="darkred", linestyle="dashed", linewidth=1)
     plt.axvline(linker_maximum, color="darkred", linestyle="dashed", linewidth=1)
     if add_labels:
-        plt.text(linker_minimum + 1, plt.ylim()[1] * 0.85, f"Linker\nminimum: {linker_minimum}", color="darkred")
-        plt.text(linker_maximum + 1, plt.ylim()[1] * 0.85, f"Linker\nmaximum: {linker_maximum}", color="darkred")
+        plt.text(linker_minimum + 1, plt.ylim()[1] * 0.85, 
+                 f"Linker\nminimum: {linker_minimum}", color="darkred")
+        plt.text(linker_maximum + 1, plt.ylim()[1] * 0.85, 
+                 f"Linker\nmaximum: {linker_maximum}", color="darkred")
     plt.xlabel(f"distance " + r"[$\AA$]")
     plt.ylabel("frequency")
     x_labels = [str(x) for x in bins]
@@ -69,11 +73,14 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
     method_data = method_data.groupby("pdb_id").apply(lambda x: x.iloc[0])
     method_data = method_data.pdb_method.astype(str)
     labels = ["selected structure"]
-    label_dict = {x: i for i, x in enumerate(sorted(pd.unique(method_data.values.ravel('K'))))}
+    label_dict = {x: i 
+                  for i, x 
+                  in enumerate(sorted(pd.unique(method_data.values.ravel('K'))))}
     bins = list(range(len(label_dict) + 1))
     bin_centers = np.diff(bins) * .5 + bins[:-1]
     plt.figure(figsize=(6.5, 6), constrained_layout=True)
-    freq, _, _ = plt.hist(method_data.map(label_dict), bins=bins, color=colors[0], label=f"{labels[0]}")
+    freq, _, _ = plt.hist(method_data.map(label_dict), bins=bins, 
+                          color=colors[0], label=f"{labels[0]}")
     if add_labels:
         known_xy = []
         for fr, x in zip(freq, bin_centers):
@@ -84,8 +91,9 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
                 rad = int(round(max(int(f) for f in freq) / 40) + 1)
                 if y in range(known_y - rad, known_y + rad + 1) and y != known_y:
                     y = known_y - rad if y <= known_y else known_y + rad
-            plt.annotate(str(height) if height > 0 else '', xy=(x, y), xytext=(0, .2),
-                         textcoords="offset points", ha="center", va="bottom")
+            plt.annotate(str(height) if height > 0 else '', xy=(x, y),
+                         xytext=(0, .2), textcoords="offset points", 
+                         ha="center", va="bottom")
             known_xy.append((x, y))
     plt.xlabel(f"pdb experimental method")
     plt.ylabel("frequency")
@@ -119,7 +127,8 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
     bins = [x - 2 for x in range(18)]
     bin_centers = np.diff(bins) * .5 + bins[:-1]
     plt.figure(figsize=(6.5, 6), constrained_layout=True)
-    freq, _, _ = plt.hist(res_data, bins=bins, color=colors[0], label=f"{labels[0]}")
+    freq, _, _ = plt.hist(res_data, bins=bins, color=colors[0], 
+                          label=f"{labels[0]}")
     if add_labels:
         known_xy = []
         for fr, x in zip(freq, bin_centers):
@@ -130,12 +139,14 @@ def create_histogram(data: pd.DataFrame, filename: str, output_directory: str, l
                 rad = int(round(max(int(f) for f in freq) / 40) + 1)
                 if y in range(known_y-rad, known_y+rad+1) and y != known_y:
                     y = known_y - rad if y <= known_y else known_y + rad
-            plt.annotate(str(height) if height > 0 else '', xy=(x, y), xytext=(0, .2),
-                         textcoords="offset points", ha="center", va="bottom")
+            plt.annotate(str(height) if height > 0 else '', xy=(x, y), 
+                         xytext=(0, .2), textcoords="offset points", 
+                         ha="center", va="bottom")
             known_xy.append((x, y))
     plt.xlabel(f"pdb resolution")
     plt.ylabel("frequency")
-    x_labels = [f"[{x},{x+1})" if x != bins[-2] else f"[{x},{x+1}]" for x in bins[:-1]]
+    x_labels = [f"[{x},{x+1})" if x != bins[-2] else f"[{x},{x+1}]" 
+                for x in bins[:-1]]
     x_labels[1] = "ALPHA-\nFOLD"
     x_labels[0] = "not\nfound"
     plt.xticks(bin_centers, x_labels, rotation=45, fontsize=8)
