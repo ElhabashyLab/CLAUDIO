@@ -120,4 +120,8 @@ dist/
 **/profile*
 
 # local pdb
-claudio/data/pdb/
+claudio/data/pdb/*
+!claudio/data/pdb/.gitkeep
+
+# SIFTS file
+claudio/data/pdb_chain_uniprot.csv

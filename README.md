@@ -39,7 +39,7 @@ In order to run *CLAUDIO* you need to install the following external tools:
   [here](https://ftp.ncbi.nlm.nih.gov/blast/db/).
   * Hint: If you followed the Installation Manual (linked up top) to-the-letter, you may have added the environmental 
     variable `$BLASTDB` to your paths. If so, you can use this variable instead of the full path in the input parameters
-    of CLAUDIO.
+    of *CLAUDIO*.
 * **TopoLink** (see [Installation Manual](https://m3g.github.io/topolink/download.html))
   * Topolink possesses a standalone executable for Windows 10 systems (or higher), which can be downloaded directly
   [here](https://m3g.github.io/topolink/Windows_Binaries/Windows10-64bits/topolink.exe).
@@ -59,12 +59,17 @@ It is furthermore recommended having a stable internet connection, as otherwise 
 lead to empty results. This of course, also necessitates the database server's side to be running properly as well. If 
 errors or suspicious inconsistencies in the results persist due to this, you may want to try again later.
 
+### Optional: Local PDB
+To reduce the dependency on an online connection, it is possible to download all available protein structures from the [RCSB-PDB](https://www.rcsb.org/) [[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) and store them locally using: 
+```
+Python3 ./claudio/utils/download_db.py
+```
+This is an optional step and recommended if it is intended to use *CLAUDIO* frequently. This will require approximately **60GB** of disk space from the volume *CLAUDIO* is installed on and take several hours when run for the first time. This script should be run frequently to ensure using the newest information available in the PDB.
+
 ### Offline Databases
 In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS database
-[[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references). The file in question can be found 
-[here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/pdb_chain_uniprot.csv).\
-We also recommend updating this file from time to time ([download here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz)) 
-in order to keep up its efficiency, though this is not a necessity (last updated: 16.01.2025).
+[[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references). The file in question is called **pdb_chain_uniprot.csv** and needs to be stored 
+[here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/). It can be downloaded [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz) and we recommend updating this file from time to time in order to keep up its efficiency, though this is not a necessity.
 
 ### Optional: Packages (background info)
 This tool is written in and has to be run with python 3 (last tested v3.11).\
@@ -171,9 +176,9 @@ uniprot ids for each interacting residue, two columns have the observed peptides
 and two columns the crosslinked residue's position within the full sequence (alternative: fill these 
 with Nans, but add two columns with the residue's positions in the respective peptides).
 1. The input file should then be specified as such with the "-i / --input-filepath"-parameter.
-2. If you intend to run CLAUDIO on separate datasets simultaneously, or want to split your dataset into smaller ones,
-you have to specify the parameter "-it / --input-temppath". CLAUDIO generates multiple temporary files during its
-computation, most of which are in- or outputs of the third-party tools used. If parallel executions of CLAUDIO are run
+2. If you intend to run *CLAUDIO* on separate datasets simultaneously, or want to split your dataset into smaller ones,
+you have to specify the parameter "-it / --input-temppath". *CLAUDIO* generates multiple temporary files during its
+computation, most of which are in- or outputs of the third-party tools used. If parallel executions of *CLAUDIO* are run
 with the same tempfile path, conflicts may be caused disrupting or falsifying some results. Thereby make sure to specify
 different paths here, if you run the tool in parallel.
 3. It is important to customize the parameter "-p / --projections". This parameter requires a comma separated list
@@ -244,7 +249,7 @@ claudio --help
 * **Eugen Netz**
 
 ## Citation
-If you use CLAUDIO, please cite:
+If you use *CLAUDIO*, please cite:
 Röhl, Alexander, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." Bioinformatics 40, no. 4 (2024): btae146.
 
 ## References
