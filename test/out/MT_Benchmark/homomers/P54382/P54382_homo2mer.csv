@@ -1,4 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP54382,A,A,55.0,9.0,55,9,homo2mer,intra
-afP54382,A,A,28.0,21.0,28,21,homo2mer,intra
-afP54382,A,A,54.0,9.0,54,9,homo2mer,inter

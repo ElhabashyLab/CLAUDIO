@@ -1,7 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP96612,A,A,351.0,151.0,351,151,homo2mer,inter
-afP96612,A,A,351.0,38.0,351,38,homo2mer,inter
-afP96612,A,A,151.0,347.0,151,347,homo2mer,inter
-afP96612,A,A,347.0,197.0,347,197,homo2mer,inter
-afP96612,A,A,152.0,281.0,152,281,homo2mer,inter
-afP96612,A,A,38.0,347.0,38,347,homo2mer,inter

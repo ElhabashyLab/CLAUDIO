@@ -1,7 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP19465,A,A,38.0,6.0,38,6,homo10mer,intra
-afP19465,A,A,15.0,6.0,15,6,homo10mer,inter
-afP19465,A,A,34.0,6.0,34,6,homo10mer,intra
-afP19465,A,A,34.0,38.0,34,38,homo10mer,intra
-afP19465,A,A,38.0,105.0,38,105,homo10mer,intra
-afP19465,A,A,15.0,105.0,15,105,homo10mer,intra

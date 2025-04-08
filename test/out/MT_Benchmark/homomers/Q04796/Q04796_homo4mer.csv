@@ -1,4 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afQ04796,A,A,92.0,243.0,92,243,homo4mer,inter
-afQ04796,A,A,1.0,84.0,1,84,homo4mer,intra
-afQ04796,A,A,92.0,247.0,92,247,homo4mer,inter

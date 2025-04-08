@@ -1,4 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP37942,A,A,182.0,211.0,182,211,homo24mer,intra
-afP37942,A,A,182.0,174.0,182,174,homo24mer,inter
-afP37942,A,A,204.0,174.0,204,174,homo24mer,intra

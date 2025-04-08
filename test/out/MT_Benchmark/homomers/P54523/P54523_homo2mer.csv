@@ -1,8 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP54523,A,A,348.0,310.0,348,310,homo2mer,intra
-afP54523,A,A,285.0,279.0,285,279,homo2mer,intra
-afP54523,A,A,210.0,210.0,210,210,homo2mer,inter
-afP54523,A,A,217.0,210.0,217,210,homo2mer,inter
-afP54523,A,A,279.0,282.0,279,282,homo2mer,inter
-afP54523,A,A,22.0,1.0,22,1,homo2mer,intra
-afP54523,A,A,310.0,336.0,310,336,homo2mer,intra

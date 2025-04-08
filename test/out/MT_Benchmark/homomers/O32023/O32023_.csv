@@ -1,6 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afO32023,A,A,72.0,70.0,72,70,,inter
-afO32023,A,A,138.0,91.0,138,91,,intra
-afO32023,A,A,72.0,65.0,72,65,,intra
-afO32023,A,A,83.0,138.0,83,138,,intra
-afO32023,A,A,83.0,70.0,83,70,,intra

@@ -1,7 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP46906,A,A,240.0,248.0,240,248,,intra
-afP46906,A,A,325.0,274.0,325,274,,intra
-afP46906,A,A,492.0,39.0,492,39,,inter
-afP46906,A,A,274.0,282.0,274,282,,intra
-afP46906,A,A,309.0,303.0,309,303,,intra
-afP46906,A,A,248.0,245.0,248,245,,intra

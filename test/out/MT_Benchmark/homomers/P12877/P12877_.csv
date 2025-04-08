@@ -1,9 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-5NJT,Z,Z,,,19,168,,intra
-5NJT,Z,Z,,,179,19,,intra
-5NJT,Z,Z,,,168,11,,inter
-5NJT,Z,Z,,,33,81,,intra
-5NJT,Z,Z,,,120,179,,intra
-5NJT,Z,Z,,,133,120,,intra
-5NJT,Z,Z,,,120,168,,intra
-5NJT,Z,Z,,,70,88,,intra

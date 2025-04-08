@@ -1,8 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-3R8R,L,U,201.0,195.0,201,195,homo10mer,inter
-3R8R,L,M,63.0,195.0,63,195,homo10mer,inter
-afP19669,A,A,212.0,188.0,212,188,homo10mer,inter
-afP19669,A,A,195.0,212.0,195,212,homo10mer,intra
-3R8R,J,I,195.0,93.0,195,93,homo10mer,inter
-afP19669,A,A,212.0,34.0,212,34,homo10mer,inter
-afP19669,A,A,195.0,85.0,195,85,homo10mer,intra

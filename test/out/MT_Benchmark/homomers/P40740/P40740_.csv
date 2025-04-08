@@ -1,8 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-afP40740,A,A,157.0,217.0,157,217,,intra
-afP40740,A,A,228.0,336.0,228,336,,intra
-afP40740,A,A,198.0,157.0,198,157,,intra
-afP40740,A,A,331.0,256.0,331,256,,intra
-afP40740,A,A,6.0,347.0,6,347,,intra
-afP40740,A,A,157.0,147.0,157,147,,intra
-afP40740,A,A,6.0,274.0,6,274,,inter

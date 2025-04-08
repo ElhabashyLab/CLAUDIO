@@ -1,5 +1,0 @@
-pdb_id,chain_a,chain_b,pdb_pos_a,pdb_pos_b,pos_a,pos_b,swiss_model_homology,XL_type
-4RX6,A,A,91.0,87.0,86,82,homo3mer,intra
-afQ07428,A,A,71.0,27.0,71,27,homo3mer,intra
-afQ07428,A,A,86.0,72.0,86,72,homo3mer,intra
-4RX6,A,D,59.0,24.0,54,19,homo3mer,inter
