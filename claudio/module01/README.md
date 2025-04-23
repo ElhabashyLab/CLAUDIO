@@ -48,7 +48,8 @@ This tool requires a CSV-file containing multiple observed cross-linking interac
 uniprot id associated with the crosslinked protein, two columns have to contain the observed peptides for each 
 interacting residue and two columns have to contain the crosslinked residue's position within the full sequence 
 (alternative: fill these with Nans, but add two columns with the crosslinked residue position in the respective 
-peptide).\ It is recommended to start the analysis of your cross-linking dataset here, if you do not run the full 
+peptide). Please make sure that the peptide
+sequences only contain valid capitalized one-character representations of amino acids.\ It is recommended to start the analysis of your cross-linking dataset here, if you do not run the full 
 pipeline. Most important for this first step is the customization of the parameter "-p / --projections". This parameter 
 requires a comma-separated position-sensitive list, which maps the column names of your dataset to the ones used in the tool. You may
 see examples for this in [this module](https://github.com/KohlbacherLab/CLAUDIO/tree/main/module01/src/main.py)

@@ -125,3 +125,7 @@ claudio/data/pdb/*
 
 # SIFTS file
 claudio/data/pdb_chain_uniprot.csv
+
+# Results
+test/out/*
+!test/out/sample

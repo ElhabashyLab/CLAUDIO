@@ -38,7 +38,7 @@ def main(input_filepath, output_directory, verbose_level):
 
         # Analyse homo signals
         verbose_print("Analyse homo signals", 0, verbose_level)
-        data = analyse_homo_signals(data)
+        data = analyse_homo_signals(data,verbose_level)
 
         # Clean dataset for output
         data = clean_dataset(data)

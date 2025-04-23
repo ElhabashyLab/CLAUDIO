@@ -101,8 +101,8 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     # Iterate over proteins (proteins = uniprot ids)
     # for protein in unique_proteins:
     def meta_search_task(i,protein):
-        # verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]", 1, verbose_level,
-        #              end='')
+        # verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]",
+        #               1, verbose_level, end='')
         #ind += 1
 
         # Retrieve uniprot information on protein
@@ -129,7 +129,8 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
                     i, info = (future.result())
                     infos[i] = info
                     ind += 1
-                    verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]",
+                    progress = round_self(ind * 100 / len(unique_proteins), 2)
+                    verbose_print(f"\r\tMetadata search:[{progress}%]",
                                   1, verbose_level, end='')
                     del futures[future]
             except Exception as e:

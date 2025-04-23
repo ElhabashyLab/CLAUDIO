@@ -174,7 +174,8 @@ For details on how to run the **full** pipeline continue below.
 This tool requires a CSV-file containing multiple observed cross-linking interactions. Two columns have to contain 
 uniprot ids for each interacting residue, two columns have the observed peptides for each interacting residue
 and two columns the crosslinked residue's position within the full sequence (alternative: fill these 
-with Nans, but add two columns with the residue's positions in the respective peptides).
+with Nans, but add two columns with the residue's positions in the respective peptides). Please make sure that the peptide
+sequences only contain valid capitalized one-character representations of amino acids.
 1. The input file should then be specified as such with the "-i / --input-filepath"-parameter.
 2. If you intend to run *CLAUDIO* on separate datasets simultaneously, or want to split your dataset into smaller ones,
 you have to specify the parameter "-it / --input-temppath". *CLAUDIO* generates multiple temporary files during its

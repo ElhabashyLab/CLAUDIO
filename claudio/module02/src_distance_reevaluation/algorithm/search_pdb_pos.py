@@ -144,7 +144,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame,
                     data = future.result()
                     ind += 1
                     progress = round_self((ind * 100) / len(data.index), 2)
-                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level,
+                    verbose_print(f"\r\tSearch site pos:[{progress}%]", 1, verbose_level,
                                   end='')
                 del futures[future]
             except Exception as e:
@@ -649,8 +649,8 @@ def populate_pdb_cache(data: pd.DataFrame, verbose_level: int):
         try:
             ind += 1
             progress = round_self((ind * 100) / len_paths, 2)
-            verbose_print(f"\r\tParsing: [{progress}%]", 1, verbose_level, 
-                          end='')
+            verbose_print(f"\r\tParsing {len_paths} structure files: [{progress}%]",
+                          1, verbose_level, end='')
             del futures[future]
         except Exception as e:
             print(e)

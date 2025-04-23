@@ -23,10 +23,13 @@ output_directory = test/out/sample/
 #containing the necessary information for the tool. The column names should contain and should be given in the following
 #order: crosslinked peptide_a, crosslinked peptide_b, crosslinked residue position_a, crosslinked residue position_b,
 #position of crosslinked residue in peptide_a, position of crosslinked residue in peptide_b, UniProt ID of protein
-#belonging to peptide_a, UniProt ID of protein belonging to peptide_b. Note: The positions of the crosslinked residue in
+#belonging to peptide_a, UniProt ID of protein belonging to peptide_b.
+#Note: The positions of the crosslinked residue in
 #the peptides are information only accessed, if the given full sequence positions do not match into the retrieved
 #UniProt sequence. If the positions are confirmed you may simply create two substitute columns for the positions in the
 #peptides instead and leave them empty.
+#Note: Please make sure that the peptide sequences only contain valid capitalized one-letter representations
+#of amino acids
 #type: string
 #ex.: peptide_a,peptide_b,position_a,position_b,residue_pos_in_pep_a,residue_pos_in_pep_b,UniProt_ID_a,UniProt_ID_b
 projections = peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2

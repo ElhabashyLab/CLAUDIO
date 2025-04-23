@@ -1,8 +1,8 @@
-from claudio.utils.utils import round_self
+from claudio.utils.utils import round_self,verbose_print
 import pandas as pd
 
 
-def analyse_homo_signals(data: pd.DataFrame):
+def analyse_homo_signals(data: pd.DataFrame,verbose_level: int):
     """
     compute homology signals of interaction sites based on site adjacency 
     and peptide overlap
@@ -10,6 +10,7 @@ def analyse_homo_signals(data: pd.DataFrame):
     Parameters
     ----------
     data : pd.DataFrame
+    verbose_level: int
 
     Returns
     -------
@@ -18,7 +19,7 @@ def analyse_homo_signals(data: pd.DataFrame):
 
     data["pep_copies_found"] = data.apply(lambda x: search_for_peptide_copies(x, data), axis=1)
     data["homo_adjacency"] = data.apply(lambda x: compute_interaction_adj(x), axis=1)
-    data["homo_int_overl"] = data.apply(lambda x: compute_interaction_overlap(x), axis=1)
+    data["homo_int_overl"] = data.apply(lambda x: compute_interaction_overlap(x,verbose_level), axis=1)
     data["homo_pep_overl"] = data.homo_int_overl > 0
     data = data.drop("pep_copies_found", axis=1)
     return data
@@ -75,7 +76,7 @@ def compute_interaction_adj(data_row: pd.Series):
         return float("Nan")
 
 
-def compute_interaction_overlap(data_row: pd.Series):
+def compute_interaction_overlap(data_row: pd.Series,verbose_level: int):
     """
     compute peptide overlap between/including interacting residues, 
     represented by value between 0 (no peptide overlap between/including
@@ -85,6 +86,7 @@ def compute_interaction_overlap(data_row: pd.Series):
     Parameters
     ----------
     data_row : pd.Series
+    verbose_level: int
 
     Returns
     -------
@@ -104,8 +106,14 @@ def compute_interaction_overlap(data_row: pd.Series):
 
             # save indices of residues in peptides between/including 
             # interacting residues
+            if(seq.find(pep_a) == -1):
+                verbose_print("Peptide A not found", 1, verbose_level,end='')
             seq_a_inds = set(range(seq.find(pep_a), 
                                    seq.find(pep_a) + len(pep_a)))
+
+            if(seq.find(pep_b) == -1):
+                verbose_print("Peptide B not found", 1, verbose_level,end='')
+                print(data_row)
             seq_b_inds = set(range(seq.find(pep_b), 
                                    seq.find(pep_b) + len(pep_b)))
 
