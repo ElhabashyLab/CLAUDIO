@@ -38,7 +38,6 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     -------
     data : pd.DataFrame
     """
-    #TODO contains legacy code for hhsearch
 
     not_found = []
     ind = 0
@@ -46,7 +45,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     # Save each already search uniprot entries' id and result for quick
     # retrieval if reencountered (instead of repeating the same search)
     already_searched = {}
-    unique_prots = list(set(zip(data.unip_id_a, data.seq_a)) 
+    unique_prots = list(set(zip(data.unip_id_a, data.seq_a))
                         | set(zip(data.unip_id_b, data.seq_b)))
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -71,7 +70,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
                 print(e)
 
     # Write the results to the data frame
-    verbose_print("", 1, verbose_level)            
+    verbose_print("", 1, verbose_level)
     verbose_print(f"Write {search_tool} results", 2, verbose_level)
     ind = 0
     def write_res_task(i, row):
@@ -101,7 +100,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
         return
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(write_res_task, row.Index, row): 
+        futures = {executor.submit(write_res_task, row.Index, row):
                    row for row in data.itertuples()}
 
         for future in concurrent.futures.as_completed(futures):
@@ -162,7 +161,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
     # Save uniprot sequence in a temporary fasta file for search tool
     # commandline call (override before each new search)
     temp_path = '/'.join(tmp_filepath.split('/')[:-1]) + '/'
-    with open(f"{temp_path}tmp{unip_id}.fasta", 'w') as tmp_file:
+    with open(f"{temp_path}tmp{unip_id}.fasta", 'w', encoding="utf-8") as tmp_file:
         tmp_file.write(f">{unip_id}\n{sequence}\n")
         tmp_file.close()
         search_results = []
@@ -188,7 +187,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
                       f"-qid {query_id} -cov {coverage} -blasttab \"{temp_path}tmp{unip_id}.hhr\" -v 0 -cpu 20"
             os.system(command)
             search_results = [line.split('\t')[1]
-                              for line in open(f"{temp_path}tmp{unip_id}.hhr", 'r').read().split('\n')
+                              for line in open(f"{temp_path}tmp{unip_id}.hhr", 'r', encoding="utf-8").read().split('\n')
                               if line.split('\t')[0] == unip_id][:20]
 
         # Search identical Chain IDs for (inter) cross-links
@@ -257,8 +256,8 @@ def retrieve_identical_chain_ids(pdb_id: str, chain: str, max_try: int):
         except (r.exceptions.Timeout, TimeoutError):
             time.sleep(1)
         # Retry if no connection to database possible
-        except (ConnectionError, socket.gaierror, 
-                r.exceptions.ConnectionError) as e:
+        except (ConnectionError, socket.gaierror,
+                r.exceptions.ConnectionError):
             num_connect_error += 1
             time.sleep(1)
         # If chain was not found immediately stop search

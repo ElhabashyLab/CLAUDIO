@@ -100,7 +100,7 @@ def write_pml_script(dists, color_map, output_path, start=0, zoom=50):
     chains = color_map["chain"].keys()
     pdb = output_path.split('/')[-1].split('.')[0]
 
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding="utf-8") as f:
         file_content = f"load {pdb}.pdb\n" \
                        f"hide all\n" \
                        f"bg_color {color_map['bg'] if 'bg' in color_map.keys() else 'white'}\n" \

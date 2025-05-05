@@ -23,7 +23,7 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int,
         print(print_string.replace('\x00', ''), end=end)
 
 
-def clean_input_paths(path_strs):
+def clean_input_paths(path_strs: list[str]):
     """
     get absolute paths and apply windowsos path translation, if not NoneType 
     (else return None) and if it does not contain an environmental variable 
@@ -31,13 +31,12 @@ def clean_input_paths(path_strs):
 
     Parameters
     ----------
-    path_strs : iterable[str]
+    path_strs : list[str]
 
     Returns
     -------
     out_paths : list[str]
     """
-    #TODO check input type
 
     out_paths = [os.path.abspath(os.path.expandvars(path_str)).replace("\\\\", '/').replace('\\', '/')
                  if path_str not in [None, "None"] else None
@@ -64,7 +63,7 @@ def create_out_path(output_directory: str, input_filepath: str):
     output_directory = output_directory.replace('\\', '/')
     output_directory += '' if output_directory.endswith('/') else '/'
     output_directory_splits = output_directory.split('/')
-    sub_paths = ['/'.join(output_directory_splits[:i + 1]) 
+    sub_paths = ['/'.join(output_directory_splits[:i + 1])
                  for i in range(len(output_directory_splits))]
     sub_paths = [e for e in sub_paths if e]
     for sub_path in sub_paths:
@@ -227,7 +226,7 @@ def clean_dataset(data: pd.DataFrame):
                                     "topo_dist_tplk": "topo_dist"})
 
     # Ascertain data types
-    data = data.astype({"pos_a": int, "pos_b": int, "pep_a": str, 
+    data = data.astype({"pos_a": int, "pos_b": int, "pep_a": str,
                         "pep_b": str, "res_pos_a": int, "res_pos_b": int},
                         errors="ignore")
     if "unip_id" in data.columns:
@@ -236,7 +235,7 @@ def clean_dataset(data: pd.DataFrame):
         data = data.astype({"unip_id_a": str, "unip_id_b": str, "seq_a": str,
                             "seq_b": str}, errors="ignore")
     if "pdb_id" in data.columns:
-        data = data.astype({"pdb_id": str, "pdb_method": str, 
+        data = data.astype({"pdb_id": str, "pdb_method": str,
                             "pdb_resolution": str, "pdb_pos_a": int, 
                             "pdb_pos_b": int, "pLDDT_a": float, 
                             "pLDDT_b": float, "topo_dist": float},
@@ -274,9 +273,9 @@ def clean_dataset(data: pd.DataFrame):
         data = data.drop(index=[drop_index for drop_index in drop_indeces if '_' in drop_index])
 
     # Sort rows
-    if any([type(i) == str for i in data.index]):
-        data["sort_index_i"] = [int(i.split('_')[0]) if type(i) == str else i for i in data.index]
-        data["sort_index_j"] = [int(i.split('_')[1]) if type(i) == str and '_' in i else 1 for i in data.index]
+    if any([isinstance(i,str) for i in data.index]):
+        data["sort_index_i"] = [int(i.split('_')[0]) if isinstance(i,str) else i for i in data.index]
+        data["sort_index_j"] = [int(i.split('_')[1]) if isinstance(i,str) and '_' in i else 1 for i in data.index]
         data = data.sort_values(["sort_index_i", "sort_index_j"]).drop("sort_index_i", axis=1).drop("sort_index_j", axis=1)
 
     return data
@@ -297,7 +296,7 @@ def minimize_dataset(data: pd.DataFrame):
     drop_indeces = []
     for ind in [i for i in data.index if '_' not in str(i)]:
         is_intra = data.loc[ind].XL_type == "intra"
-        data_ind_snippet = data.loc[[i for i in data.index if str(i).split('_')[0] == str(ind)]]
+        data_ind_snippet = data.loc[[i for i in data.index if str(i).split('_',maxsplit=1)[0] == str(ind)]]
         if len(data_ind_snippet.index) > 1:
             inter_snip = data_ind_snippet[data_ind_snippet.XL_type == "inter"]
             intra_snip = data_ind_snippet[data_ind_snippet.XL_type == "intra"]
@@ -330,7 +329,7 @@ def minimize_dataset(data: pd.DataFrame):
             i = row.Index
             for next_row in data.itertuples():
                 next_i = next_row.Index
-                if type(next_i) == str and int(next_i.split('_')[0]) > int(i.split('_')[0]):
+                if isinstance(next_i,str) and int(next_i.split('_')[0]) > int(i.split('_')[0]):
                     same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
                     same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
                     if same_proteins and same_peptides:

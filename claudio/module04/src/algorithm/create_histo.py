@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-def create_histograms(data: pd.DataFrame, filename: str, cutoff, 
+def create_histograms(data: pd.DataFrame, filename: str, cutoff,
                       compute_scoring: bool, output_directory: str):
     """
     create histograms for inter scores, and pie charts for final 
@@ -24,7 +24,7 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
 
     colors = ["#9ACE9A", "#464444"]
     if compute_scoring:
-        inter_data = data[(data.inter_score > cutoff) 
+        inter_data = data[(data.inter_score > cutoff)
                           & (data.unip_id_a == data.unip_id_b)][["inter_score"]]
         if not inter_data.empty:
             label = "experimental confidence score for intra crosslinks (" \

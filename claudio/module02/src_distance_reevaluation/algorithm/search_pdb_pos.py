@@ -111,13 +111,13 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame,
                         "res_criteria_fulfilled"]
             data.loc[i,res_cols] = [pdb_pos_a,pdb_pos_b,method_a,method_b,
                                     pLDDT_a,pLDDT_b,res_criteria_a,
-                                    res_criteria_b,(res_criteria_a 
+                                    res_criteria_b,(res_criteria_a
                                                     and res_criteria_b)]
 
             if atom_coord_a is not None and atom_coord_b is not None:
-                interface_distance = np.sqrt(np.sum((atom_coord_a 
+                interface_distance = np.sqrt(np.sum((atom_coord_a
                                                      - atom_coord_b) ** 2))
-                data.loc[i,"is_interfaced"] = (interface_distance 
+                data.loc[i,"is_interfaced"] = (interface_distance
                                                <= _MAX_INTERFACE_DISTANCE)
 
             # Increase counters for performance/success statistics
@@ -184,7 +184,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame,
     return data
 
 
-def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str, 
+def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                      pdb_uni_map: pd.DataFrame, method: str, xl_res_list: list,
                      verbose_level: int):
     """
@@ -230,11 +230,11 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                       verbose_level)
         return None, False, method, 0, '-', '', None
 
-    # Check whether structure file was already parsed, if not parse it and 
+    # Check whether structure file was already parsed, if not parse it and
     # save it in cache
     models = pdb_cache.get(data["path"])
 
-    # Try accessing list of chains, if exception is thrown, e.g. structure 
+    # Try accessing list of chains, if exception is thrown, e.g. structure
     # file is empty, return fail with i_error = 1
     try:
         chains = models[0].get_list()
@@ -243,7 +243,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                       f"{pdb_id}:{chain_id})", 2, verbose_level)
         return None, False, method, 1, '-', '', None
 
-    # If chain_id was unspecified by structure search tool, 
+    # If chain_id was unspecified by structure search tool,
     # e.g. chain_id == '-', use first(/only) chain in structure
     # file, else search for chain with matching id
     if chain_id == '-':
@@ -260,8 +260,8 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
             verbose_print(f"\tWarning! Chain ID was not found in pdb file ({pdb_id}:{chain_id}).", 2, verbose_level)
             return None, False, method, 2, '-', '', None
 
-    # If pdb is from rcsb database (indicated by len(id) <= 4), try computing 
-    # uniprot to pdb index shift via EMBL-EBI shift file 
+    # If pdb is from rcsb database (indicated by len(id) <= 4), try computing
+    # uniprot to pdb index shift via EMBL-EBI shift file
     # (pdb_chain_uniprot.csv)
     if len(pdb_id) <= 4:
         if method != "alphafold":
@@ -271,9 +271,9 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
         else:
             shift = None
 
-        # If shift computation failed, attempt realigning pdb sequence to 
-        # uniprot sequence; If alphafold is specified as method already 
-        # completely replace current structure model with new downloaded 
+        # If shift computation failed, attempt realigning pdb sequence to
+        # uniprot sequence; If alphafold is specified as method already
+        # completely replace current structure model with new downloaded
         # alphafold structure
         if shift is None or method == "alphafold":
             method = "realigning" if method != "alphafold" else "alphafold"
@@ -285,14 +285,14 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                     continue
             if method == "realigning":
                 # Attempt realigning if method not alphafold
-                residue_pos = realign_unip_pos_in_pdb_seq(pdb_seq, unip_seq, 
-                                                          data[f"pos_{site_id}"], 
+                residue_pos = realign_unip_pos_in_pdb_seq(pdb_seq, unip_seq,
+                                                          data[f"pos_{site_id}"],
                                                           verbose_level)
             else:
                 residue_pos = None
 
-            # If method alphafold or realignment attempt failed, replace with 
-            # rcsb structure alphafold structure and continue with 
+            # If method alphafold or realignment attempt failed, replace with
+            # rcsb structure alphafold structure and continue with
             # method = "alphafold"
             if (residue_pos is None or method == "alphafold") and xl_type == "intra":
                 verbose_print(f"\tSelf computed res pos ({unip_id}, {data[f'pos_{site_id}']}): {residue_pos}\n"
@@ -301,7 +301,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                 chain, new_path = replacement_alphafold_download(unip_id, data["path"])
 
                 if chain is None:
-                    # If alphafold replacement of structure failed, 
+                    # If alphafold replacement of structure failed,
                     # return fail with i_error = 4
                     verbose_print(f"\tReplacement alphafold download attempt returned an error ({unip_id} probably not "
                                   f"found in database).\n\t\t\t(entry: {i}, unip: {unip_id}, pdb: {pdb_id}:{chain_id})",
@@ -316,11 +316,11 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                                       verbose_level)
                     except:
                         pass
-            # Elif residue position was not found and inter crosslink, as no 
+            # Elif residue position was not found and inter crosslink, as no
             # replacement is possible means this position cannot be retrieved
             elif residue_pos is None and xl_type == "inter":
                 return None, False, method, 4, '-', '', None
-            # Else print computed position by realigning and continue with 
+            # Else print computed position by realigning and continue with
             # method = "realigning"
             else:
                 verbose_print(f"\tSelf computed res pos ({unip_id}, {data[f'pos_{site_id}']}): {residue_pos}, "
@@ -360,7 +360,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                         break
                 except:
                     continue
-    # If exception is thrown, attempt replacing structure with fresh alphafold 
+    # If exception is thrown, attempt replacing structure with fresh alphafold
     # download; if this fails as well, return fail with i_error = 4
     except:
         verbose_print(f"\tWarning! Residue not found by id (maybe out of bounds).\n\t\t\t"
@@ -370,9 +370,9 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                       verbose_level)
 
         if xl_type == "intra":
-            verbose_print("\tAttempt replacement alphafold download.", 2, 
+            verbose_print("\tAttempt replacement alphafold download.", 2,
                           verbose_level)
-            chain, new_path = replacement_alphafold_download(unip_id, 
+            chain, new_path = replacement_alphafold_download(unip_id,
                                                              data["path"])
             if chain is None:
                 verbose_print(f"\tReplacement alphafold download attempt returned an error ({unip_id} probably not "
@@ -387,7 +387,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                 except:
                     pass
         else:
-            # Cannot find residue at position and no alphafold replacement 
+            # Cannot find residue at position and no alphafold replacement
             # possible with inter crosslink
             verbose_print(f"\tWarning! Cannot find residue at position and no alphafold replacement possible for inter "
                           f"crosslink (pos={residue_pos}).\n\t\t\t(entry: {i}, pdb: {pdb_id}:{chain_id})", 2,
@@ -529,7 +529,7 @@ def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int,
     except ValueError:
         return None
     verbose_print(f"\t\tAlignment:\n{alignment}", 3, verbose_level)
-    aligned_pdb_seq = str(alignment).split('\n')[0]
+    aligned_pdb_seq = str(alignment).split('\n',maxsplit=1)[0]
     aligned_unip_seq = str(alignment).split('\n')[2]
 
     # Find unip_pos in aligned uniprot sequence
@@ -582,7 +582,7 @@ def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
 
     if not os.path.exists(new_path):
         URL = f"https://alphafold.ebi.ac.uk/files/AF-{unip_id}-F1-model_v4.pdb"
-        with open(new_path, 'w') as f:
+        with open(new_path, 'w', encoding="utf-8") as f:
             try:
                 f.write(r.get(URL,timeout=60).text)
             except r.exceptions.Timeout:
@@ -592,8 +592,8 @@ def replacement_alphafold_download(unip_id: str, path: str, i_try: int = 0):
                     time.sleep(1)
                     return replacement_alphafold_download(unip_id, path,
                                                           i_try + 1)
-                
-            except (ConnectionError, socket.gaierror, 
+
+            except (ConnectionError, socket.gaierror,
                     r.exceptions.ConnectionError) as e:
                 if i_try == max_try:
                     print("No connection to AlphaFold API possible. Please try again later.")
@@ -636,7 +636,7 @@ def populate_pdb_cache(data: pd.DataFrame, verbose_level: int):
                 models = PDBParser().get_structure('', path).get_list()
             except:
                 models = FastMMCIFParser().get_structure('', path).get_list()
-            
+
             pdb_cache[path] = models
 
     with concurrent.futures.ThreadPoolExecutor() as executor:

@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 
 
 def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
-                         df_xl_res: pd.DataFrame, plddt_cutoff: float, 
+                         df_xl_res: pd.DataFrame, plddt_cutoff: float,
                          topolink_bin: str | None, verbose_level: int):
     """
     calculate distances between interaction sites, and extend input dataset 
@@ -35,17 +35,17 @@ def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
     data : pd.DataFrame
     """
 
-    # Compute euclidean and topological distance of interacting residues with 
+    # Compute euclidean and topological distance of interacting residues with
     # topolink and add them all to the dataset
-    data = compute_dists_with_topolink(data, temp_dir, df_xl_res, 
-                                       plddt_cutoff, topolink_bin, 
+    data = compute_dists_with_topolink(data, temp_dir, df_xl_res,
+                                       plddt_cutoff, topolink_bin,
                                        verbose_level)
 
     return data
 
 
-def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str, 
-                                df_xl_res: pd.DataFrame, plddt_cutoff: float, 
+def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
+                                df_xl_res: pd.DataFrame, plddt_cutoff: float,
                                 topolink_bin: str | None, verbose_level: int):
     """
     compute euclidean and topological distances between residues utilizing 
@@ -78,10 +78,10 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
     # delete contents in temporary save
     files = [f"{temp_dir}{f}" for f in os.listdir(temp_dir)
              if f != '_.txt' and os.path.isfile(f"{temp_dir}{f}")]
-    files.extend([f"{temp_dir}in/{f}" for f in os.listdir(f"{temp_dir}in/") 
+    files.extend([f"{temp_dir}in/{f}" for f in os.listdir(f"{temp_dir}in/")
                   if os.path.isfile(f"{temp_dir}in/{f}")])
-    files.extend([f"{temp_dir}struct/{f}" 
-                  for f in os.listdir(f"{temp_dir}struct/") 
+    files.extend([f"{temp_dir}struct/{f}"
+                  for f in os.listdir(f"{temp_dir}struct/")
                   if os.path.isfile(f"{temp_dir}struct/{f}")])
     for f in files:
         os.remove(f)
@@ -98,31 +98,30 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         if structure == '-':
             ind += 1
             return
-        # If not empty structure marker found, save pdb id and isolate needed 
+        # If not empty structure marker found, save pdb id and isolate needed
         # chains from structure to reduce
         # computation
-        else:
-            pdb_id = structure.split('_')[-1].split('.')[0]
-            structure = isolate_pdb_chain(structure, pdb_id, temp_dir, 
-                                          np.unique(subset[["chain_a", "chain_b"]].values))
-            # Check again if isolation of chains was successful, 
-            # if not skip iteration
-            if structure == '-':
-                ind += 1
-                return
+        pdb_id = structure.split('_')[-1].split('.')[0]
+        structure = isolate_pdb_chain(structure, pdb_id, temp_dir,
+                                        np.unique(subset[["chain_a", "chain_b"]].values))
+        # Check again if isolation of chains was successful,
+        # if not skip iteration
+        if structure == '-':
+            ind += 1
+            return
 
-        # obs_inds is container to save tuples: (index of observation in 
+        # obs_inds is container to save tuples: (index of observation in
         # dataset, string of observed link, boolean whether link was found
         # in topolink results (initialized as False))
         # obs_str is string of collected observed link strings for inputfile
         obs_inds = []
         obs_str = ''
         known_link_strs = []
-        subset = subset[subset["res_criteria_fulfilled"] 
+        subset = subset[subset["res_criteria_fulfilled"]
                         & subset["is_interfaced"]]
         for row in subset.itertuples():
             i = row.Index
-            # Set boolean for whether pLDDT cutoff is unfulfilled if the used 
+            # Set boolean for whether pLDDT cutoff is unfulfilled if the used
             # method was alphafold
             plddt_unfulfilled = (row.method_a == "alphafold") and \
                                 ((row.pLDDT_a != '-' and (float(row.pLDDT_a) < plddt_cutoff)) or \
@@ -146,12 +145,12 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 except:
                     continue
 
-        # Creates inputfile for topolink, 
+        # Creates inputfile for topolink,
         # utilizing templatefile: data/topolink_inputfile.inp
         topo_in = []
         project_path = '/'.join(os.path.abspath(__file__).replace('\\\\', '/').replace('\\', '/').split('/')[:-4])
         project_path = project_path + '/' if project_path else ""
-        for line in [l for l in open(f"{project_path}data/topolink_inputfile.inp", 'r').readlines()
+        for line in [l for l in open(f"{project_path}data/topolink_inputfile.inp", 'r', encoding="utf-8").readlines()
                      if not l.startswith('#')]:
             if line.startswith("linkdir"):
                 topo_in.append(f"linkdir {temp_dir}\n")
@@ -174,19 +173,19 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
             else:
                 topo_in.append(line)
         topo_in = ''.join(topo_in)
-        # Write inputfile to temporary path 
+        # Write inputfile to temporary path
         # (will be overwritten during next iteration)
-        input = f"{temp_dir}in/topo_{pdb_id}_.tmp"
-        with open(input, 'w') as f:
+        topo_input_path = f"{temp_dir}in/topo_{pdb_id}_.tmp"
+        with open(topo_input_path, 'w', encoding="utf-8") as f:
             f.write(topo_in)
 
         # Run topolink and pop terminal print to variable
         topolink_call = "topolink" if topolink_bin is None else f"{topolink_bin}topolink"
-        res = os.popen(f"\"{topolink_call}\" \"{input}\"").read()
+        res = os.popen(f"\"{topolink_call}\" \"{topo_input_path}\"").read()
         # Write both input and output to temporary file marked by pdb id,
         #  e.g. topo_1b0j.log, topo_afA2ASZ8.log, ...
         # in case the user wishes to review them later
-        with open(f"{temp_dir}topo_{pdb_id}.log", 'w') as f:
+        with open(f"{temp_dir}topo_{pdb_id}.log", 'w', encoding="utf-8") as f:
             f.write(f"IN:\n{topo_in}\n\n\nOUT:\n{res}")
 
 
@@ -196,34 +195,34 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         for link_result in link_results:
             for i, obs_ind in enumerate(obs_inds):
                 data_index, link_strs, _ = obs_ind
-                # Check whether any possible first link string of observation 
-                # is in result, and check whether any possible second is in 
+                # Check whether any possible first link string of observation
+                # is in result, and check whether any possible second is in
                 # result (after removing the first string)
                 if any([(link_strs[0] + f" {atom_a}" in link_result) and
                         (link_strs[1] + f" {atom_b}" in link_result.replace(link_strs[0] + f" {atom_a}", ''))
                         for atom_a in df_xl_res.atom for atom_b in df_xl_res.atom]):
                     tplk_eucl = link_result.split(' ')[9]
                     tplk_topo = link_result.split(' ')[10]
-                    # Check whether both distances computed by topolink did 
-                    # not pass the threshold, if so directly save them as 
-                    # floats to zipped distance collection and change 
-                    # according boolean in obs_inds to True (because it was 
+                    # Check whether both distances computed by topolink did
+                    # not pass the threshold, if so directly save them as
+                    # floats to zipped distance collection and change
+                    # according boolean in obs_inds to True (because it was
                     # found in the results of topolink)
                     if (not tplk_eucl.startswith('>')) and (not tplk_topo.startswith('>')):
                         toplink_dists.append((data_index, float(tplk_eucl), float(tplk_topo)))
                         obs_inds[i] = (data_index, link_strs, True)
-                    # If euclidean distance by topolink surpasses threshold 
-                    # truncate greater-symbol, save both distances' float 
-                    # values to zipped distance collection and change 
-                    # according boolean in obs_inds to True (because it was 
+                    # If euclidean distance by topolink surpasses threshold
+                    # truncate greater-symbol, save both distances' float
+                    # values to zipped distance collection and change
+                    # according boolean in obs_inds to True (because it was
                     # found in the results of topolink)
                     elif tplk_eucl.startswith('>'):
-                        toplink_dists.append((data_index, 
+                        toplink_dists.append((data_index,
                                               float(tplk_eucl.replace('>', '')),
                                               float(tplk_topo)))
                         obs_inds[i] = (data_index, link_strs, True)
-                    # If topological distance by topolink surpasses threshold 
-                    # truncate greater-symbol, save both distances' float 
+                    # If topological distance by topolink surpasses threshold
+                    # truncate greater-symbol, save both distances' float
                     # values to zipped distance collection and change according
                     # boolean in obs_inds to True (because it was found in the
                     # results of topolink)
@@ -232,7 +231,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                                               float(tplk_topo.replace('>', ''))))
                         obs_inds[i] = (data_index, link_strs, True)
                     break
-        # Iterate over observations again and check whether all were found 
+        # Iterate over observations again and check whether all were found
         # (e.g. check boolean in tuples), if not save Nans to zipped distance
         # collection
         for obs_ind in obs_inds:
@@ -245,7 +244,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         return
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(topo_task, structure): 
+        futures = {executor.submit(topo_task, structure):
                    structure for structure in sorted(data["path"].unique())}
         progress = round_self((ind * 100) / len_structures, 2)
         verbose_print(f"\r\tTopoLink:[{progress}%]", 1, verbose_level,end='')
@@ -305,8 +304,7 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
         def accept_chain(self, chain):
             if chain.__repr__().split('=')[1][0] in chain_ids:
                 return True
-            else:
-                return False
+            return False
 
     # save new pdb to temporary pdb path
     new_path = f"{temp_dir}struct/{pdb_id}_tmp.pdb"

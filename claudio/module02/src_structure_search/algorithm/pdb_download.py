@@ -59,6 +59,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
     """
 
     ind = 0
+    files = []
 
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
@@ -66,7 +67,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
         pdb_infos = pd.read_csv('./claudio/data/pdb/pdb_ids.csv')
         files = [f for f in os.listdir('./claudio/data/pdb/')
                  if f.endswith(".pdb.gz") or f.endswith(".cif.gz")]
-    else: 
+    else:
         pdb_infos = pd.DataFrame(columns=["pdb_id","method","resolution"])
     # Download pdb files for each datapoint
     def download_task(i,row):
@@ -80,7 +81,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
             pdb_file = ''
             # check whether the pdb file is already available locally
             if pdb_id in pdb_infos.pdb_id.values and (f"{pdb_id}.pdb.gz" in files or f"{pdb_id}.cif.gz" in files):
-                if(f"{pdb_id}.pdb.gz" in files):
+                if f"{pdb_id}.pdb.gz" in files:
                     pdb_resource_location = f"./claudio/data/pdb/{pdb_id}.pdb.gz"
                 else:
                     pdb_resource_location = f"./claudio/data/pdb/{pdb_id}.cif.gz"
@@ -97,12 +98,12 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                     # if intra crosslink, download from AlphaFold
                     if row.unip_id_a == row.unip_id_b:
 
-                            # Create custom alphafold pdb filename
-                            pdb_id = f"af{row.unip_id_a}"
-                            chain = 'A'
-                            chain_b = 'A'
-                            filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
-                            url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v4.pdb"
+                        # Create custom alphafold pdb filename
+                        pdb_id = f"af{row.unip_id_a}"
+                        chain = 'A'
+                        chain_b = 'A'
+                        filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
+                        url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v4.pdb"
 
                     # no download possible
                     else:
@@ -133,28 +134,28 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                 not_nmr_alphafold = ("NMR" not in method) and ("ALPHAFOLD" not in method)
                 no_nmr_found_yet = "NMR" not in dataset.loc[i, "pdb_method"]
                 if not_nmr_alphafold or no_nmr_found_yet:
-                    # Update pdb_id and chain in dataset, add filename to path 
+                    # Update pdb_id and chain in dataset, add filename to path
                     # and method,resolution to dataset
                     update_cols = ["pdb_id","chain_a","chain_b","path",
                                    "pdb_method","pdb_resolution"]
-                    dataset.loc[i,update_cols] = [pdb_id, chain, chain_b, 
+                    dataset.loc[i,update_cols] = [pdb_id, chain, chain_b,
                                                   filename, method, resolution]
                     if pdb_available:
-                            # decompress pdb file from local database
-                            with gzip.open(pdb_resource_location, 'rb') as f_in:
-                                with open(filename, 'wb') as f_out:
-                                    shutil.copyfileobj(f_in, f_out)
+                        # decompress pdb file from local database
+                        with gzip.open(pdb_resource_location, 'rb') as f_in:
+                            with open(filename, 'wb') as f_out:
+                                shutil.copyfileobj(f_in, f_out)
                     else:
                         # Save pdb text to new pdb file with custom name
                         if (not os.path.exists(filename)) and (pdb_file is not None):
-                            with open(filename, 'w') as f:
+                            with open(filename, 'w', encoding="utf-8") as f:
                                 f.write(pdb_file)
                 if "NMR" not in method:
                     break
         return dataset
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(download_task, row.Index, row): 
+        futures = {executor.submit(download_task, row.Index, row):
                    row for row in dataset.itertuples()}
 
         for future in concurrent.futures.as_completed(futures):
@@ -163,7 +164,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                     dataset = future.result()
                     ind += 1
                     progress = round_self((ind * 100) / len(dataset.index), 2)
-                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level, 
+                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level,
                                   end='')
                     del futures[future]
             except Exception as e:
@@ -190,7 +191,7 @@ def clear_output_dir(search_tool: str, output_directory: str):
         None
     """
 
-    pdb_files = [x for x in os.listdir(output_directory) 
+    pdb_files = [x for x in os.listdir(output_directory)
                  if x.endswith(".pdb") and x.startswith(search_tool)]
     for f in pdb_files:
         os.remove(f"{output_directory}{f}")
@@ -216,18 +217,18 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
         if url.startswith("https://files.rcsb.org/"):
             # Attempt regular .pdb call from RCSB database
             pdb_file = ''.join(r.get(url,timeout=60).text)
-            # If ordinary download call fails attempt .cif call 
+            # If ordinary download call fails attempt .cif call
             # (for mmCIF file)
             if pdb_file.startswith("<!doctype html>"):
                 cif_url = f"{'.'.join(url.split('.')[:-1])}.cif"
                 pdb_file = ''.join(r.get(cif_url, timeout=60).text)
             return pdb_file
-        else:
-            # Attempt .pdb call from AlphaFold database
-            pdb_file = r.get(url,timeout=60).text
-            if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
-                return None
-            return pdb_file
+
+        # Else attempt .pdb call from AlphaFold database
+        pdb_file = r.get(url,timeout=60).text
+        if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
+            return None
+        return pdb_file
     # Retry on timeout if not reached max_try already, else return None
     except (r.exceptions.Timeout, TimeoutError):
         if i_try >= max_try:

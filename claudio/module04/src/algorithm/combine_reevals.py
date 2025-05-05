@@ -3,10 +3,10 @@ import pandas as pd
 from claudio.utils.utils import round_self
 
 
-def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float, 
-                                linker_minimum: float, linker_maximum: float, 
+def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
+                                linker_minimum: float, linker_maximum: float,
                                 euclidean_strictness: float,
-                                distance_maximum: float, cutoff: float, 
+                                distance_maximum: float, cutoff: float,
                                 compute_scoring: bool):
     """
     combine distance and homo signal reevaluation, create score that 
@@ -47,7 +47,7 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
     # new crosslink type based on evidence
     data["evidence"] = data.apply(
         lambda x: write_evidence(
-            x, plddt_cutoff, linker_minimum, linker_maximum, 
+            x, plddt_cutoff, linker_minimum, linker_maximum,
             euclidean_strictness
         ), axis=1
     )
@@ -60,8 +60,8 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
     return data
 
 
-def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float, 
-                          linker_minimum: float, linker_maximum: float, 
+def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
+                          linker_minimum: float, linker_maximum: float,
                           euclidean_strictness: float, distance_maximum: float):
     """
     combine distance and homo signal reevaluation, create score that 
@@ -242,8 +242,5 @@ def def_xl_type(datapoint: pd.Series):
     """
 
     if (datapoint.unip_id_a == datapoint.unip_id_b) and (not datapoint.evidence):
-        return_str = "intra"
-    else:
-        return_str = "inter"
-
-    return return_str
+        return "intra"
+    return "inter"

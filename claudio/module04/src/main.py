@@ -133,7 +133,7 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
     verbose_print("===================================", 0, verbose_level)
     profile.disable()  # --- stop profiling
     profile.create_stats()
-    with open("profileM04.txt", 'w') as fp:
+    with open("profileM04.txt", 'w', encoding="utf-8") as fp:
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()

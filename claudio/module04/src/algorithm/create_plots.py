@@ -38,7 +38,7 @@ def create_plots(data: pd.DataFrame, filename: str, cutoff: float,
             bin_centers = np.diff(bins) * .5 + bins[:-1]
             plt.figure(figsize=(6.5, 6), constrained_layout=True)
             known_xy = []
-            freq, _, _ = plt.hist(inter_data, bins=bins, color=colors[0], 
+            freq, _, _ = plt.hist(inter_data, bins=bins, color=colors[0],
                                   label=label)
             for fr, x in zip(freq, bin_centers):
                 height = int(fr)
@@ -89,14 +89,14 @@ def create_plots(data: pd.DataFrame, filename: str, cutoff: float,
                              xytext=(0, .2), textcoords="offset points",
                              ha="center", va="bottom")
                 known_xy.append((x, y))
-    plt.axvline(linker_minimum, color="darkred", linestyle="dashed", 
+    plt.axvline(linker_minimum, color="darkred", linestyle="dashed",
                 linewidth=1)
-    plt.axvline(linker_maximum, color="darkred", linestyle="dashed", 
+    plt.axvline(linker_maximum, color="darkred", linestyle="dashed",
                 linewidth=1)
     if add_labels:
-        plt.text(linker_minimum + 1, plt.ylim()[1] * 0.85, 
+        plt.text(linker_minimum + 1, plt.ylim()[1] * 0.85,
                  f"Linker\nminimum: {linker_minimum}", color="darkred")
-        plt.text(linker_maximum + 1, plt.ylim()[1] * 0.85, 
+        plt.text(linker_maximum + 1, plt.ylim()[1] * 0.85,
                  f"Linker\nmaximum: {linker_maximum}", color="darkred")
     plt.xlabel("distance " + r"[$\AA$]")
     plt.ylabel("frequency")
@@ -134,10 +134,10 @@ def create_plots(data: pd.DataFrame, filename: str, cutoff: float,
                           len(inter_data[(inter_data.pdb_id != '-')
                                          & (np.isnan(inter_data.topo_dist))]),
                           len(inter_data[(inter_data.pdb_id != '-')
-                                         & (~np.isnan(inter_data.topo_dist)) 
+                                         & (~np.isnan(inter_data.topo_dist))
                                          & (inter_data.evidence == '')].index),
                           len(inter_data[(inter_data.pdb_id != '-')
-                                         & (~np.isnan(inter_data.topo_dist)) 
+                                         & (~np.isnan(inter_data.topo_dist))
                                          & (inter_data.evidence != '')].index)])
         label_sets.append(["no structure found",
                            "not analyzed (structure found)", 

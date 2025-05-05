@@ -9,8 +9,8 @@ from claudio.module03.src.algorithm.signal_analysis import analyse_homo_signals
 from claudio.module03.src.algorithm.create_histograms import create_homo_signal_histograms
 from claudio.module03.src.io.write_out import write_output
 
-from claudio.utils.utils import verbose_print, clean_input_paths, \
-                                create_out_path, clean_dataset, round_self
+from claudio.utils.utils import (verbose_print, clean_input_paths,
+                                 create_out_path, clean_dataset, round_self)
 
 
 @click.command()
@@ -60,7 +60,7 @@ def main(input_filepath, output_directory, verbose_level):
 
         # Create Homo-signal statistic histograms
         verbose_print("Create homo-signal histograms", 0, verbose_level)
-        create_homo_signal_histograms(data, input_filepath.split('/')[-1], 
+        create_homo_signal_histograms(data, input_filepath.split('/')[-1],
                                       output_directory)
 
         # Write Output
@@ -71,7 +71,7 @@ def main(input_filepath, output_directory, verbose_level):
     verbose_print("===================================", 0, verbose_level)
     profile.disable()  # --- stop profiling
     profile.create_stats()
-    with open("profileM03.txt", 'w') as fp:
+    with open("profileM03.txt", 'w', encoding="utf-8") as fp:
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
@@ -95,6 +95,5 @@ def inputs_valid(input_filepath: str, output_directory: str):
     # check whether an inputfile with the extension .sqcs is specified
     if input_filepath and input_filepath.endswith(".sqcs"):
         return True
-    else:
-        raise Exception(f"Error! The parameter \"input-filepath\" was not given or was not ending with the '.sqcs' "
-                        f"extension (given: {input_filepath}).")
+    raise Exception(f"Error! The parameter \"input-filepath\" was not given or was not ending with the '.sqcs' "
+                    f"extension (given: {input_filepath}).")

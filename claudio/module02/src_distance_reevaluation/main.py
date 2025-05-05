@@ -17,7 +17,7 @@ from claudio.utils.utils import (verbose_print, create_out_path, clean_input_pat
 
 @click.command()
 @click.option("-i", "--input-directory", default="test/out/sample/structures")
-@click.option("-i2", "--input-filepath", 
+@click.option("-i2", "--input-filepath",
               default="test/out/sample/sample_data_random.sqcs_structdi.csv")
 @click.option("-it", "--input-temppath", default=None)
 @click.option("-t", "--search-tool", default="blastp")
@@ -72,24 +72,24 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
 
     # If parameters inputted by user valid
     if inputs_valid(input_directory, input_filepath, search_tool, xl_residues,
-                    plddt_cutoff, output_directory, topolink_bin, 
+                    plddt_cutoff, output_directory, topolink_bin,
                     verbose_level):
-        # Define dataset for crosslink residues including possible positions 
+        # Define dataset for crosslink residues including possible positions
         # and atom types
         df_xl_res = build_xl_dataset(xl_residues)
 
         # Read result from uniprot_search, e.g. sqcs-file
-        verbose_print("Read peptide information from uniprot search results", 
+        verbose_print("Read peptide information from uniprot search results",
                       0, verbose_level)
         data = read_unipsearch_out(input_filepath)
 
-        # Search for site positions in pdb files (replace rcsb pdb 
+        # Search for site positions in pdb files (replace rcsb pdb
         # with alphafold, if not able to find it there)
         verbose_print("Search site pos in pdb files (replace rcsb-pdb with alphafold-pdb if needed)",
                       0, verbose_level)
         data = search_site_pos_in_pdb(data, df_xl_res, verbose_level)
 
-        # Compute distances of sites, and if distance calculation successful 
+        # Compute distances of sites, and if distance calculation successful
         # compute new xl_type
         verbose_print("Calculate presumed interaction site distances and evaluate interaction likelihood",
                       0, verbose_level)
@@ -101,7 +101,7 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
 
         # Plot histograms of distances
         verbose_print("Create distance histograms", 0, verbose_level)
-        create_histogram(data, input_filepath.split('/')[-1], output_directory, 
+        create_histogram(data, input_filepath.split('/')[-1], output_directory,
                          linker_minimum, linker_maximum)
 
         # Overwrite previous outputfile of module02
@@ -113,14 +113,14 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
 
     profile.disable()  # --- stop profiling
     profile.create_stats()
-    with open("profileM02_DR.txt", 'w') as fp:
+    with open("profileM02_DR.txt", 'w', encoding="utf-8") as fp:
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit(0)
 
 
-def inputs_valid(input_directory: str, input_filename: str, search_tool: str, 
+def inputs_valid(input_directory: str, input_filename: str, search_tool: str,
                  xl_residues: str, plddt_cutoff: float, output_directory: str,
                  topolink_bin: str | None, verbose_level: int):
     """

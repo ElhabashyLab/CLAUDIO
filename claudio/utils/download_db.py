@@ -77,7 +77,7 @@ def query_pdb_after_date(date_str: str):
     }
 
     try:
-        response = r.post(url, json=query)
+        response = r.post(url, json=query, timeout=60)
         response.raise_for_status()
     except Exception as e:
         print(e)
@@ -90,7 +90,7 @@ def query_pdb_after_date(date_str: str):
         data = response.json()
         pdb_ids = [entry['identifier'] for entry in data['result_set']]
         print(len(pdb_ids))
-        df = pd.DataFrame({'pdb_id': pdb_ids, 
+        df = pd.DataFrame({'pdb_id': pdb_ids,
                            'modification_date': time.strftime("%Y-%m-%d")})
         return df
 
@@ -128,7 +128,7 @@ def download_pdbs(data, output_dir):
             pdb_file = ''.join(r.get(cif_url, timeout=60).text)
             filename = f'{output_dir}{pdb_id}.cif'
 
-            accept_method = False         
+            accept_method = False
             lines = pdb_file.split('\n')
             for line in lines:
                 # If line startswith _exptl.method, it contains the information
@@ -151,7 +151,7 @@ def download_pdbs(data, output_dir):
                         resolution = float([w for w in line.replace('  ', ' ').split() if w][1])
                         data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
                         break
-            else: 
+            else:
                 if method in accepted_pdb_methods:
                     for line in pdb_file.split('\n'):
                         if line.startswith("_refine.ls_d_res_high") and accept_method:

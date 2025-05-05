@@ -20,7 +20,7 @@ def create_ident_chain_copies(data: pd.DataFrame):
           end='')
 
     # Annotate identical chains, and replace multi-chain notation into single
-    data = data.apply(lambda x: annotate_multi_chain_dps(x, new_data_infos), 
+    data = data.apply(lambda x: annotate_multi_chain_dps(x, new_data_infos),
                       axis=1)
 
     # Create datapoints off of annotated multi-chains

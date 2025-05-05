@@ -6,6 +6,9 @@ import requests as r
 
 from claudio.utils.utils import verbose_print, round_self
 
+NUMBER_OF_CALL_REPEATS = 5
+DOWNLOAD_RATE_LIMITER_IN_SECONDS = 0.05
+QUERY_SIZE = 250
 
 def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     """
@@ -53,9 +56,7 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
 
     """
 
-    NUMBER_OF_CALL_REPEATS = 5
-    DOWNLOAD_RATE_LIMITER_IN_SECONDS = 0.05
-
+    download_rate_limiter = DOWNLOAD_RATE_LIMITER_IN_SECONDS
     known_ostates = {}
     base_url = "https://swissmodel.expasy.org/repository/uniprot/"
 
@@ -76,17 +77,17 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     list_of_states = {structure["template"].split('.')[0]:
                                       structure["oligo-state"]
                                       for structure in ast.literal_eval(
-                                            r.get(url).text.replace("null",
+                                            r.get(url,timeout=60).text.replace("null",
                                                                     "None")
                                         )["result"]["structures"]}
                     # add time skip to limit the rate of calls per second
-                    # (see: 
+                    # (see:
                     #  https://swissmodel.expasy.org/docs/help#modelling_api)
-                    time.sleep(DOWNLOAD_RATE_LIMITER_IN_SECONDS)
+                    time.sleep(download_rate_limiter)
                 except KeyError:
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
                             f"Download speed will be reduced for Uniprot entry: {unip_id}.")
-                    DOWNLOAD_RATE_LIMITER_IN_SECONDS += .1
+                    download_rate_limiter += .1
                 except ValueError:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
                         raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
@@ -106,7 +107,7 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
 
         # Add resulting oligomeric states to list of known, if results not empty
         if ostates:
-            # Ensure that missing data on repeats do not cause disturbances, 
+            # Ensure that missing data on repeats do not cause disturbances,
             # by filling empty slots with "monomer"
             unique_keys = set(key for ostate in ostates for key in ostate.keys())
             for ostate in ostates:
@@ -114,8 +115,8 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     ostate.setdefault(key, ["monomer"])
 
             # Collect unique ostates of repeats
-            ostates = {key: pd.unique([repeat[key] 
-                                       for repeat in ostates]).tolist() 
+            ostates = {key: pd.unique([repeat[key]
+                                       for repeat in ostates]).tolist()
                                        for key in unique_keys}
 
             # add result to known oligomeric states
@@ -138,9 +139,7 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
 
     """
 
-    NUMBER_OF_CALL_REPEATS = 5
-    DOWNLOAD_RATE_LIMITER_IN_SECONDS = 0.05
-    QUERY_SIZE = 250
+    download_rate_limiter = DOWNLOAD_RATE_LIMITER_IN_SECONDS
 
     known_ostates = {}
     base_url = "https://swissmodel.expasy.org/repository/uniprot/"
@@ -151,7 +150,7 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
     if len(unip_ids) == 1:
         return query_oligo_states_from_swiss_old(data)
 
-    query_elements = [unip_ids[i:i + QUERY_SIZE] 
+    query_elements = [unip_ids[i:i + QUERY_SIZE]
                       for i in range(0, len(unip_ids), QUERY_SIZE)]
     query_results = {}
     for query in query_elements:
@@ -171,18 +170,18 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
                                             for structure in result["structures"]}
                     # add time skip to limit the rate of calls per second
                     # (see: https://swissmodel.expasy.org/docs/help#modelling_api)
-                    time.sleep(DOWNLOAD_RATE_LIMITER_IN_SECONDS)
+                    time.sleep(download_rate_limiter)
                 except KeyError:
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
                             f"Download speed will be reduced for Uniprot entry: {query}.")
-                    DOWNLOAD_RATE_LIMITER_IN_SECONDS += .1
+                    download_rate_limiter += .1
                 except ValueError:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
                         raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
                                             f"dictionary for Uniprot entry: {query}.\nReceived: {r.get(url,timeout=60).text}")
             except r.exceptions.Timeout:
                 pass
-            except (ConnectionError, socket.gaierror, 
+            except (ConnectionError, socket.gaierror,
                     r.exceptions.ConnectionError, ValueError) as e:
                 if num_fails == NUMBER_OF_CALL_REPEATS:
                     print(f"No connection to SWISS-MODEL API possible for Uniprot entry: {query}. "

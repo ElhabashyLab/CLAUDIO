@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 
-def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, 
+def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                   output_directory: str):
     """
     write outputs
@@ -51,7 +51,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                 if row.swiss_model_homology:
                     for oligo_state in row.swiss_model_homology.split('_'):
                         num_mer = int(oligo_state.replace("homo", '').replace("mer", ''))
-                        with open(f"{output_subdirectory}/{unip_id}_{oligo_state}.fasta", 'w') as f:
+                        with open(f"{output_subdirectory}/{unip_id}_{oligo_state}.fasta", 'w', encoding="utf-8") as f:
                             content = f">{unip_id}\n{row.seq_a}\n"
                             for _ in range(num_mer):
                                 f.write(content)
@@ -59,7 +59,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                 # but leave oligo-state field in filename empty
                 # (user may decide here)
                 else:
-                    with open(f"{output_subdirectory}/{unip_id}_new_homomer.fasta", 'w') as f:
+                    with open(f"{output_subdirectory}/{unip_id}_new_homomer.fasta", 'w', encoding="utf-8") as f:
                         content = f">{unip_id}\n{row.seq_a}\n"
                         f.write(content + content)
             # Else write multi fasta with involved sequences for
@@ -69,7 +69,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                 # title plainly, else write identifier for new heteromer
                 multifasta_filename = f"{unip_id}_heteromer.fasta" \
                     if "hetero" in row.swiss_model_homology else f"{unip_id}_new_heteromer.fasta"
-                with open(f"{output_subdirectory}/{multifasta_filename}", 'w') as f:
+                with open(f"{output_subdirectory}/{multifasta_filename}", 'w', encoding="utf-8") as f:
                     content = f">{row.unip_id_a}\n{row.seq_a}\n\n>{row.unip_id_b}\n{row.seq_b}"
                     f.write(content)
 

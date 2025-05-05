@@ -32,9 +32,34 @@ from claudio.utils.utils import verbose_print, clean_input_paths, \
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-v", "--verbose-level", default=2)
-def main(input_filepath, input_temppath, projections, uniprot_search, 
-         xl_residues, search_tool, output_directory, blast_bin, blast_db, 
+def main(input_filepath, input_temppath, projections, uniprot_search,
+         xl_residues, search_tool, output_directory, blast_bin, blast_db,
          hhsearch_bin, hhsearch_db, verbose_level):
+    """
+    Performs preprocessing of input data for CLAUDIO and creates a list of
+    unique proteins.
+    
+    Parameters
+    ----------
+    input_filepath : str,
+    input_temppath : str,
+    projections : str,
+    uniprot_search : bool,
+    xl_residues : str,
+    search_tool : str,
+    output_directory : str,
+    blast_bin : str | None,
+    blast_db : str,
+    hhsearch_bin : str | None,
+    hhsearch_db : str,
+    verbose_level : int
+    
+    Returns
+    -------
+    None
+    
+    """
+
     profile = cProfile.Profile()
     profile.enable()   # --- start profiling
     verbose_print("Start Unique Protein List Tool", 0, verbose_level)
@@ -61,18 +86,18 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
                                               output_directory + "temp/unique_protein_list", input_filepath)
 
     # If parameters inputted by user valid
-    if inputs_valid(input_filepath, uniprot_search_temp_dir, 
+    if inputs_valid(input_filepath, uniprot_search_temp_dir,
                     unique_protein_temp_dir, projections, uniprot_search,
                     xl_residues, search_tool, output_directory, blast_bin,
                     blast_db, hhsearch_bin, hhsearch_db, verbose_level):
         # Use projections to apply unified column names to input dataset
         # (for example see module01/src/dict/default_projections.py)
-        new_keys = ["pep_a", "pep_b", "pos_a", "pos_b", "res_pos_a", 
+        new_keys = ["pep_a", "pep_b", "pos_a", "pos_b", "res_pos_a",
                     "res_pos_b", "unip_id_a", "unip_id_b"]
-        projections = {projections.split(',')[i]: new_keys[i] 
+        projections = {projections.split(',')[i]: new_keys[i]
                        for i in range(len(new_keys))}
 
-        # Define dataset for crosslink residues including possible positions 
+        # Define dataset for crosslink residues including possible positions
         # and atom types
         df_xl_res = build_xl_dataset(xl_residues)
 
@@ -80,7 +105,7 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
         verbose_print("Read input", 0, verbose_level)
         data = read_inputfile(input_filepath, projections)
 
-        # uniprot_search parameter is True actually perform a new search, 
+        # uniprot_search parameter is True actually perform a new search,
         # else try to retrieve previous results from temporary save file
         tmp_filepath = f"{uniprot_search_temp_dir}{filename}_srtmp.csv"
         if (not uniprot_search) and os.path.exists(tmp_filepath):
@@ -88,16 +113,16 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
                           verbose_level)
             data = read_temp_search_save(data, tmp_filepath)
         else:
-            verbose_print("Retrieve UniProt sequences from UniProtKB", 0, 
+            verbose_print("Retrieve UniProt sequences from UniProtKB", 0,
                           verbose_level)
             data = do_uniprot_search(data, tmp_filepath, verbose_level)
 
-        # Check datapoints for inconsistencies and correct them if possible 
+        # Check datapoints for inconsistencies and correct them if possible
         # (creates logfile in the process)
         verbose_print("Check datapoints for inconsistencies", 0, verbose_level)
-        data = double_check_data(data, filename, df_xl_res, output_directory, 
+        data = double_check_data(data, filename, df_xl_res, output_directory,
                                  verbose_level)
-        verbose_print("Changes made to dataset written to log-file", 0, 
+        verbose_print("Changes made to dataset written to log-file", 0,
                       verbose_level)
 
         # Write list of unique protein pairs and unique proteins overall
@@ -110,25 +135,25 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
 
         # Write ouput csv
         verbose_print("Write output", 0, verbose_level)
-        write_outputs(data, unique_proteins_list, filename, output_directory, 
+        write_outputs(data, unique_proteins_list, filename, output_directory,
                       verbose_level)
     runtime= round_self(time.time() - start_time, 2)
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
     profile.disable()  # --- stop profiling
     profile.create_stats()
-    with open("profileM01.txt", 'w') as fp:
+    with open("profileM01.txt", 'w', encoding="utf-8") as fp:
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
     sys.exit(0)
 
 
-def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str, 
-                 unique_protein_temp_dir: str, projections: str, 
+def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
+                 unique_protein_temp_dir: str, projections: str,
                  uniprot_search: bool, xl_residues: str, search_tool: str,
                  output_directory: str, blast_bin: str | None, blast_db: str,
-                 hhsearch_bin: str | None, hhsearch_db: str, 
+                 hhsearch_bin: str | None, hhsearch_db: str,
                  verbose_level: int):
     """
     check validity of inputted parameters
@@ -163,7 +188,7 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
     if input_filepath:
         # check whether the number of comma-separated values is acceptable
         if len(projections.split(',')) == 8:
-            # if uniprot_search False then check whether temporary 
+            # if uniprot_search False then check whether temporary
             # save file exists
             if not uniprot_search:
                 try:
@@ -174,7 +199,7 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                                     f"temp_save files to perform an actual search first (given: {uniprot_search}).")
             # check whether xl_residues can be turned into a proper DataFrame
             build_xl_dataset(xl_residues)
-            # check whether specified structure search tool is either blastp 
+            # check whether specified structure search tool is either blastp
             # or hhsearch
             if search_tool in ["blastp", "hhsearch"]:
                 # check blast database path
@@ -182,16 +207,11 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                     # check hhsearch database path
                     if (search_tool == "blastp") or os.path.exists(str(hhsearch_db) + "pdb70_a3m.ffdata"):
                         return True
-                    else:
-                        raise Exception(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database "
-                                        f"directory (given: {hhsearch_db}).")
-                else:
-                    raise Exception(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
-                          f"(given: {blast_db}).")
-            else:
-                raise Exception(f"Error! Given search tool is neither blastp or hhsearch (given: {search_tool}).")
-        else:
-            raise Exception(f"Error! Could not find all necessary keys in \"projections\" parameter (given: "
-                            f"{projections}).")
-    else:
-        raise Exception(f"Error! The parameter \"input-filepath\" was not given (given: {input_filepath}).")
+                    raise Exception(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database "
+                                    f"directory (given: {hhsearch_db}).")
+                raise Exception(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
+                                f"(given: {blast_db}).")
+            raise Exception(f"Error! Given search tool is neither blastp or hhsearch (given: {search_tool}).")
+        raise Exception(f"Error! Could not find all necessary keys in \"projections\" parameter (given: "
+                        f"{projections}).")
+    raise Exception(f"Error! The parameter \"input-filepath\" was not given (given: {input_filepath}).")
