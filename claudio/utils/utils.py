@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 
-def verbose_print(print_string: str, threshold: int, verbose_level: int, 
+def verbose_print(print_string: str, threshold: int, verbose_level: int,
                   end='\n'):
     """
     print given string, if verbose_level is higher than threshold
@@ -162,9 +162,8 @@ def round_self(value: float, decimals: int):
         rounded_value = int(f"{int((value * (10 ** decimals)) + .5) / (10 ** decimals):.{decimals}f}")
         return rounded_value
     # Else, the resulting value will be a float
-    else:
-        rounded_value = float(f"{int((value * (10 ** decimals)) + .5) / (10 ** decimals):.{decimals}f}")
-        return rounded_value
+    rounded_value = float(f"{int((value * (10 ** decimals)) + .5) / (10 ** decimals):.{decimals}f}")
+    return rounded_value
 
 
 def clean_dataset(data: pd.DataFrame):
@@ -191,19 +190,19 @@ def clean_dataset(data: pd.DataFrame):
                                 & (data.pos_b == row.pos_b) \
                                 & (data.pep_a == row.pep_a) \
                                 & (data.pep_b == row.pep_b) \
-                                & ((data.res_pos_a == row.res_pos_a) 
-                                 | (pd.isna(data.res_pos_a) 
+                                & ((data.res_pos_a == row.res_pos_a)
+                                 | (pd.isna(data.res_pos_a)
                                     & pd.isna(row.res_pos_a))) \
-                                & ((data.res_pos_b == row.res_pos_b) 
-                                 | (pd.isna(data.res_pos_b) 
+                                & ((data.res_pos_b == row.res_pos_b)
+                                 | (pd.isna(data.res_pos_b)
                                     & pd.isna(row.res_pos_b)))
-                if all([rename_col in data.columns 
+                if all([rename_col in data.columns
                         for rename_col in ["chain_a", "chain_b", "pdb_id"]]):
                     drop_criteria = drop_criteria \
                                     & (data.chain_a == row.chain_a) \
                                     & (data.chain_b == row.chain_b) \
                                     & (data.pdb_id == row.pdb_id)
-                if all([rename_col in data.columns 
+                if all([rename_col in data.columns
                         for rename_col in ["evidence"]]):
                     drop_criteria = (drop_criteria
                                     & (data.evidence == row.evidence))
@@ -214,7 +213,7 @@ def clean_dataset(data: pd.DataFrame):
         data = data.drop(index=drop_indeces)
 
     # Drop specified data columns
-    for drop_col in ["all_results", "best_res_pdb_method", 
+    for drop_col in ["all_results", "best_res_pdb_method",
                      "best_res_pdb_resolution", "res_criteria_fulfilled",
                      "res_crit_a", "res_crit_b", "method_a", "method_b", 
                      "is_interfaced","xl_type"]:
@@ -222,9 +221,9 @@ def clean_dataset(data: pd.DataFrame):
             data = data.drop(drop_col, axis=1)
 
     # Rename certain result columns
-    if all([rename_col in data.columns 
+    if all([rename_col in data.columns
             for rename_col in ["eucl_dist_tplk", "topo_dist_tplk"]]):
-        data = data.rename(columns={"eucl_dist_tplk": "eucl_dist", 
+        data = data.rename(columns={"eucl_dist_tplk": "eucl_dist",
                                     "topo_dist_tplk": "topo_dist"})
 
     # Ascertain data types
@@ -250,7 +249,7 @@ def clean_dataset(data: pd.DataFrame):
         data = data.astype({"homo_adjacency": float, "homo_int_overl": float,
                             "homo_pep_overl": bool}, errors="ignore")
     if "evidence" in data.columns:
-        data = data.astype({"evidence": str, "XL_type": str, 
+        data = data.astype({"evidence": str, "XL_type": str,
                             "swiss_model_homology": str}, errors="ignore")
 
     # Reduce multichain examples to fitting ones (if present)

@@ -121,7 +121,7 @@ def double_check_data(data: pd.DataFrame, filename: str,
                     log_text += "\tSUCCESS\n"
                     break
 
-        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1, 
+        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1,
                       verbose_level, end='')
     verbose_print("", 1, verbose_level)
 
@@ -218,7 +218,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                     if res_count == 0:
                         log_text += f"\tno {dp.res} found in pep_{site}\n"
                     else:
-                        # Check if residue at specified position is the 
+                        # Check if residue at specified position is the
                         # searched one
                         if dp.pos != 0:
                             log_text += f"\tcheck {dp.res} at specified position (={dp.pos}) in seq\n"
@@ -274,7 +274,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                                     log_text += f"\tres_pos_{site} was not given\n"
                                     log_text += "\tFAIL\n"
 
-            # Align peptide to sequence, if peptide found more than once 
+            # Align peptide to sequence, if peptide found more than once
             # or not found
             else:
                 # If position has not been replaced yet
@@ -294,10 +294,10 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                             if seq[new_pos - 1] == dp.res:
                                 row[f"pos_{site}"] = new_pos
                                 log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                log_text += f"\tSUCCESS\n"
+                                log_text += "\tSUCCESS\n"
                                 pos_replaced = True
                             else:
-                                log_text += f"\tFAIL\n"
+                                log_text += "\tFAIL\n"
                     # FAIL: res_pos not given
                     except:
                         log_text += f"\tres_pos_{site} was not given\n"
@@ -485,9 +485,9 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                         log_text += f"\t\tpos_a: {row.pos_a} -> {new_pos_a}\n" \
                                     f"\t\tVERIFY: new residue is '{dp.res}': {seq_a[new_pos_a - 1] == dp.res}\n"
                         if seq_a[new_pos_a - 1] == dp.res:
-                            log_text += f"\t\t\tCREATED\n"
+                            log_text += "\t\t\tCREATED\n"
                         else:
-                            log_text += f"\t\t\tFAIL\n"
+                            log_text += "\t\t\tFAIL\n"
                         new_datapoint.pos_a = new_pos_a
 
                         new_datapoints.append(new_datapoint)

@@ -79,7 +79,7 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
                 for seq in result:
                     peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
                         if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
-                    # If a fitting sequences, containing both peptides was 
+                    # If a fitting sequences, containing both peptides was
                     # found set argument to True
                     if peptide_arg:
                         fitting_seq_found = True
@@ -89,7 +89,7 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
                 seq = result[0]
             # Add final sequence to list
             return i, seq
-        
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(retrieve_seqs_task, i, row): 
                    (i,row) for i, row in data.iterrows()}
@@ -141,8 +141,8 @@ def query_uniprot(unip_ids: list, verbose_level: int):
                 if not return_failed:
                     result = [''.join(x.split('\n')[1:]) 
                               for x in url_return_text.split('>') if x]
-                    # remove empty strings, should not occur if uniprot 
-                    # fasta-files are properly formatted, added due to a '>' 
+                    # remove empty strings, should not occur if uniprot
+                    # fasta-files are properly formatted, added due to a '>'
                     # which was included in the header of the fasta file
                     result = [part.strip() for part in result if part.strip()]
                     already_searched[id] = result

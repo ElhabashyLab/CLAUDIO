@@ -1,5 +1,5 @@
-from claudio.utils.utils import verbose_print
 import pandas as pd
+from claudio.utils.utils import verbose_print
 
 
 def write_outputs(data: pd.DataFrame, unique_proteins_list: pd.DataFrame,

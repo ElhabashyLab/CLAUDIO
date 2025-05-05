@@ -1,10 +1,10 @@
+import concurrent.futures
+from io import StringIO
 import os
 import socket
 import sys
 import pandas as pd
 import requests as r
-from io import StringIO
-import concurrent.futures
 
 from claudio.utils.utils import verbose_print, round_self
 
@@ -117,7 +117,7 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
 
         # Return information and sequence to container lists
         return i,info
-    
+
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(meta_search_task,i, protein):

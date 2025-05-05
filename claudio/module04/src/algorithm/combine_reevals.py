@@ -33,8 +33,8 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
     if compute_scoring:
         # new crosslink type based on score
         data["inter_score"] = data.apply(
-            lambda x: score_inter_potential(x, plddt_cutoff, linker_minimum, 
-                                            linker_maximum, 
+            lambda x: score_inter_potential(x, plddt_cutoff, linker_minimum,
+                                            linker_maximum,
                                             euclidean_strictness,
                                             distance_maximum), axis=1
         )
@@ -79,12 +79,12 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
     Returns
     -------
     score : (float | int)
-    """ 
+    """
 
     score = 0.0
 
-    # calculate distance argument of inter protein crosslink confidence score, 
-    # if plddt included, which is True if entry is not retrieved from 
+    # calculate distance argument of inter protein crosslink confidence score,
+    # if plddt included, which is True if entry is not retrieved from
     # AlphaFold or if both plddts surpass or are equal to the given cutoff
     dist_argument = (not pd.isna(datapoint.eucl_dist)) and \
                     (not pd.isna(datapoint.topo_dist)) and \
@@ -92,7 +92,7 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
                     (datapoint.pLDDT_b == '-' or float(datapoint.pLDDT_b) >= plddt_cutoff)
 
     if dist_argument:
-        # include euclidean distance score only if euclidean strictness 
+        # include euclidean distance score only if euclidean strictness
         # is not None
         if euclidean_strictness is not None:
             # set euclidean linker minimum and maximum with euclidean strictness
@@ -113,11 +113,11 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
         topo_dist = datapoint.topo_dist if datapoint.topo_dist < distance_maximum else distance_maximum
         raw_topo_score = (topo_dist - linker_maximum) / (distance_maximum - linker_maximum)
         if datapoint.topo_dist <= linker_minimum:
-            # If the euclidean strictness is set to None the max score for 
+            # If the euclidean strictness is set to None the max score for
             # topological is 0.5, else 0.25
             score += .25 if euclidean_strictness is not None else .5
         elif datapoint.topo_dist >= linker_maximum:
-            # If the euclidean strictness is set to None the max score 
+            # If the euclidean strictness is set to None the max score
             # for topological is 0.5, else 0.25
             score += raw_topo_score * .25 if euclidean_strictness is not None else raw_topo_score * .5
 
@@ -128,8 +128,8 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
     return round_self(score, 3)
 
 
-def write_evidence(datapoint: pd.Series, plddt_cutoff: float, 
-                   linker_minimum: float, linker_maximum: float, 
+def write_evidence(datapoint: pd.Series, plddt_cutoff: float,
+                   linker_minimum: float, linker_maximum: float,
                    euclidean_strictness: float):
     """
     combine distance and homo signal reevaluation, create evidence string
@@ -165,9 +165,9 @@ def write_evidence(datapoint: pd.Series, plddt_cutoff: float,
             euclidean_linker_maximum = linker_maximum - euclidean_strictness
             euclidean_linker_maximum = euclidean_linker_maximum if euclidean_linker_maximum > 0 else 0
 
-        # set boolean arguments whether euclidean distance is not in 
-        # linker range, whether topological distance is not in linker range, 
-        # both distances are lower than minimum, and both distances are higher 
+        # set boolean arguments whether euclidean distance is not in
+        # linker range, whether topological distance is not in linker range,
+        # both distances are lower than minimum, and both distances are higher
         # than maximum
         e_dist_arg = (datapoint.eucl_dist <= euclidean_linker_minimum) or \
                      (datapoint.eucl_dist >= euclidean_linker_maximum) \

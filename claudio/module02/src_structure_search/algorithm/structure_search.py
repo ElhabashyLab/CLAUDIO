@@ -1,17 +1,17 @@
-from io import StringIO
-import requests as r
-import time
-import socket
-import pandas as pd
-import os
 import concurrent.futures
+from io import StringIO
+import os
+import socket
+import time
+import requests as r
+import pandas as pd
 
 from claudio.utils.utils import verbose_print, round_self
 
 
 def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
-                     query_id: float, coverage: float, tmp_filepath: str, 
-                     blast_bin: str | None, blast_db: str, 
+                     query_id: float, coverage: float, tmp_filepath: str,
+                     blast_bin: str | None, blast_db: str,
                      hhsearch_bin: str | None, hhsearch_db: str,
                      verbose_level: int):
     """
@@ -43,28 +43,28 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     not_found = []
     ind = 0
 
-    # Save each already search uniprot entries' id and result for quick 
+    # Save each already search uniprot entries' id and result for quick
     # retrieval if reencountered (instead of repeating the same search)
     already_searched = {}
     unique_prots = list(set(zip(data.unip_id_a, data.seq_a)) 
                         | set(zip(data.unip_id_b, data.seq_b)))
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(perform_search, unip_id, seq, search_tool, 
+        futures = {executor.submit(perform_search, unip_id, seq, search_tool,
                                    e_value, query_id, coverage, tmp_filepath,
-                                   blast_bin, blast_db, hhsearch_bin, 
-                                   hhsearch_db): 
+                                   blast_bin, blast_db, hhsearch_bin,
+                                   hhsearch_db):
                                    (unip_id,seq) for unip_id,seq in unique_prots}
 
         for future in concurrent.futures.as_completed(futures):
             try:
                 if future.result() is not None:
                     best_results, pdb_id, chain, unip_id = future.result()
-                    already_searched[unip_id] = (pdb_id, chain, 
+                    already_searched[unip_id] = (pdb_id, chain,
                                                  ' '.join(best_results))
                     ind += 1
                     progress = round_self((ind * 100) / len(unique_prots), 2)
-                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level, 
+                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level,
                                   end='')
                 del futures[future]
             except Exception as e:
@@ -115,10 +115,10 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     verbose_print("", 1, verbose_level)
 
     # Save results to temporary save file
-    data[["pdb_id", "chain_a", "chain_b", "all_results"]].to_csv(tmp_filepath, 
+    data[["pdb_id", "chain_a", "chain_b", "all_results"]].to_csv(tmp_filepath,
                                                                  index=False)
 
-    # Print ids of entries which were not found in rcsb database (will be 
+    # Print ids of entries which were not found in rcsb database (will be
     # retrieved from alphafold database instead)
     if not data[data.unip_id_a == data.unip_id_b].empty:
         not_found_proteins = pd.concat([data.loc[not_found].unip_id_a,
@@ -129,9 +129,9 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     return data
 
 
-def perform_search(unip_id: str, sequence: str, search_tool: str, 
-                   e_value: float, query_id: float, coverage: float, 
-                   tmp_filepath: str, blast_bin: str | None, blast_db: str, 
+def perform_search(unip_id: str, sequence: str, search_tool: str,
+                   e_value: float, query_id: float, coverage: float,
+                   tmp_filepath: str, blast_bin: str | None, blast_db: str,
                    hhsearch_bin: str | None, hhsearch_db: str):
     """
     Perform either hhsearch or blastp search for unique uniprot entry in rcsb 
@@ -159,7 +159,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
     unip_id : str
     """
 
-    # Save uniprot sequence in a temporary fasta file for search tool 
+    # Save uniprot sequence in a temporary fasta file for search tool
     # commandline call (override before each new search)
     temp_path = '/'.join(tmp_filepath.split('/')[:-1]) + '/'
     with open(f"{temp_path}tmp{unip_id}.fasta", 'w') as tmp_file:
@@ -167,7 +167,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
         tmp_file.close()
         search_results = []
 
-        # Perform search with either hhsearch or blastp (Note: Watch 
+        # Perform search with either hhsearch or blastp (Note: Watch
         # environmental variables $BLASTDB, $HHDB to be set according
         # to instructions found in README.md)
         if search_tool == "blastp":
@@ -178,7 +178,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
                               names=["pdb", "ident", "cov", "eval"],
                               dtype={"pdb": str, "ident": float, "cov": float,
                                      "eval": float})
-            search_results = res[(res["ident"] >= query_id) 
+            search_results = res[(res["ident"] >= query_id)
                                  & (res["cov"] >= coverage)]
             search_results = search_results.loc[:, "pdb"].tolist()
 
@@ -199,7 +199,7 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
                           if chains[index] is not None else res
                           for index, res in enumerate(search_results)]
 
-        # If search successful, save result to respective container lists, 
+        # If search successful, save result to respective container lists,
         # and full result to already_searched_res with specified chain
         if search_results and ('_' in search_results[0]):
             pdb_id = search_results[0].split('_')[0]
@@ -235,7 +235,7 @@ def retrieve_identical_chain_ids(pdb_id: str, chain: str, max_try: int):
     num_connect_error = 0
     for _ in range(max_try):
         try:
-            # on successful fasta download, 
+            # on successful fasta download,
             # attempt to find identical chain ids
             fasta_content = ''.join(r.get(f"https://www.rcsb.org/fasta/entry/{pdb_id}",timeout=60).text)
             chain_infos = [segment
@@ -249,8 +249,8 @@ def retrieve_identical_chain_ids(pdb_id: str, chain: str, max_try: int):
                            if "[auth" in sub_chain else sub_chain.replace(' ', '')
                            for sub_chain in new_chain.split(',')]
                           for new_chain in new_chains]
-            new_chains = [chain_list for chain_list 
-                                     in new_chains 
+            new_chains = [chain_list for chain_list
+                                     in new_chains
                                      if chain in chain_list][0]
             return new_chains
         # Retry on timeout after short sleep

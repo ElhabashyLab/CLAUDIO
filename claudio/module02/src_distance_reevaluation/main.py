@@ -1,8 +1,9 @@
+import cProfile
 import os
-import click
-import time
+import pstats
 import sys
-import cProfile, pstats
+import time
+import click
 
 from claudio.module02.src_distance_reevaluation.io.read_uniprot_search_out import read_unipsearch_out
 from claudio.module02.src_distance_reevaluation.algorithm.search_pdb_pos import search_site_pos_in_pdb
@@ -10,8 +11,8 @@ from claudio.module02.src_distance_reevaluation.algorithm.calc_site_distances im
 from claudio.module02.src_distance_reevaluation.io.write_out import write_output
 from claudio.module02.src_distance_reevaluation.algorithm.create_plots import create_histogram
 
-from claudio.utils.utils import verbose_print, create_out_path, clean_input_paths, build_xl_dataset, clean_dataset, \
-    round_self
+from claudio.utils.utils import (verbose_print, create_out_path, clean_input_paths,
+                                 build_xl_dataset, clean_dataset, round_self)
 
 
 @click.command()
@@ -27,9 +28,31 @@ from claudio.utils.utils import verbose_print, create_out_path, clean_input_path
 @click.option("-o", "--output-directory", default="test/out/sample")
 @click.option("-tl", "--topolink-bin", default=None)
 @click.option("-v", "--verbose-level", default=2)
-def main(input_directory, input_filepath, input_temppath, search_tool, 
-         xl_residues, plddt_cutoff, linker_minimum, linker_maximum, 
+def main(input_directory, input_filepath, input_temppath, search_tool,
+         xl_residues, plddt_cutoff, linker_minimum, linker_maximum,
          output_directory, topolink_bin, verbose_level):
+    """
+    Performs distance evaluation as part of the structural analysis
+    
+    Parameters
+    ----------
+    input_directory : str,
+    input_filepath : str,
+    input_temppath : str,
+    search_tool : str,
+    xl_residues : str,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    output_directory : str,
+    topolink_bin : str | None,
+    verbose_level : int
+
+    Returns
+    -------
+    None
+
+    """
     verbose_print("Start intra interaction check", 0, verbose_level)
     start_time = time.time()
     profile = cProfile.Profile()
@@ -87,7 +110,7 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
     runtime = round_self(time.time() - start_time, 2)
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
-    
+
     profile.disable()  # --- stop profiling
     profile.create_stats()
     with open("profileM02_DR.txt", 'w') as fp:
@@ -134,8 +157,7 @@ def inputs_valid(input_directory: str, input_filename: str, search_tool: str,
                     plddt_cutoff = float(plddt_cutoff)
                     if 0 <= plddt_cutoff <= 100:
                         return True
-                    else:
-                        raise Exception(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
+                    raise Exception(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
                 except:
                     raise Exception(f"Value given for pLDDT cutoff should be possible to turn into a float "
                                     f"(given: {plddt_cutoff}).")

@@ -1,7 +1,8 @@
-import click
+import cProfile
+import pstats
 import sys
 import time
-import cProfile,pstats
+import click
 
 from claudio.module03.src.io.read_in import read_in
 from claudio.module03.src.algorithm.signal_analysis import analyse_homo_signals
@@ -13,11 +14,25 @@ from claudio.utils.utils import verbose_print, clean_input_paths, \
 
 
 @click.command()
-@click.option("-i", "--input-filepath", 
+@click.option("-i", "--input-filepath",
               default="test/out/sample/sample_data_random.sqcs")
 @click.option("-o", "--output-directory", default="test/out/sample/")
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, output_directory, verbose_level):
+    """
+    Performs overlapping peptide sequence (OPS) analysis
+
+    Parameters
+    ----------
+    input_filepath : str
+    output_directory : string
+    verbose_level : int
+
+    Returns
+    -------
+    None
+    
+    """
     profile = cProfile.Profile()
     profile.enable()   # --- start profiling
     verbose_print("Start Homo-signal analysis", 0, verbose_level)

@@ -1,8 +1,9 @@
+import cProfile
 import os
-import click
+import pstats
 import sys
 import time
-import cProfile, pstats
+import click
 
 from claudio.module02.src_structure_search.io.read_input import read_in
 from claudio.module02.src_structure_search.algorithm.structure_search import structure_search
@@ -11,12 +12,12 @@ from claudio.module02.src_structure_search.algorithm.pdb_download import downloa
 from claudio.module02.src_structure_search.algorithm.chain_copies import create_ident_chain_copies
 from claudio.module02.src_structure_search.io.write_out import write_output
 
-from claudio.utils.utils import verbose_print, clean_input_paths, \
-                                create_out_path, round_self
+from claudio.utils.utils import (verbose_print, clean_input_paths,
+                                create_out_path, round_self)
 
 
 @click.command()
-@click.option("-i", "--input-filepath", 
+@click.option("-i", "--input-filepath",
               default="test/out/sample/sample_data_random.sqcs")
 @click.option("-it", "--input-temppath", default=None)
 @click.option("-s", "--do-structure-search", default=True)
@@ -31,16 +32,41 @@ from claudio.utils.utils import verbose_print, clean_input_paths, \
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-v", "--verbose-level", default=2)
-def main(input_filepath, input_temppath, do_structure_search, search_tool, 
+def main(input_filepath, input_temppath, do_structure_search, search_tool,
          e_value, query_id, coverage, res_cutoff, output_directory, blast_bin,
          blast_db, hhsearch_bin, hhsearch_db, verbose_level):
+    """
+        Performs structure search as part of the structural analysis
+
+        Parameters
+        ----------
+        input_filepath : str,
+        input_temppath : str,
+        do_structure_search : bool,
+        search_tool : str,
+        e_value : float,
+        query_id : float,
+        coverage : float,
+        res_cutoff : int,
+        output_directory : str,
+        blast_bin : str | None,
+        blast_db : str,
+        hhsearch_bin : str | None,
+        hhsearch_db : str,
+        verbose_level : int
+
+        Returns
+        -------
+        None
+
+    """
     verbose_print("Start structure search", 0, verbose_level)
     start_time = time.time()
     profile = cProfile.Profile()
     profile.enable()   # --- start profiling
 
     # Get absolute paths and translate eventual windows paths
-    list_of_paths = [input_filepath, input_temppath, output_directory, 
+    list_of_paths = [input_filepath, input_temppath, output_directory,
                      blast_bin, blast_db, hhsearch_bin, hhsearch_db]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, \
     hhsearch_bin, hhsearch_db = clean_input_paths(list_of_paths)
@@ -53,9 +79,9 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
     output_directory = create_out_path(output_directory, input_filepath)
 
     # If parameters inputted by user valid
-    if inputs_valid(input_filepath, input_temppath, do_structure_search, 
-                    search_tool, e_value, query_id, coverage, res_cutoff, 
-                    output_directory, blast_bin, blast_db, hhsearch_bin, 
+    if inputs_valid(input_filepath, input_temppath, do_structure_search,
+                    search_tool, e_value, query_id, coverage, res_cutoff,
+                    output_directory, blast_bin, blast_db, hhsearch_bin,
                     hhsearch_db, verbose_level):
         e_value = float(e_value)
         query_id = float(query_id)
@@ -66,7 +92,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         verbose_print("Read input", 0, verbose_level)
         data, filename = read_in(input_filepath)
 
-        # If given variable do_structure_search is True perform new search, 
+        # If given variable do_structure_search is True perform new search,
         # else retrieve results from earlier temporary save file
         tmp_filepath = f"{temp_dir}{'.'.join(filename.split('.')[:-1])}_{search_tool}_bltmp.{filename.split('.')[-1]}"
         if (not do_structure_search) and os.path.exists(tmp_filepath):
@@ -74,14 +100,14 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
             data = read_temp_file(data, tmp_filepath)
         else:
             verbose_print(f"Perform {search_tool} search", 0, verbose_level)
-            data = structure_search(data, search_tool, e_value, query_id, 
-                                    coverage, tmp_filepath, blast_bin, 
-                                    blast_db, hhsearch_bin, hhsearch_db, 
+            data = structure_search(data, search_tool, e_value, query_id,
+                                    coverage, tmp_filepath, blast_bin,
+                                    blast_db, hhsearch_bin, hhsearch_db,
                                     verbose_level)
 
-        # Download structure files from RCSB database into structures 
-        # subdirectory, if search tool found a proper result, 
-        # else use Uniprot ID in order to attempt retrieval of matching 
+        # Download structure files from RCSB database into structures
+        # subdirectory, if search tool found a proper result,
+        # else use Uniprot ID in order to attempt retrieval of matching
         # AlphaFold entry
         verbose_print("Download structures from RCSB database, or AlphaFold database if not found there", 0,
                       verbose_level)
@@ -90,7 +116,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         data = download_pdbs(data, search_tool, res_cutoff,
                              f"{output_directory}structures/", verbose_level)
 
-        # Create copy datapoints with marked indeces for alternative but 
+        # Create copy datapoints with marked indeces for alternative but
         # identical chains
         data = create_ident_chain_copies(data)
 
@@ -110,8 +136,8 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
 
 def inputs_valid(input_filepath: str, input_temppath: str,
                  do_structure_search: bool, search_tool: str, e_value: float,
-                 query_id: float, coverage: float, res_cutoff: float, 
-                 output_directory: str, blast_bin: str | None, blast_db: str, 
+                 query_id: float, coverage: float, res_cutoff: float,
+                 output_directory: str, blast_bin: str | None, blast_db: str,
                  hhsearch_bin: str | None, hhsearch_db: str,
                  verbose_level: int):
     """
@@ -157,14 +183,14 @@ def inputs_valid(input_filepath: str, input_temppath: str,
                         e_value = float(e_value)
                         # check whether e-value is a value between 0 and 1
                         if 0 < e_value < 1:
-                            # check whether value given for query identity 
+                            # check whether value given for query identity
                             # can be turned into a float variable
                             try:
                                 query_id = float(query_id)
-                                # check whether query identity is a value 
+                                # check whether query identity is a value
                                 # in [0,100]
                                 if 0 <= query_id <= 100:
-                                    # check whether value given for coverage 
+                                    # check whether value given for coverage
                                     # can be turned into a float variable
                                     try:
                                         coverage = float(coverage)
@@ -173,7 +199,7 @@ def inputs_valid(input_filepath: str, input_temppath: str,
                                         if 0 <= coverage <= 100:
                                             try:
                                                 # check whether value given
-                                                #  for resolution cutoff can 
+                                                #  for resolution cutoff can
                                                 # be turned into a float variable
                                                 res_cutoff = float(res_cutoff)
                                                 return True

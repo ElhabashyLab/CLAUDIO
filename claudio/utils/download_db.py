@@ -1,15 +1,15 @@
-import requests as r
-import pandas as pd
-import time
-import os
-import gzip
-import numpy as np
 import concurrent.futures
-from Bio import PDB
-from claudio.utils.utils import verbose_print, round_self
+import gzip
+import os
+import time
 import warnings
+from Bio import PDB
+import numpy as np
+import pandas as pd
+import requests as r
+from claudio.utils.utils import verbose_print, round_self
 
-warnings.filterwarnings("ignore", 
+warnings.filterwarnings("ignore",
                         category=PDB.StructureBuilder.PDBConstructionWarning)
 
 def query_pdb_after_date(date_str: str):
@@ -110,7 +110,7 @@ def download_pdbs(data, output_dir):
         methods and resolutions.
     None
     """
-    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", 
+    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                             "ELECTRON CRYSTALLOGRAPHY", "NEUTRON DIFFRACTION", 
                             "FIBER DIFFRACTION"]
     resolution_excepted_methods = ["SOLUTION NMR", "SOLID-STATE NMR"]
@@ -131,7 +131,7 @@ def download_pdbs(data, output_dir):
             accept_method = False         
             lines = pdb_file.split('\n')
             for line in lines:
-                # If line startswith _exptl.method, it contains the information 
+                # If line startswith _exptl.method, it contains the information
                 # of the experimental method used for structure determination
                 if line.startswith("_exptl.method "):
                     method = ''.join([w for w in line.split(sep="\'") if w][1])
@@ -141,7 +141,7 @@ def download_pdbs(data, output_dir):
                         resolution = np.NaN
                         data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
                     break
-                # If line contains _em_3d_reconstruction.resolution 
+                # If line contains _em_3d_reconstruction.resolution
                 # or _refine.ls_d_res_high, depending on the used method,
                 # it contains the float value of the resolution, accept it if it
                 # is below or equal to the threshhold
@@ -171,17 +171,17 @@ def download_pdbs(data, output_dir):
             if method in resolution_excepted_methods:
                 resolution = np.NaN
                 data.loc[data['pdb_id'] == pdb_id, 'resolution'] = resolution
-            
-        
+
+
         with gzip.open(f'{filename}.gz', 'wt') as f:
             f.write(pdb_file)
-    
+
     if data.empty:
         return
     else:
-        verbose_print(f"Download progress:", 1, 2)
+        verbose_print("Download progress:", 1, 2)
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = {executor.submit(download_pdb_task, pdb_id): 
+            futures = {executor.submit(download_pdb_task, pdb_id):
                        pdb_id for pdb_id in data['pdb_id']}
             ind = 0
             for future in concurrent.futures.as_completed(futures):
@@ -205,7 +205,7 @@ def update_pdb_database():
     -------
     None
     """
-    
+
     # read the existing PDB IDs to check when the last update was made
     if os.path.exists('./claudio/data/pdb/pdb_ids.csv'):
         df = pd.read_csv('./claudio/data/pdb/pdb_ids.csv')
@@ -216,7 +216,7 @@ def update_pdb_database():
         df = pd.DataFrame(columns=['pdb_id', 'modification_date', 'method',
                                    'resolution'])
         date_str = '1970-01-01'
-    # query the PDB database for all files which were updated after the 
+    # query the PDB database for all files which were updated after the
     # oldest update-date and download them
 
     new_pdbs = query_pdb_after_date(date_str)
@@ -231,15 +231,13 @@ def update_pdb_database():
         df = pd.concat([df,new_pdbs])
         df = df.sort_values("modification_date").drop_duplicates(subset="pdb_id", keep="last")
         # df = populate_pdb_info(df, new_pdbs['pdb_id'].tolist(), './claudio/data/pdb/')
-            
+
         df["modification_date"] = time.strftime("%Y-%m-%d")
         df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
 
 
 if __name__ == "__main__":
-    """
-    Update the local PDB database with the latest PDB files. If no local
-    database exists, it creates one by downloading all available structures
-    containing proteins. 
-    """
+    # Update the local PDB database with the latest PDB files. If no local
+    # database exists, it creates one by downloading all available structures
+    # containing proteins.
     update_pdb_database()

@@ -1,8 +1,8 @@
-import os
-import numpy as np
-import warnings
-import pandas as pd
 import concurrent.futures
+import os
+import warnings
+import numpy as np
+import pandas as pd
 
 from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser, Select, PDBIO
 
@@ -69,7 +69,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
 
     toplink_dists = []
     ind = 0
-    
+
     # create directory for topolink input files
     os.makedirs(f"{temp_dir}in/", exist_ok=True)
     # create directory for topolink structures
@@ -127,7 +127,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
             plddt_unfulfilled = (row.method_a == "alphafold") and \
                                 ((row.pLDDT_a != '-' and (float(row.pLDDT_a) < plddt_cutoff)) or \
                                  (row.pLDDT_b != '-' and (float(row.pLDDT_b) < plddt_cutoff)))
-            # Don't compute dist for datapoints which do not fulfill the residue, interface criteria, or pLDDT cutoff
+            # Don't compute dist for datapoints which do not fulfill the residue, interface criteria,
+            # or pLDDT cutoff
             if not plddt_unfulfilled:
                 try:
                     # observed LYS A 468 LYS A 457
@@ -269,15 +270,15 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         data.loc[index, "topo_dist_tplk"] = round_self(top_dist, 3)
 
     # Fill topolink distances with zero, if positions equal
-    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b) 
+    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b)
              & (data.chain_a == data.chain_b), "eucl_dist_tplk"] = 0.0
-    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b) 
+    data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b)
              & (data.chain_a == data.chain_b), "topo_dist_tplk"] = 0.0
 
     return data
 
 
-def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str, 
+def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
                       chain_ids: list[str]):
     """
     isolate chains with cross-links and write only those chains to pdb

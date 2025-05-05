@@ -16,7 +16,8 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
 
     Returns
     -------
-        None
+    None
+
     """
 
     # save list of already written results by uniprot ids
@@ -33,7 +34,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
     for row in data.itertuples():
         unip_id = f"{row.unip_id_a}_{row.unip_id_b}" if row.unip_id_a != row.unip_id_b else row.unip_id_a
 
-        # only write new result files if results for uniprot entry were 
+        # only write new result files if results for uniprot entry were
         # not written yet
         if (unip_id not in already_written) and (row.XL_type == "inter"):
             is_intra = row.unip_id_a == row.unip_id_b
@@ -42,10 +43,10 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
             if not os.path.exists(output_subdirectory):
                 os.mkdir(output_subdirectory)
 
-            # If intra crosslink, write fasta with subsequent 
+            # If intra crosslink, write fasta with subsequent
             # number of sequences
             if is_intra:
-                # if valid oligo-states were found, create fasta with 
+                # if valid oligo-states were found, create fasta with
                 # respective number of sequence copies (ex.: 3mer -> 3 seqs)
                 if row.swiss_model_homology:
                     for oligo_state in row.swiss_model_homology.split('_'):
@@ -54,17 +55,17 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                             content = f">{unip_id}\n{row.seq_a}\n"
                             for _ in range(num_mer):
                                 f.write(content)
-                # else assume unknown homomer, with two sequences for now, 
+                # else assume unknown homomer, with two sequences for now,
                 # but leave oligo-state field in filename empty
                 # (user may decide here)
                 else:
                     with open(f"{output_subdirectory}/{unip_id}_new_homomer.fasta", 'w') as f:
                         content = f">{unip_id}\n{row.seq_a}\n"
                         f.write(content + content)
-            # Else write multi fasta with involved sequences for 
+            # Else write multi fasta with involved sequences for
             # heteromer complex
             else:
-                # If heteromeric state given by SWISS-MODEL write 
+                # If heteromeric state given by SWISS-MODEL write
                 # title plainly, else write identifier for new heteromer
                 multifasta_filename = f"{unip_id}_heteromer.fasta" \
                     if "hetero" in row.swiss_model_homology else f"{unip_id}_new_heteromer.fasta"
@@ -79,7 +80,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                 unip_arg = ((data.unip_id_a == unip_id.split('_')[0]) & (data.unip_id_b == unip_id.split('_')[1])) | \
                             ((data.unip_id_a == unip_id.split('_')[1]) & (data.unip_id_b == unip_id.split('_')[0]))
 
-            data[unip_arg][['pdb_id', 'chain_a', 'chain_b', 'pdb_pos_a', 
+            data[unip_arg][['pdb_id', 'chain_a', 'chain_b', 'pdb_pos_a',
                             'pdb_pos_b', 'pos_a', 'pos_b', 
                             'swiss_model_homology', 'XL_type']]\
                 .to_csv(f"{output_subdirectory}/{unip_id}_{row.swiss_model_homology}.csv", index=False)
@@ -93,14 +94,14 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
 
     # write full output dataset containing all given and computed information
     # select columns
-    all_cols = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b", 
+    all_cols = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b",
                 "res_pos_a", "res_pos_b", "seq_a", "seq_b", "path", "pdb_id", 
                 "pdb_method", "pdb_resolution", "chain_a", "chain_b", 
                 "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", 
                 "is_interfaced", "topo_dist", "eucl_dist", "homo_adjacency", 
                 "homo_int_overl", "homo_pep_overl", "evidence", "XL_type", 
                 "XL_confirmed", "swiss_model_homology"]
-    out_columns = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", 
+    out_columns = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a",
                    "pep_b", "res_pos_a", "res_pos_b", "pdb_id", "pdb_method",
                    "pdb_resolution", "chain_a", "chain_b", "pdb_pos_a", 
                    "pdb_pos_b", "pLDDT_a", "pLDDT_b", "topo_dist", "eucl_dist",
@@ -137,7 +138,7 @@ def write_small_test_sets(data: pd.DataFrame):
 
     test_data = data[(data.pdb_id.astype(str).str.len() > 4) &
                      (~data.index.astype(str).str.contains('_'))][
-        ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b", 
+        ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b",
          "res_pos_a", "res_pos_b"]
     ]
     test_data["Organism"] = ""
@@ -152,16 +153,16 @@ def write_small_test_sets(data: pd.DataFrame):
     pdb_mchains_found = {str(i): not data[data.index.astype(str).str.startswith(i) &
                                           data.index.astype(str).str.contains('_')].empty
                          for i in data.index if '_' not in str(i)}
-    test_data = test_data.loc[(not pdb_mchains_found[str(i)] 
+    test_data = test_data.loc[(not pdb_mchains_found[str(i)]
                                for i in test_data.index)]
     if len(test_data.index) >= 10:
         print("Wrote xl dataset with 10 samples.")
-        test_data.sample(10).to_csv(f"../test/sample_data_10.csv", 
+        test_data.sample(10).to_csv("../test/sample_data_10.csv",
                                     index=False)
 
         if len(test_data.index) >= 100:
             print("Wrote xl dataset with 100 samples.")
-            test_data.sample(100).to_csv(f"../test/sample_data_100.csv", 
+            test_data.sample(100).to_csv("../test/sample_data_100.csv",
                                          index=False)
 
     if len(test_data.index) < 10:

@@ -1,9 +1,10 @@
+import cProfile
 import os
-import click
+import pstats
 import sys
 import time
+import click
 import pandas as pd
-import cProfile,pstats
 
 from claudio.module01.src.io.read_in import read_inputfile
 from claudio.module01.src.io.read_temp import read_temp_search_save

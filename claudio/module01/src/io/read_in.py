@@ -1,5 +1,5 @@
-import pandas as pd
 import sys
+import pandas as pd
 
 
 def read_inputfile(input_filepath: str, projections: dict):

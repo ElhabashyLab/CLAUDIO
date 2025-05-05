@@ -55,7 +55,7 @@ def create_ident_chain_copies(data: pd.DataFrame):
     return data
 
 
-def annotate_multi_chain_dps(data_row: pd.Series, 
+def annotate_multi_chain_dps(data_row: pd.Series,
                              new_data_infos: list[tuple[pd.Series,str,str]]):
     """
     Annotate options if multiple chains were found, if so furthermore replace 

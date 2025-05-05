@@ -1,8 +1,22 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def setup_pml_scripts(data, bg_color="white"):
+    """
+    Prepares PyMOL scripts for visualization of crosslink data.
+    
+    Parameters
+    ----------
+    data : pd.DataFrame
+    bg_color : str
+    
+    Returns
+    -------
+    None
+    
+    """
+
     for pdb_id in data.pdb_id.unique():
         if pdb_id.replace(' ', '') != '' and \
                 pdb_id != '-' and \
@@ -15,9 +29,9 @@ def setup_pml_scripts(data, bg_color="white"):
             chains_dict = {}
             color_i = 3
             for chain in chains:
-                dps_with_chain = xl_set[(xl_set.chain_a == chain) 
+                dps_with_chain = xl_set[(xl_set.chain_a == chain)
                                         | (xl_set.chain_b == chain)]
-                if np.any(~(pd.isna(dps_with_chain.pdb_pos_a) 
+                if np.any(~(pd.isna(dps_with_chain.pdb_pos_a)
                             | pd.isna(dps_with_chain.pdb_pos_b))):
                     color_i = color_i + 1 if color_i in [2, 4, 6, 13] else color_i
                     chains_dict[chain] = color_i
@@ -49,8 +63,8 @@ def setup_pml_scripts(data, bg_color="white"):
             for row in xl_set.itertuples():
                 i = row.Index
                 if not (pd.isna(row.pdb_pos_a) or pd.isna(row.pdb_pos_b)) and (row.XL_confirmed or '_' not in str(i)):
-                    dist_data = (i, 
-                                 (row.chain_a, row.pdb_pos_a, 
+                    dist_data = (i,
+                                 (row.chain_a, row.pdb_pos_a,
                                   row.chain_b, row.pdb_pos_b)
                                 )
                     dists[
@@ -66,6 +80,23 @@ def setup_pml_scripts(data, bg_color="white"):
 
 
 def write_pml_script(dists, color_map, output_path, start=0, zoom=50):
+    """
+    Write PyMOL script to visualize crosslink data.
+    
+    Parameters
+    ----------
+    dists : dict
+    color_map : dict
+    output_path : str
+    start : int
+    zoom : int
+    
+    Returns
+    -------
+    None
+    
+    """
+
     chains = color_map["chain"].keys()
     pdb = output_path.split('/')[-1].split('.')[0]
 
@@ -98,10 +129,10 @@ def write_pml_script(dists, color_map, output_path, start=0, zoom=50):
             for site in sites:
                 file_content += f"color {color_map[d_type][site] if color_specified else 'white'}, {d_type}*_{site}\n"
 
-        file_content += f"set dash_gap, 1, *_out_range\n" \
-                        f"set dash_gap, 1, *_overlaps\n" \
-                        f"set dash_gap, 1, *_same\n" \
-                        f"hide dashes, *_unknown\n"
+        file_content += "set dash_gap, 1, *_out_range\n" \
+                        "set dash_gap, 1, *_overlaps\n" \
+                        "set dash_gap, 1, *_same\n" \
+                        "hide dashes, *_unknown\n"
 
         file_content += f"set dash_width, 9\n" \
                         f"center\n" \

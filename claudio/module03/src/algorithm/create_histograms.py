@@ -28,12 +28,12 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
         bins = [round(x * 0.1, 1) for x in range(11)]
         plt.figure(figsize=(6.5, 6), constrained_layout=True)
         freq, _, _ = plt.hist(adj_data, bins=bins, color=colors[0])
-        plt.xlabel(f"relative adjacency")
+        plt.xlabel("relative adjacency")
         bin_centers = np.diff(bins) * .5 + bins[:-1]
         for fr, x in zip(freq, bin_centers):
             height = int(fr)
             plt.annotate(str(height) if height > 0 else '', xy=(x, height),
-                         xytext=(0, .2), textcoords="offset points", 
+                         xytext=(0, .2), textcoords="offset points",
                          ha="center", va="bottom")
         plt.ylabel("frequency")
         x_labels = [str(x) for x in bins]
@@ -55,10 +55,10 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
         bin_centers = np.diff(bins) * .5 + bins[:-1]
         for fr, x in zip(freq, bin_centers):
             height = int(fr)
-            plt.annotate(str(height) if height > 0 else '', xy=(x, height), 
+            plt.annotate(str(height) if height > 0 else '', xy=(x, height),
                          xytext=(0, .2), textcoords="offset points",
                          ha="center", va="bottom")
-        plt.xlabel(f"relative overlap")
+        plt.xlabel("relative overlap")
         plt.ylabel("frequency")
         x_labels = [str(x) for x in bins]
         plt.xticks(bins, x_labels)

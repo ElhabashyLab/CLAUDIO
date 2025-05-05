@@ -20,7 +20,7 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
     -------
         None
     """
-    #TODO missing input parameter description: cutoff 
+    #TODO missing input parameter description: cutoff
 
     colors = ["#9ACE9A", "#464444"]
     if compute_scoring:
@@ -47,7 +47,7 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
                              xytext=(0, .2), textcoords="offset points",
                              ha="center", va="bottom")
                 known_xy.append((x, y))
-            plt.xlabel(f"score")
+            plt.xlabel("score")
             plt.ylabel("frequency")
             x_labels = [f"{x:.1f}" for x in bins]
             plt.xticks(bins, x_labels)
@@ -92,9 +92,9 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
             abs_val = int(np.round(pct / 100 * np.sum(all_vals)))
             return f"{pct:.1f}%\n(n={abs_val})" if abs_val > 0 else ''
 
-        wedges, _, autos = plt.pie(dataset, 
+        wedges, _, autos = plt.pie(dataset,
                                    autopct=lambda x: percentages(x, dataset),
-                                   colors=colors, 
+                                   colors=colors,
                                    textprops=dict(weight="bold"))
         autos[0].set_color('w')
         plt.legend(wedges, labels)

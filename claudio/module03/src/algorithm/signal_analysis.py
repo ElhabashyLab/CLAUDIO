@@ -1,5 +1,5 @@
-from claudio.utils.utils import round_self,verbose_print
 import pandas as pd
+from claudio.utils.utils import round_self,verbose_print
 
 
 def analyse_homo_signals(data: pd.DataFrame,verbose_level: int):
@@ -48,7 +48,7 @@ def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
     is_pep_a = data_row.pep_a == data.pep_a
     is_pep_b = data_row.pep_b == data.pep_b
     same_peptides = is_pep_a & is_pep_b
-    
+
     filtered_data = data[same_proteins & same_peptides]
 
     for _, row in filtered_data.iterrows():
@@ -106,11 +106,11 @@ def compute_interaction_ovl(data_row: pd.Series,verbose_level: int):
         if data_row["pos_a"] == data_row["pos_b"]:
             return 1.0
         else:
-            site1, site2 = (('a', 'b') 
+            site1, site2 = (('a', 'b')
                             if data_row["pos_a"] < data_row["pos_b"]
                             else ('b', 'a'))
             seq = data_row["seq_a"]
-            pep_a, pep_b = (data_row[f"pep_{site1}"], 
+            pep_a, pep_b = (data_row[f"pep_{site1}"],
                             data_row[f"pep_{site2}"])
             pos_a, pos_b = (int(data_row[f"pos_{site1}"]) - 1,
                             int(data_row[f"pos_{site2}"]) - 1)
@@ -148,12 +148,12 @@ def get_sequence_indices(seq: str, peptide: str, verbose_level: int):
     -------
     set of int
     """
-    
-    if(seq.find(peptide) == -1):
+
+    if seq.find(peptide) == -1:
         verbose_print(f"Peptide {peptide} not found in sequence {seq}", 1,
                       verbose_level,end='')
         return set()
     else:
-        indices = set(range(seq.find(peptide), 
+        indices = set(range(seq.find(peptide),
                             seq.find(peptide) + len(peptide)))
         return indices

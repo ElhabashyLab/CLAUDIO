@@ -1,16 +1,16 @@
+import concurrent.futures
+import gzip
 import os
+import shutil
 import socket
 import time
 import requests as r
 import pandas as pd
-import concurrent.futures
-import gzip
-import shutil
 
 from claudio.utils.utils import verbose_print, round_self
 
 
-def download_wrapper(filename: str, url: str, dataset: pd.DataFrame, 
+def download_wrapper(filename: str, url: str, dataset: pd.DataFrame,
                      pdb_id: str, chain: str, chain_b: str,pdb_file: str):
     """
     Downloads a pdb-file from a given url
@@ -59,12 +59,12 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
     """
 
     ind = 0
-    
+
     # clear output directory of old pdb file results
     clear_output_dir(search_tool, output_directory)
     if os.path.exists('./claudio/data/pdb/pdb_ids.csv'):
         pdb_infos = pd.read_csv('./claudio/data/pdb/pdb_ids.csv')
-        files = [f for f in os.listdir('./claudio/data/pdb/') 
+        files = [f for f in os.listdir('./claudio/data/pdb/')
                  if f.endswith(".pdb.gz") or f.endswith(".cif.gz")]
     else: 
         pdb_infos = pd.DataFrame(columns=["pdb_id","method","resolution"])
@@ -96,30 +96,30 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
 
                     # if intra crosslink, download from AlphaFold
                     if row.unip_id_a == row.unip_id_b:
-                            
+
                             # Create custom alphafold pdb filename
                             pdb_id = f"af{row.unip_id_a}"
                             chain = 'A'
                             chain_b = 'A'
                             filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
                             url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v4.pdb"
-                    
+
                     # no download possible
                     else:
                         continue
-            # pdb was found locally, check method and resolution from info 
+            # pdb was found locally, check method and resolution from info
             # file created on local database creation/update
             if pdb_available:
                 method_accepted, method, resolution = accept_resolution_method_local(pdb_infos, pdb_id, res_cutoff)
-            else: 
+            else:
                 pdb_id, chain, chain_b, pdb_file = download_wrapper(filename,
-                                                                    url, 
+                                                                    url,
                                                                     dataset,
-                                                                    pdb_id, 
-                                                                    chain, 
+                                                                    pdb_id,
+                                                                    chain,
                                                                     chain_b,pdb_file)
 
-                # Check whether method and resolution are accepted, 
+                # Check whether method and resolution are accepted,
                 # return respective bool, method and resolution
                 method_accepted, method, resolution = accept_resolution_method_download(pdb_file, pdb_id, res_cutoff)
 
@@ -152,7 +152,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                 if "NMR" not in method:
                     break
         return dataset
-    
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(download_task, row.Index, row): 
                    row for row in dataset.itertuples()}
@@ -211,7 +211,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
     -------
     pdb_file : str | None 
     """
-    
+
     try:
         if url.startswith("https://files.rcsb.org/"):
             # Attempt regular .pdb call from RCSB database
@@ -227,15 +227,13 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
             pdb_file = r.get(url,timeout=60).text
             if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
                 return None
-            else:
-                return pdb_file
+            return pdb_file
     # Retry on timeout if not reached max_try already, else return None
     except (r.exceptions.Timeout, TimeoutError):
         if i_try >= max_try:
             return None
-        else:
-            time.sleep(1)
-            return download_pdb_from_db(url, i_try + 1, max_try)
+        time.sleep(1)
+        return download_pdb_from_db(url, i_try + 1, max_try)
     # Break execution if no connection to database possible
     except (ConnectionError, socket.gaierror, r.exceptions.ConnectionError) as e:
         if i_try == max_try:
@@ -269,21 +267,21 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
     # If given pdb-file is empty return False
     if not pdb:
         return False, method, resolution
-    # If pdb_id has length equal or higher than 5, it is an alphafold entry, 
+    # If pdb_id has length equal or higher than 5, it is an alphafold entry,
     # return True
     elif len(pdb_id) >= 5:
         return True, "ALPHAFOLD", "ALPHAFOLD"
-    # In other cases check whether experimental method for structure 
-    # determination was diffraction or microscopy method, and whether the 
+    # In other cases check whether experimental method for structure
+    # determination was diffraction or microscopy method, and whether the
     # resolution is below or equal to the threshhold, if so return True
     else:
-        all_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", 
+        all_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                            "SOLUTION NMR", "ELECTRON CRYSTALLOGRAPHY",
                            "NEUTRON DIFFRACTION", "SOLID-STATE NMR", 
                            "SOLUTION SCATTERING", "FIBER DIFFRACTION",
                            "POWDER DIFFRACTION", "EPR", "THEORETICAL MODEL",
                            "INFRARED SPECTROSCOPY"]
-        accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", 
+        accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                                 "ELECTRON CRYSTALLOGRAPHY",
                                 "NEUTRON DIFFRACTION", "FIBER DIFFRACTION"]
         resolution_excepted_methods = ["SOLUTION NMR", "SOLID-STATE NMR"]
@@ -291,17 +289,17 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
         accept_resolution = False
 
         for line in pdb.split('\n'):
-            # If line startswith EXPDTA, it contains the information of the 
+            # If line startswith EXPDTA, it contains the information of the
             # experimental method used for structure determination
             if line.startswith("EXPDTA"):
-                method = ' '.join([w for w in line.replace('  ', ' ').split() 
+                method = ' '.join([w for w in line.replace('  ', ' ').split()
                                    if w][1:])
                 accept_method = method in accepted_pdb_methods
             # If line contains ANGSTROMS. and RESOLUTION. it contains the float
-            # value of the resolution, accept if it is below or equal to the 
+            # value of the resolution, accept if it is below or equal to the
             # threshhold
             elif ("ANGSTROMS." in line) and ("RESOLUTION." in line):
-                resolution = float([w for w in line.replace('  ', ' ').split() 
+                resolution = float([w for w in line.replace('  ', ' ').split()
                                     if w][-2])
                 accept_resolution = resolution <= res_cutoff
                 break
@@ -312,8 +310,8 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
                 break
 
         return accept_method and accept_resolution, method, resolution
-    
-def accept_resolution_method_local(pdb_infos: pd.DataFrame, pdb_id: str, 
+
+def accept_resolution_method_local(pdb_infos: pd.DataFrame, pdb_id: str,
                                    res_cutoff: float):
     """
     decide whether a pdb should be accepted based on the used method and its 
@@ -331,15 +329,15 @@ def accept_resolution_method_local(pdb_infos: pd.DataFrame, pdb_id: str,
     method : str,
     resolution : str | float
     """
-    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY", 
+    accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                             "ELECTRON CRYSTALLOGRAPHY",
                             "NEUTRON DIFFRACTION", "FIBER DIFFRACTION"]
     resolution_excepted_methods = ["SOLUTION NMR", "SOLID-STATE NMR"]
-    
+
     accept_method = False
     accept_resolution = False
     resolution = 'NOT APPLICABLE'
-    
+
     method = pdb_infos.loc[pdb_infos.pdb_id == pdb_id, "method"].values[0]
     if "; " in method:
         method = method.split("; ")[0]
