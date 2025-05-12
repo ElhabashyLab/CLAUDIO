@@ -62,7 +62,8 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
         plt.ylabel("frequency")
         x_labels = [str(x) for x in bins]
         plt.xticks(bins, x_labels)
-        plt.title("Relative peptide overlaps (" + '$n_{\\neg 0}$' + f" = {len(overl_data[overl_data > 0].index)})")
+        plt.title("Relative peptide overlaps (" + '$n_{\\neg 0}$' +
+                  f" = {len(overl_data[overl_data > 0].index)})")
         plt.savefig(f"{output_directory}{filename}_int_ovl.png")
 
         # Clear figure

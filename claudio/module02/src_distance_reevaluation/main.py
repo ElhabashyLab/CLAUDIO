@@ -157,14 +157,14 @@ def inputs_valid(input_directory: str, input_filename: str, search_tool: str,
                     plddt_cutoff = float(plddt_cutoff)
                     if 0 <= plddt_cutoff <= 100:
                         return True
-                    raise Exception(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
-                except:
-                    raise Exception(f"Value given for pLDDT cutoff should be possible to turn into a float "
-                                    f"(given: {plddt_cutoff}).")
+                    raise ValueError(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
+                except Exception as exc:
+                    raise TypeError(f"Value given for pLDDT cutoff should be possible to turn into a float "
+                                    f"(given: {plddt_cutoff}).") from exc
             else:
-                raise Exception(f"Error! Invalid search tool! (given: {search_tool})")
+                raise ValueError(f"Error! Invalid search tool! (given: {search_tool})")
         else:
-            raise Exception(f"Error! Given inputfile (-i2) extension hints at incorrect output of uniprot-search "
+            raise RuntimeError(f"Error! Given inputfile (-i2) extension hints at incorrect output of uniprot-search "
                             f"(given: {input_filename})!")
     else:
         print(f"Warning! No structure files created by structure_search tool found (given: {input_directory})!")

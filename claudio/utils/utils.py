@@ -91,10 +91,9 @@ def evaluate_boolean_input(input_str: str):
 
     if str(input_str).lower() in ("y", "yes", "t", "true", "on", "1"):
         return True
-    elif str(input_str).lower() in ("n", "no", "f", "false", "off", "0"):
+    if str(input_str).lower() in ("n", "no", "f", "false", "off", "0"):
         return False
-    else:
-        raise ValueError(f"Error! Could not change type of input to boolean (given:{input_str}).")
+    raise ValueError(f"Error! Could not change type of input to boolean (given:{input_str}).")
 
 
 def build_xl_dataset(xl_residues: str):
@@ -116,7 +115,7 @@ def build_xl_dataset(xl_residues: str):
     for s in xl_residues.replace(';', ',').split(','):
         if ':' in s:
             if s.count(':') != 2:
-                raise Exception(f"Error! Found ':' in one xl_res input, but less or more than two-times. If you wish "
+                raise RuntimeError(f"Error! Found ':' in one xl_res input, but less or more than two-times. If you wish "
                                 f"to specify either the position or the atom type make sure you always add two ':' "
                                 f"in the input (specific: {s}, full: {xl_residues}).")
             res_list.append(s.split(':')[0])
@@ -133,7 +132,7 @@ def build_xl_dataset(xl_residues: str):
 
     for atom in df_xl_res.atom:
         if atom not in {"N", "CA", "C", "O", "CB"}:
-            raise Exception(f"Error! Found {atom} as atom type, which is not allowed. Please only use either backbone "
+            raise ValueError(f"Error! Found {atom} as atom type, which is not allowed. Please only use either backbone "
                             f"atoms or CB (either \"N\", \"CA\", \"C\", \"O\", or \"CB\")")
 
     return df_xl_res

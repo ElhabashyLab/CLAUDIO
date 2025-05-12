@@ -194,9 +194,9 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                 try:
                     pd.read_csv(f"{uniprot_search_temp_dir}{'.'.join(filename.split('.')[:-1])}_srtmp."
                                 f"{filename.split('.')[-1]}")
-                except FileNotFoundError:
-                    raise Exception(f"Error! No temporary save file was found. Run the program without the use of "
-                                    f"temp_save files to perform an actual search first (given: {uniprot_search}).")
+                except FileNotFoundError as exc:
+                    raise FileNotFoundError(f"Error! No temporary save file was found. Run the program without the use of "
+                                    f"temp_save files to perform an actual search first (given: {uniprot_search}).") from exc
             # check whether xl_residues can be turned into a proper DataFrame
             build_xl_dataset(xl_residues)
             # check whether specified structure search tool is either blastp
@@ -207,11 +207,11 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                     # check hhsearch database path
                     if (search_tool == "blastp") or os.path.exists(str(hhsearch_db) + "pdb70_a3m.ffdata"):
                         return True
-                    raise Exception(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database "
+                    raise FileNotFoundError(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database "
                                     f"directory (given: {hhsearch_db}).")
-                raise Exception(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
+                raise FileNotFoundError(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
                                 f"(given: {blast_db}).")
-            raise Exception(f"Error! Given search tool is neither blastp or hhsearch (given: {search_tool}).")
-        raise Exception(f"Error! Could not find all necessary keys in \"projections\" parameter (given: "
+            raise ValueError(f"Error! Given search tool is neither blastp or hhsearch (given: {search_tool}).")
+        raise RuntimeError(f"Error! Could not find all necessary keys in \"projections\" parameter (given: "
                         f"{projections}).")
-    raise Exception(f"Error! The parameter \"input-filepath\" was not given (given: {input_filepath}).")
+    raise RuntimeError(f"Error! The parameter \"input-filepath\" was not given (given: {input_filepath}).")

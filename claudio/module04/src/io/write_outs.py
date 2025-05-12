@@ -167,4 +167,4 @@ def write_small_test_sets(data: pd.DataFrame):
 
     if len(test_data.index) < 10:
         print(f"Not enough datapoints to create sample dataset (found only {len(test_data.index)}).")
-        raise Exception(f"Not enough datapoints to create sample dataset (found only {len(test_data.index)}).")
+        raise RuntimeError(f"Not enough datapoints to create sample dataset (found only {len(test_data.index)}).")

@@ -97,8 +97,6 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
         else:
             not_found.append(i)
 
-        return
-
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(write_res_task, row.Index, row):
                    row for row in data.itertuples()}

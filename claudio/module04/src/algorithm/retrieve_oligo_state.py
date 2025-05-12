@@ -88,10 +88,10 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
                             f"Download speed will be reduced for Uniprot entry: {unip_id}.")
                     download_rate_limiter += .1
-                except ValueError:
+                except ValueError as exc:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
                         raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
-                                            f"dictionary for Uniprot entry: {unip_id}.\nReceived: {r.get(url,timeout=60).text}")
+                                            f"dictionary for Uniprot entry: {unip_id}.\nReceived: {r.get(url,timeout=60).text}") from exc
             except r.exceptions.Timeout:
                 pass
             except (ConnectionError, socket.gaierror,
@@ -175,10 +175,10 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
                             f"Download speed will be reduced for Uniprot entry: {query}.")
                     download_rate_limiter += .1
-                except ValueError:
+                except ValueError as exc:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
                         raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
-                                            f"dictionary for Uniprot entry: {query}.\nReceived: {r.get(url,timeout=60).text}")
+                                         f"dictionary for Uniprot entry: {query}.\nReceived: {r.get(url,timeout=60).text}") from exc
             except r.exceptions.Timeout:
                 pass
             except (ConnectionError, socket.gaierror,

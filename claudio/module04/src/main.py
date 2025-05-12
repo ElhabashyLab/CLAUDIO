@@ -197,9 +197,9 @@ def inputs_valid(input_filepath: str, input_filepath2: str,
                                 try:
                                     if euclidean_strictness is not None:
                                         euclidean_strictness = ast.literal_eval(euclidean_strictness)
-                                except ValueError:
-                                    raise Exception(f"Error! Could not change type of given euclidean strictness to "
-                                                    f"either float or None (given: {euclidean_strictness}).")
+                                except ValueError as exc:
+                                    raise ValueError(f"Error! Could not change type of given euclidean strictness to "
+                                                    f"either float or None (given: {euclidean_strictness}).") from exc
                             # check whether maximum distance has valid value
                             try:
                                 distance_maximum = float(distance_maximum)
@@ -209,28 +209,28 @@ def inputs_valid(input_filepath: str, input_filepath2: str,
                                     cutoff = float(cutoff)
                                     if 0 <= cutoff <= 1:
                                         return True
-                                    raise Exception(f"Cutoff value for reclassification should be in [0, 1] "
+                                    raise ValueError(f"Cutoff value for reclassification should be in [0, 1] "
                                                     f"(given: {cutoff}).")
-                                except:
-                                    raise Exception(f"Value given for reclassification cutoff should be possible to "
-                                                    f"turn into a float (given: {cutoff}).")
-                            except:
-                                raise Exception(f"Value given for maximum distance value should be possible to turn "
-                                                f"into a float (given: {distance_maximum}).")
-                        except:
-                            raise Exception(f"Value given for crosslinker maximum should be possible to turn into a "
-                                            f"float (given: {linker_maximum}).")
-                    except:
-                        raise Exception(f"Value given for crosslinker minimum should be possible to turn into a float "
-                                        f"(given: {linker_minimum}).")
+                                except Exception as exc:
+                                    raise TypeError(f"Value given for reclassification cutoff should be possible to "
+                                                    f"turn into a float (given: {cutoff}).") from exc
+                            except Exception as exc:
+                                raise TypeError(f"Value given for maximum distance value should be possible to turn "
+                                                f"into a float (given: {distance_maximum}).") from exc
+                        except Exception as exc:
+                            raise TypeError(f"Value given for crosslinker maximum should be possible to turn into a "
+                                            f"float (given: {linker_maximum}).") from exc
+                    except Exception as exc:
+                        raise TypeError(f"Value given for crosslinker minimum should be possible to turn into a float "
+                                        f"(given: {linker_minimum}).") from exc
                 else:
-                    raise Exception(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
-            except:
-                raise Exception(f"Value given for pLDDT cutoff should be possible to turn into a float "
-                                f"(given: {plddt_cutoff}).")
+                    raise ValueError(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
+            except Exception as exc:
+                raise TypeError(f"Value given for pLDDT cutoff should be possible to turn into a float "
+                                f"(given: {plddt_cutoff}).") from exc
         else:
-            raise Exception(f"Homo-signal reevaluation outputfile was either not correctly given or has wrong "
+            raise FileNotFoundError(f"Homo-signal reevaluation outputfile was either not correctly given or has wrong "
                             f"extension (given: {input_filepath2}).")
     else:
-        raise Exception(f"Distance reevaluation outputfile was either not correctly given or has wrong extension "
+        raise FileNotFoundError(f"Distance reevaluation outputfile was either not correctly given or has wrong extension "
                         f"(given: {input_filepath}).")

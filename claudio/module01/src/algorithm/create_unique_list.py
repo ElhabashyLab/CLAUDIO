@@ -216,8 +216,7 @@ def search_pdb_entries(proteins: list[str], sequences: list[str],
         # else append alphafold entry id instead
         if res:
             return i,res
-        else:
-            return i,f"af{protein}_A"
+        return i,f"af{protein}_A"
 
     # Parallelize search for uniprot metadata
     with concurrent.futures.ThreadPoolExecutor() as executor:

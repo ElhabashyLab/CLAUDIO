@@ -209,7 +209,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
     verbose_print("===================================", 0, verbose_level)
     profile.disable()  # --- stop profiling
     profile.create_stats()
-    with open("profile.txt", 'w') as fp:
+    with open("profile.txt", 'w', encoding="utf-8") as fp:
         stats = pstats.Stats(profile, stream=fp)
         stats.sort_stats('cumtime')
         stats.print_stats()
@@ -271,10 +271,10 @@ def read_config(path: str, args: list[str]):
     final_params : list[Any]
     """
 
-    with open(path, 'r') as f:
+    with open(path, 'r', encoding="utf-8") as f:
         config_content = f.read()
         input_lines = [l.replace('"', "'").replace(" = ", "=").replace("= ", "=").replace(" =", "=")
-                       for l in config_content.split('\n') 
+                       for l in config_content.split('\n')
                        if l and not l.startswith('#')]
         line_markers = ["input_filepath=", "input_temppath=", "projections=",
                         "read_temps=", "xl_residues=", "search_tool=", 

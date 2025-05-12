@@ -176,7 +176,8 @@ def inputs_valid(input_filepath: str, input_temppath: str,
             # check blast database path
             if (search_tool == "hhsearch") or os.path.exists(str(blast_db) + "pdbaa.phr"):
                 # check hhsearch database path
-                if (search_tool == "blastp") or os.path.exists(str(hhsearch_db) + "pdb70_a3m.ffdata"):
+                if (search_tool == "blastp") or os.path.exists(str(hhsearch_db)
+                                                               + "pdb70_a3m.ffdata"):
                     # check whether value given for e-value can be turned into
                     # a float variable
                     try:
@@ -203,36 +204,36 @@ def inputs_valid(input_filepath: str, input_temppath: str,
                                                 # be turned into a float variable
                                                 res_cutoff = float(res_cutoff)
                                                 return True
-                                            except:
-                                                raise Exception(f"Error! Given value for resolution cutoff could not "
+                                            except Exception as exc:
+                                                raise TypeError(f"Error! Given value for resolution cutoff could not "
                                                                 f"be turned into a float variable (given: "
-                                                                f"{res_cutoff}).")
+                                                                f"{res_cutoff}).") from exc
                                         else:
-                                            raise Exception(f"Error! Given coverage is not within allowed interval of "
+                                            raise ValueError(f"Error! Given coverage is not within allowed interval of "
                                                             f"[0,100] (given: {coverage}).")
-                                    except:
-                                        raise Exception(f"Error! Given value for coverage could not be turned into a "
-                                                        f"float variable (given: {coverage}")
+                                    except Exception as exc:
+                                        raise TypeError(f"Error! Given value for coverage could not be turned into a "
+                                                        f"float variable (given: {coverage}") from exc
                                 else:
-                                    raise Exception(f"Error! Given query identity is not within allowed interval of "
+                                    raise ValueError(f"Error! Given query identity is not within allowed interval of "
                                                     f"[0,100] (given: {query_id}).")
-                            except:
-                                raise Exception(f"Error! Given value for query identity could not be turned into a "
-                                                f"float variable (given: {query_id}")
+                            except Exception as exc:
+                                raise TypeError(f"Error! Given value for query identity could not be turned into a "
+                                                f"float variable (given: {query_id}") from exc
                         else:
-                            raise Exception(f"Error! Given e-value is not within allowed interval of (0,1) "
-                                            f"(given: {e_value}).")
-                    except:
-                        raise Exception(f"Error! Given value for e-value could not be turned into a float variable "
-                                        f"(given: {e_value}")
+                            raise ValueError(f"Error! Given e-value is not within allowed interval"
+                                            f" of (0,1) (given: {e_value}).")
+                    except Exception as exc:
+                        raise TypeError(f"Error! Given value for e-value could not be turned into "
+                                        f"a float variable (given: {e_value}") from exc
                 else:
-                    raise Exception(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database directory "
-                                    f"(given: {hhsearch_db}).")
+                    raise FileNotFoundError(f"Error! Could not find 'pdb70_a3m.ffdata' in given "
+                                            f"hhsearch database directory (given: {hhsearch_db}).")
             else:
-                raise Exception(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
-                                f"(given: {blast_db}).")
+                raise FileNotFoundError(f"Error! Could not find 'pdbaa.phr'-File in given blast"
+                                        f" database directory (given: {blast_db}).")
         else:
-            raise Exception(f"Error! Invalid search tool selected (given: {search_tool}).")
+            raise ValueError(f"Error! Invalid search tool selected (given: {search_tool}).")
     else:
-        raise Exception(f"Error! The parameter \"input-filepath\" was not given or was not ending with the '.sqcs' "
-                        f"extension (given: {input_filepath}).")
+        raise RuntimeError(f"Error! The parameter \"input-filepath\" was not given or was not "
+                           f"ending with the '.sqcs' extension (given: {input_filepath}).")

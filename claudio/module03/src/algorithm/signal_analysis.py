@@ -80,8 +80,7 @@ def compute_interaction_adj(data_row: pd.Series):
         adjacency = 1 - (site_distance / len(data_row["seq_a"]))
         return round_self(adjacency, 3)
     # If proteins of sites are not the same, no overlap can be computed
-    else:
-        return float("Nan")
+    return float("Nan")
 
 def compute_interaction_ovl(data_row: pd.Series,verbose_level: int):
     """
@@ -105,34 +104,31 @@ def compute_interaction_ovl(data_row: pd.Series,verbose_level: int):
     if is_intra and no_pep_copies:
         if data_row["pos_a"] == data_row["pos_b"]:
             return 1.0
-        else:
-            site1, site2 = (('a', 'b')
-                            if data_row["pos_a"] < data_row["pos_b"]
-                            else ('b', 'a'))
-            seq = data_row["seq_a"]
-            pep_a, pep_b = (data_row[f"pep_{site1}"],
-                            data_row[f"pep_{site2}"])
-            pos_a, pos_b = (int(data_row[f"pos_{site1}"]) - 1,
-                            int(data_row[f"pos_{site2}"]) - 1)
+        site1, site2 = (('a', 'b')
+                        if data_row["pos_a"] < data_row["pos_b"]
+                        else ('b', 'a'))
+        seq = data_row["seq_a"]
+        pep_a, pep_b = (data_row[f"pep_{site1}"],
+                        data_row[f"pep_{site2}"])
+        pos_a, pos_b = (int(data_row[f"pos_{site1}"]) - 1,
+                        int(data_row[f"pos_{site2}"]) - 1)
 
-            # get indices of residues between/including interacting residues
-            seq_a_inds = get_sequence_indices(seq, pep_a, verbose_level)
-            seq_b_inds = get_sequence_indices(seq, pep_b, verbose_level)
+        # get indices of residues between/including interacting residues
+        seq_a_inds = get_sequence_indices(seq, pep_a, verbose_level)
+        seq_b_inds = get_sequence_indices(seq, pep_b, verbose_level)
 
-            seq_a_inds = {ind for ind in seq_a_inds if ind >= pos_a}
-            seq_b_inds = {ind for ind in seq_b_inds if ind <= pos_b}
+        seq_a_inds = {ind for ind in seq_a_inds if ind >= pos_a}
+        seq_b_inds = {ind for ind in seq_b_inds if ind <= pos_b}
 
-            # compute intersect and union of index sets
-            seq_intersect = seq_a_inds & seq_b_inds
-            seq_union = seq_a_inds | seq_b_inds
+        # compute intersect and union of index sets
+        seq_intersect = seq_a_inds & seq_b_inds
+        seq_union = seq_a_inds | seq_b_inds
 
-            if not seq_intersect:
-                return 0.0
-            else:
-                return round_self(len(seq_intersect) / len(seq_union), 3)
+        if not seq_intersect:
+            return 0.0
+        return round_self(len(seq_intersect) / len(seq_union), 3)
     # If proteins of sites are not the same, no overlap can be computed
-    else:
-        return float("Nan")
+    return float("Nan")
 
 def get_sequence_indices(seq: str, peptide: str, verbose_level: int):
     """
@@ -153,7 +149,7 @@ def get_sequence_indices(seq: str, peptide: str, verbose_level: int):
         verbose_print(f"Peptide {peptide} not found in sequence {seq}", 1,
                       verbose_level,end='')
         return set()
-    else:
-        indices = set(range(seq.find(peptide),
-                            seq.find(peptide) + len(peptide)))
-        return indices
+
+    indices = set(range(seq.find(peptide),
+                        seq.find(peptide) + len(peptide)))
+    return indices

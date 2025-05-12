@@ -270,7 +270,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                                     else:
                                         log_text += "\tFAIL\n"
                                 # FAIL: res_pos not given
-                                except:
+                                except Exception:
                                     log_text += f"\tres_pos_{site} was not given\n"
                                     log_text += "\tFAIL\n"
 
@@ -299,7 +299,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                             else:
                                 log_text += "\tFAIL\n"
                     # FAIL: res_pos not given
-                    except:
+                    except Exception:
                         log_text += f"\tres_pos_{site} was not given\n"
                         log_text += "\tFAIL\n"
 
@@ -365,8 +365,7 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int,
                           f"\t\t{aligned_pep[aligned_pep_i]}", 2, 
                           verbose_level)
             return new_res_pos
-        else:
-            return None
+        return None
     except IndexError:
         return None
 

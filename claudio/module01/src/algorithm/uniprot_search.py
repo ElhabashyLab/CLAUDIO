@@ -57,7 +57,6 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
     seq : list[str],
     already_searched : dict[str,list[str]]
     """
-    #TODO why is site defaulted?
 
     seqs = [[]for _ in range(len(data.index))]
 
@@ -69,26 +68,25 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
         if pd.isna(unip_id) or already_searched[unip_id] is None or not already_searched[unip_id]:
             return i, float('nan')
         # Else, parse through all possible sequences discovered
-        else:
-            result = already_searched[unip_id]
-            fitting_seq_found = False
-            seq = ''
-            if len(result) > 1:
-                # Check for each sequence whether both peptides were
-                # discovered in the sequences
-                for seq in result:
-                    peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
-                        if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
-                    # If a fitting sequences, containing both peptides was
-                    # found set argument to True
-                    if peptide_arg:
-                        fitting_seq_found = True
-                        break
-            # If argument is not True, return the first discovered sequence
-            if not fitting_seq_found:
-                seq = result[0]
-            # Add final sequence to list
-            return i, seq
+        result = already_searched[unip_id]
+        fitting_seq_found = False
+        seq = ''
+        if len(result) > 1:
+            # Check for each sequence whether both peptides were
+            # discovered in the sequences
+            for seq in result:
+                peptide_arg = (row["pep_a"] in seq) and (row["pep_b"] in seq) \
+                    if row["unip_id_a"] == row["unip_id_b"] else (row[f"pep_{site}"] in seq)
+                # If a fitting sequences, containing both peptides was
+                # found set argument to True
+                if peptide_arg:
+                    fitting_seq_found = True
+                    break
+        # If argument is not True, return the first discovered sequence
+        if not fitting_seq_found:
+            seq = result[0]
+        # Add final sequence to list
+        return i, seq
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(retrieve_seqs_task, i, row):

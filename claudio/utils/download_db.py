@@ -86,13 +86,13 @@ def query_pdb_after_date(date_str: str):
     if response.status_code == 204:
         verbose_print("No new PDB files found.", 1, 2)
         return pd.DataFrame(columns=['pdb_id', 'modification_date'])
-    else:
-        data = response.json()
-        pdb_ids = [entry['identifier'] for entry in data['result_set']]
-        print(len(pdb_ids))
-        df = pd.DataFrame({'pdb_id': pdb_ids,
-                           'modification_date': time.strftime("%Y-%m-%d")})
-        return df
+
+    data = response.json()
+    pdb_ids = [entry['identifier'] for entry in data['result_set']]
+    print(len(pdb_ids))
+    df = pd.DataFrame({'pdb_id': pdb_ids,
+                       'modification_date': time.strftime("%Y-%m-%d")})
+    return df
 
 def download_pdbs(data, output_dir):
     """
@@ -108,7 +108,6 @@ def download_pdbs(data, output_dir):
     data : pd.DataFrame
         DataFrame containing the PDB IDs and their corresponding dates, 
         methods and resolutions.
-    None
     """
     accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                             "ELECTRON CRYSTALLOGRAPHY", "NEUTRON DIFFRACTION", 
@@ -177,23 +176,23 @@ def download_pdbs(data, output_dir):
             f.write(pdb_file)
 
     if data.empty:
-        return
-    else:
-        verbose_print("Download progress:", 1, 2)
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = {executor.submit(download_pdb_task, pdb_id):
-                       pdb_id for pdb_id in data['pdb_id']}
-            ind = 0
-            for future in concurrent.futures.as_completed(futures):
-                try:
-                    ind += 1
-                    if ind % 500 == 0:
-                        progress = round_self((ind * 100) / len(data.index), 2)
-                        verbose_print(f"\r\t[{progress}%]", 1, 2, end='')
-                    del futures[future]
-                except Exception as e:
-                    print(e)
-        verbose_print("", 1, 2)
+        return data
+
+    verbose_print("Download progress:", 1, 2)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(download_pdb_task, pdb_id):
+                    pdb_id for pdb_id in data['pdb_id']}
+        ind = 0
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                ind += 1
+                if ind % 500 == 0:
+                    progress = round_self((ind * 100) / len(data.index), 2)
+                    verbose_print(f"\r\t[{progress}%]", 1, 2, end='')
+                del futures[future]
+            except Exception as e:
+                print(e)
+    verbose_print("", 1, 2)
     return data
 
 
@@ -222,18 +221,20 @@ def update_pdb_database():
     new_pdbs = query_pdb_after_date(date_str)
     if new_pdbs.empty:
         return
-    else:
-        new_pdbs = download_pdbs(new_pdbs,'./claudio/data/pdb/')
 
-        # update the PDB IDs file
-        df["modification_date"] = pd.to_datetime(df["modification_date"])
-        new_pdbs["modification_date"] = pd.to_datetime(new_pdbs["modification_date"])
-        df = pd.concat([df,new_pdbs])
-        df = df.sort_values("modification_date").drop_duplicates(subset="pdb_id", keep="last")
-        # df = populate_pdb_info(df, new_pdbs['pdb_id'].tolist(), './claudio/data/pdb/')
+    new_pdbs = download_pdbs(new_pdbs,'./claudio/data/pdb/')
+    if new_pdbs.empty:
+        return
 
-        df["modification_date"] = time.strftime("%Y-%m-%d")
-        df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
+    # update the PDB IDs file
+    df["modification_date"] = pd.to_datetime(df["modification_date"])
+    new_pdbs["modification_date"] = pd.to_datetime(new_pdbs["modification_date"])
+    df = pd.concat([df,new_pdbs])
+    df = df.sort_values("modification_date").drop_duplicates(subset="pdb_id", keep="last")
+    # df = populate_pdb_info(df, new_pdbs['pdb_id'].tolist(), './claudio/data/pdb/')
+
+    df["modification_date"] = time.strftime("%Y-%m-%d")
+    df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
 
 
 if __name__ == "__main__":

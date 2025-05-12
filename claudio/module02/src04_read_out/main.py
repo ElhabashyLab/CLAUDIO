@@ -1,7 +1,6 @@
-import pandas as pd
-import click
-import os
 import warnings
+import click
+import pandas as pd
 
 warnings.filterwarnings("ignore")
 
@@ -32,7 +31,7 @@ def main(input_filepath, input_filepath2, projections):
     data = pd.read_csv(input_filepath, index_col=0)
     non_multi_chain_indeces = []
     for i, ind in enumerate(data.index):
-        ind = int(str(ind).split('_')[0])
+        ind = int(str(ind).split('_',maxsplit=1)[0])
         if ind not in [j for _, j in non_multi_chain_indeces]:
             non_multi_chain_indeces.append((i, ind))
     data = data.astype({"evidence": str}, errors="ignore").iloc[[i for i, _ in non_multi_chain_indeces]]

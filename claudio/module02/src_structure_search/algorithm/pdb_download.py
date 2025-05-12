@@ -87,8 +87,10 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                     pdb_resource_location = f"./claudio/data/pdb/{pdb_id}.cif.gz"
                 filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
                 pdb_available = True
+                url = ""
             # if not available in local database, download from online database
             else:
+                pdb_resource_location = ""
                 # If pdb entry found in RCSB, download from there
                 if pdb_id:
                     filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
@@ -276,12 +278,12 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
     # determination was diffraction or microscopy method, and whether the
     # resolution is below or equal to the threshhold, if so return True
     else:
-        all_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
-                           "SOLUTION NMR", "ELECTRON CRYSTALLOGRAPHY",
-                           "NEUTRON DIFFRACTION", "SOLID-STATE NMR", 
-                           "SOLUTION SCATTERING", "FIBER DIFFRACTION",
-                           "POWDER DIFFRACTION", "EPR", "THEORETICAL MODEL",
-                           "INFRARED SPECTROSCOPY"]
+        # all_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
+        #                    "SOLUTION NMR", "ELECTRON CRYSTALLOGRAPHY",
+        #                    "NEUTRON DIFFRACTION", "SOLID-STATE NMR", 
+        #                    "SOLUTION SCATTERING", "FIBER DIFFRACTION",
+        #                    "POWDER DIFFRACTION", "EPR", "THEORETICAL MODEL",
+        #                    "INFRARED SPECTROSCOPY"]
         accepted_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
                                 "ELECTRON CRYSTALLOGRAPHY",
                                 "NEUTRON DIFFRACTION", "FIBER DIFFRACTION"]

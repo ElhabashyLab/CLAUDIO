@@ -19,7 +19,7 @@ def read_inputfile(input_filepath: str, projections: dict):
     data = pd.read_csv(input_filepath)
     try:
         data.rename(columns=projections, inplace=True)
-    except:
+    except Exception:
         print("Error! Given projection of column names failed! Check given comma-separated list!")
         sys.exit(1)
 
