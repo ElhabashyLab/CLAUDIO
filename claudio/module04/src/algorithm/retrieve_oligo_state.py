@@ -1,3 +1,5 @@
+"""Queries the SWISS-MODEL repository for oligomeric state information of proteins
+and adds this information into a given dataset."""
 import ast
 import socket
 import time
@@ -90,17 +92,17 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     download_rate_limiter += .1
                 except ValueError as exc:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
-                        raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
-                                            f"dictionary for Uniprot entry: {unip_id}.\nReceived: {r.get(url,timeout=60).text}") from exc
+                        raise ValueError(f"Error! Result json by Swiss-model could not be properly "
+                                         f"parsed as dictionary for Uniprot entry: {unip_id}.\n"
+                                         f"Received: {r.get(url,timeout=60).text}") from exc
             except r.exceptions.Timeout:
                 pass
             except (ConnectionError, socket.gaierror,
                     r.exceptions.ConnectionError, ValueError) as e:
                 if num_fails == NUMBER_OF_CALL_REPEATS:
-                    print(f"No connection to SWISS-MODEL API possible for Uniprot entry: {unip_id}. "
-                            f"Please try again later.")
+                    print(f"No connection to SWISS-MODEL API possible for Uniprot entry:"
+                            f" {unip_id}. Please try again later.")
                     print(e)
-                    pass
                 else:
                     num_fails += 1
             ostates.append(list_of_states)
@@ -187,7 +189,6 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
                     print(f"No connection to SWISS-MODEL API possible for Uniprot entry: {query}. "
                             f"Please try again later.")
                     print(e)
-                    pass
                 else:
                     num_fails += 1
 

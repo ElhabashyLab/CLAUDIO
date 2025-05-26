@@ -1,3 +1,5 @@
+"""reads possible temporary save file from earlier uniprot searches on the same dataset 
+for module01"""
 import pandas as pd
 
 

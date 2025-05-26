@@ -1,3 +1,5 @@
+"""Main script for Module01 of CLAUDIO, performs preprocessing of input data
+and creates a list of unique proteins."""
 import cProfile
 import os
 import pstats
@@ -66,7 +68,8 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     start_time = time.time()
 
     # Get absolute paths and translate eventual windows paths
-    list_of_paths = [input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db]
+    list_of_paths = [input_filepath, input_temppath, output_directory,
+                     blast_bin, blast_db, hhsearch_bin, hhsearch_db]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db = \
         clean_input_paths(list_of_paths)
 
@@ -80,10 +83,13 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     output_directory = create_out_path(output_directory, input_filepath)
 
     # Create temporary dirs
-    uniprot_search_temp_dir = create_out_path(input_temppath + "/uniprot_search" if input_temppath is not None else
-                                              output_directory + "temp/uniprot_search", input_filepath)
-    unique_protein_temp_dir = create_out_path(input_temppath + "/unique_protein_list" if input_temppath is not None else
-                                              output_directory + "temp/unique_protein_list", input_filepath)
+    uniprot_search_temp_path =(input_temppath + "/uniprot_search" if input_temppath is not None
+                               else output_directory + "temp/uniprot_search")
+    uniprot_search_temp_dir = create_out_path(uniprot_search_temp_path, input_filepath)
+    unique_protein_temp_path = (input_temppath + "/unique_protein_list"
+                                if input_temppath is not None
+                                else output_directory + "temp/unique_protein_list")
+    unique_protein_temp_dir = create_out_path(unique_protein_temp_path, input_filepath)
 
     # If parameters inputted by user valid
     if inputs_valid(input_filepath, uniprot_search_temp_dir,
@@ -127,8 +133,10 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
 
         # Write list of unique protein pairs and unique proteins overall
         verbose_print("Create unique protein list", 0, verbose_level)
-        unique_proteins_list = create_list_of_unique_proteins(data, unique_protein_temp_dir, search_tool, blast_bin,
-                                                              blast_db, hhsearch_bin, hhsearch_db, verbose_level)
+        unique_proteins_list = create_list_of_unique_proteins(data, unique_protein_temp_dir,
+                                                              search_tool, blast_bin, blast_db,
+                                                              hhsearch_bin, hhsearch_db,
+                                                              verbose_level)
 
         # Clean dataset for output
         data = clean_dataset(data)
@@ -192,11 +200,13 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
             # save file exists
             if not uniprot_search:
                 try:
-                    pd.read_csv(f"{uniprot_search_temp_dir}{'.'.join(filename.split('.')[:-1])}_srtmp."
-                                f"{filename.split('.')[-1]}")
+                    pd.read_csv(f"{uniprot_search_temp_dir}{'.'.join(filename.split('.')[:-1])}"
+                                f"_srtmp.{filename.split('.')[-1]}")
                 except FileNotFoundError as exc:
-                    raise FileNotFoundError(f"Error! No temporary save file was found. Run the program without the use of "
-                                    f"temp_save files to perform an actual search first (given: {uniprot_search}).") from exc
+                    raise FileNotFoundError(f"Error! No temporary save file was found. Run the "
+                                            f"program without the use of temp_save files to "
+                                            f"perform an actual search first "
+                                            f"(given: {uniprot_search}).") from exc
             # check whether xl_residues can be turned into a proper DataFrame
             build_xl_dataset(xl_residues)
             # check whether specified structure search tool is either blastp
@@ -205,13 +215,16 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                 # check blast database path
                 if (search_tool == "hhsearch") or os.path.exists(str(blast_db) + "pdbaa.phr"):
                     # check hhsearch database path
-                    if (search_tool == "blastp") or os.path.exists(str(hhsearch_db) + "pdb70_a3m.ffdata"):
+                    if (search_tool == "blastp") or os.path.exists(str(hhsearch_db)
+                                                                   + "pdb70_a3m.ffdata"):
                         return True
-                    raise FileNotFoundError(f"Error! Could not find 'pdb70_a3m.ffdata' in given hhsearch database "
-                                    f"directory (given: {hhsearch_db}).")
-                raise FileNotFoundError(f"Error! Could not find 'pdbaa.phr'-File in given blast database directory "
-                                f"(given: {blast_db}).")
-            raise ValueError(f"Error! Given search tool is neither blastp or hhsearch (given: {search_tool}).")
-        raise RuntimeError(f"Error! Could not find all necessary keys in \"projections\" parameter (given: "
-                        f"{projections}).")
-    raise RuntimeError(f"Error! The parameter \"input-filepath\" was not given (given: {input_filepath}).")
+                    raise FileNotFoundError(f"Error! Could not find 'pdb70_a3m.ffdata' in given "
+                                            f"hhsearch database directory (given: {hhsearch_db}).")
+                raise FileNotFoundError(f"Error! Could not find 'pdbaa.phr'-File in given blast "
+                                        f"database directory (given: {blast_db}).")
+            raise ValueError(f"Error! Given search tool is neither blastp or hhsearch (given: "
+                             f"{search_tool}).")
+        raise RuntimeError(f"Error! Could not find all necessary keys in \"projections\" parameter"
+                           f" (given: {projections}).")
+    raise RuntimeError(f"Error! The parameter \"input-filepath\" was not given "
+                       f"(given: {input_filepath}).")

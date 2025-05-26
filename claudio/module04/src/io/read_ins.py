@@ -1,3 +1,4 @@
+"""Reads in the outputs of Module02 and Module03 and merges them into a single DataFrame."""
 import pandas as pd
 
 

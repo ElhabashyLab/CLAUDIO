@@ -1,3 +1,4 @@
+"""Creates histogram figures as part of the output of the structural analysis module."""
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

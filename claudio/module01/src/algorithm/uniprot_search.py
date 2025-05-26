@@ -1,3 +1,4 @@
+"""Searches the uniprot database for sequences"""
 import concurrent.futures
 import socket
 import sys
@@ -134,7 +135,8 @@ def query_uniprot(unip_ids: list, verbose_level: int):
             url = f"https://rest.uniprot.org/uniprotkb/search?format=fasta&query={unip_id}"
             try:
                 url_return_text = r.get(url,timeout=60).text
-                return_failed = "Error encountered when streaming data. Please try again later." in url_return_text
+                return_failed = ("Error encountered when streaming data. Please try again later."
+                                 in url_return_text)
                 # if successful continue
                 if not return_failed:
                     result = [''.join(x.split('\n')[1:])
@@ -146,8 +148,8 @@ def query_uniprot(unip_ids: list, verbose_level: int):
                     already_searched[unip_id] = result
                 # else print error message and raise ValueError
                 else:
-                    verbose_print(f"\tWarning! UniProt API call failed for UniProt_ID={unip_id}.\n\tReturned message: "
-                                  f"{url_return_text}", 2, verbose_level)
+                    verbose_print(f"\tWarning! UniProt API call failed for UniProt_ID={unip_id}."
+                                  f"\n\tReturned message: {url_return_text}", 2, verbose_level)
                     already_searched[unip_id] = None
             except (r.exceptions.Timeout, ConnectionError, socket.gaierror,
                     r.exceptions.ConnectionError) as e:

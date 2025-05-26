@@ -1,3 +1,5 @@
+"""Combines the results from Module02's distance analysis and
+Module03's OPS analysis, and reevaluating assigned cross-link type."""
 import pandas as pd
 
 from claudio.utils.utils import round_self
@@ -53,10 +55,13 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
     )
 
     # Vectorized approach for XL_type
-    intra_mask = (data["unip_id_a"] == data["unip_id_b"]) & (data["chain_a"] == data["chain_b"]) & (data["evidence"] == "")
+    intra_mask = ((data["unip_id_a"] == data["unip_id_b"])
+                  & (data["chain_a"] == data["chain_b"])
+                  & (data["evidence"] == ""))
     data["XL_type"] = "inter"
     data.loc[intra_mask, "XL_type"] = "intra"
-    data["XL_confirmed"] =  (pd.notna(data.topo_dist)) & (~data.evidence.str.contains("distance",na=False))
+    data["XL_confirmed"] =  ((pd.notna(data.topo_dist))
+                             & (~data.evidence.str.contains("distance",na=False)))
     return data
 
 
@@ -97,12 +102,15 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
         if euclidean_strictness is not None:
             # set euclidean linker minimum and maximum with euclidean strictness
             euclidean_linker_minimum = linker_minimum - euclidean_strictness
-            euclidean_linker_minimum = euclidean_linker_minimum if euclidean_linker_minimum > 0 else 0
+            euclidean_linker_minimum = (euclidean_linker_minimum
+                                        if euclidean_linker_minimum > 0 else 0)
             euclidean_linker_maximum = linker_maximum - euclidean_strictness
-            euclidean_linker_maximum = euclidean_linker_maximum if euclidean_linker_maximum > 0 else 0
+            euclidean_linker_maximum = (euclidean_linker_maximum
+                                        if euclidean_linker_maximum > 0 else 0)
 
             # calculate euclidean distance score
-            eucl_dist = datapoint.eucl_dist if datapoint.eucl_dist < distance_maximum else distance_maximum
+            eucl_dist = (datapoint.eucl_dist
+                         if datapoint.eucl_dist < distance_maximum else distance_maximum)
             raw_eucl_score = (eucl_dist - euclidean_linker_maximum) / (distance_maximum - euclidean_linker_maximum)
             if datapoint.eucl_dist <= euclidean_linker_minimum:
                 score += .25
@@ -110,7 +118,8 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
                 score += raw_eucl_score * .25
 
         # calculate topological distance score
-        topo_dist = datapoint.topo_dist if datapoint.topo_dist < distance_maximum else distance_maximum
+        topo_dist = (datapoint.topo_dist
+                     if datapoint.topo_dist < distance_maximum else distance_maximum)
         raw_topo_score = (topo_dist - linker_maximum) / (distance_maximum - linker_maximum)
         if datapoint.topo_dist <= linker_minimum:
             # If the euclidean strictness is set to None the max score for
@@ -119,7 +128,8 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
         elif datapoint.topo_dist >= linker_maximum:
             # If the euclidean strictness is set to None the max score
             # for topological is 0.5, else 0.25
-            score += raw_topo_score * .25 if euclidean_strictness is not None else raw_topo_score * .5
+            score += (raw_topo_score * .25
+                      if euclidean_strictness is not None else raw_topo_score * .5)
 
     # calculate OPS argument of inter protein crosslink confidence score
     if datapoint.homo_pep_overl:
@@ -161,9 +171,11 @@ def write_evidence(datapoint: pd.Series, plddt_cutoff: float,
         if euclidean_strictness is not None:
             # set euclidean linker minimum and maximum with euclidean strictness
             euclidean_linker_minimum = linker_minimum - euclidean_strictness
-            euclidean_linker_minimum = euclidean_linker_minimum if euclidean_linker_minimum > 0 else 0
+            euclidean_linker_minimum = (euclidean_linker_minimum
+                                        if euclidean_linker_minimum > 0 else 0)
             euclidean_linker_maximum = linker_maximum - euclidean_strictness
-            euclidean_linker_maximum = euclidean_linker_maximum if euclidean_linker_maximum > 0 else 0
+            euclidean_linker_maximum = (euclidean_linker_maximum
+                                        if euclidean_linker_maximum > 0 else 0)
 
         # set boolean arguments whether euclidean distance is not in
         # linker range, whether topological distance is not in linker range,

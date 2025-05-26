@@ -1,3 +1,6 @@
+"""calculates distances between interacting residues as part of Module02's
+structural analysis submodule, utilizing topolink software to compute
+topological and euclidean distances"""
 import concurrent.futures
 import os
 import warnings
@@ -126,8 +129,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
             plddt_unfulfilled = (row.method_a == "alphafold") and \
                                 ((row.pLDDT_a != '-' and (float(row.pLDDT_a) < plddt_cutoff)) or \
                                  (row.pLDDT_b != '-' and (float(row.pLDDT_b) < plddt_cutoff)))
-            # Don't compute dist for datapoints which do not fulfill the residue, interface criteria,
-            # or pLDDT cutoff
+            # Don't compute dist for datapoints which do not fulfill
+            # the residue, interface criteria, or pLDDT cutoff
             if not plddt_unfulfilled:
                 try:
                     # observed LYS A 468 LYS A 457
@@ -150,7 +153,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         topo_in = []
         project_path = '/'.join(os.path.abspath(__file__).replace('\\\\', '/').replace('\\', '/').split('/')[:-4])
         project_path = project_path + '/' if project_path else ""
-        for line in [l for l in open(f"{project_path}data/topolink_inputfile.inp", 'r', encoding="utf-8").readlines()
+        for line in [l for l in open(f"{project_path}data/topolink_inputfile.inp", 'r',
+                                     encoding="utf-8").readlines()
                      if not l.startswith('#')]:
             if line.startswith("linkdir"):
                 topo_in.append(f"linkdir {temp_dir}\n")
@@ -191,7 +195,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
 
         # zip topolink results with obs_inds
         # -> toplink_dists = [(index, eucl_dist, top_dist), ...]
-        link_results = [' '.join(line.split()) for line in res.split('\n') if line.startswith("  LINK:")]
+        link_results = [' '.join(line.split())
+                        for line in res.split('\n') if line.startswith("  LINK:")]
         for link_result in link_results:
             for i, obs_ind in enumerate(obs_inds):
                 data_index, link_strs, _ = obs_ind
@@ -199,7 +204,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 # is in result, and check whether any possible second is in
                 # result (after removing the first string)
                 if any([(link_strs[0] + f" {atom_a}" in link_result) and
-                        (link_strs[1] + f" {atom_b}" in link_result.replace(link_strs[0] + f" {atom_a}", ''))
+                        (link_strs[1] + f" {atom_b}" in link_result.replace(link_strs[0]
+                                                                            + f" {atom_a}", ''))
                         for atom_a in df_xl_res.atom for atom_b in df_xl_res.atom]):
                     tplk_eucl = link_result.split(' ')[9]
                     tplk_topo = link_result.split(' ')[10]
@@ -299,8 +305,10 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
     except:
         structure = FastMMCIFParser().get_structure('', path).get_list()[0]
 
-    # overload chain accept method
     class ChainSelect(Select):
+        """
+        overloads chain accept method
+        """
         def accept_chain(self, chain):
             if chain.__repr__().split('=')[1][0] in chain_ids:
                 return True

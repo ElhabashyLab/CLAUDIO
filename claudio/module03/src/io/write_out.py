@@ -1,3 +1,4 @@
+"""Writes output to a csv file for further processing in CLAUDIO."""
 import pandas as pd
 
 def write_output(data: pd.DataFrame, filename: str, output_directory: str):

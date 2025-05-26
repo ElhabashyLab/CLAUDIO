@@ -1,3 +1,5 @@
+"""Main script for the structure search submodule of Module02's structural analysis.
+Performs structure search using BLAST or HHsearch and retrieves PDB files."""
 import cProfile
 import os
 import pstats

@@ -1,3 +1,4 @@
+"""Creates duplicate datapoints for structures with multiple chain options."""
 import pandas as pd
 
 
@@ -50,7 +51,8 @@ def create_ident_chain_copies(data: pd.DataFrame):
         # Add new datapoints to dataset
         new_datapoints = pd.concat(new_datapoints, axis=1).transpose()
         data = pd.concat([data, new_datapoints])
-        print(f" -> {len(data.index)} datapoints (number of new datapoints: {len(data.index) - num_before})")
+        print(f" -> {len(data.index)} datapoints (number of new datapoints:"
+              f" {len(data.index) - num_before})")
 
     return data
 

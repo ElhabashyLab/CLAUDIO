@@ -1,3 +1,4 @@
+"""Creates output figures for OPS analysis as histograms and pie charts."""
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

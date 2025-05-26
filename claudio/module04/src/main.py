@@ -1,3 +1,5 @@
+"""Main script for Module04, combines results from structural and OPS analysis
+and collects further evidence for the formation of homo-complexes."""
 import ast
 import cProfile
 import pstats
@@ -82,7 +84,9 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
         plddt_cutoff = float(plddt_cutoff)
         linker_minimum = float(linker_minimum)
         linker_maximum = float(linker_maximum)
-        euclidean_strictness = float(euclidean_strictness) if euclidean_strictness not in ["None", None] else None
+        euclidean_strictness = (float(euclidean_strictness)
+                                if euclidean_strictness not in ["None", None]
+                                else None)
         distance_maximum = float(distance_maximum)
         cutoff = float(cutoff)
         filename = input_filepath.split('/')[-1].split('.')[0]
@@ -94,7 +98,8 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
         # Combine results of both reevaluations
         verbose_print("Combine results of both reevaluations", 0, verbose_level)
         data = combine_inter_reevaluations(data, plddt_cutoff, linker_minimum, linker_maximum,
-                                           euclidean_strictness, distance_maximum, cutoff, compute_scoring)
+                                           euclidean_strictness, distance_maximum, cutoff,
+                                           compute_scoring)
 
         # Retrieve known oligomeric states from SWISS-MODEL
         verbose_print("Retrieve known oligomeric states from SWISS-MODEL",
@@ -209,8 +214,8 @@ def inputs_valid(input_filepath: str, input_filepath2: str,
                                     cutoff = float(cutoff)
                                     if 0 <= cutoff <= 1:
                                         return True
-                                    raise ValueError(f"Cutoff value for reclassification should be in [0, 1] "
-                                                    f"(given: {cutoff}).")
+                                    raise ValueError(f"Cutoff value for reclassification should be"
+                                                    f" in [0, 1] (given: {cutoff}).")
                                 except Exception as exc:
                                     raise TypeError(f"Value given for reclassification cutoff should be possible to "
                                                     f"turn into a float (given: {cutoff}).") from exc
@@ -221,16 +226,17 @@ def inputs_valid(input_filepath: str, input_filepath2: str,
                             raise TypeError(f"Value given for crosslinker maximum should be possible to turn into a "
                                             f"float (given: {linker_maximum}).") from exc
                     except Exception as exc:
-                        raise TypeError(f"Value given for crosslinker minimum should be possible to turn into a float "
-                                        f"(given: {linker_minimum}).") from exc
+                        raise TypeError(f"Value given for crosslinker minimum should be possible to"
+                                        f" turn into a float (given: {linker_minimum}).") from exc
                 else:
-                    raise ValueError(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
+                    raise ValueError(f"pLDDT cutoff value should be in [0, 100] "
+                                     f"(given: {plddt_cutoff}).")
             except Exception as exc:
-                raise TypeError(f"Value given for pLDDT cutoff should be possible to turn into a float "
-                                f"(given: {plddt_cutoff}).") from exc
+                raise TypeError(f"Value given for pLDDT cutoff should be possible to turn into "
+                                f"a float (given: {plddt_cutoff}).") from exc
         else:
-            raise FileNotFoundError(f"Homo-signal reevaluation outputfile was either not correctly given or has wrong "
-                            f"extension (given: {input_filepath2}).")
+            raise FileNotFoundError(f"Homo-signal reevaluation outputfile was either not correctly"
+                                    f" given or has wrong extension (given: {input_filepath2}).")
     else:
-        raise FileNotFoundError(f"Distance reevaluation outputfile was either not correctly given or has wrong extension "
-                        f"(given: {input_filepath}).")
+        raise FileNotFoundError(f"Distance reevaluation outputfile was either not correctly given "
+                                f"or has wrong extension (given: {input_filepath}).")

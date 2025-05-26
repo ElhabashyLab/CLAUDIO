@@ -1,3 +1,4 @@
+"""Download protein structure files from RCSB or AlphaFold database."""
 import concurrent.futures
 import gzip
 import os
@@ -280,7 +281,7 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
     else:
         # all_pdb_methods = ["X-RAY DIFFRACTION", "ELECTRON MICROSCOPY",
         #                    "SOLUTION NMR", "ELECTRON CRYSTALLOGRAPHY",
-        #                    "NEUTRON DIFFRACTION", "SOLID-STATE NMR", 
+        #                    "NEUTRON DIFFRACTION", "SOLID-STATE NMR",
         #                    "SOLUTION SCATTERING", "FIBER DIFFRACTION",
         #                    "POWDER DIFFRACTION", "EPR", "THEORETICAL MODEL",
         #                    "INFRARED SPECTROSCOPY"]

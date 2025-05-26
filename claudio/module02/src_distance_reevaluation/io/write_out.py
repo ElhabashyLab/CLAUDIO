@@ -1,3 +1,5 @@
+"""writes outputs for Module02's distance evaluation as intermediate results
+for further processing in CLAUDIO"""
 import pandas as pd
 
 def write_output(data: pd.DataFrame, filepath: str):

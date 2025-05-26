@@ -1,3 +1,4 @@
+"""Reads temporary save file containing hhsearch or blastp search results."""
 import pandas as pd
 
 

@@ -1,3 +1,4 @@
+"""Main script for Module03, performs overlapping peptide sequence (OPS) analysis."""
 import cProfile
 import pstats
 import sys

@@ -1,3 +1,4 @@
+"""Deprecated module for creating histograms and pie charts for cross-link validation results."""
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -64,10 +65,14 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
 
     if not intra_data.empty:
         charts_strs.append("intra")
-        data_sets.append([len(intra_data[(intra_data.pdb_id == '-') & (intra_data.XL_type == "intra")].index),
-                          len(intra_data[(intra_data.pdb_id != '-') & (intra_data.XL_type == "intra")].index),
-                          len(intra_data[(intra_data.XL_type == "inter") & (intra_data.swiss_model_homology != '')].index),
-                          len(intra_data[(intra_data.XL_type == "inter") & (intra_data.swiss_model_homology == '')].index)])
+        data_sets.append([len(intra_data[(intra_data.pdb_id == '-')
+                                         & (intra_data.XL_type == "intra")].index),
+                          len(intra_data[(intra_data.pdb_id != '-')
+                                         & (intra_data.XL_type == "intra")].index),
+                          len(intra_data[(intra_data.XL_type == "inter")
+                                         & (intra_data.swiss_model_homology != '')].index),
+                          len(intra_data[(intra_data.XL_type == "inter")
+                                         & (intra_data.swiss_model_homology == '')].index)])
         label_sets.append(["remains intra (no structure found)",
                            "remains intra (structure found)",
                            "homology reference found", "new lead"])
@@ -75,22 +80,28 @@ def create_histograms(data: pd.DataFrame, filename: str, cutoff,
     if not inter_data.empty:
         charts_strs.append("inter")
         data_sets.append([len(inter_data[inter_data.pdb_id == '-'].index),
-                          len(inter_data[(inter_data.pdb_id != '-') & (np.isnan(inter_data.topo_dist))]),
-                          len(inter_data[(inter_data.pdb_id != '-') & (~np.isnan(inter_data.topo_dist)) & (inter_data.evidence == '')].index),
-                          len(inter_data[(inter_data.pdb_id != '-') & (~np.isnan(inter_data.topo_dist)) & (inter_data.evidence != '')].index)])
+                          len(inter_data[(inter_data.pdb_id != '-')
+                                         & (np.isnan(inter_data.topo_dist))]),
+                          len(inter_data[(inter_data.pdb_id != '-')
+                                         & (~np.isnan(inter_data.topo_dist))
+                                         & (inter_data.evidence == '')].index),
+                          len(inter_data[(inter_data.pdb_id != '-')
+                                         & (~np.isnan(inter_data.topo_dist))
+                                         & (inter_data.evidence != '')].index)])
         label_sets.append(["no structure found",
                            "not analyzed (structure found)", 
                            "reference structure found",
                            "new lead"])
         color_sets.append(["#464444", "red", "#9ACE9A", "lightblue"])
 
+    def percentages(pct, all_vals):
+        abs_val = int(np.round(pct / 100 * np.sum(all_vals)))
+        return f"{pct:.1f}%\n(n={abs_val})" if abs_val > 0 else ''
+
     for charts_str, dataset, labels, colors in zip(charts_strs, data_sets,
                                                    label_sets, color_sets):
         plt.figure(figsize=(6.5, 6), constrained_layout=True)
 
-        def percentages(pct, all_vals):
-            abs_val = int(np.round(pct / 100 * np.sum(all_vals)))
-            return f"{pct:.1f}%\n(n={abs_val})" if abs_val > 0 else ''
 
         wedges, _, autos = plt.pie(dataset,
                                    autopct=lambda x: percentages(x, dataset),

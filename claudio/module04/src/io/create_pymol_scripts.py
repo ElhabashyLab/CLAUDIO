@@ -1,3 +1,4 @@
+"""Creates PyMOL scripts to highlight the observed cross-links in a three-dimensional structure."""
 import numpy as np
 import pandas as pd
 

@@ -1,3 +1,4 @@
+"""Checks data for duplicates, missing information, and corrects it if possible."""
 import sys
 from Bio.Align import PairwiseAligner
 import pandas as pd
@@ -43,8 +44,11 @@ def double_check_data(data: pd.DataFrame, filename: str,
         # SUCCESS: Remove empty entry
         pos_info_missing = (sum([not pd.isna(row.pos_a), not pd.isna(row.res_pos_a)]) < 1) or \
                                   (sum([not pd.isna(row.pos_b), not pd.isna(row.res_pos_b)]) < 1)
-        is_erroneous_data = (not isinstance(row["seq_a"],str)) or (not isinstance(row["seq_b"],str)) or \
-                            (not isinstance(row["pep_a"],str)) or (not isinstance(row["pep_b"],str)) or pos_info_missing
+        is_erroneous_data = ((not isinstance(row["seq_a"],str))
+                             or (not isinstance(row["seq_b"],str))
+                             or (not isinstance(row["pep_a"],str))
+                             or (not isinstance(row["pep_b"],str))
+                             or pos_info_missing)
         if is_erroneous_data:
             log_text += f"{i}: erroneous entry (missing " \
                         f"{'position info' if pos_info_missing else 'sequence or peptide info'}" \
@@ -185,8 +189,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
             elif dp.pos == -1:
                 fits_position = dp.pos == pep_pos + (len(peptide) - 1)
             else:
-                print("Error! Unforeseen value for residue position specification (this should not be able to "
-                      "happen here)!")
+                print("Error! Unforeseen value for residue position specification "
+                      "(this should not be able to happen here)!")
                 sys.exit(1)
             fits_specification.append((seq[pep_pos - 1] == dp.res) and fits_position)
         # Check whether aminoacid at given position is any of the residues
@@ -404,7 +408,9 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
             row.res_pos_b = str(row.res_pos_b)
             # Make sure that the crosslinked residue can be uniquely
             # identified for pep_a
-            if ((row.pep_a.count(dp.res) == 1) or row.res_pos_a.replace(' ', '')) and seq_a.count(row.pep_a) != 1:
+            is_unique = (((row.pep_a.count(dp.res) == 1) or row.res_pos_a.replace(' ', ''))
+                         and (seq_a.count(row.pep_a) != 1))
+            if is_unique:
                 # Find all positions of pep_a
                 pep_a_positions = [i for i in range(len(seq_a)) if seq_a[i:].startswith(row.pep_a)]
                 # Compute shift for pos_a

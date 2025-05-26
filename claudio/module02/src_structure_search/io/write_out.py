@@ -1,3 +1,4 @@
+"""Writes csv file with results of structure search for Module02"""
 import pandas as pd
 
 def write_output(data: pd.DataFrame, filename: str, output_directory: str):

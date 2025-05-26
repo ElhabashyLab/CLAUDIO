@@ -1,3 +1,4 @@
+""" Downloads latest structural files from the PDB database and updates the local repository."""
 import concurrent.futures
 import gzip
 import os

@@ -1,3 +1,5 @@
+"""Creates a list of unique proteins from a given dataset, by querying for UniProt metadata and
+ searching for PDB entries using either BLAST or HHsearch."""
 import concurrent.futures
 from io import StringIO
 import os
@@ -34,7 +36,6 @@ def create_list_of_unique_proteins(data: pd.DataFrame,
     """
 
     # Collect first rows in dataset of unique proteins
-    # print([data[(data.unip_id_a == protein)] for protein in (data.unip_id_a + data.unip_id_b).unique()])
     unique_protein_rows = [data[(data.unip_id_a == protein) | (data.unip_id_b == protein)].iloc[0]
                            for protein in pd.concat([data.unip_id_a, data.unip_id_b]).unique()]
 
@@ -42,9 +43,11 @@ def create_list_of_unique_proteins(data: pd.DataFrame,
     unique_proteins = pd.concat([data.unip_id_a, data.unip_id_b]).unique().tolist()
     unique_protein_indeces = [row.name for row in unique_protein_rows]
     unique_sequences = [unique_protein_rows[i].seq_a
-                        if unique_protein_rows[i].unip_id_a == protein else unique_protein_rows[i].seq_b
+                        if unique_protein_rows[i].unip_id_a == protein
+                        else unique_protein_rows[i].seq_b
                         for i, protein in enumerate(unique_proteins)]
-    unique_protein_counts = [len(data[(data.unip_id_a == protein) | (data.unip_id_b == protein)].index)
+    unique_protein_counts = [len(data[(data.unip_id_a == protein)
+                                 | (data.unip_id_b == protein)].index)
                              for protein in unique_proteins]
 
     # Apply uniprot search for information on unique proteins
@@ -64,12 +67,12 @@ def create_list_of_unique_proteins(data: pd.DataFrame,
         try:
             unique_proteins_list[head] = [info[1].split('\t')[i].replace('\"', '')
                                           for info in infos]
-        except:
+        except Exception:
             print(head)
             for info in infos:
                 try:
                     _ = info[1].split('\t')[i].replace('\"', '')
-                except:
+                except Exception:
                     print(info)
                     sys.exit(1)
     unique_proteins_list["Sequence"] = unique_sequences
@@ -174,7 +177,6 @@ def search_pdb_entries(proteins: list[str], sequences: list[str],
     # Iterate over proteins (proteins = uniprot ids)
     # for i, protein in enumerate(proteins):
     def pdb_entry_search_task(i,protein):
-        # verbose_print(f"\r\tStructure search:[{round_self(ind * 100 / len(proteins), 2)}%]", 1, verbose_level, end='')
 
         # Create temporary fasta file at data/temp/unique_protein_list for
         # commandline application in search tools
@@ -187,8 +189,9 @@ def search_pdb_entries(proteins: list[str], sequences: list[str],
         # Depending on given string either perform blastp or hhsearch
         if search_tool == "blastp":
             blast_call = "blastp" if blast_bin is None else f"{blast_bin}blastp"
-            cmd = f"\"{blast_call}\" -query \"{unique_protein_temp_dir}tmp{i}.fasta\" -db \"{blast_db}pdbaa\"" \
-                  f" -evalue 1e-5 -outfmt \"6 delim=, saccver pident qcovs evalue\""
+            cmd = (f"\"{blast_call}\" -query \"{unique_protein_temp_dir}tmp{i}.fasta\""
+                   f" -db \"{blast_db}pdbaa\" -evalue 1e-5 -outfmt \"6 delim=, "
+                   f"saccver pident qcovs evalue\"")
             res = pd.read_csv(StringIO(os.popen(cmd).read()),
                               sep=',',
                               names=["pdb", "ident", "cov", "eval"],
@@ -205,12 +208,15 @@ def search_pdb_entries(proteins: list[str], sequences: list[str],
                 res = res.iloc[0, :]["pdb"]
         elif search_tool == "hhsearch":
             hhearch_call = "hhsearch" if hhsearch_bin is None else f"{hhsearch_bin}hhsearch"
-            cmd = f"\"{hhearch_call}\" -i \"{unique_protein_temp_dir}tmp{i}.fasta\" -d \"{hhsearch_db}pdb70\"" \
-                  f" -e 1e-5 -blasttab \"{unique_protein_temp_dir}tmp{i}.hhr\" -qid 90 -cov 50 -v 0 -cpu 20"
+            cmd = (f"\"{hhearch_call}\" -i \"{unique_protein_temp_dir}tmp{i}.fasta\""
+                   f" -d \"{hhsearch_db}pdb70\" -e 1e-5 -blasttab "
+                   f"\"{unique_protein_temp_dir}tmp{i}.hhr\" -qid 90 -cov 50 -v 0 -cpu 20")
             os.system(cmd)
             # Open hhsearch output (Note: hhsearch outs cannot be retrieved
             # from the commandline, as it is the case with blastp)
-            res = [line.split('\t')[1] for line in open(f"{unique_protein_temp_dir}tmp{i}.hhr", 'r', encoding="utf-8").read().split('\n')
+            res = [line.split('\t')[1]
+                   for line
+                   in open(f"{unique_protein_temp_dir}tmp{i}.hhr", 'r', encoding="utf-8").read().split('\n')
                    if line.split('\t')[0] == protein][0]
         # If result is not False, append it to container list,
         # else append alphafold entry id instead

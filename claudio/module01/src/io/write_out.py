@@ -1,3 +1,4 @@
+"""writes outputs to csv-files for further processing following module01"""
 import pandas as pd
 from claudio.utils.utils import verbose_print
 

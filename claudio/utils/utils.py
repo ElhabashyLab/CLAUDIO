@@ -1,3 +1,4 @@
+""" Provides utility functions used across different modules of CLAUDIO."""
 import os
 import pandas as pd
 

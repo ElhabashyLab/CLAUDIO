@@ -1,3 +1,5 @@
+"""Main script fo Module02, performs structural analysis using structure search and 
+distance evaluation submodules."""
 import sys
 import click
 

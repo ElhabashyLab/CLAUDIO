@@ -1,3 +1,4 @@
+"""Performs analysis of overlapping peptide sequences and interaction site adjacency"""
 import pandas as pd
 from claudio.utils.utils import round_self,verbose_print
 
@@ -17,11 +18,10 @@ def analyse_homo_signals(data: pd.DataFrame,verbose_level: int):
     data : pd.DataFrame
     """
     peptide_copy_search = lambda x: search_for_peptide_copies(x, data)
-    interaction_adjacency = lambda x: compute_interaction_adj(x)
     interaction_overlap = lambda x: compute_interaction_ovl(x, verbose_level)
 
     data["pep_copies_found"] = data.apply(peptide_copy_search, axis=1)
-    data["homo_adjacency"] = data.apply(interaction_adjacency, axis=1)
+    data["homo_adjacency"] = data.apply(compute_interaction_adj, axis=1)
     data["homo_int_overl"] = data.apply(interaction_overlap, axis=1)
     data["homo_pep_overl"] = data.homo_int_overl > 0
     data = data.drop("pep_copies_found", axis=1)

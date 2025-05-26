@@ -1,3 +1,4 @@
+"""Retrieve IDs from RCSB PDB database using either hhsearch or blastp."""
 import concurrent.futures
 from io import StringIO
 import os

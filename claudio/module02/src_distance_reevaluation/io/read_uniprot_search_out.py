@@ -1,3 +1,4 @@
+"""reads output of uniprot search"""
 import pandas as pd
 
 

@@ -1,3 +1,6 @@
+"""Main script for the distance evaluation submodule of Module02's structural analysis.
+Computes distances between observed crosslink sites in 3D structures and evaluates
+the likelihood of interactions based on these distances."""
 import cProfile
 import os
 import pstats

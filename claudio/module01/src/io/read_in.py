@@ -1,3 +1,5 @@
+"""reads input file and maps the column names to a unified naming scheme
+ for module01"""
 import sys
 import pandas as pd
 

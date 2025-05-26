@@ -1,9 +1,10 @@
+"""Read sequences input file from Module01 """
 import pandas as pd
 
 
 def read_in(input_filepath: str):
     """
-    read inputfile (.sqcs file), and columns for results and for control
+    read inputfile (.sqcs file), add columns for results and for control
 
     Parameters
     ----------
