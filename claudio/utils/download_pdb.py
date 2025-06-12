@@ -13,6 +13,7 @@ from claudio.utils.utils import verbose_print, round_self
 warnings.filterwarnings("ignore",
                         category=PDB.StructureBuilder.PDBConstructionWarning)
 
+
 def query_pdb_after_date(date_str: str):
     """
     Query the PDB database for all IDs of files which were modified or created
@@ -95,7 +96,7 @@ def query_pdb_after_date(date_str: str):
                        'modification_date': time.strftime("%Y-%m-%d")})
     return df
 
-def download_pdbs(data, output_dir):
+def download_pdbs(data: pd.DataFrame, output_dir: str):
     """
     Download the PDB files for a given list of PDB IDs.
 
@@ -123,7 +124,7 @@ def download_pdbs(data, output_dir):
 
         # If ordinary download call fails attempt .cif call (for mmCIF file)
         if pdb_file.startswith("<!doctype html>"):
-            print("is cif",pdb_id)
+            print("is cif", pdb_id)
             cif_url = f"{'.'.join(url.split('.')[:-1])}.cif"
             pdb_file = ''.join(r.get(cif_url, timeout=60).text)
             filename = f'{output_dir}{pdb_id}.cif'
