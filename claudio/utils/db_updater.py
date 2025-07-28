@@ -150,6 +150,16 @@ def update_last_updated(filepath: str, sifts_updated: bool, pdbaa_updated: bool)
         with open(filepath, 'w') as f:
             f.write('\n'.join(lines))
 
+def get_last_updated() -> None:
+    """
+    Print the last updated dates for SIFTS and PDBAA databases.
+
+    Returns
+    -------
+    None
+    """
+    print(f"SIFTS Last Updated: {_SIFTS_LAST_UPDATED}")
+    print(f"PDBAA Last Updated: {_PDBAA_LAST_UPDATED}")
 
 if __name__ == "__main__":
     main()

@@ -238,6 +238,25 @@ def update_pdb_database():
     df["modification_date"] = time.strftime("%Y-%m-%d")
     df.to_csv('./claudio/data/pdb/pdb_ids.csv', index=False)
 
+def get_last_updated(path_to_pdb_ids: str) -> None:
+    """
+    Get the last updated date of the PDB database.
+
+    Parameters
+    ----------
+    path_to_pdb_ids : str
+        Path to the PDB IDs file.
+
+    Returns
+    -------
+    None
+    """
+    if os.path.exists(path_to_pdb_ids):
+        df = pd.read_csv(path_to_pdb_ids)
+        last_updated = df["modification_date"].max()
+        print(f"Local PDB last updated: {last_updated}")
+    else:
+        print("No PDB database found.")
 
 if __name__ == "__main__":
     # Update the local PDB database with the latest PDB files. If no local
