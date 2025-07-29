@@ -1,6 +1,4 @@
-import cProfile
 import os
-import pstats
 import sys
 import time
 import click
@@ -121,8 +119,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
     None
 
     """
-    profile = cProfile.Profile()
-    profile.enable()   # --- start profiling
+
     verbose_print(f"Start full CLAUDIO v{pkg_resources.require('CLAUDIO')[0].version} pipeline", 0, 1)
     verbose_print("===================================", 0, 1)
     start_time = time.time()
@@ -207,12 +204,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                   f"{round_self(time.time() - start_time, 2)}s)",
                   0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
-    profile.disable()  # --- stop profiling
-    profile.create_stats()
-    with open("profile.txt", 'w', encoding="utf-8") as fp:
-        stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('cumtime')
-        stats.print_stats()
+
     sys.exit(0)
 
 
