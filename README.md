@@ -251,7 +251,9 @@ claudio --help
 
 ## Citation
 If you use *CLAUDIO*, please cite:
-Röhl, Alexander, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." Bioinformatics 40, no. 4 (2024): btae146.
+Alexander Röhl, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." *Bioinformatics* 40, no. 4 (2024): btae146.
+
+Tobias Löser, Alexander Röhl, and Hadeer Elhabashy. "CLAUDIO 2.0: An Accelerated and Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2025)
 
 ## References
 * [1] Ferrari, Allan JR, et al. "TopoLink: evaluation of structural models using chemical crosslinking distance constraints." Bioinformatics 35.17 (2019): 3169-3170.
