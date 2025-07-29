@@ -1,6 +1,4 @@
 """Main script for Module03, performs overlapping peptide sequence (OPS) analysis."""
-import cProfile
-import pstats
 import sys
 import time
 import click
@@ -34,8 +32,6 @@ def main(input_filepath, output_directory, verbose_level):
     None
     
     """
-    profile = cProfile.Profile()
-    profile.enable()   # --- start profiling
     verbose_print("Start Homo-signal analysis", 0, verbose_level)
     start_time = time.time()
 
@@ -70,12 +66,6 @@ def main(input_filepath, output_directory, verbose_level):
     runtime = round_self(time.time() - start_time, 2)
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
-    profile.disable()  # --- stop profiling
-    profile.create_stats()
-    with open("profileM03.txt", 'w', encoding="utf-8") as fp:
-        stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('cumtime')
-        stats.print_stats()
     sys.exit(0)
 
 

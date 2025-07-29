@@ -1,9 +1,7 @@
 """Main script for the distance evaluation submodule of Module02's structural analysis.
 Computes distances between observed crosslink sites in 3D structures and evaluates
 the likelihood of interactions based on these distances."""
-import cProfile
 import os
-import pstats
 import sys
 import time
 import click
@@ -58,8 +56,6 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
     """
     verbose_print("Start intra interaction check", 0, verbose_level)
     start_time = time.time()
-    profile = cProfile.Profile()
-    profile.enable()   # --- start profiling
 
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
@@ -114,12 +110,6 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
 
-    profile.disable()  # --- stop profiling
-    profile.create_stats()
-    with open("profileM02_DR.txt", 'w', encoding="utf-8") as fp:
-        stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('cumtime')
-        stats.print_stats()
     sys.exit(0)
 
 
@@ -149,7 +139,7 @@ def inputs_valid(input_directory: str, input_filename: str, search_tool: str,
         Invalid input parameters exceptions
     """
 
-    if any([".pdb" in filename for filename in os.listdir(input_directory)]):
+    if any((".pdb" in filename for filename in os.listdir(input_directory))):
         if input_filename.endswith(".sqcs_structdi.csv"):
             if search_tool in ["blastp", "hhsearch"]:
                 # check whether xl_residues can be turned into a proper DataFrame,

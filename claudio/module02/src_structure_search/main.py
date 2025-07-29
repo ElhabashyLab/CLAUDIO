@@ -1,8 +1,6 @@
 """Main script for the structure search submodule of Module02's structural analysis.
 Performs structure search using BLAST or HHsearch and retrieves PDB files."""
-import cProfile
 import os
-import pstats
 import sys
 import time
 import click
@@ -64,8 +62,6 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
     """
     verbose_print("Start structure search", 0, verbose_level)
     start_time = time.time()
-    profile = cProfile.Profile()
-    profile.enable()   # --- start profiling
 
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
@@ -127,12 +123,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
     runtime = round_self(time.time() - start_time, 2)
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
-    profile.disable()  # --- stop profiling
-    profile.create_stats()
-    with open("profileM02_SS.txt", 'w', encoding="utf-8") as fp:
-        stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('cumtime')
-        stats.print_stats()
+
     sys.exit(0)
 
 

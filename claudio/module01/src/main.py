@@ -1,8 +1,6 @@
 """Main script for Module01 of CLAUDIO, performs preprocessing of input data
 and creates a list of unique proteins."""
-import cProfile
 import os
-import pstats
 import sys
 import time
 import click
@@ -62,8 +60,6 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     
     """
 
-    profile = cProfile.Profile()
-    profile.enable()   # --- start profiling
     verbose_print("Start Unique Protein List Tool", 0, verbose_level)
     start_time = time.time()
 
@@ -148,12 +144,7 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     runtime= round_self(time.time() - start_time, 2)
     verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
     verbose_print("===================================", 0, verbose_level)
-    profile.disable()  # --- stop profiling
-    profile.create_stats()
-    with open("profileM01.txt", 'w', encoding="utf-8") as fp:
-        stats = pstats.Stats(profile, stream=fp)
-        stats.sort_stats('cumtime')
-        stats.print_stats()
+
     sys.exit(0)
 
 

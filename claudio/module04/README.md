@@ -10,7 +10,7 @@
                                 default="test/out/sample/sample_data_random.sqcs_ops.csv"
 -p,   --plddt-cutoff,           float value used as cutoff for alphafold structure prediction confidences (plddt), 
                                 default=70.0  
--lmin,  --linker-minimum,         float value used as minimal crosslinker range in angstrom, default=0.0
+-lmin,  --linker-minimum,         float value used as minimal crosslinker range in angstrom, default=5.0
 -lmax,  --linker-maximum,         float value used as maximal crosslinker range in angstrom, default=35.0
 -es,  --euclidean-strictness,   float value substracted from the linker ranges for the euclidean distance scoring
                                 (minimum will not go below 0), default=5.0
