@@ -207,7 +207,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
     # or if position out of bounds
     if wrong_pos:
         pos_replaced = False
-        # Count peptide-as-is-occurences in full sequence
+        # Count peptide-as-is-occurrences in full sequence
         pep_count_in_seq = seq.count(peptide)
 
         # Parse through possible residues

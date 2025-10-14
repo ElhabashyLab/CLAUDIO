@@ -8,17 +8,31 @@ import gzip
 import tarfile
 from io import BytesIO
 
-_SIFTS_LAST_UPDATED = '2025-06-06'
-_PDBAA_LAST_UPDATED = '2025-06-06'
+_SIFTS_LAST_UPDATED = '2000-01-01'
+_PDBAA_LAST_UPDATED = '2000-01-01'
 
 
 @click.command()
 @click.option("-s", "--sifts-threshold", help="number of days as threshold, "
                                               "that if surpassed updates the sifts database", default=14)
 @click.option("-p", "--pdbaa-threshold", help="number of days as threshold, "
-                                              "that if surpassed updates the pdbaa database", default=30)
+                                              "that if surpassed updates the pdbaa database", default=14)
 @click.option("-d", "--pdbaa-dir", help="database directory for blast installation", default=None)
-def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str]):
+def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str]) -> None:
+    """
+    Download or update the SIFTS (in default path) and pdbaa database (in specifiable path),
+    if either threshold in days is passed, and annotate latest update date for either in this file
+
+    Parameters
+    ----------
+    sifts_threshold : float
+    pdbaa_threshold : float
+    pdbaa_dir : str
+
+    Returns
+    -------
+    None
+    """
     this_file_path = os.path.abspath(__file__)
     project_path = '/'.join(this_file_path.replace('\\\\', '/').replace('\\', '/').split('/')[:-2])
 
@@ -38,7 +52,7 @@ def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str
 
 def sifts_db_updater(project_path: str, threshold: float) -> tuple[bool, str]:
     """
-    Download or update the SIFTS database file pdb_chain_uniprot.csv
+    Download or update the SIFTS database file in "claudio/data/pdb_chain_uniprot.csv"
 
     Parameters
     ----------
@@ -79,7 +93,7 @@ def sifts_db_updater(project_path: str, threshold: float) -> tuple[bool, str]:
 
 def pdbaa_updater(pdbaa_dir: Optional[str], threshold: float) -> tuple[bool, str]:
     """
-    Update pdbaa database file for blast in specified directory
+    Download or update pdbaa database files for blast in specified directory
 
     Parameters
     ----------
