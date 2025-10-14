@@ -8,6 +8,7 @@ import time
 import requests as r
 import pandas as pd
 
+from claudio.data.constants import ALPHAFOLD_URL
 from claudio.utils.utils import verbose_print, round_self
 
 
@@ -106,7 +107,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                         chain = 'A'
                         chain_b = 'A'
                         filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
-                        url = f"https://alphafold.ebi.ac.uk/files/AF-{row.unip_id_a}-F1-model_v4.pdb"
+                        url = f"{ALPHAFOLD_URL[0]}{row.unip_id_a}{ALPHAFOLD_URL[1]}"
 
                     # no download possible
                     else:

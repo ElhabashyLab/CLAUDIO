@@ -1,0 +1,1 @@
+ALPHAFOLD_URL = ["https://alphafold.ebi.ac.uk/files/AF-", "-F1-model_v6.pdb"]

@@ -10,6 +10,7 @@ from Bio.Align import PairwiseAligner
 import requests as r
 import numpy as np
 
+from claudio.data.constants import ALPHAFOLD_URL
 from claudio.utils.utils import verbose_print, round_self
 
 _MAX_INTERFACE_DISTANCE = 50
@@ -596,7 +597,7 @@ def replacement_alphafold_download(unip_id: str, path: str, verbose_level: int, 
     new_path = f"{'_'.join(path.split('_')[:-1])}_af{unip_id}.pdb"
 
     if not os.path.exists(new_path):
-        url = f"https://alphafold.ebi.ac.uk/files/AF-{unip_id}-F1-model_v4.pdb"
+        url = f"{ALPHAFOLD_URL[0]}{unip_id}{ALPHAFOLD_URL[1]}"
         with open(new_path, 'w', encoding="utf-8") as f:
             try:
                 f.write(r.get(url,timeout=60).text)
