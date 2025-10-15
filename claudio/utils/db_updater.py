@@ -65,10 +65,13 @@ def sifts_db_updater(project_path: str, threshold: float) -> tuple[bool, str]:
     output_path : str
     """
     last_updated = datetime.date.fromisoformat(_SIFTS_LAST_UPDATED)
-    if (datetime.date.today() - last_updated).days > threshold:
+
+    url = 'https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz'
+    filename = url.split('/')[-1].replace('.gz', '')
+    output_path = project_path + f'/data/{filename}'
+    if (not os.path.exists(output_path)) or ((datetime.date.today() - last_updated).days > threshold):
         try:
             # download database
-            url = 'https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz'
             response = r.get(url)
             # check download request status
             try:
@@ -80,8 +83,6 @@ def sifts_db_updater(project_path: str, threshold: float) -> tuple[bool, str]:
             # wrap content in BytesIO
             payload = BytesIO(response.content)
             with gzip.open(payload, 'rb') as b:
-                filename = url.split('/')[-1].replace('.gz', '')
-                output_path = project_path + f'/data/{filename}'
                 # write to csv in data directory
                 with open(output_path, 'w') as f:
                     f.write(b.read().decode('utf-8'))
@@ -107,7 +108,8 @@ def pdbaa_updater(pdbaa_dir: Optional[str], threshold: float) -> tuple[bool, str
     """
     if pdbaa_dir:
         last_updated = datetime.date.fromisoformat(_PDBAA_LAST_UPDATED)
-        if (datetime.date.today() - last_updated).days > threshold:
+        if ((not os.path.exists(str(pdbaa_dir) + "pdbaa.phr")) or
+                ((datetime.date.today() - last_updated).days > threshold)):
             try:
                 # download database
                 url = 'https://ftp.ncbi.nlm.nih.gov/blast/db/pdbaa.tar.gz'

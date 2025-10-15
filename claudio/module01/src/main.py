@@ -28,7 +28,7 @@ from claudio.utils.utils import verbose_print, clean_input_paths, \
 @click.option("-t", "--search-tool", default="blastp")
 @click.option("-o", "--output-directory", default="test/out/sample")
 @click.option("-bl", "--blast-bin", default=None)
-@click.option("-bldb", "--blast-db", default="$BLASTDB")
+@click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-v", "--verbose-level", default=2)
@@ -206,8 +206,7 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                 # check blast database path
                 if (search_tool == "hhsearch") or os.path.exists(str(blast_db) + "pdbaa.phr"):
                     # check hhsearch database path
-                    if (search_tool == "blastp") or os.path.exists(str(hhsearch_db)
-                                                                   + "pdb70_a3m.ffdata"):
+                    if (search_tool == "blastp") or os.path.exists(str(hhsearch_db) + "pdb70_a3m.ffdata"):
                         return True
                     raise FileNotFoundError(f"Error! Could not find 'pdb70_a3m.ffdata' in given "
                                             f"hhsearch database directory (given: {hhsearch_db}).")

@@ -1,5 +1,11 @@
 # CLAUDIO 
 
+1. [Setup](#1-setup)
+2. [Usage](#2-usage)
+3. [Authors](#3-authors)
+4. [Citation](#4-citation)
+5. [References](#5-references)
+
 *CLAUDIO*, the tool for "**C**ross-**l**inking **a**nalysis **u**sing **di**stances and **o**verlaps", allows
 for an in-depth evaluation of structure and sequence information, automating necessary post-experiment analysis. 
 It downloads protein structures for this, and returns protein-link-specific small-datasets containing structural 
@@ -12,37 +18,48 @@ These include...
 * ... Information on possible oligomeric states discovered by SWISS-MODEL homology
 * ... Cross-link type estimations
 
-## Setup
-> :warning: **CLAUDIO was tested and requires a version of Python larger or equal to 3.8 and lower or equal to 3.11. Higher or lower version may be incompatible. Consider creating an environment via [conda](https://docs.conda.io/projects/conda/en/stable/commands/env/create.html) (ex. with the ``python=3.10`` parameter) or otherwise, if your local Python version does not fit the requirement.**
+## 1. Setup
+> :warning: ***CLAUDIO* was tested and requires a version of Python 3.8 - 3.11. Higher or lower 
+> versions may be incompatible. Consider creating an environment via [conda](https://docs.conda.io/projects/conda/en/stable/commands/env/create.html) (ex. with the ``python=3.10`` parameter) or otherwise, if your local Python version does not fit the requirement.**
 
-For a quick setup, run the following command with the ``pip``-installation associated with your version of Python 3, 
+For a quick setup, run ``pip install .`` with the pip-installation associated with your version of Python 3, 
 while your current working directory is the directory containing this README file (alternatively: replace '``.``' in the
-command with the path to said directory):
+command with the path to said directory). This should install *CLAUDIO* and its dependencies on your device as well as 
+automatically add it to your commandline PATH executables (or only in your current python/conda environment, if you are 
+using one).
+
+You may test whether this was successful with this command, which should return instructions on *CLAUDIO*'s Commandline 
+Interface (CLI) for a full pipeline execution:
 ```
-pip install .
+claudio --help
 ```
 
-### External Tools
-In order to run *CLAUDIO* you need to install the following external tools:
+### 1.1 External Tools [Required]
+In order to properly run a analysis with *CLAUDIO*, you need to install the following external tools:
 * **Topolink**[[1]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) (for structural analysis)
 * **BLASTP**[[2]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) (for finding suitable protein structures)
 
-#### Installation Instructions
-* **Blast** with *pdbaa* database (see [Windows or Unix Manuals](https://www.ncbi.nlm.nih.gov/books/NBK52638/), or see this [MacOS Manual](https://www.blaststation.com/intl/members/en/howtoblastmac.html))
-  * For Blast, you also have to download the newest *pdbaa* database. You may do so by navigating into your 
-  Blast installation directory and running the following command:
-    ```
-    perl bin/update_blastdb.pl --passive --decompress pdbaa
-    ```
-    This download method requires `perl` to be executable from your commandline, which is not installed by 
+#### 1.1.1 Installation Instructions
+* i. **Blast** (see [Windows or Unix Manuals](https://www.ncbi.nlm.nih.gov/books/NBK52638/), or see this [MacOS Manual](https://www.blaststation.com/intl/members/en/howtoblastmac.html))
+  * **BlastDB [Optional (this has been automated)]**: For Blast, you also have to download the newest *pdbaa* database. **This step has been automated in *CLAUDIO 2.0*** 
+  though. Simply by providing a directory where the database should be saved in the ``--blast-db`` parameter or the 
+  respective field in the config file, while executing *CLAUDIO*'s main pipeline with ``claudio`` (for other examples 
+  see [here](https://github.com/ElhabashyLab/CLAUDIO?tab=readme-ov-file#claudio---full-pipeline)) will download and 
+  update the pdbaa databse for blast. 
+    * If you wish to manually update the database you may do so by navigating into your Blast installation directory and 
+  running the following command (you may need to move the resulting files into your intended directory):
+      ```
+      perl bin/update_blastdb.pl --passive --decompress pdbaa
+      ```
+      This download method requires `perl` to be executable from your commandline, which is not installed by 
   default on Windows and MacOS systems. You may install it with this 
   [Windows-Manual](https://learn.perl.org/installing/windows.html) or 
   [MacOS-Manual](https://learn.perl.org/installing/osx.html), or manually download the database 
   [here](https://ftp.ncbi.nlm.nih.gov/blast/db/).
-  * Hint: If you followed the Installation Manual (linked up top) to-the-letter, you may have added the environmental 
-    variable `$BLASTDB` to your paths. If so, you can use this variable instead of the full path in the input parameters
-    of *CLAUDIO*.
-* **TopoLink** (see [Installation Manual](https://m3g.github.io/topolink/download.html))
+    * Hint: If you followed the Installation Manual (linked up top) to-the-letter, you may have added the environmental 
+      variable `$BLASTDB` to your paths. If so, you can use this variable instead of the full path in the input parameters
+      of *CLAUDIO*.
+* ii. **TopoLink** (see [Installation Manual](https://m3g.github.io/topolink/download.html))
   * Topolink possesses a standalone executable for Windows 10 systems (or higher), which can be downloaded directly
   [here](https://m3g.github.io/topolink/Windows_Binaries/Windows10-64bits/topolink.exe).
 
@@ -50,7 +67,7 @@ To ease the execution of *CLAUDIO* you may want to ensure that these tools can b
 (e.g. add their respective `bin` directories to the `Path` variable of your OS). Otherwise, you may specify the
 location of the `bin` directories in the input parameters.
 
-### Online connection
+### 1.2 Online connection [Required]
 *CLAUDIO* calls upon the API of a number of bioinformatic online databases ([UniProt](https://www.uniprot.org/)
 [[3]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), [RCSB](https://www.rcsb.org/)
 [[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), [AlphaFold](https://alphafold.ebi.ac.uk/)
@@ -61,21 +78,29 @@ It is furthermore recommended having a stable internet connection, as otherwise 
 lead to empty results. This of course, also necessitates the database server's side to be running properly as well. If 
 errors or suspicious inconsistencies in the results persist due to this, you may want to try again later.
 
-### Optional: Local PDB
-To reduce the dependency on an online connection, it is possible to download all available protein structures from the [RCSB-PDB](https://www.rcsb.org/) [[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) and store them locally using: 
+#### 1.2.1 Local RCSB-PDB [Optional (recommended)]
+To reduce the dependency on an online connection to the [RCSB-PDB](https://www.rcsb.org/) [[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), it is possible to download all available protein structures and store them locally using: 
 ```
-Python3 ./claudio/utils/download_db.py
+python3 ./claudio/utils/download_db.py
 ```
-This is an optional step and recommended if it is intended to use *CLAUDIO* frequently. This will require approximately **60GB** of disk space from the volume *CLAUDIO* is installed on and take several hours when run for the first time. This script should be run frequently to ensure using the newest information available in the PDB.
+This is an optional step and recommended if the user intends to use *CLAUDIO* frequently. This will require 
+approximately **60GB** of disk space from the volume *CLAUDIO* is installed on and take several hours when run for the 
+first time (only a few minutes every other time). This script should be run frequently to ensure using the newest 
+information available in the PDB.
 
-### Offline Databases
+### 1.3 Offline Databases [Optional (this has been automated)]
 In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS database
-[[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references). The file in question is called **pdb_chain_uniprot.csv** and needs to be stored 
-[here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/). It can be downloaded [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz) and we recommend updating this file from time to time in order to keep up its efficiency, though this is not a necessity.
+[[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), which will be automatically downloaded and updated since *CLAUDIO 2.0*.\
+The file in question is called **pdb_chain_uniprot.csv** and needs to be stored [here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/). It can be downloaded 
+manually [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz), though this process, as mentioned, is automated and does not need further interaction by the user.
 
-### Optional: Packages (background info)
-This tool is written in and has to be run with python 3 (last tested v3.11).\
-It has the following requirements:
+### 1.4 Manual Python Package installation [Optional (not recommended)]
+> :warning: This step is only recommended if the user possesses advanced knowledge on python setups, since it 
+> will not include instructions on how to create a runnable version of *CLAUDIO*.
+
+Alternative to using the direct ``pip install .`` option mentioned at the beginning, the following dependencies may be 
+installed manually.\
+Either individually from this list:
 
 * biopython 1.79
 * click 8.1.3
@@ -84,7 +109,7 @@ It has the following requirements:
 * requests 2.28.2
 * numpy==1.23.5
 
-The packages may be installed all at once with the file [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
+Or by installing from the provided [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
 ```
 pip install -r requirements.txt
 ```
@@ -100,7 +125,7 @@ pip install numpy==1.23.5
 Note: Both approaches need to refer to the pip-installer associated to the python installation, that will be used to run
 the tool.
 
-## Usage
+## 2. Usage
 *CLAUDIO* consists of a total of 4 modules. Each module can be run independently as long as appropriate inputs are 
 delivered. For details on how to run the modules individually see their respective README-files.
 * [Module 01 - Unique protein (pair) listing tool](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module01/README.md)
@@ -114,7 +139,7 @@ For details on how to run the **full** pipeline continue below.
 
 ---
 
-## CLAUDIO - Full pipeline
+## 2.1 CLAUDIO - Full pipeline
 ### The CLI - Command Line Interface
 ```
 > claudio [-i <filepath>] [-it <diretorypath>] [-o <directorypath/"">] [-p <"comma-separated str">] [-bl <directorypath/None>] [-bldb <directorypath>] [-tl <directorypath>] [-x <comma-separated str>] [-lmin <float>] [-lmax <float>] [-t <"blastp">] [-e <float] [-qi <float>] [-cv <float>] [-r <float>] [-rt <True/False>] [-pc <float>] [-s <True/False>] [-v <int>] [-es <float>] [-dm <float>] [-ct <float>] [-c <filepath>] 
@@ -135,7 +160,8 @@ For details on how to run the **full** pipeline continue below.
                                 default="peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2"
 -bl,   --blast-bin,             binary directory in blast installation, or None if binary directory has been added to 
                                 PATH variable (e.g. if blast can be called from anywhere), default=None
--bldb, --blast-db,              database directory for blast installation, default="$BLASTDB"
+-bldb, --blast-db,              database directory for blast database installation (will automatically update, if left 
+                                on default), default="claudio/data/pdbaa"
 -tl,   --topolink-bin,          binary directory in topolink installation, or None if binary directory has been added to
                                 PATH variable (e.g. if topolink can be called from anywhere), default=None
 -x,    --xl-residues,           comma-separated one-letter-code residues, optional: add two ':' after the 
@@ -214,7 +240,7 @@ You may see examples for all parameters in the [example configuration-file](http
 which also serves as an alternative to supply all parameter inputs.
 
 
-### Output
+### 2.1.1 Output
 This tool returns all the outputs listed in the modules (see 
 [module01](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module01),
 [module02](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module02),
@@ -225,7 +251,7 @@ Note: All CSV-file outputs pertaining the input dataset are summarized into a si
 '_final.csv'-extension), e.g. the output CSV-file of module01 ending with '.sqcs', of module02 ending with 
 '.sqcs_structdi.csv', and of module03 ending with '.sqcs_ops.csv' will be summarized here. 
 
-### Example
+### 2.1.2 Example
 **CLAUDIO** (in full) can be run like this:
 * with a configuration file with all parameters (this will run the test dataset, when using the default config.txt, with all non-described parameters being filled with default values)
 ```
@@ -245,19 +271,20 @@ Also, you may return all CLI parameter options on the terminal like this:
 claudio --help
 ```
 
-## Authors
+## 3. Authors
 * **Alexander Röhl**
 * **Tobias Löser**
 * **Hadeer Elhabashy**
 * **Eugen Netz**
 
-## Citation
+## 4. Citation
 If you use *CLAUDIO*, please cite:
+
 Alexander Röhl, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." *Bioinformatics* 40, no. 4 (2024): btae146.
 
 Tobias Löser, Alexander Röhl, and Hadeer Elhabashy. "CLAUDIO 2.0: An Accelerated and Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2025)
 
-## References
+## 5. References
 * [1] Ferrari, Allan JR, et al. "TopoLink: evaluation of structural models using chemical crosslinking distance constraints." Bioinformatics 35.17 (2019): 3169-3170.
 * [2] Altschul, Stephen F., et al. "Basic local alignment search tool." Journal of molecular biology 215.3 (1990): 403-410.
 * [3] UniProt Consortium. "UniProt: a worldwide hub of protein knowledge." Nucleic acids research 47.D1 (2019): D506-D515.

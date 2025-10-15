@@ -16,11 +16,11 @@ _DEFAULT_OPTIONS = ["test/sample_data_random.csv", None,
                     "peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2",
                     False, "K,M:N:1", "blastp", 1e-5, 90.0, 50.0, 4, 70.0,
                     0.0, 35.0, None, 50.0, 0.0, "test/out/sample/", None,
-                    "$HOME/BLAST/db", None, "$HOME/HHSUITE/db", None, False, 2]
+                    "$HOME/BLAST/db", "claudio/data/pdbaa", "$HOME/HHSUITE/db", None, False, 2]
 # ['test/sample_data_random.csv', None,
 #  'peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2',
 #  False, 'K,M:N:1', 'blastp', 1e-05, 90.0, 50.0, 4, 70.0, 0.0, 35.0,
-#  None, 50.0, 0.0, 'test/out/sample/', None, '$HOME/BLAST/db', None,
+#  None, 50.0, 0.0, 'test/out/sample/', None, 'claudio/data/pdbaa', None,
 #  '$HOME/HHSUITE/db', None, False, 2]
 
 

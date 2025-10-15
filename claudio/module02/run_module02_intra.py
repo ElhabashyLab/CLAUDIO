@@ -25,7 +25,7 @@ from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
 @click.option("-r", "--res-cutoff", default=4)
 @click.option("-o", "--output-directory", default="test/out/sample")
 @click.option("-bl", "--blast-bin", default=None)
-@click.option("-bldb", "--blast-db", default="$BLASTDB")
+@click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-tl", "--topolink-bin", default=None)

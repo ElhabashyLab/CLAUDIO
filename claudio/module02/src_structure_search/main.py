@@ -28,7 +28,7 @@ from claudio.utils.utils import (verbose_print, clean_input_paths,
 @click.option("-r", "--res-cutoff", default=4)
 @click.option("-o", "--output-directory", default="test/out/sample")
 @click.option("-bl", "--blast-bin", default=None)
-@click.option("-bldb", "--blast-db", default="$BLASTDB")
+@click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-v", "--verbose-level", default=2)

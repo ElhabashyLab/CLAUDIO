@@ -31,7 +31,8 @@
 -o,    --output-directory,      output directory for produced csv-files, default="test/out/sample"
 -bl,   --blast-bin,             binary directory in blast installation, or None if binary directory has been added to 
                                 PATH variable (e.g. if blast can be called from anywhere), default=None
--bldb, --blast-db,              database directory for blast installation, default="$BLASTDB"
+-bldb, --blast-db,              database directory for blast database installation (will automatically update, if left 
+                                on default), default="claudio/data/pdbaa"
 -hh,   --hhsearch-bin,          binary directory in hh-suite installation, or None if binary directory has been added to
                                 PATH variable (e.g. if hhsearch can be called from anywhere), default=None
 -hhdb, --hhsearch-db,           database directory for hh-suite installation, default="$HHDB"

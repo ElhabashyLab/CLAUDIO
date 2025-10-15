@@ -44,10 +44,10 @@ projections = peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2
 #ex.: /home/me/desktop/ncbi-blast-2.13.0+/bin
 blast_bin = None
 
-#6.database directory for blast installation
+#6.database directory for blast database installation (will automatically update, if left on default)
 #type: string
 #ex.: /home/me/desktop/ncbi-blast-2.13.0+/db
-blast_db = $HOME/BLAST/db
+blast_db = claudio/data/pdbaa
 
 #7.binary directory in topolink installation, or None if binary directory has been added to PATH variable (e.g. if
 #topolink can be called from anywhere)
