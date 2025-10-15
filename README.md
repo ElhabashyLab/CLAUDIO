@@ -99,8 +99,7 @@ manually [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_c
 > will not include instructions on how to create a runnable version of *CLAUDIO*.
 
 Alternative to using the direct ``pip install .`` option mentioned at the beginning, the following dependencies may be 
-installed manually.\
-Either individually from this list:
+installed manually.
 
 * biopython 1.79
 * click 8.1.3
@@ -109,7 +108,7 @@ Either individually from this list:
 * requests 2.28.2
 * numpy==1.23.5
 
-Or by installing from the provided [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
+Either by installing from the provided [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
 ```
 pip install -r requirements.txt
 ```
