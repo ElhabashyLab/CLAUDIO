@@ -13,7 +13,9 @@ These include...
 * ... Cross-link type estimations
 
 ## Setup
-For a quick setup, run the following command with the ``pip``-installation associated with your version of python 3, 
+> :warning: **CLAUDIO was tested and requires a version of Python larger or equal to 3.8 and lower or equal to 3.11. Higher or lower version may be incompatible. Consider creating an environment via [conda](https://docs.conda.io/projects/conda/en/stable/commands/env/create.html) (ex. with the ``python=3.10`` parameter) or otherwise, if your local Python version does not fit the requirement.**
+
+For a quick setup, run the following command with the ``pip``-installation associated with your version of Python 3, 
 while your current working directory is the directory containing this README file (alternatively: replace '``.``' in the
 command with the path to said directory):
 ```

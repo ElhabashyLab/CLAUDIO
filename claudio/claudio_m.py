@@ -2,14 +2,15 @@ import os
 import sys
 import time
 import click
-import pkg_resources
+from importlib.metadata import version as _pkg_version
 
 from claudio.module01.src.main import main as run_claudio_lists
 from claudio.module02.run_module02_intra import main as run_claudio_structdi
 from claudio.module03.src.main import main as run_claudio_ops
 from claudio.module04.src.main import main as run_claudio_xl
 
-from claudio.utils.utils import verbose_print, round_self, evaluate_boolean_input
+from claudio.utils.utils import verbose_print, round_self, evaluate_boolean_input, clean_input_paths
+from claudio.utils.db_updater import main as db_updater
 
 _DEFAULT_OPTIONS = ["test/sample_data_random.csv", None,
                     "peptide1,peptide2,position1,position2,k_pos1,k_pos2,entry1,entry2",
@@ -120,7 +121,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
 
     """
 
-    verbose_print(f"Start full CLAUDIO v{pkg_resources.require('CLAUDIO')[0].version} pipeline", 0, 1)
+    verbose_print(f"Start full CLAUDIO v{_pkg_version('CLAUDIO')} pipeline", 0, 1)
     verbose_print("===================================", 0, 1)
     start_time = time.time()
 
@@ -137,6 +138,16 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         distance_maximum, cutoff, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db,\
         topolink_bin, compute_scoring, verbose_level \
         = parse_params(params)
+
+    input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin \
+        = clean_input_paths([input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin,
+                             hhsearch_db, topolink_bin])
+
+    verbose_print(f"Updating databases SIFTS and pdbaa at {blast_db}.", 0, 1)
+    try:
+        db_updater(["-s", 14, "-p", 14, "-d", blast_db])
+    except SystemExit:
+        pass
 
     filename = '.'.join(input_filepath.split('/')[-1].split('.')[:-1])
 
