@@ -129,3 +129,6 @@ claudio/data/pdb_chain_uniprot.csv
 # Results
 test/out/*
 !test/out/sample
+
+# VSCode settings
+.vscode
