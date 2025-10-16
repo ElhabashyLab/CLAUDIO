@@ -129,11 +129,11 @@ claudio/data/pdb_chain_uniprot.csv
 # Results
 test/out/*
 !test/out/sample
-*.pdb
-*.pml
-*.csv
-*.fasta
-*.png
+test/out/sample/*.pdb
+test/out/sample/*.pml
+test/out/sample/*.csv
+test/out/sample/*.fasta
+test/out/sample/*.png
 
 # VSCode settings
 .vscode
