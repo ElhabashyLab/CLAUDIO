@@ -235,6 +235,8 @@ claudio --help
 > 
 > > Tobias Löser, Alexander Röhl, and Hadeer Elhabashy. "CLAUDIO 2.0: An Accelerated and Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2025)
 
+⭐ If this tool helped your research, please consider starring the repository.
+
 ---
 
 ---
