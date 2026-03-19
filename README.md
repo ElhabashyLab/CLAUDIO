@@ -1,4 +1,4 @@
-# CLAUDIO 
+# CLAUDIO 2.0
 
 1. [:construction: Setup](#1-setup-construction)
 2. [:recycle: Usage](#2-usage-recycle)
@@ -33,8 +33,8 @@ For a quick setup, run ``pip install .`` with the pip-installation associated wi
 
 ### 1.2 External Tools - :warning: Required
 In order to properly run an analysis with *CLAUDIO*, you need to install the following external tools:
-* **Topolink**[[1]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) (for structural analysis)
-* **BLASTP**[[2]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references) (for finding suitable protein structures)
+* **Topolink**[[1]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references) (for structural analysis)
+* **BLASTP**[[2]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references) (for finding suitable protein structures)
 
 #### 1.2.1 Installation Instructions
 i. **Blast** (see [Windows or Unix Manuals](https://www.ncbi.nlm.nih.gov/books/NBK52638/), or see this [MacOS Manual](https://www.blaststation.com/intl/members/en/howtoblastmac.html))
@@ -59,19 +59,50 @@ ii. **TopoLink** (see [Installation Manual](https://m3g.github.io/topolink/downl
 > To ease the execution of *CLAUDIO* you may want to ensure that these tools can be executed directly from your terminal (e.g. add their respective `bin` directories to the `Path` variable of your OS). Otherwise, you may specify the location of the `bin` directories in the input parameters.
 
 ### 1.3 Online connection - :warning: Required
-*CLAUDIO* calls upon the API of a number of bioinformatic online databases ([UniProt](https://www.uniprot.org/)[[3]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), [RCSB](https://www.rcsb.org/)[[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), [AlphaFold](https://alphafold.ebi.ac.uk/)[[5]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), and [SWISS-MODEL](https://swissmodel.expasy.org/)[[6]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references)) during its computations. This means it cannot be run offline.\
-It is furthermore recommended having a stable internet connection, as otherwise certain API calls may not be answered or lead to empty results. This of course, also necessitates the database server's side to be running properly as well. If errors or suspicious inconsistencies in the results persist due to this, you may want to try again later.
+*CLAUDIO* calls upon the API of a number of bioinformatic online databases ([UniProt](https://www.uniprot.org/)[[3]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references), [RCSB](https://www.rcsb.org/)[[4]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references), [AlphaFold](https://alphafold.ebi.ac.uk/)[[5]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references), and [SWISS-MODEL](https://swissmodel.expasy.org/)[[6]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references)) during its computations. This means it cannot be run offline.\
+It is furthermore recommended for said connection to be stable, as otherwise certain API calls may not be answered, or worse, lead to empty results falsifying the results. This of course, also necessitates the database server's side to be running properly as well. If errors or suspicious inconsistencies in the results persist due to this, you may want to try again later.
 
 #### 1.3.1 Local RCSB-PDB - Optional (Recommended)
-To reduce the dependency on an online connection to the [RCSB-PDB](https://www.rcsb.org/) [[4]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), it is possible to download all available protein structures and store them locally using: 
+To reduce the dependency on an online connection to the 
+[RCSB-PDB](https://www.rcsb.org/)[[4]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references), it is possible to 
+download all available protein structures and store them locally using 
+[claudio/utils/download_pdb.py](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/utils/download_pdb.py).
+> [!NOTE]
+> This step is NOT integrated into CLAUDIO's main pipeline and is purely left to the user's discretion whether they want
+> to execute it. The downloaded database will require approximately **60GB** of disk space from the volume *CLAUDIO* is 
+> installed on and take several hours when run for the first time (only a few minutes every other time). In turn, this 
+> step will dramatically reduce the runtime of *CLAUDIO* during structure retrieval. The script should be run frequently
+> to ensure using the newest information available in the PDB and will serve as an updater in successive executions.
+
+> [!WARNING]
+> While this script can be called from anywhere the user wishes, it should not be moved from its location in the project
+> library. Doing so may allow still execution, but will not automatically place the resulting database where it
+> is expected by CLAUDIO (namely in '*claudio/data/pdb/*').
+
+The script may be called like this:
 ```
 python3 ./claudio/utils/download_db.py
 ```
-This is an optional step and recommended if the user intends to use *CLAUDIO* frequently. This will require approximately **60GB** of disk space from the volume *CLAUDIO* is installed on and take several hours when run for the first time (only a few minutes every other time). In turn, this step will dramatically reduce the runtime of *CLAUDIO* during structure retrieval. The script should be run frequently to ensure using the newest information available in the PDB.
+Note: There is no CLI for this script, and will perform actions without the need for user specifications.
 
 ### 1.4 Offline Databases - Optional (this has been automated)
-In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS database [[7,8]](https://github.com/KohlbacherLab/CLAUDIO/tree/main#references), which will be automatically downloaded and updated since *CLAUDIO 2.0*.\
-The file in question is called **pdb_chain_uniprot.csv** and needs to be stored [here](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/data/). It can be downloaded manually [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz), though this process, as mentioned, is automated and does not need further interaction by the user.
+In addition to the aforementioned online databases, *CLAUDIO* accesses the SIFTS database [[7,8]](https://github.com/ElhabashyLab/CLAUDIO/tree/main#references), which will be automatically downloaded and updated since *CLAUDIO 2.0*.\
+The file in question is called *pdb_chain_uniprot.csv* and needs to be stored [here](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/data/). It can be downloaded manually [here](http://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz), though this process, as mentioned, is automated and does not need further interaction by the user (see [here](#22-database-updater---optional)).
+
+As mentioned though, this process has mostly been automated via CLAUDIO's Database Updater. It serves as an 
+easy-to-access standalone updating tool for the relevant database resources of CLAUDIO, namely the *pdbaa* and the 
+*pdb_chain_uniprot.csv* databases. The script can be found in CLAUDIO's project library under [claudio/utils/db_updater.py](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/utils/db_updater.py).
+> [!WARNING]
+> While the Database Updater can be called from anywhere the user wishes, the script may not be moved from its location 
+> in the project library. Doing so will otherwise leave the tool inoperable.
+### The CLI - Command Line Interface
+```
+> python3 ./claudio/utils/db_updater.py [-s <int>] [-p <int>] [-d <directorypath>] 
+
+-s,     --sifts-threshold,      number of days as threshold, that if surpassed updates the sifts database, default=14
+-p,     --pdbaa-threshold,      number of days as threshold, that if surpassed updates the pdbaa database, default=14
+-d,     --pdbaa-dir,            database directory for blast installation, default=None
+```
 
 ### 1.5 Manual Python Package installation - Optional (not Recommended)
 > [!WARNING]
@@ -86,7 +117,7 @@ Alternative to using the direct ``pip install .`` option mentioned at the beginn
 * requests 2.28.2
 * numpy==1.23.5
 
-Either by installing from the provided [requirements.txt](https://github.com/KohlbacherLab/CLAUDIO/tree/main/requirements.txt):
+Either by installing from the provided [requirements.txt](https://github.com/ElhabashyLab/CLAUDIO/tree/main/requirements.txt):
 ```
 pip install -r requirements.txt
 ```
@@ -106,17 +137,17 @@ Note: Both approaches need to refer to the pip-installer associated to the pytho
 ---
 ## 2 Usage :recycle:
 *CLAUDIO* consists of a total of 4 modules. Each module can be run independently as long as appropriate inputs are delivered. For details on how to run the modules individually see their respective README-files.
-* [Module 01 - Unique protein (pair) listing tool](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module01/README.md)
-* [Module 02 - Structural distance analysis tool](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module02/README.md)
-* [Module 03 - Overlapping peptide sequence analysis tool](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module03/README.md)
-* [Module 04 - XL-type evaluation](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module04/README.md)
+* [Module 01 - Unique protein (pair) listing tool](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module01/README.md)
+* [Module 02 - Structural distance analysis tool](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module02/README.md)
+* [Module 03 - Overlapping peptide sequence analysis tool](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module03/README.md)
+* [Module 04 - XL-type evaluation](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module04/README.md)
 
 For details on how to run the **full** pipeline continue below.
 
-## 2.1 CLAUDIO - Full pipeline
+## 2.1 CLAUDIO 2.0 - Full pipeline
 ### The CLI - Command Line Interface
 ```
-> claudio [-i <filepath>] [-it <diretorypath>] [-o <directorypath/"">] [-p <"comma-separated str">] [-bl <directorypath/None>] [-bldb <directorypath>] [-tl <directorypath>] [-x <comma-separated str>] [-lmin <float>] [-lmax <float>] [-t <"blastp">] [-e <float] [-qi <float>] [-cv <float>] [-r <float>] [-rt <True/False>] [-pc <float>] [-s <True/False>] [-v <int>] [-es <float>] [-dm <float>] [-ct <float>] [-c <filepath>] 
+> claudio [-i <filepath>] [-it <directorypath>] [-o <directorypath/"">] [-p <"comma-separated str">] [-bl <directorypath/None>] [-bldb <directorypath>] [-tl <directorypath>] [-x <comma-separated str>] [-lmin <float>] [-lmax <float>] [-t <"blastp">] [-e <float] [-qi <float>] [-cv <float>] [-r <float>] [-rt <True/False>] [-pc <float>] [-s <True/False>] [-v <int>] [-es <float>] [-dm <float>] [-ct <float>] [-c <filepath>] 
 
 -i,    --input-filepath,        path to inputfile, default="test/sample_data_random.csv"
 -it,   --input-temppath,        path to directory for temporary files, default=None
@@ -178,20 +209,20 @@ This tool requires a CSV-file containing multiple observed cross-linking interac
 2. If you intend to run *CLAUDIO* on separate datasets simultaneously, or want to split your dataset into smaller ones, you have to specify the parameter "-it / --input-temppath". *CLAUDIO* generates multiple temporary files during its computation, most of which are in- or outputs of the third-party tools used. If parallel executions of *CLAUDIO* are run with the same tempfile path, conflicts may be caused disrupting or falsifying some results. Thereby make sure to specify different paths here, if you run the tool in parallel.
 3. It is important to customize the parameter "-p / --projections". This parameter requires a comma separated list as input, which maps the column names of your dataset to the ones used in the tool.
 4. You need to specify the paths to the local external tool installations (BLASTP and TopoLink). The parameters for this are "-bl / --blast-bin" for the binary directory of blast, "-bldb / --blast-db" for the database directory containing the *pdbaa* database files, and "-tl / --topolink-bin" for the binary directory of TopoLink.
-5. Make sure you customize the settings pertaining the cross-linking experiments specifications, e.g. "-x / --xl-residues" for the aminoacids which may be cross-linked, and both "-lmin / --linker-minimum" and "-lmax / --linker-maximum" for the cross-linker's range capability. Besides this specify the amino acids the used crosslinker is able to bind to. For this specify a tiny comma-separated list of possibly crosslinked residues, as one-letter-code symbols. Optionally you may add two colon-symbols, if they wish to specify the position of the residue in the sequence and/or the atom in the residue used for the distance computation. After the first colon-symbol they may place the atom type for the distance computation, e.g. 'CB', 'CA', or 'N', etc. . If no value is set here 'CB' will be used by default. After the second colon-symbol they may place one of three position values: 0 if the residue may occur anywhere in the protein, 1 if the residue has to be at the N-terminus, or -1 if the residue has to be at the C-terminus (ex.: use "K:CB:0" to calculate the cross-link distance between lysin C-beta-atoms at any position in the chain). If you want to specify multiple possible positions for the same symbol you have to add them individually (ex.: "M::1,M::-1" for methionine at either the beginning or end of the chain). By default, 0 is set here, e.g. the residue may be placed anywhere.
+5. Make sure you customize the settings pertaining the cross-linking experiments specifications, e.g. "-x / --xl-residues" for the aminoacids which may be cross-linked, and both "-lmin / --linker-minimum" and "-lmax / --linker-maximum" for the cross-linker's range capability. Besides this specify the amino acids the used crosslinker is able to bind to. For this specify a tiny comma-separated list of possibly crosslinked residues, as one-letter-code symbols. Optionally you may add two colon-symbols, if you wish to specify the position of the residue in the sequence and/or the atom in the residue used for the distance computation. After the first colon-symbol you may place the atom type for the distance computation, e.g. 'CB', 'CA', or 'N', etc. . If no value is set here 'CB' will be used by default. After the second colon-symbol you may place one of these three position values: 0 if the residue may occur anywhere in the protein, 1 if the residue has to be at the N-terminus, or -1 if the residue has to be at the C-terminus (ex.: use "K:CB:0" to calculate the cross-link distance between lysin C-beta-atoms at any position in the chain). If you want to specify multiple possible positions for the same symbol you have to add them individually (ex.: "M::1,M::-1" for methionine at either the beginning or end of the chain). By default, 0 is set here, e.g. the residue may be placed anywhere.
    > :information_source: If the position or the atom type is specified, then there have to be two colon-symbols (ex.: "K,M:1" will not be accepted as input). You can leave the respective specification empty though, if you wish to use the respective default value (ex.: "K::1" is equal to "K:CB:1", "M:N:0" is equal to "M:N:", "K:CB:0" is equal to "K::" and also just to "K").
 
 With this the relevant settings are defined. You may choose to further specify the structure search's settings in terms of coverage, sequence identity, and e-value, as well as the resolution cutoff during the structure selection, or even the advanced settings.
 
-You may see examples for all parameters in the [example configuration-file](https://github.com/KohlbacherLab/CLAUDIO/tree/main/config/config.txt), which also serves as an alternative to supply all parameter inputs.
+You may see examples for all parameters in the [example configuration-file](https://github.com/ElhabashyLab/CLAUDIO/tree/main/config/config.txt), which also serves as an alternative to supply all parameter inputs.
 
 
 ### 2.1.1 Output
 This tool returns all the outputs listed in the modules (see 
-[module01](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module01),
-[module02](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module02),
-[module03](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module03),
-[module04](https://github.com/KohlbacherLab/CLAUDIO/tree/main/claudio/module04)).
+[module01](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module01),
+[module02](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module02),
+[module03](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module03),
+[module04](https://github.com/ElhabashyLab/CLAUDIO/tree/main/claudio/module04)).
 
 > [!NOTE]
 > All CSV-file outputs pertaining the input dataset are summarized into a single one (marked with '_final.csv'-extension), e.g. the output CSV-file of module01 ending with '.sqcs', of module02 ending with '.sqcs_structdi.csv', and of module03 ending with '.sqcs_ops.csv' will be summarized here. 
@@ -230,7 +261,7 @@ claudio --help
 ---
 ## 4 Citation :heart:
 > [!IMPORTANT] 
-> If you use *CLAUDIO*, please cite:
+> If you use *CLAUDIO 2.0*, please cite:
 > > Alexander Röhl, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." *Bioinformatics* 40, no. 4 (2024): btae146.
 > 
 > > Tobias Löser, Alexander Röhl, and Hadeer Elhabashy. "CLAUDIO 2.0: An Accelerated and Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2025)

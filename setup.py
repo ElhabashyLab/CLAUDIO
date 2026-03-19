@@ -23,8 +23,6 @@ setup(
     package_data={'': ['data/*']},
     entry_points={
         'console_scripts': [
-
-
             'claudio=claudio.claudio_m:main',
             'claudio_lists=claudio.module01.src.main:main',
             'claudio_structdi=claudio.module02.run_module02_intra:main',
