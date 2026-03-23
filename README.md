@@ -264,7 +264,7 @@ claudio --help
 > If you use *CLAUDIO 2.0*, please cite:
 > > Alexander Röhl, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." *Bioinformatics* 40, no. 4 (2024): btae146.
 > 
-> > Tobias Löser, Alexander Röhl, and Hadeer Elhabashy. "CLAUDIO 2.0: An Accelerated and Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2026)
+> > Tobias Löser, Alexander Röhl, Markus Baier, Andrei Lupas, Oliver Kohlbacher, Hadeer Elhabashy. "CLAUDIO 2.0: Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2026)
 
 ⭐ If this tool helped your research, please consider starring the repository.
 
