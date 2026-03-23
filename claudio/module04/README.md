@@ -13,7 +13,7 @@
 -lmin,  --linker-minimum,         float value used as minimal crosslinker range in angstrom, default=5.0
 -lmax,  --linker-maximum,         float value used as maximal crosslinker range in angstrom, default=35.0
 -es,  --euclidean-strictness,   float value substracted from the linker ranges for the euclidean distance scoring
-                                (minimum will not go below 0), default=5.0
+                                (minimum will not go below 0), default=None
 -dm,  --distance-maximum,       maximal distance value that seems realistic, if surpassed the distance will be set to 
                                 this value during the confidence scoring, to ensure its consistency, default=50.0
 -c,   --cutoff,                 float value used as confidence score cutoff, if surpassed, the linker type will be set 

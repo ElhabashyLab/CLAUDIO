@@ -195,7 +195,7 @@ For details on how to run the **full** pipeline continue below.
                                     4: write alignments during uniprot to pdb position translation
                                     5: write verfications during uniprot to pdb position translation
 -es,   --euclidean-strictness,  float value substracted from the linker ranges for the euclidean distance scoring
-                                (minimum will not go below 0), default=5.0
+                                (minimum will not go below 0), default=None
 -dm,   --distance-maximum,      maximal distance value that seems realistic, if surpassed the distance will be set to 
                                 this value during the confidence scoring, to ensure its consistency, default=50.0
 -ct,   --cutoff,                float value used as confidence score cutoff, if surpassed, the linker type will be set 
