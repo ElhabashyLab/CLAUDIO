@@ -1,1 +1,16 @@
-10.1093/bioinformatics/btae146
+cff-version: 1.2.0
+message: "If you use CLAUDIO in your research, please cite it as below."
+title: "CLAUDIO: automated structural analysis of cross-linking data"
+authors:
+  - family-names: "Röhl"
+    given-names: "Alexander"
+  - family-names: "Netz"
+    given-names: "Eugen"
+  - family-names: "Kohlbacher"
+    given-names: "Oliver"
+  - family-names: "Elhabashy"
+    given-names: "Hadeer"
+version: "1.0"
+doi: "10.1093/bioinformatics/btae146"
+url: "https://doi.org/10.1093/bioinformatics/btae146"
+date-released: "2024-03-18"
