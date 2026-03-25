@@ -1,0 +1,110 @@
+2_b: pep_b is not completely in full seq_b
+	ISSUE
+2_a: residue in peptide at pos_a is not any of the specified residues.
+	found pep_a exactly once in full sequence
+	found K more than once in pep_a
+	res_pos_a was given
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_a: 209 -> 211
+	SUCCESS
+2_b: residue in peptide at pos_b is not any of the specified residues.
+	found pep_b more than once or not even once in sequence
+	res_pos_b was given
+	align peptide to sequence
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_b: 52 -> 57
+	SUCCESS
+3_b: pep_b is not completely in full seq_b
+	ISSUE
+3_a: residue in peptide at pos_a is not any of the specified residues.
+	found pep_a exactly once in full sequence
+	found K exactly once in pep_a
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_a: 53 -> 54
+	SUCCESS
+3_b: residue in peptide at pos_b is not any of the specified residues.
+	found pep_b more than once or not even once in sequence
+	res_pos_b was given
+	align peptide to sequence
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_b: 52 -> 57
+	SUCCESS
+4_b: pep_b is not completely in full seq_b
+	ISSUE
+4_a: residue in peptide at pos_a is not any of the specified residues.
+	found pep_a exactly once in full sequence
+	found K more than once in pep_a
+	res_pos_a was given
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_a: 59 -> 64
+	SUCCESS
+4_b: residue in peptide at pos_b is not any of the specified residues.
+	found pep_b more than once or not even once in sequence
+	res_pos_b was given
+	align peptide to sequence
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_b: 52 -> 57
+	SUCCESS
+105_a: residue in peptide at pos_a is not any of the specified residues.
+	found pep_a exactly once in full sequence
+	found K more than once in pep_a
+	res_pos_a was given
+		VERIFY: new residue is 'K': True
+	REPLACE: pos_a: 1810 -> 1877
+	SUCCESS
+105_b: pep_b was found more than once in full seq_b
+	ISSUE
+	datapoint already in dataset (1 of 12)
+	create new datapoint (2 of 12):
+		pos_b: 927 -> 1019
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (3 of 12):
+		pos_b: 927 -> 1111
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (4 of 12):
+		pos_b: 927 -> 1203
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (5 of 12):
+		pos_b: 927 -> 1295
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (6 of 12):
+		pos_b: 927 -> 1479
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (7 of 12):
+		pos_b: 927 -> 1571
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (8 of 12):
+		pos_b: 927 -> 1663
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (9 of 12):
+		pos_b: 927 -> 1755
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (10 of 12):
+		pos_b: 927 -> 1847
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (11 of 12):
+		pos_b: 927 -> 1939
+		VERIFY: new residue is 'K': True
+			CREATED
+	create new datapoint (12 of 12):
+		pos_b: 927 -> 2123
+		VERIFY: new residue is 'K': True
+			CREATED
+
+======================================================================
+Final result:
+	FAILS: 0
+	REMOVES: 0
+	SUCCESSES: 7
+	ISSUES: 4
+	DUPLICATES: 0
+	CREATED: 11

@@ -22,6 +22,8 @@ EXPDTA    X-RAY DIFFRACTION
 AUTHOR    E.UGOCHUKWU,N.SHAFQAT,A.ROJKOVA,M.SUNDSTROM,C.ARROWSMITH,J.WEIGELT,   
 AUTHOR   2 A.EDWARDS,F.VON DELFT,U.OPPERMANN,STRUCTURAL GENOMICS CONSORTIUM     
 AUTHOR   3 (SGC)                                                                
+REVDAT   5   29-OCT-25 2DFD    1       COMPND REMARK HET    HETNAM              
+REVDAT   5 2                   1       HETSYN FORMUL SITE   ATOM                
 REVDAT   4   25-OCT-23 2DFD    1       REMARK SEQADV LINK                       
 REVDAT   3   13-JUL-11 2DFD    1       VERSN                                    
 REVDAT   2   24-FEB-09 2DFD    1       VERSN                                    
@@ -615,19 +617,19 @@ REMARK 800
 REMARK 800 SITE                                                                 
 REMARK 800 SITE_IDENTIFIER: AC1                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
-REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE MLT D 3101                
+REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE LMR D 3101                
 REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC2                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
-REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE MLT B 3102                
+REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE LMR B 3102                
 REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC3                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
-REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE MLT C 3103                
+REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE LMR C 3103                
 REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC4                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
-REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE MLT A 3104                
+REMARK 800 SITE_DESCRIPTION: BINDING SITE FOR RESIDUE LMR A 3104                
 REMARK 800                                                                      
 REMARK 800 SITE_IDENTIFIER: AC5                                                 
 REMARK 800 EVIDENCE_CODE: SOFTWARE                                              
@@ -898,32 +900,32 @@ SEQRES  24 D  342  LYS LYS GLY ILE GLU LYS ASN LEU GLY ILE GLY LYS VAL
 SEQRES  25 D  342  SER SER PHE GLU GLU LYS MET ILE SER ASP ALA ILE PRO          
 SEQRES  26 D  342  GLU LEU LYS ALA SER ILE LYS LYS GLY GLU ASP PHE VAL          
 SEQRES  27 D  342  LYS THR LEU LYS                                              
-HET    MLT  A3104       9                                                       
+HET    LMR  A3104       9                                                       
 HET     CL  A3203       1                                                       
 HET     CL  A3205       1                                                       
 HET    NAD  A3003      44                                                       
 HET    HIS  A3301      10                                                       
 HET    ALA  A3302       5                                                       
-HET    MLT  B3102       9                                                       
+HET    LMR  B3102       9                                                       
 HET     CL  B3206       1                                                       
 HET    NAD  B3001      44                                                       
 HET    HIS  B3401      10                                                       
-HET    MLT  C3103       9                                                       
+HET    LMR  C3103       9                                                       
 HET     CL  C3201       1                                                       
 HET     CL  C3204       1                                                       
 HET    NAD  C3002      44                                                       
 HET    HIS  C3501      10                                                       
-HET    MLT  D3101       9                                                       
+HET    LMR  D3101       9                                                       
 HET     CL  D3202       1                                                       
 HET     CL  D3207       1                                                       
 HET    NAD  D3004      44                                                       
-HETNAM     MLT D-MALATE                                                         
+HETNAM     LMR (2S)-2-HYDROXYBUTANEDIOIC ACID                                   
 HETNAM      CL CHLORIDE ION                                                     
 HETNAM     NAD NICOTINAMIDE-ADENINE-DINUCLEOTIDE                                
 HETNAM     HIS HISTIDINE                                                        
 HETNAM     ALA ALANINE                                                          
-HETSYN     MLT (2R)-2-HYDROXYBUTANEDIOIC ACID; 2-HYDROXY-SUCCINIC ACID          
-FORMUL   5  MLT    4(C4 H6 O5)                                                  
+HETSYN     LMR L-MALATE                                                         
+FORMUL   5  LMR    4(C4 H6 O5)                                                  
 FORMUL   6   CL    7(CL 1-)                                                     
 FORMUL   8  NAD    4(C21 H27 N7 O14 P2)                                         
 FORMUL   9  HIS    3(C6 H10 N3 O2 1+)                                           
@@ -1060,7 +1062,7 @@ SITE     2 BC3 33 TYR B  38  ASP B  39  ILE B  40  PRO B  81
 SITE     3 BC3 33 ALA B  82  GLY B  83  VAL B  84  PRO B  85                    
 SITE     4 BC3 33 ASN B  99  ILE B 102  ILE B 122  ASN B 124                    
 SITE     5 BC3 33 VAL B 151  HIS B 182  ALA B 229  THR B 230                    
-SITE     6 BC3 33 MET B 233  MLT B3102  HOH B3404  HOH B3405                    
+SITE     6 BC3 33 MET B 233  LMR B3102  HOH B3404  HOH B3405                    
 SITE     7 BC3 33 HOH B3415  HOH B3420  HOH B3429  HOH B3452                    
 SITE     8 BC3 33 HOH B3476  HOH B3497  HOH B3501  HOH B3519                    
 SITE     9 BC3 33 HOH B3527                                                     
@@ -1070,7 +1072,7 @@ SITE     3 BC4 35 PRO C  81  ALA C  82  GLY C  83  VAL C  84
 SITE     4 BC4 35 PRO C  85  LEU C  95  ASN C  99  ILE C 102                    
 SITE     5 BC4 35 ILE C 122  ASN C 124  VAL C 126  VAL C 151                    
 SITE     6 BC4 35 HIS C 182  ALA C 229  THR C 230  MET C 233                    
-SITE     7 BC4 35 MLT C3103  HOH C3509  HOH C3520  HOH C3526                    
+SITE     7 BC4 35 LMR C3103  HOH C3509  HOH C3520  HOH C3526                    
 SITE     8 BC4 35 HOH C3540  HOH C3557  HOH C3626  HOH C3636                    
 SITE     9 BC4 35 HOH C3646  HOH C3691  HOH C3730                               
 SITE     1 BC5 33 SER A  15  GLY A  16  GLY A  17  ILE A  18                    
@@ -1078,7 +1080,7 @@ SITE     2 BC5 33 TYR A  38  ASP A  39  ILE A  40  PRO A  81
 SITE     3 BC5 33 ALA A  82  GLY A  83  VAL A  84  PRO A  85                    
 SITE     4 BC5 33 ASN A  99  ILE A 102  ILE A 122  ASN A 124                    
 SITE     5 BC5 33 VAL A 126  VAL A 151  HIS A 182  ALA A 229                    
-SITE     6 BC5 33 THR A 230  MET A 233  MLT A3104  HOH A3304                    
+SITE     6 BC5 33 THR A 230  MET A 233  LMR A3104  HOH A3304                    
 SITE     7 BC5 33 HOH A3305  HOH A3337  HOH A3344  HOH A3347                    
 SITE     8 BC5 33 HOH A3379  HOH A3389  HOH A3427  HOH A3476                    
 SITE     9 BC5 33 HOH A3478                                                     
@@ -1087,7 +1089,7 @@ SITE     2 BC6 35 TYR D  38  ASP D  39  ILE D  40  PRO D  81
 SITE     3 BC6 35 ALA D  82  GLY D  83  VAL D  84  PRO D  85                    
 SITE     4 BC6 35 LEU D  95  ASN D  99  ILE D 102  ILE D 122                    
 SITE     5 BC6 35 ASN D 124  VAL D 126  VAL D 151  HIS D 182                    
-SITE     6 BC6 35 ALA D 229  THR D 230  MET D 233  MLT D3101                    
+SITE     6 BC6 35 ALA D 229  THR D 230  MET D 233  LMR D3101                    
 SITE     7 BC6 35 HOH D3220  HOH D3224  HOH D3236  HOH D3237                    
 SITE     8 BC6 35 HOH D3251  HOH D3313  HOH D3335  HOH D3341                    
 SITE     9 BC6 35 HOH D3361  HOH D3393  HOH D3399                               
@@ -10357,15 +10359,15 @@ ATOM   9248  CG  LEU D 319      59.146 146.480  47.709  1.00 39.53           C
 ATOM   9249  CD1 LEU D 319      59.290 147.296  48.993  1.00 39.37           C  
 ATOM   9250  CD2 LEU D 319      57.774 146.668  47.078  1.00 40.81           C  
 TER    9251      LEU D 319                                                      
-HETATM 9252  C1  MLT A3104      36.666 143.481  36.458  1.00 32.00           C  
-HETATM 9253  O1  MLT A3104      36.572 144.687  36.194  1.00 31.53           O  
-HETATM 9254  O2  MLT A3104      37.382 142.699  35.803  1.00 28.81           O  
-HETATM 9255  C2  MLT A3104      35.922 142.987  37.619  1.00 32.72           C  
-HETATM 9256  O3  MLT A3104      36.288 141.674  37.919  1.00 31.29           O  
-HETATM 9257  C3  MLT A3104      36.088 143.934  38.806  1.00 33.74           C  
-HETATM 9258  C4  MLT A3104      37.538 144.035  39.246  1.00 31.80           C  
-HETATM 9259  O4  MLT A3104      38.467 144.018  38.415  1.00 30.07           O  
-HETATM 9260  O5  MLT A3104      37.805 144.147  40.465  1.00 30.82           O  
+HETATM 9252  C1  LMR A3104      36.666 143.481  36.458  1.00 32.00           C  
+HETATM 9253  O1A LMR A3104      36.572 144.687  36.194  1.00 31.53           O  
+HETATM 9254  O1B LMR A3104      37.382 142.699  35.803  1.00 28.81           O  
+HETATM 9255  C2  LMR A3104      35.922 142.987  37.619  1.00 32.72           C  
+HETATM 9256  O2  LMR A3104      36.288 141.674  37.919  1.00 31.29           O  
+HETATM 9257  C3  LMR A3104      36.088 143.934  38.806  1.00 33.74           C  
+HETATM 9258  C4  LMR A3104      37.538 144.035  39.246  1.00 31.80           C  
+HETATM 9259  O4A LMR A3104      38.467 144.018  38.415  1.00 30.07           O  
+HETATM 9260  O4B LMR A3104      37.805 144.147  40.465  1.00 30.82           O  
 HETATM 9261 CL    CL A3203      42.557 139.096  40.683  1.00 36.29          CL  
 HETATM 9262 CL    CL A3205      25.971 121.529  32.856  1.00 86.33          CL  
 HETATM 9263  PA  NAD A3003      29.167 148.439  45.205  1.00 27.36           P  
@@ -10427,15 +10429,15 @@ HETATM 9318  CA  ALA A3302      22.676 140.726  22.640  1.00 54.12           C
 HETATM 9319  C   ALA A3302      22.512 142.115  23.276  1.00 54.52           C  
 HETATM 9320  O   ALA A3302      21.634 142.884  22.857  1.00 55.78           O  
 HETATM 9321  CB  ALA A3302      22.435 139.638  23.690  1.00 53.70           C  
-HETATM 9322  C1  MLT B3102      13.134 166.250  38.568  1.00 38.63           C  
-HETATM 9323  O1  MLT B3102      12.005 166.631  38.166  1.00 35.69           O  
-HETATM 9324  O2  MLT B3102      13.330 165.136  39.133  1.00 36.47           O  
-HETATM 9325  C2  MLT B3102      14.285 167.162  38.461  1.00 38.29           C  
-HETATM 9326  O3  MLT B3102      13.871 168.486  38.361  1.00 38.44           O  
-HETATM 9327  C3  MLT B3102      15.135 166.979  39.725  1.00 37.70           C  
-HETATM 9328  C4  MLT B3102      14.420 167.371  41.016  1.00 36.02           C  
-HETATM 9329  O4  MLT B3102      13.209 167.070  41.256  1.00 32.29           O  
-HETATM 9330  O5  MLT B3102      15.100 167.997  41.879  1.00 36.26           O  
+HETATM 9322  C1  LMR B3102      13.134 166.250  38.568  1.00 38.63           C  
+HETATM 9323  O1A LMR B3102      13.330 165.136  39.133  1.00 36.47           O  
+HETATM 9324  O1B LMR B3102      12.005 166.631  38.166  1.00 35.69           O  
+HETATM 9325  C2  LMR B3102      14.285 167.162  38.461  1.00 38.29           C  
+HETATM 9326  O2  LMR B3102      13.871 168.486  38.361  1.00 38.44           O  
+HETATM 9327  C3  LMR B3102      15.135 166.979  39.725  1.00 37.70           C  
+HETATM 9328  C4  LMR B3102      14.420 167.371  41.016  1.00 36.02           C  
+HETATM 9329  O4A LMR B3102      13.209 167.070  41.256  1.00 32.29           O  
+HETATM 9330  O4B LMR B3102      15.100 167.997  41.879  1.00 36.26           O  
 HETATM 9331 CL    CL B3206      -9.050 164.015  29.224  1.00 76.47          CL  
 HETATM 9332  PA  NAD B3001      25.350 164.857  41.255  1.00 27.42           P  
 HETATM 9333  O1A NAD B3001      25.291 163.397  41.581  1.00 23.10           O  
@@ -10491,15 +10493,15 @@ HETATM 9382  ND1 HIS B3401       8.131 156.213  24.153  1.00 49.51           N
 HETATM 9383  CD2 HIS B3401       7.720 158.041  23.040  1.00 51.95           C  
 HETATM 9384  CE1 HIS B3401       6.950 156.652  24.551  1.00 49.76           C  
 HETATM 9385  NE2 HIS B3401       6.675 157.761  23.890  1.00 49.67           N  
-HETATM 9386  C1  MLT C3103      30.818 177.422  59.055  1.00 27.24           C  
-HETATM 9387  O1  MLT C3103      30.907 178.651  59.316  1.00 25.05           O  
-HETATM 9388  O2  MLT C3103      31.795 176.724  58.661  1.00 25.54           O  
-HETATM 9389  C2  MLT C3103      29.498 176.773  59.116  1.00 26.66           C  
-HETATM 9390  O3  MLT C3103      28.507 177.763  59.233  1.00 24.87           O  
-HETATM 9391  C3  MLT C3103      29.349 175.785  57.921  1.00 25.41           C  
-HETATM 9392  C4  MLT C3103      29.254 176.546  56.615  1.00 24.77           C  
-HETATM 9393  O4  MLT C3103      29.993 177.558  56.429  1.00 20.30           O  
-HETATM 9394  O5  MLT C3103      28.427 176.168  55.731  1.00 24.00           O  
+HETATM 9386  C1  LMR C3103      30.818 177.422  59.055  1.00 27.24           C  
+HETATM 9387  O1A LMR C3103      30.907 178.651  59.316  1.00 25.05           O  
+HETATM 9388  O1B LMR C3103      31.795 176.724  58.661  1.00 25.54           O  
+HETATM 9389  C2  LMR C3103      29.498 176.773  59.116  1.00 26.66           C  
+HETATM 9390  O2  LMR C3103      28.507 177.763  59.233  1.00 24.87           O  
+HETATM 9391  C3  LMR C3103      29.349 175.785  57.921  1.00 25.41           C  
+HETATM 9392  C4  LMR C3103      29.254 176.546  56.615  1.00 24.77           C  
+HETATM 9393  O4A LMR C3103      28.427 176.168  55.731  1.00 24.00           O  
+HETATM 9394  O4B LMR C3103      29.993 177.558  56.429  1.00 20.30           O  
 HETATM 9395 CL    CL C3201      25.859 182.425  54.188  1.00 28.67          CL  
 HETATM 9396 CL    CL C3204      14.870 189.313  75.709  1.00 69.39          CL  
 HETATM 9397  PA  NAD C3002      26.690 165.735  57.587  1.00 22.24           P  
@@ -10556,15 +10558,15 @@ HETATM 9447  ND1 HIS C3501      41.172 180.013  73.576  1.00 43.63           N
 HETATM 9448  CD2 HIS C3501      39.644 181.024  74.784  1.00 45.65           C  
 HETATM 9449  CE1 HIS C3501      41.258 181.306  73.315  1.00 40.02           C  
 HETATM 9450  NE2 HIS C3501      40.351 181.945  74.042  1.00 42.45           N  
-HETATM 9451  C1  MLT D3101      40.857 147.007  65.263  1.00 32.38           C  
-HETATM 9452  O1  MLT D3101      41.255 146.144  66.077  1.00 29.03           O  
-HETATM 9453  O2  MLT D3101      39.766 147.599  65.415  1.00 33.36           O  
-HETATM 9454  C2  MLT D3101      41.667 147.336  64.052  1.00 32.31           C  
-HETATM 9455  O3  MLT D3101      42.682 146.377  63.870  1.00 30.91           O  
-HETATM 9456  C3  MLT D3101      40.728 147.520  62.827  1.00 27.57           C  
-HETATM 9457  C4  MLT D3101      40.072 146.221  62.463  1.00 29.76           C  
-HETATM 9458  O4  MLT D3101      39.684 145.435  63.348  1.00 25.63           O  
-HETATM 9459  O5  MLT D3101      39.976 145.911  61.264  1.00 30.23           O  
+HETATM 9451  C1  LMR D3101      40.857 147.007  65.263  1.00 32.38           C  
+HETATM 9452  O1A LMR D3101      41.255 146.144  66.077  1.00 29.03           O  
+HETATM 9453  O1B LMR D3101      39.766 147.599  65.415  1.00 33.36           O  
+HETATM 9454  C2  LMR D3101      41.667 147.336  64.052  1.00 32.31           C  
+HETATM 9455  O2  LMR D3101      42.682 146.377  63.870  1.00 30.91           O  
+HETATM 9456  C3  LMR D3101      40.728 147.520  62.827  1.00 27.57           C  
+HETATM 9457  C4  LMR D3101      40.072 146.221  62.463  1.00 29.76           C  
+HETATM 9458  O4A LMR D3101      39.976 145.911  61.264  1.00 30.23           O  
+HETATM 9459  O4B LMR D3101      39.684 145.435  63.348  1.00 25.63           O  
 HETATM 9460 CL    CL D3202      42.481 139.337  61.805  1.00 38.33          CL  
 HETATM 9461 CL    CL D3207      42.654 136.509  87.328  1.00 77.74          CL  
 HETATM 9462  PA  NAD D3004      40.131 154.967  55.623  1.00 26.03           P  
