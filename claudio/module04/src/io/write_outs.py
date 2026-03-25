@@ -96,16 +96,18 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
     # write full output dataset containing all given and computed information
     # select columns
     all_cols = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b",
-                "res_pos_a", "res_pos_b", "seq_a", "seq_b", "path", "pdb_id", 
-                "pdb_method", "pdb_resolution", "chain_a", "chain_b", 
+                "res_pos_a", "res_pos_b", "seq_a", "seq_b",
+                "pep_a_repeated", "pep_b_repeated", "pep_a_repeat_count", "pep_b_repeat_count",
+                "path", "pdb_id", "pdb_method", "pdb_resolution", "chain_a", "chain_b",
                 "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", 
                 "is_interfaced", "topo_dist", "eucl_dist", "homo_adjacency", 
                 "homo_int_overl", "homo_pep_overl", "evidence", "XL_type", 
                 "XL_confirmed", "swiss_model_homology"]
     out_columns = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a",
-                   "pep_b", "res_pos_a", "res_pos_b", "pdb_id", "pdb_method",
-                   "pdb_resolution", "chain_a", "chain_b", "pdb_pos_a", 
-                   "pdb_pos_b", "pLDDT_a", "pLDDT_b", "topo_dist", "eucl_dist",
+                   "pep_b", "res_pos_a", "res_pos_b",
+                   "pep_a_repeated", "pep_b_repeated", "pep_a_repeat_count", "pep_b_repeat_count",
+                   "pdb_id", "pdb_method", "pdb_resolution", "chain_a", "chain_b",
+                   "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", "topo_dist", "eucl_dist",
                    "homo_pep_overl", "evidence", "XL_type", "XL_confirmed",
                    "swiss_model_homology"]
     if compute_scoring:

@@ -36,6 +36,12 @@ def double_check_data(data: pd.DataFrame, filename: str,
     # aren't duplicated multiple times)
     new_datapoints = []
 
+    # Add columns to df for peptide repeats
+    data["pep_a_repeated"] = False
+    data["pep_b_repeated"] = False
+    data["pep_a_repeat_count"] = 0
+    data["pep_b_repeat_count"] = 0
+
     for i, row in data.iterrows():
         verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1,
                       verbose_level, end='')
@@ -90,20 +96,27 @@ def double_check_data(data: pd.DataFrame, filename: str,
                                       verbose_level)
         row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text,
                                       verbose_level)
-        # Update row
-        data.loc[i, :] = row
 
         # ISSUE: Check if peptide occurs multiple times in full sequence
         # as is (possible insertions are not considered)
         pep_found_multiple_times = False
-        if row["seq_a"].count(row["pep_a"]) > 1:
+        pep_a_repeat_count = row["seq_a"].count(row["pep_a"])
+        pep_b_repeat_count = row["seq_b"].count(row["pep_b"])
+        if pep_a_repeat_count > 1:
+            row["pep_a_repeated"] = True
+            row["pep_a_repeat_count"] = pep_a_repeat_count
             log_text += f"{i}_a: pep_a was found more than once in full seq_a\n"
             log_text += "\tISSUE\n"
             pep_found_multiple_times = True
-        if row["seq_b"].count(row["pep_b"]) > 1:
+        if pep_b_repeat_count > 1:
+            row["pep_b_repeated"] = True
+            row["pep_b_repeat_count"] = pep_b_repeat_count
             log_text += f"{i}_b: pep_b was found more than once in full seq_b\n"
             log_text += "\tISSUE\n"
             pep_found_multiple_times = True
+
+        # Update row
+        data.loc[i, :] = row
 
         # If any peptide was found multiple times, create possible variations
         # (add them later (*))
