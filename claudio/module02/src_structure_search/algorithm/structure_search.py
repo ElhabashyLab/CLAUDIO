@@ -54,7 +54,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
                                    e_value, query_id, coverage, tmp_filepath,
                                    blast_bin, blast_db, hhsearch_bin,
                                    hhsearch_db):
-                                   (unip_id,seq) for unip_id,seq in unique_prots}
+                                   (unip_id, seq) for unip_id, seq in unique_prots}
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -94,9 +94,10 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
                 chain_a, chain_b = intersect_results[pdb_id]
                 all_results = ' '.join([f"{key}_{value[0]}|_{value[1]}" for key, value in intersect_results.items()])
                 new_cols = [pdb_id, chain_a, chain_b, all_results]
-                data.loc[i,["pdb_id","chain_a","chain_b","all_results"]] = new_cols
+                data.loc[i,["pdb_id", "chain_a", "chain_b", "all_results"]] = new_cols
         else:
-            not_found.append(i)
+            if row.unip_id_a == row.unip_id_b:
+                not_found.append(i)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(write_res_task, row.Index, row):
@@ -118,11 +119,12 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
 
     # Print ids of entries which were not found in rcsb database (will be
     # retrieved from alphafold database instead)
-    if not data[data.unip_id_a == data.unip_id_b].empty:
-        not_found_proteins = pd.concat([data.loc[not_found].unip_id_a,
-                                        data.loc[not_found].unip_id_b]).unique()
-        verbose_print(f"\tProteins which yielded no results from RCSB database (will be retrieved from AlphaFold "
-                      f"(n = {len(not_found_proteins)})): {not_found_proteins}", 2, verbose_level)
+    intra_set = data[data.unip_id_a == data.unip_id_b]
+    if not intra_set.empty:
+        not_found_proteins = pd.concat([intra_set.loc[not_found].unip_id_a,
+                                        intra_set.loc[not_found].unip_id_b]).unique()
+        verbose_print(f"\tProteins which yielded no results from RCSB database (will be attempted to be retrieved from "
+                      f"AlphaFold (n = {len(not_found_proteins)})): {not_found_proteins}", 2, verbose_level)
 
     return data
 

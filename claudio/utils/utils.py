@@ -336,3 +336,21 @@ def minimize_dataset(data: pd.DataFrame):
                         data = data.drop(index=next_i)
 
     return data
+
+
+def rreplace(string: str, replaced_str: str, replacement_str: str, count: int):
+    """
+    Reverse replace in string for given count number of times
+
+    Parameters
+    ----------
+    string : str
+    replaced_str: str
+    replacement_str: str
+    count : int
+
+    Returns
+    -------
+    string : str
+    """
+    return str(replacement_str).join(str(string).rsplit(str(replaced_str), int(count)))

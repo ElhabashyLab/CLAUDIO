@@ -77,7 +77,6 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame,
 
     # Iterate over given dataset
     def search_site_task(i, row):
-
         # If saved path is not '-' perform site distance calculation,
         # else append values to list containers indicating a fail here
         both_pdbs_found = row["path"] != '-'

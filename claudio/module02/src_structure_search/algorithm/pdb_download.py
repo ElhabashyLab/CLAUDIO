@@ -9,7 +9,7 @@ import requests as r
 import pandas as pd
 
 from claudio.data.constants import ALPHAFOLD_URL
-from claudio.utils.utils import verbose_print, round_self
+from claudio.utils.utils import verbose_print, round_self, rreplace
 
 
 def download_wrapper(filename: str, url: str, dataset: pd.DataFrame,
@@ -98,10 +98,8 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                     filename = f"{output_directory}{search_tool}_{pdb_id}.pdb"
                     url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
                 else:
-
                     # if intra crosslink, download from AlphaFold
                     if row.unip_id_a == row.unip_id_b:
-
                         # Create custom alphafold pdb filename
                         pdb_id = f"af{row.unip_id_a}"
                         chain = 'A'
@@ -229,10 +227,13 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
             return pdb_file
 
         # Else attempt .pdb call from AlphaFold database
-        pdb_file = r.get(url,timeout=60).text
-        if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
-            return None
-        return pdb_file
+        for i in reversed(range(1, 7)):
+            pdb_file = r.get(rreplace(url, 6, i, 1),timeout=60).text
+            if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
+                print(rreplace(url, 6, i, 1), ' failed to download')
+            else:
+                return pdb_file
+        return None
     # Retry on timeout if not reached max_try already, else return None
     except (r.exceptions.Timeout, TimeoutError):
         if i_try >= max_try:
