@@ -230,7 +230,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
         for i in reversed(range(1, 7)):
             pdb_file = r.get(rreplace(url, 6, i, 1),timeout=60).text
             if "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>" in pdb_file:
-                print(rreplace(url, 6, i, 1), ' failed to download')
+                pass
             else:
                 return pdb_file
         return None
