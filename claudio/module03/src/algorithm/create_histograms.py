@@ -104,7 +104,7 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
     if not overl_data_bool.empty:
         data = [len(overl_data_bool[overl_data_bool].index),
                 len(overl_data_bool[~overl_data_bool].index)]
-        labels = ["overlap found", "no overlap"]
+        labels = ["OPS detected", "No OPS detected"]
         plt.figure(figsize=(6.5, 6), constrained_layout=True)
 
         def percentages(pct, all_vals):
@@ -115,5 +115,6 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
                                    colors=colors, textprops={"weight": "bold",
                                                              "color": 'black'})
         plt.legend(wedges, labels)
-        plt.title("Boolean distinction whether peptides overlap or not (intra-links only)")
+        plt.title("Proportion of Xlinks with overlapping peptide sequences (OPS) in intra-links only")
         plt.savefig(f"{output_directory}{filename}_pep_ovl_pie.png")
+      #Boolean distinction whether peptides overlap or not 
