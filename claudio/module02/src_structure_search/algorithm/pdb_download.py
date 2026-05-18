@@ -13,7 +13,7 @@ from claudio.utils.utils import verbose_print, round_self, rreplace
 
 
 def download_wrapper(filename: str, url: str, dataset: pd.DataFrame,
-                     pdb_id: str, chain: str, chain_b: str,pdb_file: str):
+                     pdb_id: str, chain: str, chain_b: str, pdb_file: str):
     """
     Downloads a pdb-file from a given url
 
@@ -70,7 +70,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
         files = [f for f in os.listdir('./claudio/data/pdb/')
                  if f.endswith(".pdb.gz") or f.endswith(".cif.gz")]
     else:
-        pdb_infos = pd.DataFrame(columns=["pdb_id","method","resolution"])
+        pdb_infos = pd.DataFrame(columns=["pdb_id", "method", "resolution"])
     # Download pdb files for each datapoint
     def download_task(i,row):
         # Iterate over results
@@ -305,10 +305,13 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
             # value of the resolution, accept if it is below or equal to the
             # threshhold
             elif ("ANGSTROMS." in line) and ("RESOLUTION." in line):
-                resolution = float([w for w in line.replace('  ', ' ').split()
-                                    if w][-2])
-                accept_resolution = resolution <= res_cutoff
-                break
+                try:
+                    resolution = float([w for w in line.replace('  ', ' ').split() if w][-2])
+                    accept_resolution = resolution <= res_cutoff
+                    break
+                except ValueError:
+                    accept_resolution = False
+                    break
             elif method in resolution_excepted_methods:
                 accept_method = True
                 accept_resolution = True

@@ -183,7 +183,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
     """
 
     seq = row[f"seq_{site}"]
-    pep_pos = int(row[f"pos_{site}"])
+    pep_pos = int(float(row[f"pos_{site}"]))
     peptide = row[f"pep_{site}"]
 
     wrong_pos = False
@@ -275,7 +275,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                                 # (only for data by Liu et al.), if so replace
                                 # given position with it (Verify, FAIL if wrong)
                                 try:
-                                    res_pos = int(row[f"res_pos_{site}"])
+                                    res_pos = int(float(row[f"res_pos_{site}"]))
                                     log_text += f"\tres_pos_{site} was given\n"
                                     new_pos = seq.find(peptide) + res_pos
                                     log_text += f"\t\tVERIFY: new residue is '{dp.res}': {seq[new_pos - 1] == dp.res}\n"
@@ -298,7 +298,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                 if not pos_replaced:
                     log_text += f"\tfound pep_{site} more than once or not even once in sequence\n"
                     try:
-                        res_pos = int(row[f"res_pos_{site}"])
+                        res_pos = int(float(row[f"res_pos_{site}"]))
                         log_text += f"\tres_pos_{site} was given\n"
                         log_text += "\talign peptide to sequence\n"
                         new_pos = realign_pep_to_seq(seq, peptide, res_pos,
@@ -427,7 +427,7 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 # Find all positions of pep_a
                 pep_a_positions = [i for i in range(len(seq_a)) if seq_a[i:].startswith(row.pep_a)]
                 # Compute shift for pos_a
-                shift_a = row.pep_a.find(dp.res) if row.pep_a.count(dp.res) == 1 else int(row.res_pos_a) - 1
+                shift_a = row.pep_a.find(dp.res) if row.pep_a.count(dp.res) == 1 else int(float(row.res_pos_a)) - 1
                 # Add old pos_a if not already in position set
                 old_pos_a = row.pos_a - shift_a - 1
                 if old_pos_a not in pep_a_positions:
@@ -440,7 +440,7 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 # Find all positions of pep_b
                 pep_b_positions = [i for i in range(len(seq_b)) if seq_b[i:].startswith(row.pep_b)]
                 # Compute shift for pos_b
-                shift_b = row.pep_b.find(dp.res) if row.pep_b.count(dp.res) == 1 else int(row.res_pos_b) - 1
+                shift_b = row.pep_b.find(dp.res) if row.pep_b.count(dp.res) == 1 else int(float(row.res_pos_b)) - 1
                 # Add old pos_b if not already in position set
                 old_pos_b = row.pos_b - shift_b - 1
                 if old_pos_b not in pep_b_positions:

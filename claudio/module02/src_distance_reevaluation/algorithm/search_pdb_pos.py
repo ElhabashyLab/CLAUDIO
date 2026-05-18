@@ -43,8 +43,7 @@ def search_site_pos_in_pdb(data: pd.DataFrame, df_xl_res: pd.DataFrame,
     # to uniprot entries
     project_path = '/'.join(os.path.abspath(__file__).replace('\\\\', '/').replace('\\', '/').split('/')[:-4])
     project_path = project_path + '/' if project_path else ""
-    pdb_uni_map = pd.read_csv(f"{project_path}data/pdb_chain_uniprot.csv",
-                              header=1)
+    pdb_uni_map = pd.read_csv(f"{project_path}data/pdb_chain_uniprot.csv", header=1)
     pdb_uni_map["PDB"] = [x.upper() for x in pdb_uni_map["PDB"]]
 
     # Define data container lists
@@ -273,8 +272,7 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
             pdb_uni_map_entry = pdb_uni_map[(pdb_uni_map["PDB"] == pdb_id)
                                             & (pdb_uni_map["CHAIN"] == chain_id)
                                             & (pdb_uni_map["SP_PRIMARY"] == unip_id)]
-            shift = (compute_pdb_uniprot_shift(pdb_uni_map_entry)
-                     if not pdb_uni_map_entry.empty else None)
+            shift = compute_pdb_uniprot_shift(pdb_uni_map_entry) if not pdb_uni_map_entry.empty else None
         else:
             shift = None
 
@@ -483,32 +481,32 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
     -------
     shift : int | None
     """
+    try:
+        sp_beg = int(pdb_uni_map_entry["SP_BEG"].iloc[0])
+        sp_end = int(pdb_uni_map_entry["SP_END"].iloc[0])
+        pdb_beg = int(pdb_uni_map_entry["PDB_BEG"].iloc[0])
+        pdb_end = int(pdb_uni_map_entry["PDB_END"].iloc[0])
+        # Set acceptable neighbour ranges
+        neighbours_beg = (sp_beg - 1, sp_beg + 2)
+        neighbours_end = (sp_end - 1, sp_end + 2)
 
-    sp_beg = int(pdb_uni_map_entry["SP_BEG"].iloc[0])
-    sp_end = int(pdb_uni_map_entry["SP_END"].iloc[0])
-    pdb_beg = pdb_uni_map_entry["PDB_BEG"].iloc[0]
-    pdb_end = pdb_uni_map_entry["PDB_END"].iloc[0]
-    # Set acceptable neighbour ranges
-    neighbours_beg = (sp_beg-1, sp_beg+2)
-    neighbours_end = (sp_end-1, sp_end+2)
-
-    # If pdb start is not None and in range, return shift
-    if pdb_beg != "None" and \
-            int(pdb_beg) in range(neighbours_beg[0], neighbours_beg[1]):
-        return int(pdb_beg) - sp_beg
-    # Elif pdb end is not None and in range, return shift
-    elif pdb_end != "None" and \
-            int(pdb_end) in range(neighbours_end[0], neighbours_end[1]):
-        return int(pdb_end) - sp_end
+        # If pdb start is not None and in range, return shift
+        if pdb_beg in range(neighbours_beg[0], neighbours_beg[1]):
+            return pdb_beg - sp_beg
+        # Elif pdb end is not None and in range, return shift
+        elif pdb_end in range(neighbours_end[0], neighbours_end[1]):
+            return pdb_end - sp_end
+    except Exception:
+        pass
     # Else if dataset not empty, recursively call function again with dataset
     # except first entry, else return None
+    if not pdb_uni_map_entry[1:].empty:
+        return compute_pdb_uniprot_shift(pdb_uni_map_entry[1:])
     else:
-        if not pdb_uni_map_entry[1:].empty:
-            return compute_pdb_uniprot_shift(pdb_uni_map_entry[1:])
         return None
 
-def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int,
-                                verbose_level: int):
+
+def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int):
     """
     Realign pdb sequence to uniprot sequence, and compute position of residue 
     in pdb sequence which is specified by unip_pos in uniprot sequence, if 
@@ -525,7 +523,6 @@ def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int,
     -------
     pdb_pos : int | None
     """
-
     # Set alignment parameters
     aligner = PairwiseAligner()
     aligner.mode = "local"
