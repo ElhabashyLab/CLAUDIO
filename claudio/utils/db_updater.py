@@ -18,7 +18,7 @@ _PDBAA_LAST_UPDATED = '2000-01-01'
 @click.option("-p", "--pdbaa-threshold", help="number of days as threshold, "
                                               "that if surpassed updates the pdbaa database", default=14)
 @click.option("-d", "--pdbaa-dir", help="database directory for blast installation", default=None)
-def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str]) -> None:
+def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str]):
     """
     Download or update the SIFTS (in default path) and pdbaa database (in specifiable path),
     if either threshold in days is passed, and annotate latest update date for either in this file
@@ -40,9 +40,9 @@ def main(sifts_threshold: float, pdbaa_threshold: float, pdbaa_dir: Optional[str
     if project_path.endswith('/claudio'):
         # Update dbs
         sifts_updated, sifts_path = sifts_db_updater(project_path, sifts_threshold)
-        if sifts_updated: print(f"SIFTS DB was updated in {sifts_path}.")
+        if sifts_updated: print(f"\tSIFTS DB was updated in {sifts_path}.")
         pdbaa_updated, pdbaa_path = pdbaa_updater(pdbaa_dir, pdbaa_threshold)
-        if pdbaa_updated: print(f"PDBAA DB was updated in {pdbaa_path}.")
+        if pdbaa_updated: print(f"\tPDBAA DB was updated in {pdbaa_path}.")
 
         # Update this files' last updated datetimes
         update_last_updated(this_file_path, sifts_updated, pdbaa_updated)
@@ -167,7 +167,8 @@ def update_last_updated(filepath: str, sifts_updated: bool, pdbaa_updated: bool)
         with open(filepath, 'w') as f:
             f.write('\n'.join(lines))
 
-def get_last_updated() -> None:
+
+def get_last_updated():
     """
     Print the last updated dates for SIFTS and PDBAA databases.
 
@@ -177,6 +178,7 @@ def get_last_updated() -> None:
     """
     print(f"SIFTS Last Updated: {_SIFTS_LAST_UPDATED}")
     print(f"PDBAA Last Updated: {_PDBAA_LAST_UPDATED}")
+
 
 if __name__ == "__main__":
     main()

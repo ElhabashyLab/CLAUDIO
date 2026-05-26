@@ -143,7 +143,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         = clean_input_paths([input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin,
                              hhsearch_db, topolink_bin])
 
-    verbose_print(f"Updating databases SIFTS and pdbaa at {blast_db}.", 0, 1)
+    verbose_print(f"Check Updates for SIFTS and pdbaa databases.", 0, 1)
     try:
         db_updater(["-s", 14, "-p", 14, "-d", blast_db])
     except SystemExit:
