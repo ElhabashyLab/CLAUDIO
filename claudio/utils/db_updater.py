@@ -85,7 +85,8 @@ def sifts_db_updater(project_path: str, threshold: float) -> tuple[bool, str]:
             with gzip.open(payload, 'rb') as b:
                 # write to csv in data directory
                 with open(output_path, 'w') as f:
-                    f.write(b.read().decode('utf-8'))
+                    stripped_content = '\n'.join([l for l in b.read().decode('utf-8').split('\n') if l.strip()])
+                    f.write(stripped_content)
                     return True, output_path
         except Exception:
             pass
