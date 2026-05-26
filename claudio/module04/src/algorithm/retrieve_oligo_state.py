@@ -5,12 +5,15 @@ import socket
 import time
 import pandas as pd
 import requests as r
+import sys
 
 from claudio.utils.utils import verbose_print, round_self
+
 
 NUMBER_OF_CALL_REPEATS = 5
 DOWNLOAD_RATE_LIMITER_IN_SECONDS = 0.05
 QUERY_SIZE = 250
+
 
 def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     """
@@ -26,7 +29,6 @@ def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     ------- 
     data : pd.DataFrame
     """
-
     # container for already searched oligo-states
     start = time.time()
     known_ostates = query_oligo_states_from_swiss(data)
@@ -57,7 +59,6 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
     known_ostates : dict[str, list[str]]
 
     """
-
     download_rate_limiter = DOWNLOAD_RATE_LIMITER_IN_SECONDS
     known_ostates = {}
     base_url = "https://swissmodel.expasy.org/repository/uniprot/"
@@ -77,18 +78,18 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
             try:
                 try:
                     list_of_states = {structure["template"].split('.')[0]:
-                                      structure["oligo-state"]
+                                          structure["oligo-state"]
                                       for structure in ast.literal_eval(
-                                            r.get(url,timeout=60).text.replace("null",
-                                                                    "None")
-                                        )["result"]["structures"]}
+                            r.get(url,timeout=60).text.replace("null",
+                                                               "None")
+                        )["result"]["structures"]}
                     # add time skip to limit the rate of calls per second
                     # (see:
                     #  https://swissmodel.expasy.org/docs/help#modelling_api)
                     time.sleep(download_rate_limiter)
                 except KeyError:
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
-                            f"Download speed will be reduced for Uniprot entry: {unip_id}.")
+                          f"Download speed will be reduced for Uniprot entry: {unip_id}.")
                     download_rate_limiter += .1
                 except ValueError as exc:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
@@ -101,7 +102,7 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     r.exceptions.ConnectionError, ValueError) as e:
                 if num_fails == NUMBER_OF_CALL_REPEATS:
                     print(f"No connection to SWISS-MODEL API possible for Uniprot entry:"
-                            f" {unip_id}. Please try again later.")
+                          f" {unip_id}. Please try again later.")
                     print(e)
                 else:
                     num_fails += 1
@@ -117,13 +118,12 @@ def query_oligo_states_from_swiss_old(data: pd.DataFrame):
                     ostate.setdefault(key, ["monomer"])
 
             # Collect unique ostates of repeats
-            ostates = {key: pd.unique([repeat[key]
-                                       for repeat in ostates]).tolist()
-                                       for key in unique_keys}
+            ostates = {key: pd.unique([repeat[key] for repeat in ostates]).tolist() for key in unique_keys}
 
             # add result to known oligomeric states
             known_ostates[unip_id] = ostates
     return known_ostates
+
 
 def query_oligo_states_from_swiss(data: pd.DataFrame):
     """
@@ -140,7 +140,6 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
     known_ostates : dict[str, list[str]]
 
     """
-
     download_rate_limiter = DOWNLOAD_RATE_LIMITER_IN_SECONDS
 
     known_ostates = {}
@@ -149,8 +148,8 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
     # get all unique uniprot ids from the dataset
     unip_ids = pd.unique(data[['unip_id_a', 'unip_id_b']].values.ravel()).tolist()
 
-    if len(unip_ids) == 1:
-        return query_oligo_states_from_swiss_old(data)
+    # if len(unip_ids) == 1:
+    #     return query_oligo_states_from_swiss_old(data)
 
     query_elements = [unip_ids[i:i + QUERY_SIZE]
                       for i in range(0, len(unip_ids), QUERY_SIZE)]
@@ -160,68 +159,55 @@ def query_oligo_states_from_swiss(data: pd.DataFrame):
 
         # repeat SWISS-MODEL calls for consistency (SWISS-MODEL has shown to
         # inconsistently return empty or only partial API call results)
-        ostates = []
         num_fails = 0
         for _ in range(NUMBER_OF_CALL_REPEATS):
             try:
                 try:
-                    list_of_results = ast.literal_eval(r.get(url,timeout=60).text.replace("null", "None"))["resultset"]
+                    list_of_results = ast.literal_eval(r.get(url, timeout=60).text.replace("null", "None"))["resultset"]
                     for result in list_of_results:
                         unip_id = result["uniprot_entries"][0]["ac"]
                         query_results[unip_id] = {structure["template"].split('.')[0]: structure["oligo-state"]
-                                            for structure in result["structures"]}
+                                                  for structure in result["structures"]}
                     # add time skip to limit the rate of calls per second
                     # (see: https://swissmodel.expasy.org/docs/help#modelling_api)
                     time.sleep(download_rate_limiter)
                 except KeyError:
                     print(f"Warning! Received 'Exceeding rate limit'-error from SWISS API. "
-                            f"Download speed will be reduced for Uniprot entry: {query}.")
+                          f"Download speed will be reduced for Uniprot entry: {query}.")
                     download_rate_limiter += .1
-                except ValueError as exc:
+                except (SyntaxError, ValueError) as e:
                     if num_fails == NUMBER_OF_CALL_REPEATS:
-                        raise ValueError(f"Error! Result json by Swiss-model could not be properly parsed as "
-                                         f"dictionary for Uniprot entry: {query}.\nReceived: {r.get(url,timeout=60).text}") from exc
+                        print(f"Error! Result json by Swiss-model could not be properly parsed as dictionary for "
+                              f"Uniprot entry: {query} ({repr(e)}).\nReceived: {r.get(url, timeout=60).text}")
             except r.exceptions.Timeout:
                 pass
             except (ConnectionError, socket.gaierror,
                     r.exceptions.ConnectionError, ValueError) as e:
                 if num_fails == NUMBER_OF_CALL_REPEATS:
-                    print(f"No connection to SWISS-MODEL API possible for Uniprot entry: {query}. "
-                            f"Please try again later.")
-                    print(e)
+                    print(f"No connection to SWISS-MODEL API possible for Uniprot entry: {query} ({repr(e)}).\n"
+                          f"Please try again later.")
                 else:
                     num_fails += 1
 
     # if uniprot id not in already searched entries, do search in SWISS-MODEL
     for unip_id in unip_ids:
-        ostates = []
-        ostates.append(query_results[unip_id])
         # Add resulting oligomeric states to list of known,
         # if results not empty
-        if ostates:
+        if unip_id in query_results.keys():
+            ostate = query_results[unip_id]
             # Ensure that missing data on repeats do not cause disturbances,
             # by filling empty slots with "monomer"
-            unique_keys = set(key
-                              for ostate in ostates
-                              for key in ostate.keys())
-            for ostate in ostates:
-                for key in unique_keys:
-                    ostate.setdefault(key, ["monomer"])
-
-            # Collect unique ostates of repeats
-            ostates = {key: pd.unique([repeat[key]
-                                       for repeat in ostates]).tolist()
-                                       for key in unique_keys}
+            unique_keys = set(key for key in ostate.keys())
+            for key in unique_keys:
+                ostate.setdefault(key, ["monomer"])
 
             # add result to known oligomeric states
-            known_ostates[unip_id] = ostates
+            known_ostates[unip_id] = ostate
 
     return known_ostates
 
 
-
-def get_oligo_state_from_swiss(data, known_ostates: dict[str, list[str]],
-                               i_iteration: list[int], verbose_level: int):
+def get_oligo_state_from_swiss(data, known_ostates: dict[str, list[str]], i_iteration: list[int], verbose_level: int):
     """
     access SWISS-MODEL for given datapoint's uniprot ids, if not previously 
     encountered, else retrieve known result from known_unips
@@ -237,7 +223,6 @@ def get_oligo_state_from_swiss(data, known_ostates: dict[str, list[str]],
     -------
     oligo_states : str
     """
-
     # progressbar
     ind, full_i = i_iteration
     ind += 1
@@ -247,22 +232,24 @@ def get_oligo_state_from_swiss(data, known_ostates: dict[str, list[str]],
 
     # return homo-oligomer states if intra crosslink
     if data['unip_id_a'] == data['unip_id_b']:
-        unique_ostates = sorted(pd.unique([state
-                                           for states in known_ostates[data['unip_id_a']].values()
-                                           for state in states]).tolist())
-        unique_ostates = [state.replace('-', '')
-                          for state in unique_ostates
-                          if state not in ["heteromer", "monomer"]]
-        return '_'.join(unique_ostates)
+        if data['unip_id_a'] in known_ostates.keys():
+            unique_ostates = sorted(pd.unique([state for state in known_ostates[data['unip_id_a']].values()]).tolist())
+            unique_ostates = [state.replace('-', '')
+                              for state in unique_ostates
+                              if state not in ["heteromer", "monomer"]]
+            return '_'.join([s for s in unique_ostates if s])
+        else:
+            return ''
     # else, compute intersecting set of structures and return their
     # oligomeric states
-    intersect_oligo_states = {key: value
-                                for key, value in known_ostates[data['unip_id_a']].items()
-                                if key in known_ostates[data['unip_id_b']]}
-    unique_intersect_ostates = sorted(pd.unique([state
-                                                    for states in intersect_oligo_states.values()
-                                                    for state in states]).tolist())
-    unique_intersect_ostates = [state.replace('-', '')
-                                for state in unique_intersect_ostates
-                                if (state != "monomer") and not state.startswith("homo")]
-    return '_'.join(unique_intersect_ostates)
+    if (data['unip_id_a'] in known_ostates.keys()) and (data['unip_id_b'] in known_ostates.keys()):
+        intersect_oligo_states = {key: value
+                                  for key, value in known_ostates[data['unip_id_a']].items()
+                                  if key in known_ostates[data['unip_id_b']]}
+        unique_intersect_ostates = sorted(pd.unique([state for state in intersect_oligo_states.values()]).tolist())
+        unique_intersect_ostates = [state.replace('-', '')
+                                    for state in unique_intersect_ostates
+                                    if (state != "monomer") and not state.startswith("homo")]
+        return '_'.join([s for s in unique_intersect_ostates if s])
+    else:
+        return ''
