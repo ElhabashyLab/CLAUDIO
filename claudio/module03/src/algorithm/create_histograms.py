@@ -115,6 +115,6 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
                                    colors=colors, textprops={"weight": "bold",
                                                              "color": 'black'})
         plt.legend(wedges, labels)
-        plt.title("Proportion of Xlinks with overlapping peptide sequences (OPS) in intra-links only")
+        plt.title("Proportion of Xlinks with OPSs in intra-links")
         plt.savefig(f"{output_directory}{filename}_pep_ovl_pie.png")
       #Boolean distinction whether peptides overlap or not 
