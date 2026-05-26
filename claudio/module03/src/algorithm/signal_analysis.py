@@ -146,8 +146,7 @@ def get_sequence_indices(seq: str, peptide: str, verbose_level: int):
     """
 
     if seq.find(peptide) == -1:
-        verbose_print(f"Peptide {peptide} not found in sequence {seq}", 1,
-                      verbose_level,end='')
+        verbose_print(f"Peptide {peptide} not found in sequence {seq}", 3, verbose_level)
         return set()
 
     indices = set(range(seq.find(peptide),
