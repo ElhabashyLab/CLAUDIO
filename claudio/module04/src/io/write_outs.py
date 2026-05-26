@@ -1,10 +1,10 @@
 """Writes final outputs of CLAUDIO Module04"""
 import os
+import sys
 import pandas as pd
 
 
-def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
-                  output_directory: str):
+def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, output_directory: str):
     """
     write outputs
 
@@ -51,11 +51,14 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool,
                 # respective number of sequence copies (ex.: 3mer -> 3 seqs)
                 if row.swiss_model_homology:
                     for oligo_state in row.swiss_model_homology.split('_'):
-                        num_mer = int(oligo_state.replace("homo", '').replace("mer", ''))
-                        with open(f"{output_subdirectory}/{unip_id}_{oligo_state}.fasta", 'w', encoding="utf-8") as f:
-                            content = f">{unip_id}\n{row.seq_a}\n"
-                            for _ in range(num_mer):
-                                f.write(content)
+                        try:
+                            num_mer = int(oligo_state.replace("homo", '').replace("mer", ''))
+                            with open(f"{output_subdirectory}/{unip_id}_{oligo_state}.fasta", 'w', encoding="utf-8") as f:
+                                content = f">{unip_id}\n{row.seq_a}\n"
+                                for _ in range(num_mer):
+                                    f.write(content)
+                        except ValueError:
+                            continue
                 # else assume unknown homomer, with two sequences for now,
                 # but leave oligo-state field in filename empty
                 # (user may decide here)
