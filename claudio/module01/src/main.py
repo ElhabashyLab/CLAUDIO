@@ -61,7 +61,6 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     """
     verbose_print("[1] Start Data Preprocessing", 0, verbose_level, start='')
     start_time = time.time()
-    raise RuntimeError("I would like to raise an error, please.")
 
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
