@@ -32,7 +32,7 @@ def main(input_filepath, output_directory, verbose_level):
     None
     
     """
-    verbose_print("Start Homo-signal analysis", 0, verbose_level)
+    verbose_print("[2] Start OPS Analysis", 0, verbose_level, start='')
     start_time = time.time()
 
     # Get absolute paths and translate eventual windows paths
@@ -49,14 +49,14 @@ def main(input_filepath, output_directory, verbose_level):
         data = read_in(input_filepath)
 
         # Analyse homo signals
-        verbose_print("Analyse homo signals", 0, verbose_level)
+        verbose_print("Analyse OPSs", 0, verbose_level)
         data = analyse_homo_signals(data,verbose_level)
 
         # Clean dataset for output
         data = clean_dataset(data)
 
         # Create Homo-signal statistic histograms
-        verbose_print("Create homo-signal histograms", 0, verbose_level)
+        verbose_print("Create OPS histograms", 0, verbose_level)
         create_homo_signal_histograms(data, input_filepath.split('/')[-1],
                                       output_directory)
 
@@ -64,8 +64,8 @@ def main(input_filepath, output_directory, verbose_level):
         verbose_print("Write output", 0, verbose_level)
         write_output(data, input_filepath.split('/')[-1], output_directory)
     runtime = round_self(time.time() - start_time, 2)
-    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
-    verbose_print("===================================", 0, verbose_level)
+    verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
     sys.exit(0)
 
 

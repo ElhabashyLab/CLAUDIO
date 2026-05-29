@@ -166,7 +166,7 @@ def download_pdbs(dataset:pd.DataFrame, search_tool: str, res_cutoff: float,
                     dataset = future.result()
                     ind += 1
                     progress = round_self((ind * 100) / len(dataset.index), 2)
-                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level,
+                    verbose_print(f"\t[{progress}%]", 1, verbose_level, start='\r\t\t',
                                   end='')
                     del futures[future]
             except Exception as e:

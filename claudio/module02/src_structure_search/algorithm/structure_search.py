@@ -64,7 +64,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
                                                  ' '.join(best_results))
                     ind += 1
                     progress = round_self((ind * 100) / len(unique_prots), 2)
-                    verbose_print(f"\r\t[{progress}%]", 1, verbose_level,
+                    verbose_print(f"[{progress}%]", 1, verbose_level, start='\r\t\t',
                                   end='')
                 del futures[future]
             except Exception as e:
@@ -107,7 +107,7 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
             try:
                 ind += 1
                 progress = round_self((ind * 100) / len(data.index), 2)
-                verbose_print(f"\r\t[{progress}%]", 1, verbose_level, end='')
+                verbose_print(f"[{progress}%]", 1, verbose_level, start='\r\t\t', end='')
                 del futures[future]
             except Exception as e:
                 print(e)

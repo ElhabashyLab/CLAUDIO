@@ -43,8 +43,8 @@ def double_check_data(data: pd.DataFrame, filename: str,
     data["pep_b_repeat_count"] = 0
 
     for i, row in data.iterrows():
-        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1,
-                      verbose_level, end='')
+        verbose_print(f"[{round_self(ind * 100 / data_len, 2)}%]", 1,
+                      verbose_level, start='\r\t\t', end='')
         ind += 1
 
         # SUCCESS: Remove empty entry
@@ -138,8 +138,8 @@ def double_check_data(data: pd.DataFrame, filename: str,
                     log_text += "\tSUCCESS\n"
                     break
 
-        verbose_print(f"\r\t[{round_self(ind * 100 / data_len, 2)}%]", 1,
-                      verbose_level, end='')
+        verbose_print(f"[{round_self(ind * 100 / data_len, 2)}%]", 1,
+                      verbose_level, start='\r\t\t', end='')
     verbose_print("", 1, verbose_level)
 
     # Add aforementioned possible variations to the end of the dataset (*)
@@ -183,7 +183,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
     """
 
     seq = row[f"seq_{site}"]
-    pep_pos = int(float(row[f"pos_{site}"]))
+    pep_pos = row[f"pos_{site}"]
     peptide = row[f"pep_{site}"]
 
     wrong_pos = False
@@ -417,8 +417,6 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
         # Only create new datapoints, if the current residue can be placed in
         # multiple positions
         if dp.pos == 0:
-            row.res_pos_a = str(row.res_pos_a)
-            row.res_pos_b = str(row.res_pos_b)
             # Make sure that the crosslinked residue can be uniquely
             # identified for pep_a
             a_is_unique = ((row.pep_a.count(dp.res) == 1) or not pd.isna(row.res_pos_a)) and (seq_a.count(row.pep_a) != 1)

@@ -59,9 +59,9 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     None
     
     """
-
-    verbose_print("Start Unique Protein List Tool", 0, verbose_level)
+    verbose_print("[1] Start Data Preprocessing", 0, verbose_level, start='')
     start_time = time.time()
+    raise RuntimeError("I would like to raise an error, please.")
 
     # Get absolute paths and translate eventual windows paths
     list_of_paths = [input_filepath, input_temppath, output_directory,
@@ -142,8 +142,8 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
         write_outputs(data, unique_proteins_list, filename, output_directory,
                       verbose_level)
     runtime= round_self(time.time() - start_time, 2)
-    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
-    verbose_print("===================================", 0, verbose_level)
+    verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
 
     sys.exit(0)
 

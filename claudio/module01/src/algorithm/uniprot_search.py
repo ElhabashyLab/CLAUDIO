@@ -99,8 +99,8 @@ def search_uniprot(data: pd.DataFrame, verbose_level: int, already_searched,
                 seqs[i] = seq
                 ind += 1
                 progress = round_self(ind * 100 / len(data.index), 2)
-                verbose_print(f"\r\tSite_{site}:[{progress}%]", 1,
-                              verbose_level, end='')
+                verbose_print(f"Site_{site}:[{progress}%]", 1,
+                              verbose_level, start='\r\t\t', end='')
                 del futures[future]
             except Exception as e:
                 print(e)

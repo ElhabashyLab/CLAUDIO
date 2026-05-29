@@ -121,8 +121,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
 
     """
 
-    verbose_print(f"Start full CLAUDIO v{_pkg_version('CLAUDIO')} pipeline", 0, 1)
-    verbose_print("===================================", 0, 1)
+    verbose_print(f"Start full CLAUDIO v{_pkg_version('CLAUDIO')} pipeline", 0, 1, start='')
+    verbose_print("===================================", 0, 1, start='')
     start_time = time.time()
 
     params = [input_filepath, input_temppath, projections, read_temps,
@@ -148,6 +148,10 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         db_updater(["-s", 14, "-p", 14, "-d", blast_db])
     except SystemExit:
         pass
+    except Exception as e:
+        print("Error during database update:", repr(e))
+        sys.exit(1)
+    verbose_print("===================================", 0, 1, start='')
 
     filename = '.'.join(input_filepath.split('/')[-1].split('.')[:-1])
 
@@ -161,6 +165,9 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                            "-hhdb", hhsearch_db, "-v", verbose_level])
     except SystemExit:
         pass
+    except Exception as e:
+        print("Error during preprocessing:", repr(e))
+        sys.exit(1)
     if not os.path.exists(f"{output_directory}{filename}.sqcs"):
         sys.exit(1)
 
@@ -170,6 +177,9 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                          "-o", output_directory, "-v", verbose_level])
     except SystemExit:
         pass
+    except Exception as e:
+        print("Error during ops analysis:", repr(e))
+        sys.exit(1)
     if not os.path.exists(f"{output_directory}{filename}.sqcs_ops.csv"):
         sys.exit(1)
 
@@ -187,6 +197,9 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                               "-tl", topolink_bin, "-v", verbose_level])
     except SystemExit:
         pass
+    except Exception as e:
+        print("Error during structural analysis:", repr(e))
+        sys.exit(1)
     if not os.path.exists(f"{output_directory}{filename}.sqcs_structdi.csv"):
         sys.exit(1)
 
@@ -210,11 +223,14 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
             os.remove(f"{output_directory}{filename}.sqcs_structdi.csv")
             os.remove(f"{output_directory}{filename}.sqcs_ops.csv")
         pass
+    except Exception as e:
+        print("Error during result combination:", repr(e))
+        sys.exit(1)
 
-    verbose_print(f"\nEnd full CLAUDIO pipeline execution (Total elapsed time: "
+    verbose_print(f"\nFinished full CLAUDIO pipeline execution (Total elapsed time: "
                   f"{round_self(time.time() - start_time, 2)}s)",
-                  0, verbose_level)
-    verbose_print("===================================", 0, verbose_level)
+                  0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
 
     sys.exit(0)
 

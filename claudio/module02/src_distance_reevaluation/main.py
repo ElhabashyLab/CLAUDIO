@@ -54,7 +54,7 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
     None
 
     """
-    verbose_print("Start intra interaction check", 0, verbose_level)
+    verbose_print("[3.2] Start Structural Analysis", 0, verbose_level, start='')
     start_time = time.time()
 
     # Get absolute paths and translate eventual windows paths
@@ -107,8 +107,8 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
         verbose_print("Overwrite outputfile", 0, verbose_level)
         write_output(data, input_filepath)
     runtime = round_self(time.time() - start_time, 2)
-    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
-    verbose_print("===================================", 0, verbose_level)
+    verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
 
     sys.exit(0)
 

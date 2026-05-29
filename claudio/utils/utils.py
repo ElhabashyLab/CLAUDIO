@@ -3,8 +3,7 @@ import os
 import pandas as pd
 
 
-def verbose_print(print_string: str, threshold: int, verbose_level: int,
-                  end='\n'):
+def verbose_print(print_string: str, threshold: int, verbose_level: int, start='\t', end='\n'):
     """
     print given string, if verbose_level is higher than threshold
 
@@ -13,6 +12,7 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int,
     print_string : str,
     threshold : int,
     verbose_level : int,
+    start : str,
     end : str
 
     Returns
@@ -21,7 +21,7 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int,
     """
 
     if verbose_level > threshold:
-        print(print_string.replace('\x00', ''), end=end)
+        print(str(start) + print_string.replace('\x00', ''), end=end)
 
 
 def clean_input_paths(path_strs: list[str]):

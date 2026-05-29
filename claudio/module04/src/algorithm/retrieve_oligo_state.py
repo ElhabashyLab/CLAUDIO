@@ -32,7 +32,8 @@ def retrieve_oligomeric_states(data: pd.DataFrame, verbose_level: int):
     # container for already searched oligo-states
     start = time.time()
     known_ostates = query_oligo_states_from_swiss(data)
-    print(f"Time taken to query oligomeric states from SWISS-MODEL: {time.time() - start}s")
+    verbose_print(f"Time taken to query oligomeric states from SWISS-MODEL: {round_self(int(time.time() - start), 2)}s",
+                  1, verbose_level, start='\t\t')
     iteration_counter = [0, len(data.index)]
     data["swiss_model_homology"] = data.apply(
         lambda x: get_oligo_state_from_swiss(
@@ -226,8 +227,8 @@ def get_oligo_state_from_swiss(data, known_ostates: dict[str, list[str]], i_iter
     # progressbar
     ind, full_i = i_iteration
     ind += 1
-    verbose_print(f"\r\t[{round_self((ind * 100) / full_i, 2)}%]", 1,
-                  verbose_level, end='')
+    verbose_print(f"[{round_self((ind * 100) / full_i, 2)}%]", 1,
+                  verbose_level, start='\r\t\t', end='')
     i_iteration[0] = ind
 
     # return homo-oligomer states if intra crosslink

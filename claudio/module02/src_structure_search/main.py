@@ -60,7 +60,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         None
 
     """
-    verbose_print("Start structure search", 0, verbose_level)
+    verbose_print("[3.1] Start Structure Search", 0, verbose_level, start='')
     start_time = time.time()
 
     # Get absolute paths and translate eventual windows paths
@@ -121,8 +121,8 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         # Write new output
         write_output(data, filename, output_directory)
     runtime = round_self(time.time() - start_time, 2)
-    verbose_print(f"\nEnd script (Elapsed time: {runtime}s)", 0, verbose_level)
-    verbose_print("===================================", 0, verbose_level)
+    verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
 
     sys.exit(0)
 

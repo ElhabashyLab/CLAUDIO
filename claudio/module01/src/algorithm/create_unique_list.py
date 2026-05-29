@@ -128,8 +128,8 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
                     infos[i] = info
                     ind += 1
                     progress = round_self(ind * 100 / len(unique_proteins), 2)
-                    verbose_print(f"\r\tMetadata search:[{progress}%]",
-                                  1, verbose_level, end='')
+                    verbose_print(f"Metadata search:[{progress}%]",
+                                  1, verbose_level, start='\r\t\t', end='')
                     del futures[future]
             except Exception as e:
                 print(e)
@@ -232,8 +232,8 @@ def search_pdb_entries(proteins: list[str], sequences: list[str],
                     pdbs[i] = pdb
                     ind += 1
                     progress = round_self(ind * 100 / len(proteins), 2)
-                    verbose_print((f"\r\tStructure search:[{progress}%]"), 1,
-                                  verbose_level, end='')
+                    verbose_print((f"Structure search:[{progress}%]"), 1,
+                                  verbose_level, start='\r\t\t', end='')
                     del futures[future]
             except Exception as e:
                 print(e)

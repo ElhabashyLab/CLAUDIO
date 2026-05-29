@@ -246,14 +246,14 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 toplink_dists.append((data_index, float('Nan'), float('Nan')))
         ind += 1
         progress = round_self((ind * 100) / len_structures, 2)
-        verbose_print(f"\r\tTopoLink:[{progress}%]", 1, verbose_level,end='')
+        verbose_print(f"TopoLink:[{progress}%]", 1, verbose_level, start='\r\t\t', end='')
         return
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(topo_task, structure):
                    structure for structure in sorted(data["path"].unique())}
         progress = round_self((ind * 100) / len_structures, 2)
-        verbose_print(f"\r\tTopoLink:[{progress}%]", 1, verbose_level,end='')
+        verbose_print(f"TopoLink:[{progress}%]", 1, verbose_level, start='\r\t\t', end='')
 
     for future in concurrent.futures.as_completed(futures):
         try:
