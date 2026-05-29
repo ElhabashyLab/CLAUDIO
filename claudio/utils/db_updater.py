@@ -8,8 +8,8 @@ import gzip
 import tarfile
 from io import BytesIO
 
-_SIFTS_LAST_UPDATED = '2026-05-29'
-_PDBAA_LAST_UPDATED = '2026-05-29'
+_SIFTS_LAST_UPDATED = '2000-01-01'
+_PDBAA_LAST_UPDATED = '2000-01-01'
 
 
 @click.command()
