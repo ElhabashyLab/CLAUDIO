@@ -103,10 +103,6 @@ def search_uniprot_metadata(unique_proteins: list[str], verbose_level: int):
     # Iterate over proteins (proteins = uniprot ids)
     # for protein in unique_proteins:
     def meta_search_task(i,protein):
-        # verbose_print(f"\r\tMetadata search:[{round_self(ind * 100 / len(unique_proteins), 2)}%]",
-        #               1, verbose_level, end='')
-        #ind += 1
-
         # Retrieve uniprot information on protein
         urllib = f"https://rest.uniprot.org/uniprotkb/search?query={protein}&format=tsv"
         try:
