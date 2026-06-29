@@ -17,8 +17,7 @@ def create_ident_chain_copies(data: pd.DataFrame):
 
     new_data_infos, new_datapoints = ([] for _ in range(2))
     num_before = len(data.index)
-    print(f"Creating datapoints for multiple chain options: {num_before}",
-          end='')
+    print(f"\tCreating datapoints for multiple chain options: {num_before}")
 
     # Annotate identical chains, and replace multi-chain notation into single
     data = data.apply(lambda x: annotate_multi_chain_dps(x, new_data_infos),

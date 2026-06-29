@@ -50,10 +50,18 @@ def double_check_data(data: pd.DataFrame, filename: str,
         # SUCCESS: Remove empty entry
         pos_info_missing = (sum([not pd.isna(row.pos_a), not pd.isna(row.res_pos_a)]) < 1) or \
                                   (sum([not pd.isna(row.pos_b), not pd.isna(row.res_pos_b)]) < 1)
-        is_erroneous_data = ((not isinstance(row["seq_a"],str))
-                             or (not isinstance(row["seq_b"],str))
-                             or (not isinstance(row["pep_a"],str))
-                             or (not isinstance(row["pep_b"],str))
+        is_erroneous_data = ((not isinstance(row["unip_id_a"], str))
+                             or (not isinstance(row["unip_id_b"], str))
+                             or (row["unip_id_a"] == 'nan')
+                             or (row["unip_id_b"] == 'nan')
+                             or (not isinstance(row["seq_a"], str))
+                             or (not isinstance(row["seq_b"], str))
+                             or (row["seq_a"] == 'nan')
+                             or (row["seq_b"] == 'nan')
+                             or (not isinstance(row["pep_a"], str))
+                             or (not isinstance(row["pep_b"], str))
+                             or (row["pep_a"] == 'nan')
+                             or (row["pep_b"] == 'nan')
                              or pos_info_missing)
         if is_erroneous_data:
             log_text += f"{i}: erroneous entry (missing " \
