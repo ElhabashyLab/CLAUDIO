@@ -5,7 +5,6 @@ import socket
 import time
 import pandas as pd
 import requests as r
-import sys
 
 from claudio.utils.utils import verbose_print, round_self
 
