@@ -81,14 +81,14 @@ def double_check_data(data: pd.DataFrame, filename: str,
             log_text += "\tFAIL\n"
 
         # REPLACE: Replace methionineoxide with methionine in peptide
-        if "Mo" in row["pep_a"]:
-            row["pep_a"] = row["pep_a"].replace("Mo", "M")
-            log_text += f"{i}_a: Found 'Mo' in pep_a.\n"
-            log_text += "\tREPLACE: Mo -> M\n"
-        if "Mo" in row["pep_b"]:
-            row["pep_b"] = row["pep_b"].replace("Mo", "M")
-            log_text += f"{i}_b: Found 'Mo' in pep_b.\n"
-            log_text += "\tREPLACE: Mo -> M\n"
+        if any([m in row["pep_a"] for m in ['Mox', 'Mo']]):
+            row["pep_a"] = row["pep_a"].replace("Mox", "M").replace("Mo", "M")
+            log_text += f"{i}_a: Found 'Mo(x)' in pep_a.\n"
+            log_text += "\tREPLACE: Mo(x) -> M\n"
+        if any([m in row["pep_b"] for m in ['Mox', 'Mo']]):
+            row["pep_b"] = row["pep_b"].replace("Mox", "M").replace("Mo", "M")
+            log_text += f"{i}_b: Found 'Mo(x)' in pep_b.\n"
+            log_text += "\tREPLACE: Mo(x) -> M\n"
 
         # ISSUE: Check if peptide is in full sequence as is
         # (possible insertions are not considered)
