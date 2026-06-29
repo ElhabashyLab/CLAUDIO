@@ -34,10 +34,11 @@ def read_inputfile(input_filepath: str, projections: dict):
                      "res_pos_a": 'float64',
                      "res_pos_b": 'float64'}.items():
         try:
-            data[col] = (data[col]
-                         .apply(lambda x: str(x).replace(' ', ''))
-                         .apply(lambda x: x if x else np.nan)
-                         .astype(val))
+            data[col] = data[col].apply(lambda x: str(x).replace(' ', '')).dropna()
+            if val == 'int64':
+                data[col] = data[col].apply(lambda x: int(float(x)) if not np.isnan(float(x)) else -1)
+            else:
+                data[col] = data[col].astype(val)
         except Exception as e:
             print(f"Error! Failed to set dtype in column={col} (initial column={[k for k, v in projections.items() if v == col]}) -> {repr(e)}")
             sys.exit(1)
