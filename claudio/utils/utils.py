@@ -24,6 +24,28 @@ def verbose_print(print_string: str, threshold: int, verbose_level: int, start='
         print(str(start) + print_string.replace('\x00', ''), end=end)
 
 
+def is_floatable_str(val: str) -> bool:
+    """
+    function returns boolean given a string value, whether the value can be parsed as a float
+
+    Parameters
+    ----------
+    val : str
+
+    Returns
+    -------
+    bool
+    """
+    if not isinstance(val, str):
+        return False
+    else:
+        try:
+            float(val)
+            return True
+        except ValueError:
+            return False
+
+
 def clean_input_paths(path_strs: list[str]):
     """
     get absolute paths and apply windowsos path translation, if not NoneType 

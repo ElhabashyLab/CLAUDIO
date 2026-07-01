@@ -4,6 +4,8 @@ import sys
 import pandas as pd
 import numpy as np
 
+from claudio.utils.utils import is_floatable_str
+
 
 def read_inputfile(input_filepath: str, projections: dict):
     """
@@ -36,7 +38,11 @@ def read_inputfile(input_filepath: str, projections: dict):
         try:
             data[col] = data[col].apply(lambda x: str(x).replace(' ', '')).dropna()
             if val == 'int64':
-                data[col] = data[col].apply(lambda x: int(float(x)) if not np.isnan(float(x)) else -1)
+                data[col] = data[col].apply(
+                    lambda x: int(float(x)) if (not np.isnan(float(x))) and is_floatable_str(x) else -1
+                )
+            elif val == 'float64':
+                data[col] = data[col].apply(lambda x: float(x) if is_floatable_str(x) else np.nan)
             else:
                 data[col] = data[col].astype(val)
         except Exception as e:
