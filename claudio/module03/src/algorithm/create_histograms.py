@@ -75,7 +75,7 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
         overl_data_bool = data["homo_pep_overl"].copy()
     else:
         overl_data_bool = data[data.unip_id_a == data.unip_id_b]["homo_pep_overl"].copy()
-    overl_data_bool = overl_data_bool[~np.isnan(overl_data_bool)]
+    overl_data_bool = overl_data_bool.dropna().astype(bool)
     if not overl_data_bool.empty:
         bins = [0, .5,  1]
         plt.figure(figsize=(6.5, 6), constrained_layout=True)
@@ -101,6 +101,7 @@ def create_homo_signal_histograms(data : pd.DataFrame, filename : str,
         overl_data_bool = data["homo_pep_overl"].copy()
     else:
         overl_data_bool = data[data.unip_id_a == data.unip_id_b]["homo_pep_overl"].copy()
+    overl_data_bool = overl_data_bool.dropna().astype(bool)
     if not overl_data_bool.empty:
         data = [len(overl_data_bool[overl_data_bool].index),
                 len(overl_data_bool[~overl_data_bool].index)]
