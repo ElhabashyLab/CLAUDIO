@@ -527,6 +527,59 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int,
     except IndexError:
         return None
 
+def candidate_position_is_valid(row, site, df_xl_res):
+    """Validate an exact candidate position without correcting it."""
+    sequence = row[f"seq_{site}"]
+    peptide = row[f"pep_{site}"]
+
+    try:
+        position = float(row[f"pos_{site}"])
+        if not position.is_integer():
+            return False
+        position = int(position)
+    except (TypeError, ValueError, OverflowError):
+        return False
+
+    if not peptide or not 1 <= position <= len(sequence):
+        return False
+
+    residue = sequence[position - 1]
+    residue_matches = any(
+        residue == rule.res
+        and (
+            rule.pos == 0
+            or (rule.pos == 1 and position == 1)
+            or (rule.pos == -1 and position == len(sequence))
+        )
+        for rule in df_xl_res.itertuples()
+    )
+    if not residue_matches:
+        return False
+
+    res_pos = row.get(f"res_pos_{site}", float("nan"))
+    if pd.notna(res_pos):
+        try:
+            res_pos = float(res_pos)
+            if not res_pos.is_integer():
+                return False
+            res_pos = int(res_pos)
+        except (TypeError, ValueError, OverflowError):
+            return False
+
+        if not 1 <= res_pos <= len(peptide):
+            return False
+
+        start = position - res_pos
+        return (
+            start >= 0
+            and sequence[start:start + len(peptide)] == peptide
+        )
+
+    return any(
+        sequence.startswith(peptide, start)
+        and start <= position - 1 < start + len(peptide)
+        for start in range(len(sequence) - len(peptide) + 1)
+    )
 
 def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
     """
@@ -682,4 +735,26 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 log_text += "\tattempt to create new datapoints for peptide copies in full protein sequence failed\n" \
                             "\tFAIL\n"
 
-    return pd.concat(new_datapoints, axis=1).transpose(), log_text
+    validated_candidates = []
+
+    for candidate in new_datapoints:
+        valid_a = candidate_position_is_valid(candidate, "a", df_xl_res)
+        valid_b = candidate_position_is_valid(candidate, "b", df_xl_res)
+
+        if not (valid_a and valid_b):
+            log_text += (
+                "\tREJECT candidate: position does not satisfy "
+                "peptide and residue checks\n"
+            )
+            continue
+
+        candidate["position_status_a"] = "valid"
+        candidate["position_status_b"] = "valid"
+        validated_candidates.append(candidate)
+
+    if validated_candidates:
+        result = pd.concat(validated_candidates, axis=1).transpose()
+    else:
+        result = pd.DataFrame(columns=row.index)
+
+    return result, log_text
