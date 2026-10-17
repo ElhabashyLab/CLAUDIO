@@ -621,7 +621,10 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 shift_a = row.pep_a.find(dp.res) if row.pep_a.count(dp.res) == 1 else int(row.res_pos_a) - 1
                 # Add old pos_a if not already in position set
                 old_pos_a = row.pos_a - shift_a - 1
-                if old_pos_a not in pep_a_positions:
+                if (
+                    old_pos_a not in pep_a_positions
+                    and candidate_position_is_valid(row, "a", df_xl_res)
+                ):
                     pep_a_positions.append(old_pos_a)
                 pep_a_positions = sorted(pep_a_positions)
 
@@ -635,7 +638,10 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 shift_b = row.pep_b.find(dp.res) if row.pep_b.count(dp.res) == 1 else int(row.res_pos_b) - 1
                 # Add old pos_b if not already in position set
                 old_pos_b = row.pos_b - shift_b - 1
-                if old_pos_b not in pep_b_positions:
+                if (
+                    old_pos_b not in pep_b_positions
+                    and candidate_position_is_valid(row, "b", df_xl_res)
+                ):
                     pep_b_positions.append(old_pos_b)
                 pep_b_positions = sorted(pep_b_positions)
 
