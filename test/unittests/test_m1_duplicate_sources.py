@@ -151,6 +151,51 @@ class TestM1DuplicateSources(unittest.TestCase):
                 "duplicate_source_record_id",
             ],
         )
+    def test_removed_duplicate_does_not_generate_candidates(self):
+        first = {
+            "unip_id_a": "P00001",
+            "unip_id_b": "P00002",
+            "seq_a": "MAKTAKT",
+            "seq_b": "MGKT",
+            "pep_a": "AKT",
+            "pep_b": "GKT",
+            "pos_a": 3,
+            "pos_b": 3,
+            "res_pos_a": 2,
+            "res_pos_b": 2,
+            "source_record_id": "record_000001",
+        }
+        duplicate = first.copy()
+        duplicate["source_record_id"] = "record_000002"
 
+        with TemporaryDirectory() as output_dir:
+            result = double_check_data(
+                pd.DataFrame([first, duplicate]),
+                "input",
+                build_xl_dataset("K"),
+                output_dir + "/",
+                0,
+            )
+            report = pd.read_csv(
+                Path(output_dir) / "input_duplicate_sources.csv"
+            )
+
+        self.assertEqual(
+            set(result["source_record_id"]),
+            {"record_000001"},
+            "Removed duplicate sources must not reappear as candidates",
+        )
+        self.assertEqual(len(result), 2)
+        self.assertEqual(
+            set(zip(result["pos_a"], result["pos_b"])),
+            {(3, 3), (6, 3)},
+        )
+        self.assertEqual(
+            report.to_dict(orient="records"),
+            [{
+                "retained_source_record_id": "record_000001",
+                "duplicate_source_record_id": "record_000002",
+            }],
+        )
 if __name__ == "__main__":
     unittest.main()

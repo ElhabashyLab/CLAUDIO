@@ -127,18 +127,19 @@ def double_check_data(data: pd.DataFrame, filename: str,
         # Update row
         data.loc[i, :] = row
 
-        # If any peptide was found multiple times, create possible variations
-        # (add them later (*))
-        if pep_found_multiple_times:
-            datapoints, log_text = create_duplicates(row, df_xl_res, log_text)
-            new_datapoints.append(datapoints)
-
         # If not in known interactions, save unip ids and positions in known
         # interactions, else drop datapoint
         interaction_info = tuple(sorted([row["unip_id_a"], row["unip_id_b"],
                                          str(row["pos_a"]), str(row["pos_b"])]))
         if interaction_info not in [x for _, x in known_inters]:
             known_inters.add((i, interaction_info))
+
+            # Expand candidates only for retained records.
+            if pep_found_multiple_times:
+                datapoints, log_text = create_duplicates(
+                    row, df_xl_res, log_text
+                )
+                new_datapoints.append(datapoints)
         else:
             for known_i, known_inter in known_inters:
                 if interaction_info == known_inter:
