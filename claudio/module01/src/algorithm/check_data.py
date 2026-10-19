@@ -31,6 +31,7 @@ def double_check_data(data: pd.DataFrame, filename: str,
 
     # Save known interactions (drop duplicates)
     known_inters = set()
+    duplicate_sources = []
 
     # Save newly created datapoints (in order to ensure that they
     # aren't duplicated multiple times)
@@ -126,22 +127,32 @@ def double_check_data(data: pd.DataFrame, filename: str,
         # Update row
         data.loc[i, :] = row
 
-        # If any peptide was found multiple times, create possible variations
-        # (add them later (*))
-        if pep_found_multiple_times:
-            datapoints, log_text = create_duplicates(row, df_xl_res, log_text)
-            new_datapoints.append(datapoints)
-
         # If not in known interactions, save unip ids and positions in known
         # interactions, else drop datapoint
         interaction_info = tuple(sorted([row["unip_id_a"], row["unip_id_b"],
                                          str(row["pos_a"]), str(row["pos_b"])]))
         if interaction_info not in [x for _, x in known_inters]:
             known_inters.add((i, interaction_info))
+
+            # Expand candidates only for retained records.
+            if pep_found_multiple_times:
+                datapoints, log_text = create_duplicates(
+                    row, df_xl_res, log_text
+                )
+                new_datapoints.append(datapoints)
         else:
             for known_i, known_inter in known_inters:
                 if interaction_info == known_inter:
                     log_text += f"{i}: entry is a DUPLICATE (see entry {known_i}). will be removed\n"
+
+                    if "source_record_id" in data.columns:
+                        duplicate_sources.append({
+                            "retained_source_record_id":
+                                data.loc[known_i, "source_record_id"],
+                            "duplicate_source_record_id":
+                                row["source_record_id"],
+                        })
+
                     data.drop(i, inplace=True)
                     log_text += "\tSUCCESS\n"
                     break
@@ -166,7 +177,18 @@ def double_check_data(data: pd.DataFrame, filename: str,
     output_path = f"{output_directory}{filename}_preprocessing.log"
     with open(output_path, 'w', encoding="utf-8") as log_f:
         log_f.write(log_text)
-
+    # Save links between removed duplicates and retained records
+    duplicate_report = pd.DataFrame(
+        duplicate_sources,
+        columns=[
+            "retained_source_record_id",
+            "duplicate_source_record_id",
+        ],
+    )
+    duplicate_report.to_csv(
+        f"{output_directory}{filename}_duplicate_sources.csv",
+        index=False,
+    )
     return data
 
 
@@ -387,7 +409,7 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int,
             verbose_print(f"\tAligned site (index: {aligned_pep_i}):\n"
                           f"\t\t{aligned_seq[aligned_pep_i]}\n"
                           f"\t\t{al_seq[aligned_pep_i]}\n"
-                          f"\t\t{aligned_pep[aligned_pep_i]}", 2, 
+                          f"\t\t{aligned_pep[aligned_pep_i]}", 2,
                           verbose_level)
             return new_res_pos
         return None
@@ -397,9 +419,9 @@ def realign_pep_to_seq(seq: str, peptide:str, res_pos: int,
 
 def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
     """
-    Check if peptides in datapoint occur multiple times in sequence, 
+    Check if peptides in datapoint occur multiple times in sequence,
     if so create dataset with possible permutations
-    
+
     Parameters
     ----------
     row : pd.Series,
