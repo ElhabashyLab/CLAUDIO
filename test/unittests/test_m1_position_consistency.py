@@ -38,6 +38,10 @@ class TestM1PositionConsistency(unittest.TestCase):
             corrected["source_record_id"],
             "record_000001",
         )
+        self.assertEqual(
+            corrected["position_status_a"],
+            "corrected",
+        )
     def test_uses_supplied_position_when_peptide_has_two_lysines(self):
         row = pd.Series({
             "seq_a": "MAKAKT",
@@ -176,6 +180,10 @@ class TestM1PositionConsistency(unittest.TestCase):
         self.assertEqual(checked["original_pos_a"], 2)
         self.assertIn("AMBIGUOUS", log_text)
         self.assertNotIn("REPLACE:", log_text)
+        self.assertEqual(
+            checked["position_status_a"],
+            "ambiguous",
+        )
     def test_rejects_peptide_position_with_disallowed_residue(self):
         row = pd.Series({
             "seq_a": "MKAAKT",
@@ -198,5 +206,52 @@ class TestM1PositionConsistency(unittest.TestCase):
                 "",
                 0,
             )
+    def test_marks_consistent_position_as_valid_for_each_endpoint(self):
+        for site in ("a", "b"):
+            with self.subTest(site=site):
+                row = pd.Series({
+                    f"seq_{site}": "MAAKT",
+                    f"pep_{site}": "AKT",
+                    f"pos_{site}": 4,
+                    f"res_pos_{site}": 2,
+                    f"original_pos_{site}": 4,
+                    "source_record_id": "record_000001",
+                })
+
+                checked, _ = check_pep_pos(
+                    0,
+                    row,
+                    site,
+                    build_xl_dataset("K"),
+                    "",
+                    0,
+                )
+
+                status_column = f"position_status_{site}"
+                self.assertIn(status_column, checked.index)
+                self.assertEqual(checked[status_column], "valid")
+                self.assertEqual(checked[f"pos_{site}"], 4)
+    def test_marks_unresolvable_position_as_invalid(self):
+        row = pd.Series({
+            "seq_a": "MAAAT",
+            "pep_a": "AAA",
+            "pos_a": 2,
+            "res_pos_a": float("nan"),
+            "original_pos_a": 2,
+            "source_record_id": "record_000001",
+        })
+
+        checked, _ = check_pep_pos(
+            0,
+            row,
+            "a",
+            build_xl_dataset("K"),
+            "",
+            0,
+        )
+
+        self.assertEqual(checked["position_status_a"], "invalid")
+        self.assertEqual(checked["pos_a"], 2)
+        self.assertEqual(checked["original_pos_a"], 2)
 if __name__ == "__main__":
     unittest.main()

@@ -41,6 +41,8 @@ def double_check_data(data: pd.DataFrame, filename: str,
     data["pep_b_repeated"] = False
     data["pep_a_repeat_count"] = 0
     data["pep_b_repeat_count"] = 0
+    data["position_status_a"] = "invalid"
+    data["position_status_b"] = "invalid"
 
     for i, row in data.iterrows():
         verbose_print(f"[{round_self(ind * 100 / data_len, 2)}%]", 1,
@@ -193,6 +195,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
     seq = row[f"seq_{site}"]
     pep_pos = row[f"pos_{site}"]
     peptide = row[f"pep_{site}"]
+    status_column = f"position_status_{site}"
+    row[status_column] = "invalid"
 
     wrong_pos = False
     try:
@@ -310,6 +314,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                             candidate_positions.add(protein_position)
 
             if len(candidate_positions) > 1:
+                row[status_column] = "ambiguous"
                 log_text += (
                     f"{i}_{site}: AMBIGUOUS: possible protein positions "
                     f"{sorted(candidate_positions)}; "
@@ -418,6 +423,43 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                     except Exception:
                         log_text += f"\tres_pos_{site} was not given\n"
                         log_text += "\tFAIL\n"
+
+    if not wrong_pos:
+        row[status_column] = "valid"
+    elif pos_replaced:
+        corrected_position = int(row[f"pos_{site}"])
+
+        if 1 <= corrected_position <= len(seq):
+            residue = seq[corrected_position - 1]
+            residue_matches = any(
+                residue == rule.res
+                and (
+                    rule.pos == 0
+                    or (rule.pos == 1 and corrected_position == 1)
+                    or (
+                        rule.pos == -1
+                        and corrected_position == len(seq)
+                    )
+                )
+                for rule in df_xl_res.itertuples()
+            )
+
+            if pd.notna(res_pos):
+                start = corrected_position - int(res_pos)
+                peptide_matches = (
+                    start >= 0
+                    and seq[start:start + len(peptide)] == peptide
+                )
+            else:
+                peptide_matches = any(
+                    seq.startswith(peptide, start)
+                    and start <= corrected_position - 1
+                    < start + len(peptide)
+                    for start in range(len(seq) - len(peptide) + 1)
+                )
+
+            if residue_matches and peptide_matches:
+                row[status_column] = "corrected"
 
     return row, log_text
 
