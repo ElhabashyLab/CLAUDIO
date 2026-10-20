@@ -508,67 +508,42 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
         return None
 
 
-def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int):
-    """
-    Realign pdb sequence to uniprot sequence, and compute position of residue 
-    in pdb sequence which is specified by unip_pos in uniprot sequence, if 
-    this fails return None
-    
-    Parameters
-    ----------
-    pdb_seq : str,
-    unip_seq : str,
-    unip_pos : int,
-    verbose_level : int
-
-    Returns
-    -------
-    pdb_pos : int | None
-    """
-    # Set alignment parameters
+def realign_unip_pos_in_pdb_seq(
+    pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int
+):
+    """Return a 1-based position in the PDB sequence, or None if unmapped."""
     aligner = PairwiseAligner()
     aligner.mode = "local"
     aligner.gap_score = -5
     aligner.match_score = 1
     aligner.mismatch_score = 0
-    # aligner.substitution_matrix = substitution_matrices.load("BLOSUM62")
 
-    # Try aligning, if it fails return None
     try:
         alignment = aligner.align(pdb_seq, unip_seq)[0]
-    except ValueError:
+    except (ValueError, IndexError):
         return None
+
     verbose_print(f"\t\tAlignment:\n{alignment}", 3, verbose_level)
-    aligned_pdb_seq = str(alignment).split('\n',maxsplit=1)[0]
-    aligned_unip_seq = str(alignment).split('\n')[2]
 
-    # Find unip_pos in aligned uniprot sequence
-    aligned_unip_i = -1
-    aligned_unip_pos = 0
-    for i, c in enumerate(aligned_unip_seq):
-        aligned_unip_i = i
-        if c not in [' ', '-']:
-            aligned_unip_pos += 1
-        if aligned_unip_pos == unip_pos:
-            break
+    # Alignment blocks use zero-based, end-exclusive sequence coordinates.
+    unip_index = unip_pos - 1
+    pdb_blocks, unip_blocks = alignment.aligned
 
-    # Find unip_pos in aligned pdb sequence and compute according pdb_pos in
-    # unaligned pdb sequence, return pdb_pos if successful, else return None
-    try:
-        _ = aligned_pdb_seq[aligned_unip_i + 1]
-        pdb_pos = len(aligned_pdb_seq[:aligned_unip_i + 1].replace(' ', '').replace('-', ''))
-        if pdb_pos > 0:
-            al_seq = str(alignment).split('\n')[1]
-            verbose_print(f"\t\tAligned site (index: {aligned_unip_i}):\n"
-                          f"\t\t\t{aligned_pdb_seq[aligned_unip_i]}\n"
-                          f"\t\t\t{al_seq[aligned_unip_i]}\n"
-                          f"\t\t\t{aligned_unip_seq[aligned_unip_i]}", 3, 
-                          verbose_level)
+    for (pdb_start, _), (unip_start, unip_end) in zip(
+        pdb_blocks, unip_blocks
+    ):
+        if unip_start <= unip_index < unip_end:
+            pdb_pos = int(pdb_start + (unip_index - unip_start) + 1)
+            verbose_print(
+                f"\t\tUniProt position {unip_pos} maps to "
+                f"PDB sequence position {pdb_pos}",
+                3,
+                verbose_level,
+            )
             return pdb_pos
-        return None
-    except IndexError:
-        return None
 
+    # Gaps and positions outside the local alignment have no mapping.
+    return None
 
 def replacement_alphafold_download(unip_id: str, path: str, verbose_level: int, i_try: int = 0):
     """
