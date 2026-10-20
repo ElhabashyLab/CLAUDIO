@@ -387,6 +387,8 @@ def compute_site_pos(i: int, data: pd.Series, site_id: int, xl_type: str,
                               f"pdb: {pdb_id}:{chain_id})", 2, verbose_level)
                 return None, False, method, 4, '-', '', None
             # Else replacement was successful
+            method = "alphafold"
+            residue_pos = data[f"pos_{site_id}"]
             res = chain.__getitem__(residue_pos)
             try:
                 verbose_print(f"\tReplacement attempt successful (new residue: "
