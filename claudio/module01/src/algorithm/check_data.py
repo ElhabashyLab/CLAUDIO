@@ -277,18 +277,17 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
             if seq.startswith(peptide, start)
         ]
 
-        if len(peptide_starts) == 1:
-            peptide_start = peptide_starts[0]
-            position_in_peptide = (
-                peptide_start <= pep_pos - 1
-                < peptide_start + len(peptide)
+        position_in_peptide = any(
+            start <= pep_pos - 1 < start + len(peptide)
+            for start in peptide_starts
+        )
+
+        if not position_in_peptide:
+            log_text += (
+                f"{i}_{site}: protein position is not supported "
+                "by any exact peptide match.\n"
             )
-            if not position_in_peptide:
-                log_text += (
-                    f"{i}_{site}: protein position is outside "
-                    "the uniquely matched peptide.\n"
-                )
-                wrong_pos = True
+            wrong_pos = True
     # Recompute position if acid at position is not of the specified ones,
     # or if position out of bounds
     if wrong_pos:
