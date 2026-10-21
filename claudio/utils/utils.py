@@ -268,7 +268,7 @@ def clean_dataset(data: pd.DataFrame):
             data.astype({"chain_a": str, "chain_b": str}, errors="ignore")
     if "homo_pep_overl" in data.columns:
         data = data.astype({"homo_adjacency": float, "homo_int_overl": float,
-                            "homo_pep_overl": bool}, errors="ignore")
+                            "homo_pep_overl": "boolean"}, errors="ignore")
     if "evidence" in data.columns:
         data = data.astype({"evidence": str, "XL_type": str,
                             "swiss_model_homology": str}, errors="ignore")

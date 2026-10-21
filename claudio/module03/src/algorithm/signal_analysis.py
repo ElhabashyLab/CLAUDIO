@@ -2,30 +2,61 @@
 import pandas as pd
 from claudio.utils.utils import round_self,verbose_print
 
+def positions_are_supported(row):
+    """Check whether both endpoints have usable M1 position statuses."""
+    columns = ("position_status_a", "position_status_b")
 
-def analyse_homo_signals(data: pd.DataFrame,verbose_level: int):
-    """
-    compute homology signals of interaction sites based on site adjacency 
-    and peptide overlap
-    
-    Parameters
-    ----------
-    data : pd.DataFrame
-    verbose_level: int
+    # Preserve compatibility with older inputs without status columns.
+    if not any(column in row.index for column in columns):
+        return True
 
-    Returns
-    -------
-    data : pd.DataFrame
-    """
-    peptide_copy_search = lambda x: search_for_peptide_copies(x, data)
-    interaction_overlap = lambda x: compute_interaction_ovl(x, verbose_level)
+    return all(
+        isinstance(row.get(column), str)
+        and row.get(column) in ("valid", "corrected")
+        for column in columns
+    )
 
-    data["pep_copies_found"] = data.apply(peptide_copy_search, axis=1)
-    data["homo_adjacency"] = data.apply(compute_interaction_adj, axis=1)
-    data["homo_int_overl"] = data.apply(interaction_overlap, axis=1)
-    data["homo_pep_overl"] = data.homo_int_overl > 0
-    data = data.drop("pep_copies_found", axis=1)
-    return data
+def analyse_homo_signals(data: pd.DataFrame, verbose_level: int):
+    """Compute sequence signals for records with supported positions."""
+    supported = data.apply(positions_are_supported, axis=1)
+    supported_data = data.loc[supported]
+
+    # Unresolved records must not influence peptide-copy detection.
+    data["pep_copies_found"] = data.apply(
+        lambda row: (
+            search_for_peptide_copies(row, supported_data)
+            if supported.loc[row.name]
+            else False
+        ),
+        axis=1,
+    )
+
+    data["homo_adjacency"] = data.apply(
+        lambda row: (
+            compute_interaction_adj(row)
+            if supported.loc[row.name]
+            else float("nan")
+        ),
+        axis=1,
+    )
+    data["homo_int_overl"] = data.apply(
+        lambda row: (
+            compute_interaction_ovl(row, verbose_level)
+            if supported.loc[row.name]
+            else float("nan")
+        ),
+        axis=1,
+    )
+
+    # Nullable boolean: True / False / not evaluated.
+    data["homo_pep_overl"] = (
+        data["homo_int_overl"] > 0
+    ).astype("boolean")
+    data.loc[
+        data["homo_int_overl"].isna(), "homo_pep_overl"
+    ] = pd.NA
+
+    return data.drop("pep_copies_found", axis=1)
 
 def search_for_peptide_copies(data_row: pd.Series, data: pd.DataFrame):
     """
