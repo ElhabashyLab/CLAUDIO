@@ -4,6 +4,7 @@ import os
 import concurrent.futures
 import socket
 import time
+from tempfile import NamedTemporaryFile
 import pandas as pd
 from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser
 from Bio.Align import PairwiseAligner
@@ -568,59 +569,89 @@ def realign_unip_pos_in_pdb_seq(pdb_seq: str, unip_seq: str, unip_pos: int, verb
         return None
 
 
-def replacement_alphafold_download(unip_id: str, path: str, verbose_level: int, i_try: int = 0):
-    """
-    Attempt to download a replacement alphafold structure model (also return 
-    path to new pdb), return None if attempt fails
-    
-    Parameters
-    ----------
-    unip_id : str,
-    path : str,
-    verbose_level : int,
-    i_try : int = 0
-
-    Returns
-    -------
-    chain : Bio.PDB.Chain | None
-    new_path : str |  ''
-    """
+def replacement_alphafold_download(
+    unip_id: str, path: str, verbose_level: int, i_try: int = 0
+):
+    """Reuse valid cached structures; publish downloads only after validation."""
     max_try = 5
     if i_try == 0:
-        verbose_print("\tAttempt replacement alphafold download.",
-                      2, verbose_level)
-    # ex.: data/out/structure_search/blastp_6G2J.pdb
+        verbose_print(
+            "\tAttempt replacement alphafold download.", 2, verbose_level
+        )
     new_path = f"{'_'.join(path.split('_')[:-1])}_af{unip_id}.pdb"
 
-    if not os.path.exists(new_path):
-        url = f"{ALPHAFOLD_URL[0]}{unip_id}{ALPHAFOLD_URL[1]}"
-        with open(new_path, 'w', encoding="utf-8") as f:
-            try:
-                f.write(r.get(url,timeout=60).text)
-            except r.exceptions.Timeout:
-                if i_try >= max_try:
-                    return None, ''
-
-                time.sleep(1)
-                return replacement_alphafold_download(unip_id, path, verbose_level,
-                                                      i_try + 1)
-
-            except (ConnectionError, socket.gaierror,
-                    r.exceptions.ConnectionError) as e:
-                if i_try == max_try:
-                    print("No connection to AlphaFold API possible. Please try again later.")
-                    print(e)
-                return replacement_alphafold_download(unip_id, path, verbose_level,
-                                                      i_try + 1)
-    try:
-        models = pdb_cache.get(new_path,None)
-        if models is None:
-            models = PDBParser().get_structure('', new_path).get_list()
+    if os.path.exists(new_path):
+        try:
+            models = pdb_cache.get(new_path)
+            if models is None:
+                models = PDBParser(QUIET=True).get_structure(
+                    "", new_path
+                ).get_list()
+            chain = models[0].get_list()[0]
+            if next(chain.get_atoms(), None) is None:
+                raise ValueError("Cached AF structure has no atoms")
             pdb_cache[new_path] = models
+            return chain, new_path
+        except Exception as error:
+            pdb_cache.pop(new_path, None)
+            verbose_print(
+                f"\tInvalid AF cache; downloading again: {error}",
+                2, verbose_level,
+            )
 
-        return models[0].get_list()[0], new_path
-    except:
-        return None, ''
+    url = f"{ALPHAFOLD_URL[0]}{unip_id}{ALPHAFOLD_URL[1]}"
+    try:
+        text = r.get(url, timeout=60).text
+    except r.exceptions.Timeout:
+        if i_try >= max_try:
+            return None, ""
+        time.sleep(1)
+        return replacement_alphafold_download(
+            unip_id, path, verbose_level, i_try + 1
+        )
+    except (
+        ConnectionError, socket.gaierror, r.exceptions.ConnectionError
+    ) as error:
+        if i_try >= max_try:
+            print("No connection to AlphaFold API possible. Please try again later.")
+            print(error)
+            return None, ""
+        return replacement_alphafold_download(
+            unip_id, path, verbose_level, i_try + 1
+        )
+
+    temporary_path = None
+    try:
+        with NamedTemporaryFile(
+            mode="w", encoding="utf-8",
+            dir=os.path.dirname(new_path) or ".",
+            prefix=os.path.basename(new_path) + ".",
+            suffix=".tmp", delete=False,
+        ) as temporary_file:
+            temporary_path = temporary_file.name
+            temporary_file.write(text)
+
+        models = PDBParser(QUIET=True).get_structure(
+            "", temporary_path
+        ).get_list()
+        chain = models[0].get_list()[0]
+        if next(chain.get_atoms(), None) is None:
+            raise ValueError("Downloaded AF structure has no atoms")
+
+        os.replace(temporary_path, new_path)
+        pdb_cache[new_path] = models
+        return chain, new_path
+    except Exception as error:
+        verbose_print(
+            f"\tAF structure was not cached: {error}", 2, verbose_level
+        )
+        return None, ""
+    finally:
+        if temporary_path is not None:
+            try:
+                os.remove(temporary_path)
+            except FileNotFoundError:
+                pass
 
 
 def populate_pdb_cache(data: pd.DataFrame, verbose_level: int):
