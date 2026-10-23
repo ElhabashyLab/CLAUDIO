@@ -1,5 +1,6 @@
 """Retrieve IDs from RCSB PDB database using either hhsearch or blastp."""
 import concurrent.futures
+from decimal import Decimal, ROUND_CEILING
 from io import StringIO
 import os
 import socket
@@ -129,6 +130,65 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     return data
 
 
+def _read_hhsearch_hits(
+    result_path, unip_id, query_length, e_value, query_id, coverage
+):
+    """Filter HH-suite BLAST-tab hits using conservative identity counts."""
+    if query_length <= 0:
+        raise ValueError("HHsearch query sequence must not be empty")
+
+    hits = []
+    with open(result_path, encoding="utf-8") as result_file:
+        for line in result_file:
+            fields = line.strip().split("\t")
+            if fields[0] != unip_id:
+                continue
+            if len(fields) != 12:
+                raise ValueError("Invalid HHsearch tabular result")
+
+            match_ratio = Decimal(fields[2])
+            template_length = int(fields[3])
+            mismatches = int(fields[4])
+            query_start, query_end = int(fields[6]), int(fields[7])
+            hit_evalue = Decimal(fields[10])
+
+            if (
+                not match_ratio.is_finite()
+                or not hit_evalue.is_finite()
+                or not 0 <= match_ratio <= 1
+                or template_length <= 0
+                or mismatches < 0
+                or hit_evalue < 0
+                or not 1 <= query_start <= query_end <= query_length
+            ):
+                raise ValueError("Invalid HHsearch hit values")
+
+            # HH-suite rounds matches / template length to three decimals.
+            # Use the smallest compatible integer count to avoid overclaiming.
+            matches = max(0, int(
+                ((match_ratio - Decimal("0.0005")) * template_length)
+                .to_integral_value(rounding=ROUND_CEILING)
+            ))
+            paired_residues = matches + mismatches
+            if paired_residues == 0:
+                continue
+
+            identity = Decimal(100) * matches / paired_residues
+            query_coverage = (
+                Decimal(100) * (query_end - query_start + 1) / query_length
+            )
+            if (
+                identity >= Decimal(str(query_id))
+                and query_coverage >= Decimal(str(coverage))
+                and hit_evalue <= Decimal(str(e_value))
+            ):
+                hits.append(fields[1])
+                if len(hits) == 20:
+                    break
+
+    return hits
+
+
 def perform_search(unip_id: str, sequence: str, search_tool: str,
                    e_value: float, query_id: float, coverage: float,
                    tmp_filepath: str, blast_bin: str | None, blast_db: str,
@@ -183,14 +243,21 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
             search_results = search_results.loc[:, "pdb"].tolist()
 
         elif search_tool == "hhsearch":
-            hhsearch_call = "hhsearch" if hhsearch_bin is None else f"{hhsearch_bin}hhsearch"
-            command = f"\"{hhsearch_call}\" -i \"{temp_path}tmp{unip_id}.fasta\" -d \"{hhsearch_db}pdb70\" -e {e_value} " \
-                      f"-qid {query_id} -cov {coverage} -blasttab \"{temp_path}tmp{unip_id}.hhr\" -v 0 -cpu 20"
+            hhsearch_call = (
+                "hhsearch" if hhsearch_bin is None
+                else f"{hhsearch_bin}hhsearch"
+            )
+            command = (
+                f'"{hhsearch_call}" -i "{temp_path}tmp{unip_id}.fasta" '
+                f'-d "{hhsearch_db}pdb70" -e {e_value} '
+                f'-o "{temp_path}tmp{unip_id}_alignments.hhr" '
+                f'-blasttab "{temp_path}tmp{unip_id}.hhr" -v 0 -cpu 20'
+            )
             os.system(command)
-            search_results = [line.split('\t')[1]
-                              for line in open(f"{temp_path}tmp{unip_id}.hhr", 'r', encoding="utf-8").read().split('\n')
-                              if line.split('\t')[0] == unip_id][:20]
-
+            search_results = _read_hhsearch_hits(
+                f"{temp_path}tmp{unip_id}.hhr",
+                unip_id, len(sequence), e_value, query_id, coverage,
+            )
         # Search identical Chain IDs for (inter) cross-links
         chains = [retrieve_identical_chain_ids(res.split('_')[0],
                                                res.split('_')[1], 5)
