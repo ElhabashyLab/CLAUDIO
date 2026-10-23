@@ -3,25 +3,35 @@ import pandas as pd
 
 
 def read_temp_file(data: pd.DataFrame, tmp_filepath: str):
-    """
-    read temporary save file containing earlier hhsearch or blastp 
-    search results and concatenate them to the dataset, for quick reruns
+    """Restore search results only when cached input identities match."""
+    tmp_data = pd.read_csv(
+        tmp_filepath, dtype=str, keep_default_na=False
+    )
+    result_columns = ["pdb_id", "all_results", "chain_a", "chain_b"]
+    identity_columns = ["unip_id_a", "unip_id_b", "seq_a", "seq_b"]
 
-    Parameters
-    ----------
-    data : pd.DataFrame,
-    tmp_filepath : str
+    required_columns = set(result_columns + identity_columns)
+    if not required_columns.issubset(tmp_data.columns):
+        raise ValueError(
+            "Search cache lacks required identity or result columns; "
+            "rerun structure search"
+        )
 
-    Returns
-    -------
-    read_temp_file : pd.DataFrame
-    """
+    if len(tmp_data) != len(data):
+        raise ValueError(
+            "Search cache row count does not match input data; "
+            "rerun structure search"
+        )
 
-    tmp_data = pd.read_csv(tmp_filepath)
+    cached_identity = tmp_data[identity_columns].reset_index(drop=True)
+    input_identity = (
+        data[identity_columns].astype(str).reset_index(drop=True)
+    )
+    if not cached_identity.equals(input_identity):
+        raise ValueError(
+            "Search cache input identity or row order does not match; "
+            "rerun structure search"
+        )
 
-    data["pdb_id"] = tmp_data["pdb_id"]
-    data["all_results"] = tmp_data["all_results"]
-    data["chain_a"] = tmp_data["chain_a"]
-    data["chain_b"] = tmp_data["chain_b"]
-
-    return data.fillna('')
+    data[result_columns] = tmp_data[result_columns].to_numpy()
+    return data
