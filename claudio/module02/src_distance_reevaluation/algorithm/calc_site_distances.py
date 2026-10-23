@@ -45,7 +45,19 @@ def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
                                        verbose_level)
 
     return data
-
+def parse_topolink_distance(token):
+    """Separate an exact distance from a reported lower bound."""
+    missing = float("nan")
+    if token is None:
+        return missing, missing
+    is_bound = token.startswith(">")
+    try:
+        value = float(token[1:] if is_bound else token)
+    except (TypeError, ValueError):
+        return missing, missing
+    if not np.isfinite(value) or value < 0:
+        return missing, missing
+    return (missing, value) if is_bound else (value, missing)
 
 def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                                 df_xl_res: pd.DataFrame, plddt_cutoff: float,
@@ -209,33 +221,8 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                         for atom_a in df_xl_res.atom for atom_b in df_xl_res.atom]):
                     tplk_eucl = link_result.split(' ')[9]
                     tplk_topo = link_result.split(' ')[10]
-                    # Check whether both distances computed by topolink did
-                    # not pass the threshold, if so directly save them as
-                    # floats to zipped distance collection and change
-                    # according boolean in obs_inds to True (because it was
-                    # found in the results of topolink)
-                    if (not tplk_eucl.startswith('>')) and (not tplk_topo.startswith('>')):
-                        toplink_dists.append((data_index, float(tplk_eucl), float(tplk_topo)))
-                        obs_inds[i] = (data_index, link_strs, True)
-                    # If euclidean distance by topolink surpasses threshold
-                    # truncate greater-symbol, save both distances' float
-                    # values to zipped distance collection and change
-                    # according boolean in obs_inds to True (because it was
-                    # found in the results of topolink)
-                    elif tplk_eucl.startswith('>'):
-                        toplink_dists.append((data_index,
-                                              float(tplk_eucl.replace('>', '')),
-                                              float(tplk_topo)))
-                        obs_inds[i] = (data_index, link_strs, True)
-                    # If topological distance by topolink surpasses threshold
-                    # truncate greater-symbol, save both distances' float
-                    # values to zipped distance collection and change according
-                    # boolean in obs_inds to True (because it was found in the
-                    # results of topolink)
-                    elif tplk_topo.startswith('>'):
-                        toplink_dists.append((data_index, float(tplk_eucl),
-                                              float(tplk_topo.replace('>', ''))))
-                        obs_inds[i] = (data_index, link_strs, True)
+                    toplink_dists.append((data_index, tplk_eucl, tplk_topo))
+                    obs_inds[i] = (data_index, link_strs, True)
                     break
         # Iterate over observations again and check whether all were found
         # (e.g. check boolean in tuples), if not save Nans to zipped distance
@@ -243,7 +230,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         for obs_ind in obs_inds:
             data_index, _, obs_res_found = obs_ind
             if not obs_res_found:
-                toplink_dists.append((data_index, float('Nan'), float('Nan')))
+                toplink_dists.append((data_index, None, None))
         ind += 1
         progress = round_self((ind * 100) / len_structures, 2)
         verbose_print(f"TopoLink:[{progress}%]", 1, verbose_level, start='\r\t\t', end='')
@@ -263,16 +250,21 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
 
     verbose_print("", 1, verbose_level)
 
-    # Initialize topolink columns for euclidean and topological distances
-    data["eucl_dist_tplk"] = float("Nan")
-    data["topo_dist_tplk"] = float("Nan")
+    # Replace old results, including bounds from a previous run.
+    for prefix in ("eucl", "topo"):
+        data[f"{prefix}_dist_tplk"] = float("nan")
+        data[f"{prefix}_dist_lower_bound"] = float("nan")
+        data[f"{prefix}_dist_raw"] = pd.Series(
+            None, index=data.index, dtype="object",
+        )
 
-    # For zipped distances in collection, replace them at specified index in
-    # dataset
-    for dist in toplink_dists:
-        index, eucl_dist, top_dist = dist
-        data.loc[index, "eucl_dist_tplk"] = round_self(eucl_dist, 3)
-        data.loc[index, "topo_dist_tplk"] = round_self(top_dist, 3)
+    for index, eucl_token, topo_token in toplink_dists:
+        for prefix, token in (("eucl", eucl_token), ("topo", topo_token)):
+            value, lower_bound = parse_topolink_distance(token)
+            data.loc[index, f"{prefix}_dist_tplk"] = round_self(value, 3)
+            # Keep the reported bound without rounding it upward.
+            data.loc[index, f"{prefix}_dist_lower_bound"] = lower_bound
+            data.loc[index, f"{prefix}_dist_raw"] = token
 
     # Fill topolink distances with zero, if positions equal
     data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b)
