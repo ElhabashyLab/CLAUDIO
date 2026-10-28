@@ -525,7 +525,19 @@ def compute_pdb_uniprot_shift(pdb_uni_map_entry: pd.DataFrame):
 def realign_unip_pos_in_pdb_seq(
     pdb_seq: str, unip_seq: str, unip_pos: int, verbose_level: int
 ):
-    """Return a 1-based position in the PDB sequence, or None if unmapped."""
+    """Return a 1-based position in the PDB sequence, or None if unmapped.
+
+    Parameters
+    ----------
+    pdb_seq : str,
+    unip_seq : str,
+    unip_pos : int,
+    verbose_level : int
+
+    Returns
+    -------
+    pdb_pos : int | None
+    """
     aligner = PairwiseAligner()
     aligner.mode = "local"
     aligner.gap_score = -5
