@@ -9,6 +9,7 @@ import pandas as pd
 
 from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser, Select, PDBIO
 
+from claudio.utils.structure_io import read_structure_models
 from claudio.utils.utils import verbose_print, round_self
 
 warnings.filterwarnings("ignore")
@@ -104,22 +105,23 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         # If not empty structure marker found, save pdb id and isolate needed
         # chains from structure to reduce
         # computation
-        pdb_id = structure.split('_')[-1].split('.')[0]
-        structure = isolate_pdb_chain(structure, pdb_id, temp_dir,
-                                        np.unique(subset[["chain_a", "chain_b"]].values))
+        pdb_id = os.path.basename(structure).split('_')[-1].split('.')[0]
+        chain_ids = np.unique(subset[["chain_a", "chain_b"]].values)
+        chain_map = build_topolink_chain_map(chain_ids)
+        structure, residue_map = prepare_topolink_structure(
+            structure, pdb_id, temp_dir, chain_ids,
+        )
         # Check again if isolation of chains was successful,
         # if not skip iteration
         if structure == '-':
             ind += 1
             return
 
-        # obs_inds is container to save tuples: (index of observation in
-        # dataset, string of observed link, boolean whether link was found
-        # in topolink results (initialized as False))
+        # obs_inds stores (list of row indices, link strings, result_found).
         # obs_str is string of collected observed link strings for inputfile
         obs_inds = []
         obs_str = ''
-        known_link_strs = []
+        known_link_groups = {}
         subset = subset[subset["res_criteria_fulfilled"]
                         & subset["is_interfaced"]]
         for row in subset.itertuples():
@@ -135,18 +137,36 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 try:
                     # observed LYS A 468 LYS A 457
                     # LINK: LYS A 457 CA LYS A 468 CA 11.814 12.568 YES 0.000 35.000 OK: FOUND 1 / 1 1 / 1 YY YY
+                    topolink_pos_a = resolve_topolink_position(row, "a", residue_map)
+                    topolink_pos_b = resolve_topolink_position(row, "b", residue_map)
+                    if topolink_pos_a is None or topolink_pos_b is None:
+                        continue
+
                     link_strs = [
-                        ' '.join([Polypeptide.one_to_three(row.seq_a[row.pos_a - 1]),
-                                  row.chain_a, str(int(row.pdb_pos_a))]),
-                        ' '.join([Polypeptide.one_to_three(row.seq_b[row.pos_b - 1]),
-                                  row.chain_b, str(int(row.pdb_pos_b))])]
-                    if link_strs not in known_link_strs:
+                        ' '.join([
+                            Polypeptide.one_to_three(row.seq_a[row.pos_a - 1]),
+                            chain_map[row.chain_a], str(topolink_pos_a),
+                        ]),
+                        ' '.join([
+                            Polypeptide.one_to_three(row.seq_b[row.pos_b - 1]),
+                            chain_map[row.chain_b], str(topolink_pos_b),
+                        ]),
+                    ]
+                    link_key = tuple(sorted(link_strs))
+                    if link_key in known_link_groups:
+                        known_link_groups[link_key].append(i)
+                    else:
+                        known_link_groups[link_key] = [i]
                         obs_str += f"  observed {' '.join(link_strs)}\n"
-                        obs_inds.append((i, link_strs, False))
-                        known_link_strs.append(link_strs)
-                        known_link_strs.append([link_strs[1], link_strs[0]])
+                        obs_inds.append(
+                            (known_link_groups[link_key], link_strs, False)
+                        )
                 except:
                     continue
+
+        if not obs_inds:
+            ind += 1
+            return
 
         # Creates inputfile for topolink,
         # utilizing templatefile: data/topolink_inputfile.inp
@@ -269,10 +289,9 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
 
     # For zipped distances in collection, replace them at specified index in
     # dataset
-    for dist in toplink_dists:
-        index, eucl_dist, top_dist = dist
-        data.loc[index, "eucl_dist_tplk"] = round_self(eucl_dist, 3)
-        data.loc[index, "topo_dist_tplk"] = round_self(top_dist, 3)
+    for indices, eucl_dist, top_dist in toplink_dists:
+        data.loc[indices, "eucl_dist_tplk"] = round_self(eucl_dist, 3)
+        data.loc[indices, "topo_dist_tplk"] = round_self(top_dist, 3)
 
     # Fill topolink distances with zero, if positions equal
     data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b)
@@ -321,3 +340,111 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
     io.save(new_path, ChainSelect())
 
     return new_path
+
+
+def build_topolink_chain_map(chain_ids):
+    """Assign distinct PDB chain IDs while preserving existing legal IDs."""
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    source_ids = sorted(set(chain_ids))
+    if len(source_ids) > len(alphabet):
+        raise ValueError(
+            "TopoLink PDB export supports at most 62 selected chains"
+        )
+
+    chain_map = {
+        chain_id: chain_id
+        for chain_id in source_ids
+        if len(chain_id) == 1 and chain_id in alphabet
+    }
+    available = iter(
+        name for name in alphabet if name not in chain_map.values()
+    )
+    for chain_id in source_ids:
+        if chain_id not in chain_map:
+            chain_map[chain_id] = next(available)
+    return chain_map
+
+
+def prepare_topolink_structure(path, pdb_id, temp_dir, chain_ids):
+    """Export a mapped copy and record original chain/residue identities."""
+    model = read_structure_models(path)[0].copy()
+    chain_map = build_topolink_chain_map(chain_ids)
+    residue_map = {}
+    mapping_rows = []
+    source_path = os.path.abspath(path)
+
+    # Detach all chains before renaming to avoid ID collisions.
+    source_chains = list(model)
+    for chain in source_chains:
+        model.detach_child(chain.id)
+
+    for chain in source_chains:
+        source_chain = chain.id
+        if source_chain not in chain_map:
+            continue
+        chain.id = chain_map[source_chain]
+
+        residues = list(chain)
+        for residue in residues:
+            chain.detach_child(residue.id)
+
+        for new_number, residue in enumerate(residues, start=1):
+            hetflag, number, icode = residue.id
+            residue_map[(source_chain, hetflag, number, icode)] = new_number
+            mapping_rows.append(
+                {
+                    "source_path": source_path,
+                    "source_chain": source_chain,
+                    "source_hetflag": hetflag,
+                    "source_resseq": number,
+                    "source_icode": icode,
+                    "topolink_chain": chain.id,
+                    "topolink_resseq": new_number,
+                }
+            )
+            residue.id = (hetflag, new_number, " ")
+            chain.add(residue)
+        model.add(chain)
+
+    if not residue_map:
+        return "-", {}
+
+    new_path = f"{temp_dir}struct/{pdb_id}_tmp.pdb"
+    writer = PDBIO()
+    writer.set_structure(model)
+    with open(new_path, "w", encoding="utf-8") as output:
+        writer.save(output)
+    pd.DataFrame(mapping_rows).to_csv(
+        f"{temp_dir}struct/{pdb_id}_residue_map.csv", index=False
+    )
+    return new_path, residue_map
+
+
+def resolve_topolink_position(row, site, residue_map):
+    """Resolve an original residue to its unique exported number."""
+    chain = getattr(row, f"chain_{site}")
+    try:
+        number = int(getattr(row, f"pdb_pos_{site}"))
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+    hetflag = getattr(row, f"pdb_hetflag_{site}", None)
+    icode = getattr(row, f"pdb_icode_{site}", None)
+    hetflag = None if pd.isna(hetflag) else (str(hetflag) or " ")
+    icode = None if pd.isna(icode) else (str(icode) or " ")
+
+    if hetflag is not None and icode is not None:
+        return residue_map.get((chain, hetflag, number, icode))
+
+    # Older input may lack identity fields; accept only a unique match.
+    matches = []
+    for source_id, exported_number in residue_map.items():
+        source_chain, source_hetflag, source_number, source_icode = source_id
+        if (
+            source_chain == chain
+            and source_number == number
+            and (hetflag is None or source_hetflag == hetflag)
+            and (icode is None or source_icode == icode)
+        ):
+            matches.append(exported_number)
+    return matches[0] if len(matches) == 1 else None
