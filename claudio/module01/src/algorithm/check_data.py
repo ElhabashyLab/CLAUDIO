@@ -99,11 +99,20 @@ def double_check_data(data: pd.DataFrame, filename: str,
             log_text += f"{i}_b: pep_b is not completely in full seq_b\n"
             log_text += "\tISSUE\n"
 
-        # Recompute residue positions for site a and b
-        row, log_text = check_pep_pos(i, row, 'a', df_xl_res, log_text,
-                                      verbose_level)
-        row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text,
-                                      verbose_level)
+        # Recompute both endpoints; a failed record must not stop the batch.
+        for site in ("a", "b"):
+            row, log_text = check_pep_pos(
+                i, row, site, df_xl_res, log_text, verbose_level,
+            )
+            if row is None:
+                log_text += (
+                    f"{i}_{site}: position recovery failed; entry will be dropped.\n"
+                    "\tREMOVE\n"
+                )
+                data.drop(i, inplace=True)
+                break
+        if row is None:
+            continue
 
         # ISSUE: Check if peptide occurs multiple times in full sequence
         # as is (possible insertions are not considered)
@@ -186,7 +195,8 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
 
     Returns
     -------
-    row : pd.Series,
+    row : pd.Series | None,
+        Corrected row, or None when no reliable position can be recovered.
     log_text : str
     """
 
@@ -225,40 +235,41 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
         wrong_pos = True
     # Check whether the protein position agrees with the peptide position.
     res_pos = row.get(f"res_pos_{site}", float("nan"))
+    peptide_position = None
     if pd.notna(res_pos):
-        peptide_position = float(res_pos)
+        try:
+            value = float(res_pos)
+        except (TypeError, ValueError, OverflowError):
+            value = float("nan")
 
         if (
-            not peptide_position.is_integer()
-            or not 1 <= peptide_position <= len(peptide)
+            isinstance(res_pos, bool) or not value.is_integer()
+            or not 1 <= value <= len(peptide)
         ):
-            raise ValueError(
-                f"Invalid peptide position for record {i}, "
-                f"site {site}: {res_pos}; expected an integer "
-                f"between 1 and {len(peptide)}"
+            log_text += (
+                f"{i}_{site}: Invalid peptide position {res_pos}; "
+                "attempting recovery.\n"
             )
-        if (
-            peptide_position.is_integer()
-            and 1 <= peptide_position <= len(peptide)
-        ):
-            peptide_position = int(peptide_position)
-
+            return _recover_peptide_position(
+                i, row, site, df_xl_res, log_text, verbose_level,
+            )
+        else:
+            peptide_position = int(value)
             peptide_residue = peptide[peptide_position - 1]
             if peptide_residue not in set(df_xl_res["res"]):
-                raise ValueError(
-                    "Peptide position does not satisfy cross-link residue rules: "
-                    f"record {i}, site {site}, "
-                    f"peptide position {peptide_position}, "
-                    f"residue {peptide_residue}"
+                log_text += (
+                    f"{i}_{site}: peptide position does not satisfy "
+                    f"cross-link residue rules ({peptide_residue}); "
+                    "attempting recovery.\n"
+                )
+                return _recover_peptide_position(
+                    i, row, site, df_xl_res, log_text, verbose_level,
                 )
 
             peptide_start = pep_pos - peptide_position
-
             peptide_matches = (
                 peptide_start >= 0
-                and seq[
-                    peptide_start:peptide_start + len(peptide)
-                ] == peptide
+                and seq[peptide_start:peptide_start + len(peptide)] == peptide
             )
             if not peptide_matches:
                 log_text += (
@@ -268,158 +279,137 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                 wrong_pos = True
     elif peptide:
         peptide_starts = [
-            start
-            for start in range(len(seq) - len(peptide) + 1)
+            start for start in range(len(seq) - len(peptide) + 1)
             if seq.startswith(peptide, start)
         ]
-
         if len(peptide_starts) == 1:
             peptide_start = peptide_starts[0]
-            position_in_peptide = (
-                peptide_start <= pep_pos - 1
-                < peptide_start + len(peptide)
-            )
-            if not position_in_peptide:
+            if not peptide_start <= pep_pos - 1 < peptide_start + len(peptide):
                 log_text += (
                     f"{i}_{site}: protein position is outside "
                     "the uniquely matched peptide.\n"
                 )
                 wrong_pos = True
-    # Recompute position if acid at position is not of the specified ones,
-    # or if position out of bounds
+
     if wrong_pos:
-        if pd.isna(res_pos) and peptide:
-            candidate_positions = set()
-
-            for start in range(len(seq) - len(peptide) + 1):
-                if not seq.startswith(peptide, start):
-                    continue
-
-                for offset, residue in enumerate(peptide):
-                    for rule in df_xl_res.itertuples():
-                        protein_position = start + offset + 1
-                        allowed_position = (
-                            rule.pos == 0
-                            or (rule.pos == 1 and protein_position == 1)
-                            or (
-                                rule.pos == -1
-                                and protein_position == len(seq)
-                            )
-                        )
-                        if residue == rule.res and allowed_position:
-                            candidate_positions.add(protein_position)
-
-            if len(candidate_positions) > 1:
-                log_text += (
-                    f"{i}_{site}: AMBIGUOUS: possible protein positions "
-                    f"{sorted(candidate_positions)}; "
-                    "peptide position was not supplied. "
-                    "Original position retained without correction.\n"
-                )
-                return row, log_text
-
-        pos_replaced = False
-        # Count peptide-as-is-occurrences in full sequence
-        pep_count_in_seq = seq.count(peptide)
-
-        # Parse through possible residues
-        for dp in df_xl_res.itertuples():
-            # Peptide occurred exactly once in sequence
-            # (uniquely identified peptide)
-            if pep_count_in_seq == 1:
-                # If position has not been replaced yet
-                if not pos_replaced:
-                    log_text += f"\tfound pep_{site} exactly once in full sequence\n"
-                    res_count = peptide.count(dp.res)
-                    if res_count == 0:
-                        log_text += f"\tno {dp.res} found in pep_{site}\n"
-                    else:
-                        # Check if residue at specified position is the
-                        # searched one
-                        if dp.pos != 0:
-                            log_text += f"\tcheck {dp.res} at specified position (={dp.pos}) in seq\n"
-                            log_text += f"\t\tVERIFY: new residue is '{dp.res}': " \
-                                        f"{seq[0] == dp.res if dp.pos == 1 else seq[-1] == dp.res}\n"
-                            if seq[0] == dp.res if dp.pos == 1 else seq[-1] == dp.res:
-                                row[f"pos_{site}"] = dp.pos if dp.pos == 1 else pep_pos + (len(peptide) - 1)
-                                log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> " \
-                                            f"{dp.pos if dp.pos == 1 else pep_pos + (len(peptide) - 1)}\n"
-                                log_text += "\tSUCCESS\n"
-                                pos_replaced = True
-                            else:
-                                log_text += "\tFAIL\n"
-                        # Else, try to find searched residue
-                        else:
-                            # SUCCESS: Uniquely identified residue,
-                            # replace given position with its (Verify,
-                            # FAIL if wrong)
-                            if res_count == 1:
-                                log_text += f"\tfound {dp.res} exactly once in pep_{site}\n"
-                                new_pos = seq.find(peptide) + peptide.find(dp.res) + 1
-                                log_text += f"\t\tVERIFY: new residue is '{dp.res}': {seq[new_pos - 1] == dp.res}\n"
-                                if seq[new_pos - 1] == dp.res:
-                                    row[f"pos_{site}"] = new_pos
-                                    log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                    log_text += "\tSUCCESS\n"
-                                    pos_replaced = True
-                                else:
-                                    log_text += "\tFAIL\n"
-
-                            # More than one searched residue in peptide
-                            # (impossible to identify correct one, if not
-                            # specified by data)
-                            else:
-                                log_text += f"\tfound {dp.res} more than once in pep_{site}\n"
-                                # SUCCESS: Try res_pos specification
-                                # (only for data by Liu et al.), if so replace
-                                # given position with it (Verify, FAIL if wrong)
-                                try:
-                                    res_pos = int(row[f"res_pos_{site}"])
-                                    log_text += f"\tres_pos_{site} was given\n"
-                                    new_pos = seq.find(peptide) + res_pos
-                                    log_text += f"\t\tVERIFY: new residue is '{dp.res}': {seq[new_pos - 1] == dp.res}\n"
-                                    if seq[new_pos - 1] == dp.res:
-                                        row[f"pos_{site}"] = new_pos
-                                        log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                        log_text += "\tSUCCESS\n"
-                                        pos_replaced = True
-                                    else:
-                                        log_text += "\tFAIL\n"
-                                # FAIL: res_pos not given
-                                except Exception:
-                                    log_text += f"\tres_pos_{site} was not given\n"
-                                    log_text += "\tFAIL\n"
-
-            # Align peptide to sequence, if peptide found more than once
-            # or not found
-            else:
-                # If position has not been replaced yet
-                if not pos_replaced:
-                    log_text += f"\tfound pep_{site} more than once or not even once in sequence\n"
-                    try:
-                        res_pos = int(row[f"res_pos_{site}"])
-                        log_text += f"\tres_pos_{site} was given\n"
-                        log_text += "\talign peptide to sequence\n"
-                        new_pos = realign_pep_to_seq(seq, peptide, res_pos,
-                                                     verbose_level)
-                        if new_pos is None:
-                            log_text += f"\talignment attempt failed for residue '{dp.res}'\n"
-                            log_text += "\tFAIL\n"
-                        else:
-                            log_text += f"\t\tVERIFY: new residue is '{dp.res}': {seq[new_pos - 1] == dp.res}\n"
-                            if seq[new_pos - 1] == dp.res:
-                                row[f"pos_{site}"] = new_pos
-                                log_text += f"\tREPLACE: pos_{site}: {pep_pos} -> {new_pos}\n"
-                                log_text += "\tSUCCESS\n"
-                                pos_replaced = True
-                            else:
-                                log_text += "\tFAIL\n"
-                    # FAIL: res_pos not given
-                    except Exception:
-                        log_text += f"\tres_pos_{site} was not given\n"
-                        log_text += "\tFAIL\n"
-
+        return _recover_peptide_position(
+            i, row, site, df_xl_res, log_text, verbose_level,
+            peptide_position=peptide_position,
+        )
     return row, log_text
+
+
+def _recover_peptide_position(i, row, site, df_xl_res, log_text,
+                             verbose_level, peptide_position=None):
+    """Recover a protein position from exact matches or sequence alignment.
+
+    Parameters
+    ----------
+    i : int,
+    row : pd.Series,
+    site : str,
+    df_xl_res : pd.DataFrame,
+    log_text : str,
+    verbose_level : int,
+    peptide_position : int | None
+        Restrict recovery to this peptide position when it is trustworthy.
+
+    Returns
+    -------
+    row : pd.Series | None,
+        Corrected row, or None if recovery fails or remains ambiguous.
+    log_text : str
+    """
+    seq = row[f"seq_{site}"]
+    peptide = row[f"pep_{site}"]
+    if not seq or not peptide:
+        log_text += f"{i}_{site}: empty sequence or peptide; recovery failed.\n\tFAIL\n"
+        return None, log_text
+    offsets = (
+        [peptide_position - 1] if peptide_position is not None
+        else range(len(peptide))
+    )
+
+    def allowed(position, offset):
+        return any(
+            seq[position - 1] == peptide[offset] == rule.res
+            and (
+                rule.pos == 0
+                or (rule.pos == 1 and position == 1)
+                or (rule.pos == -1 and position == len(seq))
+            )
+            for rule in df_xl_res.itertuples()
+        )
+
+    candidates = set()
+    starts = [
+        start for start in range(len(seq) - len(peptide) + 1)
+        if peptide and seq.startswith(peptide, start)
+    ]
+    for start in starts:
+        for offset in offsets:
+            position = start + offset + 1
+            if allowed(position, offset):
+                candidates.add((position, offset + 1))
+
+    if not starts and peptide:
+        log_text += f"{i}_{site}: attempt sequence alignment for peptide recovery.\n"
+        aligner = PairwiseAligner()
+        aligner.mode = "local"
+        aligner.open_gap_score = -4
+        aligner.extend_gap_score = 0
+        aligner.match_score = 1
+        aligner.mismatch_score = 0
+        alignments = aligner.align(seq, peptide)
+        for number, alignment in enumerate(alignments):
+            if number >= 1000:
+                log_text += (
+                    f"{i}_{site}: AMBIGUOUS: too many optimal alignments "
+                    "to establish a reliable position.\n\tFAIL\n"
+                )
+                return None, log_text
+            target, query = alignment.aligned
+            if (
+                len(query) == 0 or query[0][0] != 0
+                or query[-1][1] != len(peptide)
+            ):
+                continue
+            verbose_print(f"\tAlignment:\n{alignment}", 3, verbose_level)
+            for offset in offsets:
+                for target_block, query_block in zip(target, query):
+                    if query_block[0] <= offset < query_block[1]:
+                        position = int(target_block[0] + offset - query_block[0] + 1)
+                        if allowed(position, offset):
+                            candidates.add((position, offset + 1))
+                        break
+
+    supported = {
+        candidate for candidate in candidates
+        if candidate[0] == row[f"pos_{site}"]
+    }
+    if len(supported) == 1:
+        position, offset = supported.pop()
+    elif len(candidates) == 1:
+        position, offset = candidates.pop()
+    elif candidates:
+        log_text += (
+            f"{i}_{site}: AMBIGUOUS: possible protein/peptide positions "
+            f"{sorted(candidates)}; no unique correction.\n\tFAIL\n"
+        )
+        return None, log_text
+    else:
+        log_text += f"{i}_{site}: no reliable cross-link position found.\n\tFAIL\n"
+        return None, log_text
+
+    corrected = row.copy()
+    corrected[f"pos_{site}"] = position
+    corrected[f"res_pos_{site}"] = offset
+    log_text += (
+        f"{i}_{site}: REPLACE: pos_{site}: {row[f'pos_{site}']} -> {position}; "
+        f"res_pos_{site}: {row.get(f'res_pos_{site}')} -> {offset}\n"
+        "\tSUCCESS\n"
+    )
+    return corrected, log_text
 
 
 def realign_pep_to_seq(seq: str, peptide:str, res_pos: int,
