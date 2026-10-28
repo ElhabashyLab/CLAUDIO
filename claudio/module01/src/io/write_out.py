@@ -9,6 +9,18 @@ def write_outputs(data: pd.DataFrame, unique_proteins_list: pd.DataFrame,
 
     Source IDs and original positions remain in the preprocessing report.
     The SQCS file uses the same row indices without these tracking columns.
+
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    unique_proteins_list : pd.DataFrame,
+    filename : str,
+    output_directory : str,
+    verbose_level : int
+
+    Returns
+    -------
+    None
     """
     verbose_print("\tWrite list of unique proteins", 0, verbose_level)
     output_path = f"{output_directory}{filename}_unique_proteins.csv"
