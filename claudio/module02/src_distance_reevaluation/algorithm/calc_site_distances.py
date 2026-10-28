@@ -6,7 +6,8 @@ import os
 import warnings
 import numpy as np
 import pandas as pd
-
+from pathlib import Path
+from tempfile import mkdtemp
 from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser, Select, PDBIO
 
 from claudio.utils.utils import verbose_print, round_self
@@ -104,9 +105,15 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         # If not empty structure marker found, save pdb id and isolate needed
         # chains from structure to reduce
         # computation
-        pdb_id = structure.split('_')[-1].split('.')[0]
-        structure = isolate_pdb_chain(structure, pdb_id, temp_dir,
-                                        np.unique(subset[["chain_a", "chain_b"]].values))
+        pdb_id = Path(structure).stem
+        task_dir = mkdtemp(prefix=f"{pdb_id}_", dir=temp_dir) + os.sep
+        os.makedirs(f"{task_dir}in/", exist_ok=True)
+        os.makedirs(f"{task_dir}struct/", exist_ok=True)
+
+        structure = isolate_pdb_chain(
+            structure, pdb_id, task_dir,
+            np.unique(subset[["chain_a", "chain_b"]].values),
+        )
         # Check again if isolation of chains was successful,
         # if not skip iteration
         if structure == '-':
@@ -150,14 +157,20 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
 
         # Creates inputfile for topolink,
         # utilizing templatefile: data/topolink_inputfile.inp
-        topo_in = []
+        topo_in = [f"linkdir {task_dir}\n"]
         project_path = '/'.join(os.path.abspath(__file__).replace('\\\\', '/').replace('\\', '/').split('/')[:-4])
         project_path = project_path + '/' if project_path else ""
-        for line in [l for l in open(f"{project_path}data/topolink_inputfile.inp", 'r',
-                                     encoding="utf-8").readlines()
-                     if not l.startswith('#')]:
+        with open(
+            f"{project_path}data/topolink_inputfile.inp",
+            "r", encoding="utf-8",
+        ) as template_file:
+            template_lines = [
+                line for line in template_file if not line.startswith("#")
+            ]
+
+        for line in template_lines:
             if line.startswith("linkdir"):
-                topo_in.append(f"linkdir {temp_dir}\n")
+                continue
             elif line.startswith("structure"):
                 topo_in.append(f"structure {structure}\n")
             elif line.startswith("  observed"):
@@ -178,8 +191,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 topo_in.append(line)
         topo_in = ''.join(topo_in)
         # Write inputfile to temporary path
-        # (will be overwritten during next iteration)
-        topo_input_path = f"{temp_dir}in/topo_{pdb_id}_.tmp"
+        topo_input_path = f"{task_dir}in/topo_{pdb_id}_.tmp"
         with open(topo_input_path, 'w', encoding="utf-8") as f:
             f.write(topo_in)
 
@@ -189,7 +201,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         # Write both input and output to temporary file marked by pdb id,
         #  e.g. topo_1b0j.log, topo_afA2ASZ8.log, ...
         # in case the user wishes to review them later
-        with open(f"{temp_dir}topo_{pdb_id}.log", 'w', encoding="utf-8") as f:
+        with open(f"{task_dir}topo_{pdb_id}.log", 'w', encoding="utf-8") as f:
             f.write(f"IN:\n{topo_in}\n\n\nOUT:\n{res}")
 
 
