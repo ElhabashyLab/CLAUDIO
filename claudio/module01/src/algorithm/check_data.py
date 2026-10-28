@@ -472,7 +472,7 @@ def create_duplicates(row: pd.Series, df_xl_res: pd.DataFrame, log_text: str):
                 # Compute shift for pos_b
                 shift_b = row.pep_b.find(dp.res) if row.pep_b.count(dp.res) == 1 else int(row.res_pos_b) - 1
                 # Add old pos_b if not already in position set
-                old_pos_b = int(row.res_pos_b) - shift_b - 1
+                old_pos_b = row.pos_b - shift_b - 1
                 if old_pos_b not in pep_b_positions:
                     pep_b_positions.append(old_pos_b)
                 pep_b_positions = sorted(pep_b_positions)
