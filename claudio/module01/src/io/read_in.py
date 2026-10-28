@@ -21,12 +21,28 @@ def read_inputfile(input_filepath: str, projections: dict):
     data : pd.DataFrame
     """
     data = pd.read_csv(input_filepath)
+    reserved_columns = {
+        "source_record_id",
+        "original_pos_a",
+        "original_pos_b",
+    }
+    conflicts = reserved_columns.intersection(data.columns)
+    if conflicts:
+        raise ValueError(
+            "Reserved tracking columns already exist in input: "
+            + ", ".join(sorted(conflicts))
+        )
+    data["source_record_id"] = [
+        f"record_{number:06d}"
+        for number in range(1, len(data) + 1)
+    ]
     try:
         data.rename(columns=projections, inplace=True)
     except Exception:
         print("Error! Given projection of column names failed! Check given comma-separated list!")
         sys.exit(1)
-
+    data["original_pos_a"] = data["pos_a"].copy()
+    data["original_pos_b"] = data["pos_b"].copy()
     for col, val in {"unip_id_a": 'str',
                      "unip_id_b": 'str',
                      "pos_a": 'int64',
