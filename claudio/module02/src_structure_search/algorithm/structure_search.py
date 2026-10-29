@@ -113,9 +113,12 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
                 print(e)
     verbose_print("", 1, verbose_level)
 
-    # Save results to temporary save file
-    data[["pdb_id", "chain_a", "chain_b", "all_results"]].to_csv(tmp_filepath,
-                                                                 index=False)
+    # Save input identities together with their search results.
+    cache_columns = [
+        "unip_id_a", "unip_id_b", "seq_a", "seq_b",
+        "pdb_id", "chain_a", "chain_b", "all_results",
+    ]
+    data[cache_columns].to_csv(tmp_filepath, index=False)
 
     # Print ids of entries which were not found in rcsb database (will be
     # retrieved from alphafold database instead)
