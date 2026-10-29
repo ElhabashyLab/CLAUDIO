@@ -1,6 +1,6 @@
 """Retrieve IDs from RCSB PDB database using either hhsearch or blastp."""
 import concurrent.futures
-from decimal import Decimal, ROUND_CEILING
+from decimal import Decimal
 from io import StringIO
 import os
 import socket
@@ -130,15 +130,54 @@ def structure_search(data: pd.DataFrame, search_tool: str, e_value: float,
     return data
 
 
+def _read_hhsearch_alignments(report, unip_id):
+    """Yield the actual query/template sequences from each HHR alignment."""
+    target = None
+    query, template = [], []
+    annotations = {"Consensus", "ss_pred", "ss_dssp", "ss_conf", "sa_dssp"}
+    for line in report:
+        if line.startswith(">"):
+            if target is not None:
+                yield target, "".join(query), "".join(template)
+            target = line[1:].split()[0]
+            query, template = [], []
+            continue
+
+        fields = line.split()
+        if fields[:1] == ["Query"] and fields[1] != unip_id:
+            raise ValueError("HHsearch alignment query does not match input")
+        if (
+            target is None or len(fields) < 5
+            or fields[0] not in ("Q", "T") or fields[1] in annotations
+        ):
+            continue
+        if fields[0] == "Q" and fields[1] != unip_id[:14]:
+            raise ValueError("Unexpected query sequence in HHsearch alignment")
+        int(fields[2])
+        int(fields[4])
+        sequence = fields[3].upper()
+        if not set(sequence) <= set("ABCDEFGHIJKLMNOPQRSTUVWXYZ-.~"):
+            raise ValueError("Invalid HHsearch alignment sequence")
+        (query if fields[0] == "Q" else template).append(sequence)
+
+    if target is not None:
+        yield target, "".join(query), "".join(template)
+
+
 def _read_hhsearch_hits(
-    result_path, unip_id, query_length, e_value, query_id, coverage
+    result_path, unip_id, query_length, e_value, query_id, coverage,
+    alignment_path,
 ):
-    """Filter HH-suite BLAST-tab hits using conservative identity counts."""
+    """Filter HHsearch hits using identity over alignment columns, including gaps."""
     if query_length <= 0:
         raise ValueError("HHsearch query sequence must not be empty")
 
     hits = []
-    with open(result_path, encoding="utf-8") as result_file:
+    gaps = "-.~"
+    with open(result_path, encoding="utf-8") as result_file, open(
+        alignment_path, encoding="utf-8"
+    ) as report:
+        alignments = _read_hhsearch_alignments(report, unip_id)
         for line in result_file:
             fields = line.strip().split("\t")
             if fields[0] != unip_id:
@@ -146,34 +185,30 @@ def _read_hhsearch_hits(
             if len(fields) != 12:
                 raise ValueError("Invalid HHsearch tabular result")
 
-            match_ratio = Decimal(fields[2])
-            template_length = int(fields[3])
-            mismatches = int(fields[4])
             query_start, query_end = int(fields[6]), int(fields[7])
             hit_evalue = Decimal(fields[10])
-
             if (
-                not match_ratio.is_finite()
-                or not hit_evalue.is_finite()
-                or not 0 <= match_ratio <= 1
-                or template_length <= 0
-                or mismatches < 0
-                or hit_evalue < 0
+                not hit_evalue.is_finite() or hit_evalue < 0
                 or not 1 <= query_start <= query_end <= query_length
             ):
                 raise ValueError("Invalid HHsearch hit values")
 
-            # HH-suite rounds matches / template length to three decimals.
-            # Use the smallest compatible integer count to avoid overclaiming.
-            matches = max(0, int(
-                ((match_ratio - Decimal("0.0005")) * template_length)
-                .to_integral_value(rounding=ROUND_CEILING)
-            ))
-            paired_residues = matches + mismatches
-            if paired_residues == 0:
-                continue
+            alignment = next(alignments, None)
+            if alignment is None or alignment[0] != fields[1]:
+                raise ValueError("HHsearch alignment is missing or out of order")
+            _, query, template = alignment
+            if (
+                not query or len(query) != len(template)
+                or sum(residue not in gaps for residue in query)
+                != query_end - query_start + 1
+            ):
+                raise ValueError("Incomplete HHsearch alignment")
 
-            identity = Decimal(100) * matches / paired_residues
+            # Double-gap padding is not a column of the pairwise alignment.
+            columns = [(q, t) for q, t in zip(query, template)
+                       if q not in gaps or t not in gaps]
+            matches = sum(q == t and q not in gaps for q, t in columns)
+            identity = Decimal(100) * matches / len(columns)
             query_coverage = (
                 Decimal(100) * (query_end - query_start + 1) / query_length
             )
@@ -251,12 +286,16 @@ def perform_search(unip_id: str, sequence: str, search_tool: str,
                 f'"{hhsearch_call}" -i "{temp_path}tmp{unip_id}.fasta" '
                 f'-d "{hhsearch_db}pdb70" -e {e_value} '
                 f'-o "{temp_path}tmp{unip_id}_alignments.hhr" '
-                f'-blasttab "{temp_path}tmp{unip_id}.hhr" -v 0 -cpu 20'
+                f'-blasttab "{temp_path}tmp{unip_id}.hhr" '
+                # Print every returned alignment so filtering precedes the
+                # 20-hit limit; these options only control report output.
+                f'-p 0 -E 1e308 -B 2147483647 -seq 1 -v 0 -cpu 20'
             )
             os.system(command)
             search_results = _read_hhsearch_hits(
                 f"{temp_path}tmp{unip_id}.hhr",
                 unip_id, len(sequence), e_value, query_id, coverage,
+                f"{temp_path}tmp{unip_id}_alignments.hhr",
             )
         # Search identical Chain IDs for (inter) cross-links
         chains = [retrieve_identical_chain_ids(res.split('_')[0],
