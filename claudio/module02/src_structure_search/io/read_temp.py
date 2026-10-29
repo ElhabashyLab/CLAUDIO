@@ -4,9 +4,7 @@ import pandas as pd
 
 def read_temp_file(data: pd.DataFrame, tmp_filepath: str):
     """Restore search results only when cached input identities match."""
-    tmp_data = pd.read_csv(
-        tmp_filepath, dtype=str, keep_default_na=False
-    )
+    tmp_data = pd.read_csv(tmp_filepath)
     result_columns = ["pdb_id", "all_results", "chain_a", "chain_b"]
     identity_columns = ["unip_id_a", "unip_id_b", "seq_a", "seq_b"]
 
@@ -34,4 +32,4 @@ def read_temp_file(data: pd.DataFrame, tmp_filepath: str):
         )
 
     data[result_columns] = tmp_data[result_columns].to_numpy()
-    return data
+    return data.fillna('')

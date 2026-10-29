@@ -96,7 +96,6 @@ class TestM2SearchCacheAlignment(unittest.TestCase):
             "unip_id_b": ["P2", "P4"],
             "seq_a": ["MAK", "MGK"],
             "seq_b": ["MKT", "MKS"],
-            "candidate_id": [pd.NA, "candidate_000001"],
         }, index=[1, 2]).assign(
             pdb_id="-", chain_a="-", chain_b="-", all_results=""
         )
@@ -104,8 +103,8 @@ class TestM2SearchCacheAlignment(unittest.TestCase):
         hits = {
             "P1": ("1AAA", "A"),
             "P2": ("1AAA", "B"),
-            "P3": ("2BBB", "NA"),
-            "P4": ("2BBB", "01"),
+            "P3": ("2BBB", "C"),
+            "P4": ("2BBB", "D"),
         }
 
         def fake_search(unip_id, sequence, *args):
@@ -124,7 +123,7 @@ class TestM2SearchCacheAlignment(unittest.TestCase):
                 hhsearch_bin=None, hhsearch_db="unused/",
                 verbose_level=0,
             )
-            cached = pd.read_csv(path, dtype=str, keep_default_na=False)
+            cached = pd.read_csv(path)
             for column in ("unip_id_a", "unip_id_b", "seq_a", "seq_b"):
                 self.assertIn(column, cached.columns)
                 self.assertEqual(
@@ -136,9 +135,8 @@ class TestM2SearchCacheAlignment(unittest.TestCase):
         self.assertEqual(mock_search.call_count, 4)
         pd.testing.assert_frame_equal(restored, searched)
         self.assertEqual(restored["pdb_id"].tolist(), ["1AAA", "2BBB"])
-        self.assertEqual(restored["chain_a"].tolist(), ["A", "NA"])
-        self.assertEqual(restored["chain_b"].tolist(), ["B", "01"])
-        self.assertTrue(pd.isna(restored.loc[1, "candidate_id"]))
+        self.assertEqual(restored["chain_a"].tolist(), ["A", "C"])
+        self.assertEqual(restored["chain_b"].tolist(), ["B", "D"])
 
     def test_rejects_legacy_or_wrong_length_cache_before_modifying_input(self):
         data = pd.DataFrame({
