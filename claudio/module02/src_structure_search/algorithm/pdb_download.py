@@ -232,11 +232,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
 
         # Else attempt .pdb call from AlphaFold database
         for i in reversed(range(1, 7)):
-            response = r.get(rreplace(url, 6, i, 1), timeout=60)
-            if response.status_code == 404:
-                continue
-            response.raise_for_status()
-            pdb_text = response.text
+            pdb_text = r.get(rreplace(url, 6, i, 1), timeout=60).text
             try:
                 structure = PDBParser(
                     QUIET=True, PERMISSIVE=False
