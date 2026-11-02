@@ -86,7 +86,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
 
             data[unip_arg][['pdb_id', 'chain_a', 'chain_b', 'pdb_pos_a',
                             'pdb_pos_b', 'pos_a', 'pos_b', 
-                            'swiss_model_homology', 'XL_type']]\
+                            'swiss_model_homology', 'original_XL_type', 'XL_type']]\
                 .to_csv(f"{output_subdirectory}/{unip_id}_{row.swiss_model_homology}.csv", index=False)
 
             # add uniprot id to list of already finished results
@@ -104,14 +104,14 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
                 "path", "pdb_id", "pdb_method", "pdb_resolution", "chain_a", "chain_b",
                 "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", 
                 "is_interfaced", "topo_dist", "eucl_dist", "homo_adjacency", 
-                "homo_int_overl", "homo_pep_overl", "evidence", "XL_type", 
+                "homo_int_overl", "homo_pep_overl", "evidence", "original_XL_type", "XL_type",
                 "XL_confirmed", "swiss_model_homology"]
     out_columns = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a",
                    "pep_b", "res_pos_a", "res_pos_b",
                    "pep_a_repeated", "pep_b_repeated", "pep_a_repeat_count", "pep_b_repeat_count",
                    "pdb_id", "pdb_method", "pdb_resolution", "chain_a", "chain_b",
                    "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", "topo_dist", "eucl_dist",
-                   "homo_pep_overl", "evidence", "XL_type", "XL_confirmed",
+                   "homo_pep_overl", "evidence", "original_XL_type", "XL_type", "XL_confirmed",
                    "swiss_model_homology"]
     if compute_scoring:
         out_columns.insert(20, "homo_adjacency")
