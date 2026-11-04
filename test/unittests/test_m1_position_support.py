@@ -26,6 +26,11 @@ class TestM1PositionSupport(unittest.TestCase):
                         f"res_pos_{site}": float("nan"),
                     })
 
+                    if expected == "invalid":
+                        with self.assertRaisesRegex(ValueError, "Could not correct"):
+                            check_pep_pos(0, row, site, build_xl_dataset("K"), "", 0)
+                        continue
+
                     result, _ = check_pep_pos(
                         0, row, site, build_xl_dataset("K"), "", 0
                     )

@@ -7,7 +7,9 @@ import socket
 import time
 import requests as r
 import pandas as pd
-
+from io import StringIO
+from math import isfinite
+from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 from claudio.data.constants import ALPHAFOLD_URL
 from claudio.utils.utils import verbose_print, round_self, rreplace
 
@@ -293,7 +295,42 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
         resolution_excepted_methods = ["SOLUTION NMR", "SOLID-STATE NMR"]
         accept_method = False
         accept_resolution = False
+        first_line = next(
+            (line.strip() for line in pdb.splitlines()
+             if line.strip() and not line.lstrip().startswith("#")),
+            "",
+        )
+        if first_line.startswith("data_"):
+            metadata = MMCIF2Dict(StringIO(pdb))
+            methods = list(dict.fromkeys(
+                value.strip().upper()
+                for value in metadata.get("_exptl.method", [])
+            ))
+            method = "; ".join(methods) or "-"
+            if len(methods) != 1:
+                return False, method, resolution
+            if method in resolution_excepted_methods:
+                return True, method, "NOT APPLICABLE"
+            if method not in accepted_pdb_methods:
+                return False, method, resolution
 
+            resolution_key = (
+                "_em_3d_reconstruction.resolution"
+                if method == "ELECTRON MICROSCOPY"
+                else "_refine.ls_d_res_high"
+            )
+            raw_values = metadata.get(resolution_key, [])
+            try:
+                values = [float(value) for value in raw_values]
+            except (TypeError, ValueError):
+                return False, method, resolution
+            if not values or any(
+                not isfinite(value) or value <= 0 for value in values
+            ):
+                return False, method, resolution
+
+            resolution = max(values)
+            return resolution <= res_cutoff, method, resolution
         for line in pdb.split('\n'):
             # If line startswith EXPDTA, it contains the information of the
             # experimental method used for structure determination

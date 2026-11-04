@@ -1,4 +1,4 @@
-"""Integration test for M1 statuses passing through the M3 CLI."""
+"""Integration test for validated M1 records passing through the M3 CLI."""
 
 import unittest
 from pathlib import Path
@@ -11,13 +11,14 @@ import pandas as pd
 from click.testing import CliRunner
 
 from claudio.module01.src.algorithm.check_data import double_check_data
+from claudio.module01.src.io.write_out import write_outputs
 from claudio.module03.src.main import main as m3_main
 from claudio.module03.src.io.read_in import read_in
 from claudio.utils.utils import build_xl_dataset, clean_dataset
 
 
 class TestM1M3Integration(unittest.TestCase):
-    def test_preserves_statuses_and_missing_results_through_cli(self):
+    def test_only_validated_records_reach_the_m3_cli(self):
         cases = [
             ("valid", "MKAAKT", "AKT", 5, 2),
             ("corrected", "MKAAKT", "AKT", 2, 2),
@@ -54,7 +55,7 @@ class TestM1M3Integration(unittest.TestCase):
                 )
                 data = clean_dataset(data)
                 input_path = folder / "integration.sqcs"
-                data.to_csv(input_path)
+                write_outputs(data, pd.DataFrame(), "integration", temp_dir + "/", 0)
 
                 output_dir = folder / "m3"
                 execution = CliRunner().invoke(
@@ -71,55 +72,18 @@ class TestM1M3Integration(unittest.TestCase):
                     f"{execution.output}\n{execution.exception!r}",
                 )
 
-                result = read_in(
-                    str(output_dir / "integration.sqcs_ops.csv")
-                ).set_index("source_record_id")
-
-                self.assertEqual(
-                    set(result.index),
-                    {"valid", "corrected", "ambiguous"},
-                )
-
-                for record_id in ("valid", "corrected"):
-                    self.assertEqual(
-                        result.loc[record_id, "position_status_a"],
-                        record_id,
-                    )
-                    self.assertEqual(
-                        result.loc[record_id, "pos_a"], 5
-                    )
-                    self.assertEqual(
-                        result.loc[record_id, "homo_adjacency"], 0.5
-                    )
-                    self.assertEqual(
-                        result.loc[record_id, "homo_int_overl"], 0.0
-                    )
-                    flag = result.loc[record_id, "homo_pep_overl"]
-                    self.assertNotIsInstance(flag, str)
-                    self.assertEqual(flag, False)
-
-                self.assertEqual(
-                    result.loc["corrected", "original_pos_a"], 2
-                )
-                self.assertEqual(
-                    result.loc["ambiguous", "position_status_a"],
-                    "ambiguous",
-                )
-                self.assertEqual(
-                    result.loc["ambiguous", "original_pos_a"], 2
-                )
-                self.assertEqual(
-                    result.loc["ambiguous", "pos_a"], 2
-                )
-                for column in (
-                    "homo_adjacency",
-                    "homo_int_overl",
-                    "homo_pep_overl",
-                ):
-                    self.assertTrue(
-                        pd.isna(result.loc["ambiguous", column]),
-                        f"{column} must remain missing after file reload",
-                    )
+                result = read_in(str(output_dir / "integration.sqcs_ops.csv"))
+                self.assertEqual(set(result["unip_id_a"]), {"TEST_valid", "TEST_corrected"})
+                self.assertEqual(len(result), 2)
+                self.assertNotIn("position_status_a", result.columns)
+                self.assertNotIn("source_record_id", result.columns)
+                self.assertTrue(result["pos_a"].eq(5).all())
+                self.assertTrue(result["homo_adjacency"].eq(0.5).all())
+                self.assertTrue(result["homo_int_overl"].eq(0.0).all())
+                self.assertTrue(result["homo_pep_overl"].eq(False).all())
+                report = pd.read_csv(folder / "integration_record_tracking.csv")
+                rejected = report.loc[~report["included_in_sqcs"]]
+                self.assertEqual(rejected["source_record_id"].tolist(), ["ambiguous"])
 
                 self.assertEqual(
                     len(list(output_dir.glob("*.png"))), 4

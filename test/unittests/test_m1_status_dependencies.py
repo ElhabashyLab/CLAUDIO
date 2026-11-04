@@ -1,4 +1,4 @@
-"""Verify the M1 fixes required by position-aware M3 analysis."""
+"""Verify peptide support and candidate validation during preprocessing."""
 import unittest
 from tempfile import TemporaryDirectory
 
@@ -6,12 +6,11 @@ import numpy as np
 import pandas as pd
 
 from claudio.module01.src.algorithm.check_data import double_check_data
-from claudio.module03.src.algorithm.signal_analysis import analyse_homo_signals
 from claudio.utils.utils import build_xl_dataset
 
 
 class TestM1StatusDependencies(unittest.TestCase):
-    def test_unsupported_peptide_is_invalid_and_not_scored_by_m3(self):
+    def test_unsupported_peptide_is_removed_during_preprocessing(self):
         data = pd.DataFrame([{
             "unip_id_a": "P1", "unip_id_b": "P1",
             "seq_a": "MKAAGT", "seq_b": "MKAAGT",
@@ -25,12 +24,7 @@ class TestM1StatusDependencies(unittest.TestCase):
                 folder + "/", 0,
             )
 
-        self.assertEqual(len(checked), 1)
-        self.assertEqual(checked.iloc[0]["position_status_a"], "invalid")
-        analysed = analyse_homo_signals(checked, 0)
-        for column in ("homo_adjacency", "homo_int_overl", "homo_pep_overl"):
-            with self.subTest(column=column):
-                self.assertTrue(pd.isna(analysed.iloc[0][column]))
+        self.assertTrue(checked.empty)
 
     def test_expanded_candidates_are_rechecked_without_changing_the_original(self):
         data = pd.DataFrame([{
