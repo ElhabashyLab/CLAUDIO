@@ -101,10 +101,16 @@ def double_check_data(data: pd.DataFrame, filename: str,
             log_text += "\tISSUE\n"
 
         # Recompute residue positions for site a and b
-        row, log_text = check_pep_pos(i, row, 'a', df_xl_res, log_text,
-                                      verbose_level)
-        row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text,
-                                      verbose_level)
+        try:
+            for site in ("a", "b"):
+                row, log_text = check_pep_pos(
+                    i, row, site, df_xl_res, log_text, verbose_level,
+                )
+        except ValueError as error:
+            log_text += f"{i}_{site}: {error}; entry will be dropped.\n"
+            data.drop(i, inplace=True)
+            log_text += "\tFAIL\n\tREMOVE\n"
+            continue
 
         # ISSUE: Check if peptide occurs multiple times in full sequence
         # as is (possible insertions are not considered)
@@ -247,10 +253,98 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
         # Catch given position out of bounds exception
         log_text += f"{i}_{site}: given pos_{site} is out of bounds of sequence.\n"
         wrong_pos = True
+    # Check whether the protein position agrees with the peptide position.
+    res_pos = row.get(f"res_pos_{site}", float("nan"))
+    if pd.notna(res_pos):
+        peptide_position = float(res_pos)
 
+        if (
+            not peptide_position.is_integer()
+            or not 1 <= peptide_position <= len(peptide)
+        ):
+            raise ValueError(
+                f"Invalid peptide position for record {i}, "
+                f"site {site}: {res_pos}; expected an integer "
+                f"between 1 and {len(peptide)}"
+            )
+        else:
+            peptide_position = int(peptide_position)
+
+            peptide_residue = peptide[peptide_position - 1]
+            if peptide_residue not in set(df_xl_res["res"]):
+                raise ValueError(
+                    "Peptide position does not satisfy cross-link residue rules: "
+                    f"record {i}, site {site}, "
+                    f"peptide position {peptide_position}, "
+                    f"residue {peptide_residue}"
+                )
+
+            peptide_start = pep_pos - peptide_position
+
+            peptide_matches = (
+                peptide_start >= 0
+                and seq[
+                    peptide_start:peptide_start + len(peptide)
+                ] == peptide
+            )
+            if not peptide_matches:
+                log_text += (
+                    f"{i}_{site}: protein position does not match "
+                    "the supplied peptide and peptide position.\n"
+                )
+                wrong_pos = True
+    elif peptide:
+        peptide_starts = [
+            start
+            for start in range(len(seq) - len(peptide) + 1)
+            if seq.startswith(peptide, start)
+        ]
+
+        if len(peptide_starts) == 1:
+            peptide_start = peptide_starts[0]
+            position_in_peptide = (
+                peptide_start <= pep_pos - 1
+                < peptide_start + len(peptide)
+            )
+            if not position_in_peptide:
+                log_text += (
+                    f"{i}_{site}: protein position is outside "
+                    "the uniquely matched peptide.\n"
+                )
+                wrong_pos = True
     # Recompute position if acid at position is not of the specified ones,
     # or if position out of bounds
     if wrong_pos:
+        if pd.isna(res_pos) and peptide:
+            candidate_positions = set()
+
+            for start in range(len(seq) - len(peptide) + 1):
+                if not seq.startswith(peptide, start):
+                    continue
+
+                for offset, residue in enumerate(peptide):
+                    for rule in df_xl_res.itertuples():
+                        protein_position = start + offset + 1
+                        allowed_position = (
+                            rule.pos == 0
+                            or (rule.pos == 1 and protein_position == 1)
+                            or (
+                                rule.pos == -1
+                                and protein_position == len(seq)
+                            )
+                        )
+                        if residue == rule.res and allowed_position:
+                            candidate_positions.add(protein_position)
+
+            if len(candidate_positions) > 1:
+                log_text += (
+                    f"{i}_{site}: AMBIGUOUS: possible protein positions "
+                    f"{sorted(candidate_positions)}; "
+                    "peptide position was not supplied. "
+                    "Original position retained without correction.\n"
+                )
+                return row, log_text
+
         pos_replaced = False
         # Count peptide-as-is-occurrences in full sequence
         pep_count_in_seq = seq.count(peptide)
@@ -351,6 +445,9 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                     except Exception:
                         log_text += f"\tres_pos_{site} was not given\n"
                         log_text += "\tFAIL\n"
+
+        if not pos_replaced:
+            raise ValueError(f"Could not correct protein position at site {site}")
 
     return row, log_text
 
