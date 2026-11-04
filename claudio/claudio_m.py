@@ -215,6 +215,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                             "-lmax", linker_maximum,
                             "-es", euclidean_strictness,
                             "-dm", distance_maximum, "-c", cutoff,
+                            "-x", xl_residues,
                             "-o", output_directory, "-s", compute_scoring,
                             "-v", verbose_level])
     except SystemExit:
