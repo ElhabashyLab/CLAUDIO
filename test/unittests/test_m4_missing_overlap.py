@@ -30,11 +30,9 @@ class TestM4MissingOverlap(unittest.TestCase):
         )
         row = result.iloc[0]
 
-        self.assertEqual(row["legacy_inter_score"], 0.0)
-        self.assertEqual(row["legacy_evidence"], "")
-        self.assertEqual(row["legacy_XL_type"], "intra")
-        self.assertEqual(row["XL_type"], "undetermined")
-        self.assertEqual(row["XL_type_reason"], "unknown_structure_source")
+        self.assertEqual(row["inter_score"], 0.0)
+        self.assertEqual(row["evidence"], "")
+        self.assertEqual(row["XL_type"], "intra")
     def test_cleanup_preserves_missing_overlap(self):
         data = pd.DataFrame([{
             "unip_id_a": "P1", "unip_id_b": "P1",

@@ -3,81 +3,66 @@ Module03's OPS analysis, and reevaluating assigned cross-link type."""
 import pandas as pd
 
 from claudio.utils.utils import round_self
-from claudio.module04.src.algorithm.relationship_classification import (
-    classify_model_candidates,
-)
+
 
 def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
                                 linker_minimum: float, linker_maximum: float,
                                 euclidean_strictness: float,
                                 distance_maximum: float, cutoff: float,
                                 compute_scoring: bool):
-    """Retain legacy heuristics as provenance and classify model candidates."""
-    result = data.copy(deep=True)
-    for column in (
-        "XL_type", "XL_confirmed", "evidence", "inter_score", "score_XL_type",
-    ):
-        if column in result:
-            if "XL_type_scope" not in result:
-                result[f"input_{column}"] = result[column]
-            result = result.drop(columns=column)
+    """
+    combine distance and homo signal reevaluation, create score that 
+    represents inter interaction affinity (higher value, higher affinity), and
+    evidence for this type evaluation. Base new crosslink types on each 
+    individually.
+    
+    Parameters
+    ----------
+    data : pd.DataFrame,
+    plddt_cutoff : float,
+    linker_minimum : float,
+    linker_maximum : float,
+    euclidean_strictness : float,
+    distance_maximum : float,
+    cutoff : float,
+    compute_scoring : bool
 
-    columns = [
-        "legacy_evidence", "legacy_XL_type", "legacy_XL_confirmed",
-        "legacy_inference_status", "legacy_inference_reason",
-    ]
+    Returns
+    -------
+    data : pd.DataFrame
+    """
+
     if compute_scoring:
-        columns.extend(["legacy_inter_score", "legacy_score_XL_type"])
-    else:
-        result = result.drop(
-            columns=["legacy_inter_score", "legacy_score_XL_type"],
-            errors="ignore",
+        # new crosslink type based on score
+        data["inter_score"] = data.apply(
+            lambda x: score_inter_potential(x, plddt_cutoff, linker_minimum,
+                                            linker_maximum,
+                                            euclidean_strictness,
+                                            distance_maximum), axis=1
+        )
+        data["score_XL_type"] = data.apply(
+            lambda x: "intra"
+            if (x.unip_id_a == x.unip_id_b) and (x.inter_score <= cutoff) else "inter",
+            axis=1
         )
 
-    records = []
-    for _, row in result.iterrows():
-        record = dict.fromkeys(columns)
-        record["legacy_inference_status"] = "computed"
-        try:
-            evidence = write_evidence(
-                row, plddt_cutoff, linker_minimum, linker_maximum,
-                euclidean_strictness,
-            )
-            record["legacy_evidence"] = evidence
-            record["legacy_XL_type"] = (
-                "intra" if row.unip_id_a == row.unip_id_b
-                and row.chain_a == row.chain_b and not evidence else "inter"
-            )
-            record["legacy_XL_confirmed"] = (
-                pd.notna(row.topo_dist) and "distance" not in evidence
-            )
-            if compute_scoring:
-                score = score_inter_potential(
-                    row, plddt_cutoff, linker_minimum, linker_maximum,
-                    euclidean_strictness, distance_maximum,
-                )
-                record["legacy_inter_score"] = score
-                record["legacy_score_XL_type"] = (
-                    "intra" if row.unip_id_a == row.unip_id_b
-                    and score <= cutoff else "inter"
-                )
-        except (
-            AttributeError, TypeError, ValueError,
-            ZeroDivisionError, OverflowError,
-        ) as error:
-            record["legacy_inference_status"] = "unavailable"
-            record["legacy_inference_reason"] = type(error).__name__
-        records.append(record)
+    # new crosslink type based on evidence
+    data["evidence"] = data.apply(
+        lambda x: write_evidence(
+            x, plddt_cutoff, linker_minimum, linker_maximum,
+            euclidean_strictness
+        ), axis=1
+    )
 
-    for column in columns:
-        result[column] = pd.Series(
-            [record[column] for record in records],
-            index=result.index,
-            dtype="object",
-        )
-
-    result["legacy_inference_rule_version"] = "legacy-m4-heuristic-v1"
-    return classify_model_candidates(result)
+    # Vectorized approach for XL_type
+    intra_mask = ((data["unip_id_a"] == data["unip_id_b"])
+                  & (data["chain_a"] == data["chain_b"])
+                  & (data["evidence"] == ""))
+    data["XL_type"] = "inter"
+    data.loc[intra_mask, "XL_type"] = "intra"
+    data["XL_confirmed"] =  ((pd.notna(data.topo_dist))
+                             & (~data.evidence.str.contains("distance",na=False)))
+    return data
 
 
 def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
@@ -261,7 +246,18 @@ def write_evidence(datapoint: pd.Series, plddt_cutoff: float,
 
 
 def def_xl_type(datapoint: pd.Series):
-    """Return the relationship of this resolved model candidate."""
-    return classify_model_candidates(
-        pd.DataFrame([datapoint])
-    ).iloc[0]["XL_type"]
+    """
+    combine distance and homo signal reevaluation, create evidence string
+
+    Parameters
+    ----------
+    datapoint : pd.Series
+
+    Returns
+    -------
+    evidence : str
+    """
+
+    if (datapoint.unip_id_a == datapoint.unip_id_b) and (not datapoint.evidence):
+        return "intra"
+    return "inter"

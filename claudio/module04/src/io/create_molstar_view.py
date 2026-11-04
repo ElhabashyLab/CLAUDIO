@@ -187,8 +187,7 @@ def _endpoint(model, row, site, atom_name, df_xl_res=None):
     if len(residues) != 1:
         raise ValueError(f"endpoint {site} structure residue is missing or ambiguous")
     residue = residues[0]
-    selected_atom = (_text(row.get(f"pdb_atom_{site}"))
-                     or _text(row.get(f"mapping_atom_{site}")))
+    selected_atom = _text(row.get(f"pdb_atom_{site}"))
     if not selected_atom and df_xl_res is not None:
         try:
             residue_name = three_to_one(residue.resname)

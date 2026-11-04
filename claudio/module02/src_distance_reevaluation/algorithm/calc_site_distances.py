@@ -8,153 +8,16 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from tempfile import mkdtemp
-from Bio.PDB import Polypeptide, Select, PDBIO
-import subprocess
-import hashlib
-import json
-import re
-import shutil
-from datetime import datetime, timezone
-from numbers import Integral
+from Bio.PDB import Polypeptide, PDBParser, FastMMCIFParser, Select, PDBIO
+
 from claudio.utils.utils import verbose_print, round_self
-from claudio.utils.structure_io import read_structure_models
+
 warnings.filterwarnings("ignore")
 
-def validate_topolink_seed(seed):
-    """Accept an optional positive seed supported by the native integer type."""
-    if seed is None:
-        return None
-    if (
-        isinstance(seed, bool)
-        or not isinstance(seed, Integral)
-        or not 1 <= seed <= 2147483647
-    ):
-        raise ValueError(
-            "TopoLink seed must be an integer between 1 and 2147483647"
-        )
-    return int(seed)
 
-
-def _file_sha256(path):
-    digest = hashlib.sha256()
-    with open(path, "rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _run_topolink(task_dir, pdb_id, source_structure, structure, topo_in,
-                  df_xl_res, plddt_cutoff, topolink_bin, topolink_seed):
-    """Run one native job and retain its effective input and execution record."""
-    task = Path(task_dir).resolve()
-    call = (
-        "topolink" if topolink_bin is None
-        else str((Path(topolink_bin) / "topolink").resolve())
-    )
-    executable = shutil.which(call)
-    command = [
-        str(Path(executable).resolve()) if executable else call,
-        "in/topolink.tmp",
-    ]
-    log_path = task / f"topo_{pdb_id[:32]}.log"
-    manifest_path = task / "topolink_run.json"
-    seed_values = [
-        line.split()[1]
-        for line in topo_in.splitlines()
-        if line.split()[:1] == ["seed"] and len(line.split()) > 1
-    ]
-    manifest = {
-        "schema_version": 1,
-        "state": "prepared",
-        "requested_seed": topolink_seed,
-        "effective_seed": seed_values[0] if len(seed_values) == 1 else None,
-        "parameters": {
-            "plddt_cutoff": float(plddt_cutoff),
-            "xl_residues": json.loads(
-                df_xl_res.to_json(orient="records")
-            ),
-        },
-        "source_structure": {
-            "path": str(Path(source_structure).resolve()),
-            "sha256": _file_sha256(source_structure),
-        },
-        "exported_structure": {
-            "path": Path(structure).resolve().relative_to(task).as_posix(),
-            "sha256": _file_sha256(structure),
-        },
-        "input": {
-            "path": "in/topolink.tmp",
-            "text": topo_in,
-            "sha256": _file_sha256(task / "in/topolink.tmp"),
-        },
-        "executable": {
-            "path": command[0],
-            "version": None,
-            "sha256": _file_sha256(executable) if executable else None,
-        },
-        "command": command,
-        "cwd": str(task),
-        "log_path": str(log_path),
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "finished_at": None,
-        "return_code": None,
-    }
-
-    def save_manifest():
-        manifest_path.write_text(
-            json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
-        )
-
-    save_manifest()
-    log_header = (
-        f"SOURCE STRUCTURE: {source_structure}\n"
-        f"WORKDIR: {task}\nIN:\n{topo_in}\n"
-    )
-    try:
-        completed = subprocess.run(
-            command, cwd=task_dir, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", check=False,
-        )
-    except OSError as error:
-        log_path.write_text(
-            f"{log_header}\nSTART ERROR:\n{error}\n", encoding="utf-8"
-        )
-        manifest.update(
-            state="failed_to_start",
-            finished_at=datetime.now(timezone.utc).isoformat(),
-        )
-        save_manifest()
-        raise RuntimeError(
-            f"Could not start TopoLink for {pdb_id}; see {log_path}"
-        ) from error
-
-    log_path.write_text(
-        f"{log_header}\nRETURN CODE: {completed.returncode}\n"
-        f"OUT:\n{completed.stdout}\nSTDERR:\n{completed.stderr}\n",
-        encoding="utf-8",
-    )
-    version = re.search(
-        r"\bVersion\s*[:=]?\s*(\d+(?:\.\d+)+)",
-        completed.stdout,
-        re.IGNORECASE,
-    )
-    manifest["executable"]["version"] = version.group(1) if version else None
-    manifest.update(
-        state="completed" if completed.returncode == 0 else "failed",
-        return_code=completed.returncode,
-        finished_at=datetime.now(timezone.utc).isoformat(),
-    )
-    save_manifest()
-    if completed.returncode != 0:
-        raise RuntimeError(
-            f"TopoLink failed for {pdb_id} "
-            f"(exit code {completed.returncode}); see {log_path}"
-        )
-    return completed.stdout
 def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
                          df_xl_res: pd.DataFrame, plddt_cutoff: float,
-                         topolink_bin: str | None, verbose_level: int,
-                         topolink_seed=None):
+                         topolink_bin: str | None, verbose_level: int):
     """
     calculate distances between interaction sites, and extend input dataset 
     by res_criteria, e.g. whether the found sites satisfy the criteria of 
@@ -180,11 +43,11 @@ def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
     # topolink and add them all to the dataset
     data = compute_dists_with_topolink(data, temp_dir, df_xl_res,
                                        plddt_cutoff, topolink_bin,
-                                       verbose_level, topolink_seed=topolink_seed)
+                                       verbose_level)
 
     return data
 def parse_topolink_distance(token):
-    """Separate a numeric result from a reported lower bound."""
+    """Separate an exact distance from a reported lower bound."""
     missing = float("nan")
     if token is None:
         return missing, missing
@@ -197,10 +60,9 @@ def parse_topolink_distance(token):
         return missing, missing
     return (missing, value) if is_bound else (value, missing)
 
-
 def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                                 df_xl_res: pd.DataFrame, plddt_cutoff: float,
-                                topolink_bin: str | None, verbose_level: int, topolink_seed=None):
+                                topolink_bin: str | None, verbose_level: int):
     """
     compute euclidean and topological distances between residues utilizing 
     topolink software, also saves logs of topolink computation into temporary 
@@ -220,7 +82,7 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
     -------
     data : pd.DataFrame
     """
-    topolink_seed = validate_topolink_seed(topolink_seed)
+
     toplink_dists = []
     ind = 0
 
@@ -256,15 +118,13 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         # chains from structure to reduce
         # computation
         pdb_id = Path(structure).stem
-        source_structure = str(structure)
-        task_dir = mkdtemp(prefix=f"{pdb_id[:32]}_", dir=temp_dir) + os.sep
+        task_dir = mkdtemp(prefix=f"{pdb_id}_", dir=temp_dir) + os.sep
         os.makedirs(f"{task_dir}in/", exist_ok=True)
         os.makedirs(f"{task_dir}struct/", exist_ok=True)
 
-        chain_ids = np.unique(subset[["chain_a", "chain_b"]].values)
-        chain_map = build_topolink_chain_map(chain_ids)
-        structure, residue_map = prepare_topolink_structure(
-            structure, "structure", task_dir, chain_ids,
+        structure = isolate_pdb_chain(
+            structure, pdb_id, task_dir,
+            np.unique(subset[["chain_a", "chain_b"]].values),
         )
         # Check again if isolation of chains was successful,
         # if not skip iteration
@@ -272,11 +132,13 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
             ind += 1
             return
 
-        # obs_inds stores (list of row indices, link strings, result_found).
+        # obs_inds is container to save tuples: (index of observation in
+        # dataset, string of observed link, boolean whether link was found
+        # in topolink results (initialized as False))
         # obs_str is string of collected observed link strings for inputfile
         obs_inds = []
         obs_str = ''
-        known_link_groups = {}
+        known_link_strs = []
         subset = subset[subset["res_criteria_fulfilled"]
                         & subset["is_interfaced"]]
         for row in subset.itertuples():
@@ -292,74 +154,37 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 try:
                     # observed LYS A 468 LYS A 457
                     # LINK: LYS A 457 CA LYS A 468 CA 11.814 12.568 YES 0.000 35.000 OK: FOUND 1 / 1 1 / 1 YY YY
-                    topolink_pos_a = resolve_topolink_position(row, "a", residue_map)
-                    topolink_pos_b = resolve_topolink_position(row, "b", residue_map)
-                    if topolink_pos_a is None or topolink_pos_b is None:
-                        continue
-
                     link_strs = [
-                        ' '.join([
-                            Polypeptide.one_to_three(
-                                row.seq_a[row.pos_a - 1]
-                            ),
-                            chain_map[row.chain_a],
-                            str(topolink_pos_a),
-                        ]),
-                        ' '.join([
-                            Polypeptide.one_to_three(
-                                row.seq_b[row.pos_b - 1]
-                            ),
-                            chain_map[row.chain_b],
-                            str(topolink_pos_b),
-                        ]),
-                    ]
-                    link_key = tuple(sorted(link_strs))
-                    if link_key in known_link_groups:
-                        known_link_groups[link_key].append(i)
-                    else:
-                        known_link_groups[link_key] = [i]
+                        ' '.join([Polypeptide.one_to_three(row.seq_a[row.pos_a - 1]),
+                                  row.chain_a, str(int(row.pdb_pos_a))]),
+                        ' '.join([Polypeptide.one_to_three(row.seq_b[row.pos_b - 1]),
+                                  row.chain_b, str(int(row.pdb_pos_b))])]
+                    if link_strs not in known_link_strs:
                         obs_str += f"  observed {' '.join(link_strs)}\n"
-                        obs_inds.append(
-                            (known_link_groups[link_key], link_strs, False)
-                        )
+                        obs_inds.append((i, link_strs, False))
+                        known_link_strs.append(link_strs)
+                        known_link_strs.append([link_strs[1], link_strs[0]])
                 except:
                     continue
 
         # Creates inputfile for topolink,
-        if not obs_inds:
-            ind += 1
-            return
         # utilizing templatefile: data/topolink_inputfile.inp
-        topo_in = ["linkdir ./\n"]
+        topo_in = [f"linkdir {task_dir}\n"]
         project_path = '/'.join(os.path.abspath(__file__).replace('\\\\', '/').replace('\\', '/').split('/')[:-4])
         project_path = project_path + '/' if project_path else ""
         with open(
             f"{project_path}data/topolink_inputfile.inp",
-            "r",
-            encoding="utf-8",
+            "r", encoding="utf-8",
         ) as template_file:
             template_lines = [
                 line for line in template_file if not line.startswith("#")
             ]
 
-        if topolink_seed is not None:
-            seed_lines = [
-                line for line in template_lines
-                if line.split()[:1] == ["seed"]
-            ]
-            if len(seed_lines) != 1:
-                raise ValueError(
-                    "TopoLink template must contain exactly one seed directive"
-                )
-
         for line in template_lines:
-            if topolink_seed is not None and line.split()[:1] == ["seed"]:
-                topo_in.append(f"seed {topolink_seed}\n")
-            elif line.startswith("linkdir"):
+            if line.startswith("linkdir"):
                 continue
             elif line.startswith("structure"):
-                relative_structure = Path(structure).relative_to(task_dir).as_posix()
-                topo_in.append(f"structure {relative_structure}\n")
+                topo_in.append(f"structure {structure}\n")
             elif line.startswith("  observed"):
                 topo_in.append(obs_str)
             elif line.startswith("  linktype"):
@@ -378,16 +203,20 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
                 topo_in.append(line)
         topo_in = ''.join(topo_in)
         # Write inputfile to temporary path
-        # (will be overwritten during next iteration)
-        topo_input_path = f"{task_dir}in/topolink.tmp"
+        topo_input_path = f"{task_dir}in/topo_{pdb_id}_.tmp"
         with open(topo_input_path, 'w', encoding="utf-8") as f:
             f.write(topo_in)
 
+        # Run topolink and pop terminal print to variable
+        topolink_call = "topolink" if topolink_bin is None else f"{topolink_bin}topolink"
+        res = os.popen(f"\"{topolink_call}\" \"{topo_input_path}\"").read()
+        # Write both input and output to temporary file marked by pdb id,
+        #  e.g. topo_1b0j.log, topo_afA2ASZ8.log, ...
+        # in case the user wishes to review them later
+        with open(f"{task_dir}topo_{pdb_id}.log", 'w', encoding="utf-8") as f:
+            f.write(f"IN:\n{topo_in}\n\n\nOUT:\n{res}")
 
-        res = _run_topolink(
-            task_dir, pdb_id, source_structure, structure, topo_in,
-            df_xl_res, plddt_cutoff, topolink_bin, topolink_seed,
-        )
+
         # zip topolink results with obs_inds
         # -> toplink_dists = [(index, eucl_dist, top_dist), ...]
         link_results = [' '.join(line.split())
@@ -426,7 +255,10 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
         verbose_print(f"TopoLink:[{progress}%]", 1, verbose_level, start='\r\t\t', end='')
 
     for future in concurrent.futures.as_completed(futures):
-        future.result()
+        try:
+            del futures[future]
+        except Exception as e:
+            print(e)
 
     verbose_print("", 1, verbose_level)
 
@@ -438,13 +270,13 @@ def compute_dists_with_topolink(data: pd.DataFrame, temp_dir: str,
             None, index=data.index, dtype="object",
         )
 
-    for indices, eucl_token, topo_token in toplink_dists:
+    for index, eucl_token, topo_token in toplink_dists:
         for prefix, token in (("eucl", eucl_token), ("topo", topo_token)):
             value, lower_bound = parse_topolink_distance(token)
-            data.loc[indices, f"{prefix}_dist_tplk"] = round_self(value, 3)
+            data.loc[index, f"{prefix}_dist_tplk"] = round_self(value, 3)
             # Keep the reported bound without rounding it upward.
-            data.loc[indices, f"{prefix}_dist_lower_bound"] = lower_bound
-            data.loc[indices, f"{prefix}_dist_raw"] = token
+            data.loc[index, f"{prefix}_dist_lower_bound"] = lower_bound
+            data.loc[index, f"{prefix}_dist_raw"] = token
 
     # Fill topolink distances with zero, if positions equal
     data.loc[(data.pos_a == data.pos_b) & (data.unip_id_a == data.unip_id_b)
@@ -472,7 +304,10 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
     new_path : str
     """
 
-    structure = read_structure_models(path)[0]
+    try:
+        structure = PDBParser().get_structure('', path).get_list()[0]
+    except:
+        structure = FastMMCIFParser().get_structure('', path).get_list()[0]
 
     class ChainSelect(Select):
         """
@@ -490,108 +325,3 @@ def isolate_pdb_chain(path: str, pdb_id: str, temp_dir: str,
     io.save(new_path, ChainSelect())
 
     return new_path
-def build_topolink_chain_map(chain_ids):
-    """Assign distinct PDB chain IDs while preserving existing legal IDs."""
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    source_ids = sorted(set(chain_ids))
-    if len(source_ids) > len(alphabet):
-        raise ValueError(
-            "TopoLink PDB export supports at most 62 selected chains"
-        )
-
-    chain_map = {
-        chain_id: chain_id
-        for chain_id in source_ids
-        if len(chain_id) == 1 and chain_id in alphabet
-    }
-    available = iter(
-        name for name in alphabet if name not in chain_map.values()
-    )
-    for chain_id in source_ids:
-        if chain_id not in chain_map:
-            chain_map[chain_id] = next(available)
-    return chain_map
-
-
-def prepare_topolink_structure(path, pdb_id, temp_dir, chain_ids):
-    """Export a mapped copy and record original chain/residue identities."""
-    model = read_structure_models(path)[0].copy()
-    chain_map = build_topolink_chain_map(chain_ids)
-    residue_map = {}
-    mapping_rows = []
-    source_path = os.path.abspath(path)
-
-    # Detach all chains before renaming to avoid ID collisions.
-    source_chains = list(model)
-    for chain in source_chains:
-        model.detach_child(chain.id)
-
-    for chain in source_chains:
-        source_chain = chain.id
-        if source_chain not in chain_map:
-            continue
-        chain.id = chain_map[source_chain]
-
-        residues = list(chain)
-        for residue in residues:
-            chain.detach_child(residue.id)
-
-        for new_number, residue in enumerate(residues, start=1):
-            hetflag, number, icode = residue.id
-            residue_map[(source_chain, hetflag, number, icode)] = new_number
-            mapping_rows.append(
-                {
-                    "source_path": source_path,
-                    "source_chain": source_chain,
-                    "source_hetflag": hetflag,
-                    "source_resseq": number,
-                    "source_icode": icode,
-                    "topolink_chain": chain.id,
-                    "topolink_resseq": new_number,
-                }
-            )
-            residue.id = (hetflag, new_number, " ")
-            chain.add(residue)
-        model.add(chain)
-
-    if not residue_map:
-        return "-", {}
-
-    new_path = f"{temp_dir}struct/{pdb_id}_tmp.pdb"
-    writer = PDBIO()
-    writer.set_structure(model)
-    with open(new_path, "w", encoding="utf-8") as output:
-        writer.save(output)
-    pd.DataFrame(mapping_rows).to_csv(
-        f"{temp_dir}residue_map.csv", index=False
-    )
-    return new_path, residue_map
-
-def resolve_topolink_position(row, site, residue_map):
-    """Resolve an original residue to its unique exported number."""
-    chain = getattr(row, f"chain_{site}")
-    try:
-        number = int(getattr(row, f"pdb_pos_{site}"))
-    except (TypeError, ValueError, OverflowError):
-        return None
-
-    hetflag = getattr(row, f"pdb_hetflag_{site}", None)
-    icode = getattr(row, f"pdb_icode_{site}", None)
-    hetflag = None if pd.isna(hetflag) else (str(hetflag) or " ")
-    icode = None if pd.isna(icode) else (str(icode) or " ")
-
-    if hetflag is not None and icode is not None:
-        return residue_map.get((chain, hetflag, number, icode))
-
-    # Older input may lack identity fields; accept only a unique match.
-    matches = []
-    for source_id, exported_number in residue_map.items():
-        source_chain, source_hetflag, source_number, source_icode = source_id
-        if (
-            source_chain == chain
-            and source_number == number
-            and (hetflag is None or source_hetflag == hetflag)
-            and (icode is None or source_icode == icode)
-        ):
-            matches.append(exported_number)
-    return matches[0] if len(matches) == 1 else None

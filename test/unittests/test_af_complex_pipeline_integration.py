@@ -132,7 +132,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             "requests.get", side_effect=self.service_response,
         ), patch(
             "claudio.module02.src_distance_reevaluation.algorithm."
-            "calc_site_distances.subprocess.run", side_effect=self.run_topolink,
+            "af_complex_distances.subprocess.run", side_effect=self.run_topolink,
         ) as topolink, patch.object(
             pipeline, "db_updater",
             side_effect=AssertionError("AF mode must not update structure databases"),
@@ -150,270 +150,82 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
 
     def check_source_outputs(self, output):
         stem = "crosslinks.run1"
-        m1_path = output / f"{stem}.sqcs"
-        ops_path = output / f"{stem}.sqcs_ops.csv"
-        structure_path = output / f"{stem}.sqcs_structdi.csv"
-        for path in (m1_path, ops_path, structure_path):
-            self.assertTrue(path.is_file(), str(path))
-        structural = pd.read_csv(structure_path, index_col=0)
-        final = pd.read_csv(output / f"{stem}_final.csv", index_col=0)
-        extended = pd.read_csv(output / f"{stem}_extended.csv", index_col=0)
-        pd.testing.assert_frame_equal(final[structural.columns], structural)
-        pd.testing.assert_frame_equal(extended, final)
-        expected_sources = ["record_000001", "record_000002", "record_000004"]
-        self.assertEqual(final["source_record_id"].tolist(), expected_sources)
-        self.assertEqual(final["experiment"].tolist(), ["condition_A", "condition_B", "condition_D"])
-        self.assertEqual(final["position_status_a"].tolist(), ["corrected", "valid", "corrected"])
-        self.assertEqual(final["original_pos_a"].tolist(), [76, 23, 76])
-        self.assertEqual(final["pos_a"].tolist(), [67, 23, 67])
-        self.assertTrue(final["structure_source"].eq("af_complex").all())
-        relation = "unknown" if self.no_candidates else "cross_chain"
-        reason = "no_candidate_model" if self.no_candidates else "different_model_chains"
-        self.assertTrue(final["model_chain_relation"].eq(relation).all())
-        self.assertTrue(final["model_chain_relation_reason"].eq(reason).all())
-        self.assertTrue(final["XL_type_scope"].eq("model_candidate").all())
-        self.assertTrue(final["XL_type"].eq("undetermined" if self.no_candidates else "inter").all())
-        self.assertIn("legacy_XL_type", final)
-        self.assertNotIn("original_XL_type", final)
-        self.assertNotIn("XL_confirmed", final)
         report = pd.read_csv(output / f"{stem}_record_tracking.csv", index_col=0)
         self.assertEqual(len(report), 4)
-        rejected = report.loc[~report["included_in_sqcs"]]
-        self.assertEqual(rejected["source_record_id"].tolist(), ["record_000003"])
-        self.assertEqual(rejected["position_status_a"].tolist(), ["ambiguous"])
-        self.assertEqual(final.iloc[0]["candidate_id"], final.iloc[2]["candidate_id"])
-        self.assertEqual(final["candidate_id"].nunique(), 2)
-        for path in (m1_path, ops_path):
-            stage = pd.read_csv(path, index_col=0)
-            self.assertEqual(stage.index.tolist(), final.index.tolist())
-            self.assertEqual(stage["experiment"].tolist(), final["experiment"].tolist())
-            for column in ("source_record_id", "position_status_a", "position_status_b", "original_pos_a"):
-                self.assertNotIn(column, stage)
-        self.assertEqual(len(list((output / "visualization").glob("*/index.html"))), 1)
-        return final
+        self.assertEqual(report.loc[~report["included_in_sqcs"], "source_record_id"].tolist(),
+                         ["record_000003"])
+        for suffix in (".sqcs", ".sqcs_ops.csv"):
+            stage = pd.read_csv(output / f"{stem}{suffix}", index_col=0)
+            self.assertEqual(len(stage), 3)
+            self.assertNotIn("source_record_id", stage)
+            self.assertNotIn("position_status_a", stage)
+        result = pd.read_csv(output / f"{stem}.sqcs_structdi.csv", index_col=0)
+        self.assertEqual(result["source_record_id"].tolist(),
+                         ["record_000001", "record_000002", "record_000004"])
+        self.assertEqual(result["experiment"].tolist(),
+                         ["condition_A", "condition_B", "condition_D"])
+        self.assertEqual(result["position_status_a"].tolist(),
+                         ["corrected", "valid", "corrected"])
+        self.assertTrue((output / "crosslinks_final.csv").is_file())
+        final = pd.read_csv(output / "crosslinks_final.csv", index_col=0)
+        self.assertNotIn("legacy_XL_type", final)
+        self.assertNotIn("XL_type_scope", final)
+        self.assertNotIn("original_XL_type", final)
+        self.assertIn("XL_confirmed", final)
+        return result
 
-    def test_manual_and_auto_modes_keep_provenance_through_all_modules(self):
-        fixture_model = next(MMCIFParser(QUIET=True).get_structure(
-            "fixture", str(FIXTURES / f"{MODEL_ID}.cif"),
-        ).get_models())
-        expected = [
-            float(np.linalg.norm(fixture_model["A"][67]["CB"].coord
-                                 - fixture_model["B"][11]["CB"].coord)),
-            float(np.linalg.norm(fixture_model["B"][23]["CB"].coord
-                                 - fixture_model["A"][67]["CB"].coord)),
-        ]
-        for mode, options in (
+    def test_manual_and_auto_modes_complete_the_existing_pipeline(self):
+        model = next(MMCIFParser(QUIET=True).get_structure(
+            "fixture", str(FIXTURES / f"{MODEL_ID}.cif")).get_models())
+        expected = [float(np.linalg.norm(model["A"][67]["CB"].coord - model["B"][n]["CB"].coord))
+                    for n in (11, 23)]
+        for name, options in (
             ("manual", ["--af-complex-model", MODEL_ID]),
             ("auto", ["--af-complex-auto"]),
         ):
-            with self.subTest(mode=mode):
-                output = self.root / mode
-                topolink = self.run_pipeline(output, options)
-                topolink.assert_called_once()
-                final = self.check_source_outputs(output)
-                self.assertEqual(final["chain_a"].tolist(), ["A", "B", "A"])
-                self.assertEqual(final["chain_b"].tolist(), ["B", "A", "B"])
-                self.assertTrue(final["af_model_id"].eq(MODEL_ID).all())
-                self.assertEqual(final["distance_status"].tolist(),
-                                 ["computed", "computed", "computed"])
-                np.testing.assert_allclose(final.iloc[:2]["eucl_dist"], expected, atol=0.001)
-                np.testing.assert_allclose(final.iloc[:2]["topo_dist"],
-                                           np.array(expected) + 1, atol=0.001)
-                repeated = final.iloc[2]
-                self.assertAlmostEqual(repeated["eucl_dist"], final.iloc[0]["eucl_dist"])
-                self.assertAlmostEqual(repeated["topo_dist"], final.iloc[0]["topo_dist"])
-                for column in ("path", "af_metadata_path"):
-                    self.assertTrue(Path(final.iloc[0][column]).is_file())
-                plt.close("all")
+            with self.subTest(mode=name):
+                output = self.root / name
+                self.run_pipeline(output, options).assert_called_once()
+                result = self.check_source_outputs(output)
+                self.assertEqual(result["chain_a"].tolist(), ["A", "B", "A"])
+                self.assertEqual(result["chain_b"].tolist(), ["B", "A", "B"])
+                self.assertTrue(result["distance_status"].eq("computed").all())
+                np.testing.assert_allclose(result["eucl_dist"].iloc[:2], expected, atol=0.001)
+                self.assertEqual(result["eucl_dist"].iloc[0], result["eucl_dist"].iloc[2])
+                self.assertEqual(len(list((output / "visualization").glob("*/index.html"))), 1)
 
-    def test_native_lower_bound_is_preserved_to_final_output(self):
-        # These LINK values reproduce the native TopoLink example.
-        native_output = (
-            "  LINK: LYS A 67 CB LYS B 11 CB 62.907 66.751 "
-            "YES 0.000 35.000 BAD: LONG\n"
-            "  LINK: LYS A 67 CB LYS B 23 CB 75.957 >75.957 "
-            "YES 0.000 35.000 BAD: EUCL\n"
-        )
-        output = self.root / "lower_bound"
-        with patch.object(
-            self, "run_topolink", return_value=subprocess.CompletedProcess(
-                [], 0, stdout=native_output, stderr="",
-            ),
-        ):
-            topolink = self.run_pipeline(output, ["--af-complex-auto"])
-        topolink.assert_called_once()
-        final = self.check_source_outputs(output)
-        first, bounded = (final.iloc[i] for i in range(2))
-        self.assertEqual(first["distance_status"], "computed")
-        self.assertAlmostEqual(first["topo_dist"], 66.751)
-        self.assertEqual(bounded["distance_status"], "lower_bound")
-        self.assertEqual(bounded["distance_reason"], "topolink_lower_bound")
-        self.assertEqual(bounded["topo_dist_raw"], ">75.957")
-        self.assertAlmostEqual(bounded["topo_dist_lower_bound"], 75.957)
-        self.assertTrue(pd.isna(bounded["topo_dist"]))
-        self.assertFalse(bounded["legacy_XL_confirmed"])
-
-    def test_native_failure_stops_before_final_output(self):
-        output = self.root / "native_failure"
-        failure = subprocess.CompletedProcess(
-            [], 7, stdout="partial native output\n",
-            stderr="native execution failed\n",
-        )
-        with patch(
-            "requests.get", side_effect=self.service_response,
-        ), patch(
-            "claudio.module02.src_distance_reevaluation.algorithm."
-            "calc_site_distances.subprocess.run", return_value=failure,
-        ), patch.object(pipeline, "db_updater"):
-            result = CliRunner().invoke(pipeline.main, [
-                "-i", str(self.input), "-o", str(output),
-                "-bldb", str(self.root / "missing-db"),
-                "-x", "K", "-pc", "0", "-rt", "False",
-                "-s", "False", "-v", "0", "--af-complex-auto",
-            ])
-        self.assertNotEqual(result.exit_code, 0)
-        self.assertIn("TopoLink", str(result.exception))
-        self.assertIn("exit code 7", str(result.exception))
-        self.assertFalse((output / "crosslinks.run1_final.csv").exists())
-        self.assertNotIn("Finished full CLAUDIO pipeline", result.output)
-        logs = list(output.rglob("topo_*.log"))
-        self.assertEqual(len(logs), 1)
-        self.assertIn("native execution failed", logs[0].read_text())
-
-    def test_auto_mode_preserves_sources_when_afdb_has_no_candidate(self):
+    def test_auto_mode_retains_m2_sources_without_a_candidate(self):
         self.no_candidates = True
         output = self.root / "no_candidates"
-        topolink = self.run_pipeline(output, ["--af-complex-auto"])
-        topolink.assert_not_called()
-        final = self.check_source_outputs(output)
-        self.assertTrue(final["af_match_status"].eq("no_candidate_model").all())
-        self.assertTrue(final["distance_status"].eq("not_evaluable").all())
-        self.assertTrue(final["distance_reason"].eq("no_candidate_model").all())
-        self.assertTrue(final[["eucl_dist", "topo_dist"]].isna().all().all())
-        self.assertFalse((output / "homomers").exists())
-        self.assertFalse((output / "heteromers").exists())
+        self.run_pipeline(output, ["--af-complex-auto"]).assert_not_called()
+        result = self.check_source_outputs(output)
+        self.assertTrue(result["af_match_status"].eq("no_candidate_model").all())
+        self.assertTrue(result["distance_status"].eq("not_evaluable").all())
+        self.assertTrue(result[["eucl_dist", "topo_dist"]].isna().all().all())
 
-
-    def test_full_cli_records_the_requested_seed_in_native_input(self):
-        output = self.root / "fixed_seed"
-        topolink = self.run_pipeline(output, [
-            "--af-complex-auto", "--topolink-seed", "20261026",
-        ])
-        topolink.assert_called_once()
-        self.check_source_outputs(output)
-        manifests = list(output.rglob("topolink_run.json"))
-        self.assertEqual(len(manifests), 1)
-        manifest = json.loads(manifests[0].read_text())
-        self.assertEqual(manifest["requested_seed"], 20261026)
-        self.assertEqual(manifest["effective_seed"], "20261026")
-        self.assertEqual(manifest["state"], "completed")
-        self.assertEqual(manifest["return_code"], 0)
-        native_input = manifests[0].parent / manifest["input"]["path"]
-        self.assertEqual(manifest["input"]["sha256"],
-                         hashlib.sha256(native_input.read_bytes()).hexdigest())
-        seed_lines = [line.strip() for line in native_input.read_text().splitlines()
-                      if line.split()[:1] == ["seed"]]
-        self.assertEqual(seed_lines, ["seed 20261026"])
-        self.assertIsNone(manifest["executable"]["version"])
-
-
-    def test_numeric_native_tokens_keep_their_text_in_final_outputs(self):
-        native_output = (
-            "  LINK: LYS A 67 CB LYS B 11 CB 62.907 66.750 "
-            "YES 0.000 35.000 BAD: LONG\n"
-            "  LINK: LYS A 67 CB LYS B 23 CB 75.957 80.000 "
-            "YES 0.000 35.000 BAD: LONG\n"
-        )
-        output = self.root / "raw_tokens"
-        with patch.object(
-            self, "run_topolink", return_value=subprocess.CompletedProcess(
-                [], 0, stdout=native_output, stderr="",
-            ),
-        ):
+    def test_native_lower_bound_is_preserved_in_m2(self):
+        output = self.root / "lower_bound"
+        text = ("  LINK: LYS A 67 CB LYS B 11 CB 62.907 66.751\n"
+                "  LINK: LYS A 67 CB LYS B 23 CB 75.957 >75.957\n")
+        with patch.object(self, "run_topolink", return_value=subprocess.CompletedProcess(
+                [], 0, stdout=text, stderr="")):
             self.run_pipeline(output, ["--af-complex-auto"])
-        self.check_source_outputs(output)
-        for suffix in (".sqcs_structdi.csv", "_final.csv", "_extended.csv"):
-            saved = pd.read_csv(
-                output / f"crosslinks.run1{suffix}", index_col=0,
-                dtype={"eucl_dist_raw": str, "topo_dist_raw": str},
-            )
-            self.assertEqual(saved["topo_dist_raw"].iloc[:2].tolist(),
-                             ["66.750", "80.000"])
-            self.assertEqual(saved["topo_dist_raw"].iloc[2], "66.750")
-            self.assertEqual(saved["topo_dist"].iloc[:2].tolist(), [66.75, 80.0])
-            self.assertEqual(saved["distance_status"].iloc[:2].tolist(),
-                             ["computed", "computed"])
+        result = self.check_source_outputs(output)
+        self.assertEqual(result.iloc[1]["distance_status"], "lower_bound")
+        self.assertEqual(result.iloc[1]["topo_dist_raw"], ">75.957")
+        self.assertAlmostEqual(result.iloc[1]["topo_dist_lower_bound"], 75.957)
+        self.assertTrue(pd.isna(result.iloc[1]["topo_dist"]))
 
-
-    def test_explicit_assessments_survive_manual_and_auto_full_pipeline(self):
-        policies = [
-            "--euclidean-assessment", "0", "100", "inclusive",
-            "--topological-assessment", "0", "70", "inclusive",
-        ]
-        for label, mode in (
-            ("manual", ["--af-complex-model", MODEL_ID]),
-            ("auto", ["--af-complex-auto"]),
-        ):
-            with self.subTest(mode=label):
-                output = self.root / f"assessment_{label}"
-                self.run_pipeline(output, [*mode, *policies])
-                final = self.check_source_outputs(output)
-                self.assertEqual(final["eucl_assessment_status"].tolist(),
-                                 ["satisfied", "satisfied", "satisfied"])
-                self.assertEqual(final["topo_assessment_status"].tolist(),
-                                 ["satisfied", "violated", "satisfied"])
-                self.assertTrue(final["eucl_assessment_maximum"].eq(100.0).all())
-                self.assertTrue(final["topo_assessment_maximum"].eq(70.0).all())
-                self.assertTrue(final["topo_assessment_plddt_cutoff"].eq(0.0).all())
-                audit = pd.read_csv(output / "crosslinks.run1_candidate_audit.csv", index_col=0)
-                pd.testing.assert_frame_equal(audit[final.columns], final)
-                self.assertTrue(audit["m4_selection_status"].eq("retained").all())
-                plt.close("all")
-
-    def test_explicit_assessments_keep_native_bounds_through_full_pipeline(self):
-        native_output = (
-            "  LINK: LYS A 67 CB LYS B 11 CB 62.907 66.751 "
-            "YES 0.000 35.000 BAD: LONG\n"
-            "  LINK: LYS A 67 CB LYS B 23 CB 75.957 >75.957 "
-            "YES 0.000 35.000 BAD: EUCL\n"
-        )
-        output = self.root / "assessed_bounds"
-        with patch.object(
-            self, "run_topolink", return_value=subprocess.CompletedProcess(
-                [], 0, stdout=native_output, stderr="",
-            ),
-        ):
-            self.run_pipeline(output, [
-                "--af-complex-auto",
-                "--euclidean-assessment", "0", "100", "inclusive",
-                "--topological-assessment", "0", "70", "inclusive",
-            ])
-        final = self.check_source_outputs(output)
-        bounded = final.iloc[1]
-        self.assertEqual(bounded["eucl_assessment_status"], "satisfied")
-        self.assertEqual(bounded["topo_assessment_status"], "violated")
-        self.assertEqual(bounded["topo_assessment_reason"], "lower_bound_above_range")
-        self.assertTrue(pd.isna(bounded["topo_dist"]))
-        self.assertEqual(bounded["topo_dist_raw"], ">75.957")
-        self.assertEqual(bounded["distance_status"], "lower_bound")
-
-    def test_full_assessment_mode_retains_sources_without_a_candidate_model(self):
-        self.no_candidates = True
-        output = self.root / "assessed_no_candidates"
-        self.run_pipeline(output, [
-            "--af-complex-auto",
-            "--euclidean-assessment", "0", "100", "inclusive",
-            "--topological-assessment", "0", "70", "inclusive",
-        ])
-        final = self.check_source_outputs(output)
-        for prefix in ("eucl", "topo"):
-            self.assertTrue(final[f"{prefix}_assessment_status"].eq("not_evaluable").all())
-            self.assertTrue(final[f"{prefix}_assessment_reason"].eq("no_candidate_model").all())
-        audit = pd.read_csv(output / "crosslinks.run1_candidate_audit.csv", index_col=0)
-        self.assertEqual(audit["experiment"].tolist(),
-                         ["condition_A", "condition_B", "condition_D"])
-        self.assertTrue(audit["m4_selection_status"].eq("retained").all())
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_native_failure_stops_before_final_output(self):
+        output = self.root / "failure"
+        with patch("requests.get", side_effect=self.service_response), patch(
+            "claudio.module02.src_distance_reevaluation.algorithm.af_complex_distances.subprocess.run",
+            return_value=subprocess.CompletedProcess([], 7, stdout="", stderr="native error")), patch.object(
+                pipeline, "db_updater"):
+            execution = CliRunner().invoke(pipeline.main, [
+                "-i", str(self.input), "-o", str(output), "-x", "K", "-pc", "0",
+                "-rt", "False", "-s", "False", "-v", "0", "--af-complex-auto"])
+        self.assertNotEqual(execution.exit_code, 0)
+        self.assertIn("TopoLink", str(execution.exception))
+        self.assertFalse((output / "crosslinks_final.csv").exists())
+        self.assertEqual(len(list(output.rglob("topo_*.log"))), 1)

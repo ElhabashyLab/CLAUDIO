@@ -20,14 +20,6 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
     None
 
     """
-    if "XL_type_scope" in data.columns:
-        if not data["XL_type_scope"].eq("model_candidate").all():
-            raise ValueError("Unsupported or mixed XL_type_scope")
-        data.to_csv(f"{output_directory}{filename}_final.csv")
-        return
-    if "af_match_status" in data.columns:
-        data.to_csv(f"{output_directory}{filename}_final.csv")
-        return
 
     # save list of already written results by uniprot ids
     already_written = []

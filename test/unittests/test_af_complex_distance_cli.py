@@ -225,42 +225,7 @@ class TestAFComplexDistanceCLI(unittest.TestCase):
         self.assertIn("eucl_dist", saved.columns)
         self.assertIn("distance_status", saved.columns)
 
-    def test_topolink_seed_reaches_af_and_legacy_distance_backends(self):
-        for af_mode, seed in ((True, 1), (False, 2147483647)):
-            with self.subTest(af_mode=af_mode, seed=seed):
-                row = self.row if af_mode else {
-                    key: value for key, value in self.row.items()
-                    if not key.startswith("af_")
-                }
 
-                def distances(data, *args, **kwargs):
-                    return data.assign(eucl_dist_tplk=12.0, topo_dist_tplk=14.0)
-
-                backend_path = (
-                    "claudio.module02.src_distance_reevaluation.algorithm."
-                    "af_complex_distances.calculate_site_dists"
-                    if af_mode else
-                    "claudio.module02.src_distance_reevaluation.main.calculate_site_dists"
-                )
-                with patch(backend_path, side_effect=distances) as backend, patch.object(
-                    distance_main, "search_site_pos_in_pdb", side_effect=lambda data, *args: data,
-                ), patch.object(distance_main, "clean_dataset", side_effect=lambda data: data):
-                    self.invoke_distance_cli(pd.DataFrame([row]),
-                                             ["--topolink-seed", str(seed)])
-                backend.assert_called_once()
-                self.assertEqual(backend.call_args.kwargs["topolink_seed"], seed)
-
-    def test_invalid_topolink_seed_is_rejected_before_reading_input(self):
-        for seed in ("0", "-1", "2147483648", "1.5", "random"):
-            with self.subTest(seed=seed), patch.object(
-                distance_main, "read_unipsearch_out",
-            ) as read, patch.object(distance_main, "create_out_path") as mkdir:
-                result = CliRunner().invoke(distance_main.main, ["--topolink-seed", seed])
-                self.assertEqual(result.exit_code, 2, result.output)
-                self.assertIn("--topolink-seed", result.output)
-                self.assertIn("Invalid value", result.output)
-                read.assert_not_called()
-                mkdir.assert_not_called()
 
 
 if __name__ == "__main__":

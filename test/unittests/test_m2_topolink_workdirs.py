@@ -1,5 +1,5 @@
 """Keep parallel structure calculations in separate TopoLink work directories."""
-import subprocess
+import io
 import shlex
 import tempfile
 import threading
@@ -94,9 +94,9 @@ class TestM2TopoLinkWorkdirs(unittest.TestCase):
             workdirs = []
             lock = threading.Lock()
 
-            def fake_topolink(command, **kwargs):
+            def fake_topolink(command):
                 try:
-                    input_path = Path(kwargs["cwd"]) / command[-1]
+                    input_path = Path(shlex.split(command)[-1])
 
                     # Both workers finish writing before either reads.
                     ready.wait(timeout=10)
@@ -105,9 +105,9 @@ class TestM2TopoLinkWorkdirs(unittest.TestCase):
                     structure_line = next(
                         line for line in lines if line.startswith("structure ")
                     )
-                    structure_path = Path(kwargs["cwd"]) / structure_line.split(maxsplit=1)[1]
+                    structure_path = Path(structure_line.split(maxsplit=1)[1])
                     workdir = next(
-                        (Path(kwargs["cwd"]) / line.split(maxsplit=1)[1] for line in lines
+                        (Path(line.split(maxsplit=1)[1]) for line in lines
                          if line.startswith("linkdir ")),
                         input_path.parent.parent,
                     )
@@ -124,17 +124,17 @@ class TestM2TopoLinkWorkdirs(unittest.TestCase):
                         workdirs.append(workdir)
 
                     # Controlled output at the external-program boundary.
-                    return subprocess.CompletedProcess(command, 0, stdout=
+                    return io.StringIO(
                         f"  LINK: LYS A 1 CB LYS A 2 CB "
-                        f"{distance:.3f} {distance + 2.0:.3f}\n", stderr=""
+                        f"{distance:.3f} {distance + 2.0:.3f}\n"
                     )
                 except Exception as error:
                     with lock:
                         errors.append(repr(error))
-                    return subprocess.CompletedProcess(command, 0, stdout="", stderr="")
+                    return io.StringIO("")
 
             with patch.object(
-                calc_site_distances.subprocess, "run", side_effect=fake_topolink
+                calc_site_distances.os, "popen", side_effect=fake_topolink
             ) as mocked_topolink:
                 result = calc_site_distances.compute_dists_with_topolink(
                     pd.DataFrame(rows),

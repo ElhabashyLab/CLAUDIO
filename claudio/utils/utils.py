@@ -186,23 +186,8 @@ def round_self(value: float, decimals: int):
     rounded_value = float(f"{int((value * (10 ** decimals)) + .5) / (10 ** decimals):.{decimals}f}")
     return rounded_value
 
-def _record_candidate_exclusions(
-    selection_log, removed_indices, preferred_indices, stage, rule,
-):
-    if selection_log is None:
-        return
 
-    for index in dict.fromkeys(removed_indices):
-        selection_log.append({
-            "removed_index": str(index),
-            "stage": stage,
-            "rule": rule,
-            "preferred_indices": [
-                str(value) for value in preferred_indices
-            ],
-            "rule_version": "legacy-m4-selection-v1",
-        })
-def clean_dataset(data: pd.DataFrame, *, selection_log=None):
+def clean_dataset(data: pd.DataFrame):
     """
     Cleaning of structure data dataset for outputs
 
@@ -214,10 +199,7 @@ def clean_dataset(data: pd.DataFrame, *, selection_log=None):
     -------
     data : pd.DataFrame
     """
-    if "XL_type_scope" in data.columns:
-        if not data["XL_type_scope"].eq("model_candidate").all():
-            raise ValueError("Unsupported or mixed XL_type_scope")
-        return data.copy(deep=True)
+
     # Drop datapoints with ident index, if data values are all identical
     if "pdb_id" in data.columns:
         drop_indeces,\
@@ -247,15 +229,7 @@ def clean_dataset(data: pd.DataFrame, *, selection_log=None):
                                     & (data.evidence == row.evidence))
 
                 if len(data[drop_criteria].index) > 1:
-                    matches = list(data[drop_criteria].index)
-                    drop_indeces.extend(matches[1:])
-                    _record_candidate_exclusions(
-                        selection_log,
-                        matches[1:],
-                        matches[:1],
-                        "clean_dataset",
-                        "duplicate_structural_candidate",
-                    )
+                    drop_indeces.extend(list(data[drop_criteria].index)[1:])
                 already_checked.extend(list(data[drop_criteria].index))
         data = data.drop(index=drop_indeces)
 
@@ -314,47 +288,9 @@ def clean_dataset(data: pd.DataFrame, *, selection_log=None):
                                         (data.pep_b == row.pep_b)
                 multi_chain_set = data[multi_chain_criteria]
                 if not multi_chain_set[multi_chain_set.XL_confirmed].empty:
-                    unconfirmed = list(
-                        multi_chain_set[~multi_chain_set.XL_confirmed].index
-                    )
-                    confirmed = list(
-                        multi_chain_set[multi_chain_set.XL_confirmed].index
-                    )
-                    drop_indeces.extend(unconfirmed)
-
-                    _record_candidate_exclusions(
-                        selection_log,
-                        [index for index in unconfirmed if "_" in str(index)],
-                        confirmed,
-                        "clean_dataset",
-                        "unconfirmed_alternative",
-                    )
-
-                    preferred_mask = (
-                        multi_chain_set.XL_confirmed
-                        & (multi_chain_set.evidence == "")
-                    )
-                    if not multi_chain_set[preferred_mask].empty:
-                        alternatives = list(
-                            multi_chain_set[
-                                multi_chain_set.evidence != ""
-                            ].index
-                        )
-                        preferred = list(
-                            multi_chain_set[preferred_mask].index
-                        )
-                        drop_indeces.extend(alternatives)
-
-                        _record_candidate_exclusions(
-                            selection_log,
-                            [
-                                index for index in alternatives
-                                if "_" in str(index)
-                            ],
-                            preferred,
-                            "clean_dataset",
-                            "alternative_with_evidence",
-                        )
+                    drop_indeces.extend(list(multi_chain_set[~multi_chain_set.XL_confirmed].index))
+                    if not multi_chain_set[multi_chain_set.XL_confirmed & (multi_chain_set.evidence == '')].empty:
+                        drop_indeces.extend(list(multi_chain_set[multi_chain_set.evidence != ''].index))
                 already_checked.extend(list(multi_chain_set.index))
         data = data.drop(index=[drop_index for drop_index in drop_indeces if '_' in drop_index])
 
@@ -366,7 +302,7 @@ def clean_dataset(data: pd.DataFrame, *, selection_log=None):
 
     return data
 
-def minimize_dataset(data: pd.DataFrame, *, selection_log=None):
+def minimize_dataset(data: pd.DataFrame):
     """
     Cleaning of structure data dataset for outputs
 
@@ -378,10 +314,7 @@ def minimize_dataset(data: pd.DataFrame, *, selection_log=None):
     -------
     data : pd.DataFrame
     """
-    if "XL_type_scope" in data.columns:
-        if not data["XL_type_scope"].eq("model_candidate").all():
-            raise ValueError("Unsupported or mixed XL_type_scope")
-        return data.copy(deep=True)
+
     drop_indeces = []
     for ind in [i for i in data.index if '_' not in str(i)]:
         is_intra = data.loc[ind].XL_type == "intra"
@@ -409,24 +342,7 @@ def minimize_dataset(data: pd.DataFrame, *, selection_log=None):
 
         if all((i in drop_indeces for i in data_ind_snippet.index)):
             drop_indeces.remove(data_ind_snippet.index[0])
-        if selection_log is not None:
-            preferred = [
-                i for i in data_ind_snippet.index if i not in drop_indeces
-            ]
-            for candidate in data_ind_snippet.itertuples():
-                if candidate.Index in drop_indeces:
-                    same_type = (candidate.XL_type == "intra") == is_intra
-                    rule = (
-                        "lower_ranked_chain_candidate" if same_type
-                        else "different_crosslink_type"
-                    )
-                    _record_candidate_exclusions(
-                        selection_log,
-                        [candidate.Index],
-                        preferred,
-                        "minimize_dataset",
-                        rule,
-                    )
+
     data = data.drop(index=drop_indeces)
 
     for row in data.itertuples():
@@ -439,13 +355,6 @@ def minimize_dataset(data: pd.DataFrame, *, selection_log=None):
                     same_proteins = (row.unip_id_a == next_row.unip_id_a) and (row.unip_id_b == next_row.unip_id_b)
                     same_peptides = (row.pep_a == next_row.pep_a) and (row.pep_b == next_row.pep_b)
                     if same_proteins and same_peptides:
-                        _record_candidate_exclusions(
-                            selection_log,
-                            [next_i],
-                            [i],
-                            "minimize_dataset",
-                            "repeated_peptide_source",
-                        )
                         data = data.drop(index=next_i)
 
     return data

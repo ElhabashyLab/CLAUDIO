@@ -263,6 +263,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
             return None
         return download_pdb_from_db(url, i_try + 1, max_try)
 
+
 def accept_resolution_method_download(pdb: str, pdb_id: str,
                                       res_cutoff: float):
     """

@@ -7,9 +7,7 @@ from importlib.metadata import version as _pkg_version
 from claudio.module01.src.main import main as run_claudio_lists
 from claudio.module02.run_module02_intra import main as run_claudio_structdi
 from claudio.module03.src.main import main as run_claudio_ops
-from claudio.module04.src.main import (
-    main as run_claudio_xl, _assessment_policies,
-)
+from claudio.module04.src.main import main as run_claudio_xl
 
 from claudio.utils.utils import verbose_print, round_self, evaluate_boolean_input, clean_input_paths, create_out_path
 from claudio.utils.db_updater import main as db_updater
@@ -98,31 +96,12 @@ def _require_output(path):
 @click.option("--af-complex-auto", is_flag=True, default=False)
 @click.option("-c", "--config",
               help="filepath to configuration file containing all input parameters")
-@click.option(
-    "--topolink-seed",
-    type=click.IntRange(1, 2147483647),
-    default=None,
-    help="Fixed TopoLink seed; omitted values use the native input template.",
-)
-@click.option(
-    "--euclidean-assessment",
-    type=(float, float, click.Choice(["inclusive", "exclusive"])),
-    default=None,
-    help="Euclidean MIN MAX BOUNDARY; provide both assessment options to enable.",
-)
-@click.option(
-    "--topological-assessment",
-    type=(float, float, click.Choice(["inclusive", "exclusive"])),
-    default=None,
-    help="TopoLink MIN MAX BOUNDARY; provide both assessment options to enable.",
-)
 def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
          search_tool, e_value, query_id, coverage, res_cutoff, plddt_cutoff,
          linker_minimum, linker_maximum, euclidean_strictness, distance_maximum,
          cutoff, output_directory, blast_bin, blast_db, hhsearch_bin,
          hhsearch_db, topolink_bin, compute_scoring, verbose_level, config,
-         af_complex_model=None, af_complex_auto=False, topolink_seed=None,
-         euclidean_assessment=None, topological_assessment=None):
+         af_complex_model=None, af_complex_auto=False):
     """
     
     wrapper function for the full CLAUDIO pipeline, which includes the following modules:
@@ -164,15 +143,6 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
     None
 
     """
-    policies = _assessment_policies(
-        euclidean_assessment, topological_assessment,
-    )
-    assessment_options = {}
-    if policies is not None:
-        assessment_options = {
-            "euclidean_assessment": euclidean_assessment,
-            "topological_assessment": topological_assessment,
-        }
     if af_complex_auto and af_complex_model is not None:
         raise click.UsageError(
             "--af-complex-auto and --af-complex-model are mutually exclusive."
@@ -207,6 +177,122 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         = clean_input_paths([input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin,
                              hhsearch_db, topolink_bin])
 
+    if af_mode:
+        _run_af_pipeline(
+            input_filepath, input_temppath, projections, read_temps,
+            xl_residues, search_tool, e_value, query_id,
+            coverage, res_cutoff, plddt_cutoff, linker_minimum,
+            linker_maximum, euclidean_strictness, distance_maximum, cutoff,
+            output_directory, blast_bin, blast_db, hhsearch_bin,
+            hhsearch_db, topolink_bin, compute_scoring, verbose_level,
+            af_complex_model, af_complex_auto,
+        )
+        return
+
+    verbose_print(f"Check Updates for SIFTS and pdbaa databases.", 0, 1)
+    try:
+        db_updater(["-s", 14, "-p", 14, "-d", blast_db])
+    except SystemExit:
+        pass
+    except Exception as e:
+        print("Error during database update:", repr(e))
+        raise(e)
+    verbose_print("===================================", 0, 1, start='')
+
+    filename = '.'.join(input_filepath.split('/')[-1].split('.')[:-1])
+
+    # Run Module01
+    try:
+        run_claudio_lists(["-i", input_filepath, "-it", input_temppath,
+                           "-p", projections, "-s", not read_temps,
+                           "-x", xl_residues, "-t", search_tool,
+                           "-o", output_directory, "-bl", blast_bin,
+                           "-bldb", blast_db, "-hh", hhsearch_bin,
+                           "-hhdb", hhsearch_db, "-v", verbose_level])
+    except SystemExit:
+        pass
+    except Exception as e:
+        print("Error during preprocessing:", repr(e))
+        raise(e)
+    if not os.path.exists(f"{output_directory}{filename}.sqcs"):
+        sys.exit(1)
+
+    # Run Module03
+    try:
+        run_claudio_ops(["-i", f"{output_directory}{filename}.sqcs",
+                         "-o", output_directory, "-v", verbose_level])
+    except SystemExit:
+        pass
+    except Exception as e:
+        print("Error during ops analysis:", repr(e))
+        raise(e)
+    if not os.path.exists(f"{output_directory}{filename}.sqcs_ops.csv"):
+        sys.exit(1)
+
+    # Run Module02
+    try:
+        run_claudio_structdi(["-i", f"{output_directory}{filename}.sqcs",
+                              "-it", input_temppath, "-rt", read_temps,
+                              "-t", search_tool, "-x", xl_residues,
+                              "-pc", plddt_cutoff, "-lmin", linker_minimum,
+                              "-lmax", linker_maximum, "-e", e_value,
+                              "-qi", query_id, "-c", coverage,
+                              "-r", res_cutoff, "-o", output_directory,
+                              "-bl", blast_bin, "-bldb", blast_db,
+                              "-hh", hhsearch_bin, "-hhdb", hhsearch_db,
+                              "-tl", topolink_bin, "-v", verbose_level])
+    except SystemExit:
+        pass
+    except Exception as e:
+        print("Error during structural analysis:", repr(e))
+        raise(e)
+    if not os.path.exists(f"{output_directory}{filename}.sqcs_structdi.csv"):
+        sys.exit(1)
+
+    # Run Module04
+    try:
+        if os.path.exists(f"{output_directory}{filename}.sqcs_structdi.csv") and \
+                os.path.exists(f"{output_directory}{filename}.sqcs_ops.csv"):
+            run_claudio_xl(["-i",
+                            f"{output_directory}{filename}.sqcs_structdi.csv",
+                            "-i2",
+                            f"{output_directory}{filename}.sqcs_ops.csv",
+                            "-p", plddt_cutoff, "-lmin", linker_minimum,
+                            "-lmax", linker_maximum,
+                            "-es", euclidean_strictness,
+                            "-dm", distance_maximum, "-c", cutoff,
+                            "-x", xl_residues,
+                            "-o", output_directory, "-s", compute_scoring,
+                            "-v", verbose_level])
+    except SystemExit:
+        if os.path.exists(f"{output_directory}{filename}_final.csv"):
+            os.remove(f"{output_directory}{filename}.sqcs")
+            os.remove(f"{output_directory}{filename}.sqcs_structdi.csv")
+            os.remove(f"{output_directory}{filename}.sqcs_ops.csv")
+        pass
+    except Exception as e:
+        print("Error during result combination:", repr(e))
+        raise(e)
+
+    verbose_print(f"\nFinished full CLAUDIO pipeline execution (Total elapsed time: "
+                  f"{round_self(time.time() - start_time, 2)}s)",
+                  0, verbose_level, start='')
+    verbose_print("===================================", 0, verbose_level, start='')
+
+    sys.exit(0)
+
+
+
+def _run_af_pipeline(
+    input_filepath, input_temppath, projections, read_temps,
+    xl_residues, search_tool, e_value, query_id,
+    coverage, res_cutoff, plddt_cutoff, linker_minimum,
+    linker_maximum, euclidean_strictness, distance_maximum, cutoff,
+    output_directory, blast_bin, blast_db, hhsearch_bin,
+    hhsearch_db, topolink_bin, compute_scoring, verbose_level,
+    af_complex_model, af_complex_auto,
+):
+    start_time = time.time()
     read_temps = evaluate_boolean_input(read_temps)
     compute_scoring = evaluate_boolean_input(compute_scoring)
     input_temppath = input_temppath or None
@@ -215,15 +301,9 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
     sqcs_path = f"{output_directory}{filename}.sqcs"
     ops_path = f"{sqcs_path}_ops.csv"
     structure_path = f"{sqcs_path}_structdi.csv"
-    final_path = f"{output_directory}{filename}_final.csv"
-
-    if not af_mode:
-        verbose_print("Check updates for SIFTS and pdbaa databases.",
-                      0, verbose_level)
-        _run_stage(
-            db_updater, sifts_threshold=14, pdbaa_threshold=14,
-            pdbaa_dir=blast_db,
-        )
+    # M4 uses the part before the first dot for its output filename.
+    final_name = os.path.basename(structure_path).split(".")[0]
+    final_path = f"{output_directory}{final_name}_final.csv"
 
     _run_stage(
         run_claudio_lists,
@@ -233,8 +313,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         output_directory=output_directory, blast_bin=blast_bin,
         blast_db=blast_db, hhsearch_bin=hhsearch_bin,
         hhsearch_db=hhsearch_db, verbose_level=verbose_level,
-        skip_protein_structure_search=af_mode,
-        preserve_source_records=af_mode or policies is not None,
+        skip_protein_structure_search=True,
+        preserve_source_records=True,
     )
     _require_output(sqcs_path)
 
@@ -256,7 +336,6 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         hhsearch_bin=hhsearch_bin, hhsearch_db=hhsearch_db,
         topolink_bin=topolink_bin, verbose_level=verbose_level,
         af_complex_model=af_complex_model, af_complex_auto=af_complex_auto,
-        topolink_seed=topolink_seed
     )
     _require_output(structure_path)
 
@@ -269,14 +348,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         distance_maximum=distance_maximum, cutoff=cutoff,
         output_directory=output_directory, compute_scoring=compute_scoring,
         xl_residues=xl_residues, verbose_level=verbose_level,
-        **assessment_options,
     )
     _require_output(final_path)
-
-    # AF intermediate tables retain source, model, and mapping details.
-    if not af_mode:
-        for path in (sqcs_path, structure_path, ops_path):
-            os.remove(path)
 
     verbose_print(f"\nFinished full CLAUDIO pipeline execution (Total elapsed time: "
                   f"{round_self(time.time() - start_time, 2)}s)",

@@ -129,30 +129,7 @@ class TestAFComplexM2CLI(unittest.TestCase):
         distance.assert_called_once()
 
 
-    def test_topolink_seed_reaches_distance_stage_in_each_mode(self):
-        for mode in ([], ["--af-complex-auto"],
-                     ["--af-complex-model", "AF-0000000208747029"]):
-            with self.subTest(mode=mode), patch.object(
-                m2, "run_structure_search", side_effect=self.write_search_output,
-            ) as search, patch.object(m2, "run_distance_analysis") as distance:
-                result = self.invoke_m2([*mode, "--topolink-seed", "20261026"])
-                self.assertEqual(result.exit_code, 0,
-                                 result.output + repr(result.exception))
-                self.assertEqual(distance.call_args.kwargs["topolink_seed"], 20261026)
-                self.assertNotIn("topolink_seed", search.call_args.kwargs)
 
-    def test_invalid_topolink_seed_stops_before_structure_search(self):
-        for seed in ("0", "-1", "2147483648", "1.5", "random"):
-            with self.subTest(seed=seed), patch.object(
-                m2, "run_structure_search",
-            ) as search, patch.object(m2, "run_distance_analysis") as distance:
-                result = self.invoke_m2(["--topolink-seed", seed])
-                self.assertEqual(result.exit_code, 2, result.output)
-                self.assertIn("--topolink-seed", result.output)
-                self.assertIn("Invalid value", result.output)
-                search.assert_not_called()
-                distance.assert_not_called()
-                self.assertFalse(self.output.exists())
 
 
 if __name__ == "__main__":

@@ -300,19 +300,18 @@ class TestAFComplexDistances(unittest.TestCase):
         with TemporaryDirectory() as folder:
             with patch(
                 "claudio.module02.src_distance_reevaluation.algorithm."
-                "calc_site_distances.subprocess.run",
+                "af_complex_distances.subprocess.run",
                 side_effect=run_topolink,
             ) as topolink:
                 result = calculate_complex_site_dists(
                     data, folder + "/", "K", 0.0, None, 0
                 )
             topolink.assert_called_once()
-            maps = list(Path(folder).glob("*/residue_map.csv"))
-            self.assertEqual(len(maps), 1)
-            identities = pd.read_csv(maps[0])
-            self.assertEqual(set(identities["source_chain"]), {"A", "B"})
+            logs = list(Path(folder).glob("*/topo_complex.log"))
+            self.assertEqual(len(logs), 1)
+            self.assertIn(self.row["path"], logs[0].read_text())
             self.assertEqual(
-                set(identities["source_path"]), {self.row["path"]}
+                len(list(Path(folder).glob("*/struct/structure.pdb"))), 1
             )
 
         pd.testing.assert_frame_equal(data, original)

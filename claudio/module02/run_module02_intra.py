@@ -41,17 +41,11 @@ def _run_stage(command, **params):
 @click.option("-v", "--verbose-level", default=2)
 @click.option("--af-complex-model", default=None)
 @click.option("--af-complex-auto", is_flag=True, default=False)
-@click.option(
-    "--topolink-seed",
-    type=click.IntRange(1, 2147483647),
-    default=None,
-    help="Fixed TopoLink seed; omitted values use the native input template.",
-)
 def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
          plddt_cutoff, linker_minimum, linker_maximum, e_value, query_id,
          coverage, res_cutoff, output_directory, blast_bin, blast_db,
          hhsearch_bin, hhsearch_db, topolink_bin, verbose_level,
-         af_complex_model=None, af_complex_auto=False, topolink_seed=None):
+         af_complex_model=None, af_complex_auto=False):
     """
     Performs structural analysis using structure search and distance evaluation submodules
     
@@ -143,6 +137,5 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
         output_directory=output_directory,
         topolink_bin=topolink_bin,
         verbose_level=verbose_level,
-        topolink_seed=topolink_seed,
     )
     sys.exit(0)

@@ -130,7 +130,7 @@ class TestAFComplexM2Integration(unittest.TestCase):
                     side_effect=self.afdb_response,
                 ) as network, patch(
                     "claudio.module02.src_distance_reevaluation.algorithm."
-                    "calc_site_distances.subprocess.run",
+                    "af_complex_distances.subprocess.run",
                     side_effect=self.run_topolink,
                 ) as topolink:
                     result = self.invoke_m2(self.data, output, options)
@@ -178,7 +178,7 @@ class TestAFComplexM2Integration(unittest.TestCase):
             "claudio.utils.af_complex.requests.get", side_effect=no_candidate,
         ) as network, patch(
             "claudio.module02.src_distance_reevaluation.algorithm."
-            "calc_site_distances.subprocess.run",
+            "af_complex_distances.subprocess.run",
         ) as topolink:
             result = self.invoke_m2(self.data, output, ["--af-complex-auto"])
 

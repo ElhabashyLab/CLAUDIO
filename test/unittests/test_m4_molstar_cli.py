@@ -53,8 +53,6 @@ class TestM4MolstarCLI(unittest.TestCase):
             "pdb_method": "X-RAY DIFFRACTION", "pdb_resolution": 2.0,
             "pdb_pos_a": 3, "pdb_pos_b": 9, "pLDDT_a": "-", "pLDDT_b": "-",
             "is_interfaced": True, "eucl_dist": 6.0, "topo_dist": 20.0,
-            "position_status_a": "valid", "position_status_b": "valid",
-            "res_crit_a": True, "res_crit_b": True,
         }
         rows = pd.DataFrame([
             row,
@@ -92,12 +90,11 @@ class TestM4MolstarCLI(unittest.TestCase):
         self.assertFalse(self.model_path.with_suffix(".pml").exists())
         final = pd.read_csv(self.output / "example_final.csv", index_col=0)
         self.assertNotIn("original_XL_type", final.columns)
-        self.assertEqual(final["XL_type"].tolist(), ["intra", "intra"])
-        self.assertEqual(final["legacy_XL_type"].tolist(), ["intra", "inter"])
+        self.assertEqual(final["XL_type"].tolist(), ["intra", "inter"])
         html = pages[0].read_text(encoding="utf-8")
         for source in final["source_record_id"]:
             self.assertIn(source, html)
-        self.assertIn("distance above range", final["legacy_evidence"].iloc[1])
+        self.assertIn("distance above range", html)
 
     def test_rerunning_m4_keeps_the_previous_visualization(self):
         self.run_m4()
@@ -133,7 +130,7 @@ class TestM4MolstarCLI(unittest.TestCase):
         self.output.mkdir()
         source = self.root / "example.csv"
         source.write_text("input\n", encoding="utf-8")
-        for suffix in [".sqcs", ".sqcs_ops.csv", ".sqcs_structdi.csv", "_final.csv"]:
+        for suffix in [".sqcs", ".sqcs_ops.csv", ".sqcs_structdi.csv"]:
             (self.output / ("example" + suffix)).write_text("input\n", encoding="utf-8")
 
         with ExitStack() as stack:
@@ -146,4 +143,6 @@ class TestM4MolstarCLI(unittest.TestCase):
             ])
         self.assertEqual(result.exit_code, 0, result.output + repr(result.exception))
         run_m4.assert_called_once()
-        self.assertEqual(run_m4.call_args.kwargs["xl_residues"], "K:CA:")
+        arguments = run_m4.call_args.args[0]
+        self.assertIn("-x", arguments)
+        self.assertEqual(arguments[arguments.index("-x") + 1], "K:CA:")
