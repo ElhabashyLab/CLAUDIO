@@ -32,15 +32,6 @@ def combine_inter_reevaluations(data: pd.DataFrame, plddt_cutoff: float,
     data : pd.DataFrame
     """
 
-    # Keep the first classification when previously evaluated rows are rerun.
-    if "original_XL_type" not in data.columns:
-        if "XL_type" in data.columns:
-            data["original_XL_type"] = data["XL_type"].copy()
-        else:
-            # M2 initially classifies by protein identity, before using evidence.
-            data["original_XL_type"] = "inter"
-            data.loc[data["unip_id_a"] == data["unip_id_b"], "original_XL_type"] = "intra"
-
     if compute_scoring:
         # new crosslink type based on score
         data["inter_score"] = data.apply(
