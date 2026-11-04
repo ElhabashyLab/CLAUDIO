@@ -271,6 +271,13 @@ claudio --help
 
 ---
 
+# Contact
+If you have any questions or inquiries, please feel free to contact Hadeer Elhabashy at (Elhabashylab [@] gmail.com)
+
+# License
+- **CLAUDIO code** is licensed under the [MIT License](./LICENSE).
+⭐ If this tool helped your research, please consider starring the repository.
+
 ---
 ## 5 References :page_with_curl:
 * [1] Ferrari, Allan JR, et al. "TopoLink: evaluation of structural models using chemical crosslinking distance constraints." Bioinformatics 35.17 (2019): 3169-3170.
