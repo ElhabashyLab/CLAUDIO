@@ -276,6 +276,7 @@ If you have any questions or inquiries, please feel free to contact Hadeer Elhab
 
 # License
 - **CLAUDIO code** is licensed under the [MIT License](./LICENSE).
+  
 ⭐ If this tool helped your research, please consider starring the repository.
 
 ---
