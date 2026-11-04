@@ -51,7 +51,6 @@ class TestM2MMCIFMetadata(unittest.TestCase):
             "because its metadata uses a different format",
         )
 
-
     def test_applies_method_specific_resolution_and_inclusive_cutoff(self):
         for method, key, other_key in [
             ("X-RAY DIFFRACTION", "_refine.ls_d_res_high",
@@ -171,6 +170,7 @@ class TestM2MMCIFMetadata(unittest.TestCase):
                     ),
                     (True, method, "NOT APPLICABLE"),
                 )
+
 
 if __name__ == "__main__":
     unittest.main()

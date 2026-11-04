@@ -183,8 +183,6 @@ def calculate_site_dists(data: pd.DataFrame, temp_dir: str,
                                        verbose_level, topolink_seed=topolink_seed)
 
     return data
-
-
 def parse_topolink_distance(token):
     """Separate a numeric result from a reported lower bound."""
     missing = float("nan")

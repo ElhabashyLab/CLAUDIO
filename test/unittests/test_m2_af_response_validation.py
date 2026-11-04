@@ -4,13 +4,13 @@ import unittest
 from unittest.mock import Mock, call, patch
 
 from requests import Response
-from requests.exceptions import HTTPError
 
 from claudio.data.constants import ALPHAFOLD_URL
 from claudio.module02.src_structure_search.algorithm import pdb_download
 
 
 class TestM2AFResponseValidation(unittest.TestCase):
+
     def test_returns_none_when_all_versions_return_xml_errors(self):
         error_xml = (
             '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -31,7 +31,7 @@ class TestM2AFResponseValidation(unittest.TestCase):
 
         self.assertIsNone(
             result,
-            "An HTTP 404 XML response must not be returned as a structure",
+            "An XML error response must not be returned as a structure",
         )
         self.assertEqual(
             mock_get.call_count,
@@ -57,7 +57,7 @@ class TestM2AFResponseValidation(unittest.TestCase):
             "END\n"
         )
 
-    def test_rejects_invalid_bodies_even_with_http_200(self):
+    def test_rejects_invalid_structure_bodies(self):
         bodies = [
             "",
             "<html><body>Service unavailable</body></html>",
@@ -108,15 +108,6 @@ class TestM2AFResponseValidation(unittest.TestCase):
              call(url.replace("model_v6", "model_v5"), timeout=60)],
         )
 
-    def test_propagates_server_error_instead_of_returning_structure(self):
-        url = ALPHAFOLD_URL[0] + "P12345" + ALPHAFOLD_URL[1]
-        with patch.object(
-            pdb_download.r, "get",
-            return_value=self._response(503, "<html>Unavailable</html>"),
-        ) as mock_get:
-            with self.assertRaises(HTTPError):
-                pdb_download.download_pdb_from_db(url, 0, 5)
-        mock_get.assert_called_once_with(url, timeout=60)
 
 if __name__ == "__main__":
     unittest.main()

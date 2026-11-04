@@ -112,3 +112,40 @@ def fetch_complex_candidates(uniprot_id):
 
     response.raise_for_status()
     return response.json()
+
+def restore_preprocessing_tracking(data, sqcs_path):
+    """Recover AF mapping provenance from the matching M1 report, not M3 input."""
+    import pandas as pd
+
+    source = Path(sqcs_path)
+    report_path = source.with_name(source.stem + "_record_tracking.csv")
+    if not report_path.is_file():
+        return data.copy()
+    report = pd.read_csv(report_path, index_col=0)
+    if not report.index.is_unique or not data.index.is_unique:
+        raise ValueError("Preprocessing report and input indices must be unique")
+    if not data.index.isin(report.index).all():
+        raise ValueError("Input rows are missing from the preprocessing report")
+    report = report.loc[data.index]
+    for column in ("unip_id_a", "unip_id_b", "pos_a", "pos_b"):
+        if column not in report or column not in data:
+            raise ValueError(f"Preprocessing report identity is missing: {column}")
+        equal = data[column].eq(report[column]).fillna(False)
+        equal |= data[column].isna() & report[column].isna()
+        if not equal.all():
+            raise ValueError(f"Input does not match preprocessing report: {column}")
+    if "included_in_sqcs" not in report or not report["included_in_sqcs"].eq(True).all():
+        raise ValueError("Input contains a row excluded by the preprocessing report")
+    result = data.copy()
+    columns = ["source_record_id", "candidate_id", "original_pos_a", "original_pos_b",
+               "position_status_a", "position_status_b"]
+    for column in columns:
+        if column not in report:
+            continue
+        if column in result:
+            equal = result[column].eq(report[column]).fillna(False)
+            equal |= result[column].isna() & report[column].isna()
+            if not equal.all():
+                raise ValueError(f"Input contradicts preprocessing report: {column}")
+        result[column] = report[column]
+    return result

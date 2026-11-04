@@ -16,6 +16,7 @@ from claudio.module02.src_distance_reevaluation.algorithm import search_pdb_pos
 
 
 class TestM2AFDownloadCache(unittest.TestCase):
+
     def test_timeout_does_not_poison_a_later_download(self):
         model = Model(0)
         chain = Chain("A")
@@ -76,6 +77,7 @@ class TestM2AFDownloadCache(unittest.TestCase):
                 np.testing.assert_allclose(
                     downloaded_chain[1]["CB"].coord, [5.0, 0.0, 0.0]
                 )
+
     def test_replaces_an_existing_invalid_cache(self):
         model = Model(0)
         chain = Chain("A")
@@ -130,6 +132,7 @@ class TestM2AFDownloadCache(unittest.TestCase):
                     np.testing.assert_allclose(
                         actual_chain[1]["CB"].coord, [5.0, 0.0, 0.0]
                     )
+
     def test_invalid_download_leaves_no_cache_or_temporary_file(self):
         for content in ("", "not a PDB structure\n"):
             with self.subTest(content=content):
@@ -161,5 +164,6 @@ class TestM2AFDownloadCache(unittest.TestCase):
                         list(root.iterdir()), [],
                         "Invalid downloads must not leave temporary files",
                     )
+
 if __name__ == "__main__":
     unittest.main()

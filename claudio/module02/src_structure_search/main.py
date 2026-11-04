@@ -6,6 +6,7 @@ import time
 import click
 
 from claudio.module02.src_structure_search.io.read_input import read_in
+from claudio.utils.af_complex import restore_preprocessing_tracking
 from claudio.module02.src_structure_search.algorithm.structure_search import structure_search
 from claudio.module02.src_structure_search.io.read_temp import read_temp_file
 from claudio.module02.src_structure_search.algorithm.pdb_download import download_pdbs
@@ -98,6 +99,7 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
             output_directory, input_filepath
         )
         data, filename = read_in(input_filepath)
+        data = restore_preprocessing_tracking(data, input_filepath)
 
         structures_dir = os.path.join(output_directory, "structures")
         if af_complex_auto:

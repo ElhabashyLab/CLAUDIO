@@ -118,7 +118,7 @@ class TestM1CandidateIds(unittest.TestCase):
 
         self.assertTrue(result["candidate_id"].isna().all())
         pd.testing.assert_frame_equal(result[original.columns], original)
-    def test_preserves_candidate_id_and_missing_values_in_sqcs_output(self):
+    def test_preserves_candidate_ids_in_report_and_filters_sqcs(self):
         first = {
             "source_record_id": "record_000001",
             "unip_id_a": "P1", "unip_id_b": "P2",
@@ -144,13 +144,14 @@ class TestM1CandidateIds(unittest.TestCase):
             saved = pd.read_csv(
                 Path(folder) / "candidate_ids.sqcs", index_col=0
             )
+            report = pd.read_csv(Path(folder) / "candidate_ids_record_tracking.csv", index_col=0)
 
-        self.assertIn("candidate_id", saved.columns)
-        self.assertEqual(
-            saved.loc[7, "candidate_id"], expected.loc[7, "candidate_id"]
-        )
-        self.assertTrue(pd.isna(saved.loc[12, "candidate_id"]))
-        pd.testing.assert_frame_equal(saved[original.columns], original)
+        self.assertNotIn("candidate_id", saved.columns)
+        self.assertEqual(saved.index.tolist(), [7])
+        self.assertEqual(report.loc[7, "candidate_id"], expected.loc[7, "candidate_id"])
+        self.assertTrue(pd.isna(report.loc[12, "candidate_id"]))
+        self.assertFalse(report.loc[12, "included_in_sqcs"])
+        self.assertEqual(saved["experiment"].tolist(), ["condition_1"])
 
     def test_rejects_candidate_id_from_input_or_column_projection(self):
         record = {

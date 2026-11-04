@@ -268,7 +268,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         euclidean_strictness=euclidean_strictness,
         distance_maximum=distance_maximum, cutoff=cutoff,
         output_directory=output_directory, compute_scoring=compute_scoring,
-        verbose_level=verbose_level,
+        xl_residues=xl_residues, verbose_level=verbose_level,
         **assessment_options,
     )
     _require_output(final_path)

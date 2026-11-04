@@ -160,41 +160,36 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         extended = pd.read_csv(output / f"{stem}_extended.csv", index_col=0)
         pd.testing.assert_frame_equal(final[structural.columns], structural)
         pd.testing.assert_frame_equal(extended, final)
-        self.assertEqual(final["source_record_id"].tolist(), [
-            "record_000001", "record_000002", "record_000003", "record_000004",
-        ])
-        self.assertEqual(final["experiment"].tolist(), [
-            "condition_A", "condition_B", "condition_C", "condition_D",
-        ])
-        self.assertEqual(final["position_status_a"].tolist(),
-                         ["corrected", "valid", "ambiguous", "corrected"])
-        self.assertEqual(final["original_pos_a"].tolist(), [76, 23, 100, 76])
-        self.assertEqual(final["pos_a"].tolist(), [67, 23, 100, 67])
-        self.assertTrue(pd.isna(final.iloc[2]["candidate_id"]))
+        expected_sources = ["record_000001", "record_000002", "record_000004"]
+        self.assertEqual(final["source_record_id"].tolist(), expected_sources)
+        self.assertEqual(final["experiment"].tolist(), ["condition_A", "condition_B", "condition_D"])
+        self.assertEqual(final["position_status_a"].tolist(), ["corrected", "valid", "corrected"])
+        self.assertEqual(final["original_pos_a"].tolist(), [76, 23, 76])
+        self.assertEqual(final["pos_a"].tolist(), [67, 23, 67])
         self.assertTrue(final["structure_source"].eq("af_complex").all())
-        expected_relations = (["unknown"] * 4 if self.no_candidates
-                              else ["cross_chain"] * 4)
-        expected_reason = ("no_candidate_model" if self.no_candidates
-                           else "different_model_chains")
-        self.assertEqual(final["model_chain_relation"].tolist(), expected_relations)
-        self.assertTrue(final["model_chain_relation_reason"].eq(expected_reason).all())
-        self.assertTrue(final["chain_relation_rule_version"].eq("structure-chain-v1").all())
+        relation = "unknown" if self.no_candidates else "cross_chain"
+        reason = "no_candidate_model" if self.no_candidates else "different_model_chains"
+        self.assertTrue(final["model_chain_relation"].eq(relation).all())
+        self.assertTrue(final["model_chain_relation_reason"].eq(reason).all())
         self.assertTrue(final["XL_type_scope"].eq("model_candidate").all())
-        self.assertEqual(final["XL_type"].tolist(),
-                         ["undetermined"] * 4 if self.no_candidates
-                         else ["inter", "inter", "undetermined", "inter"])
+        self.assertTrue(final["XL_type"].eq("undetermined" if self.no_candidates else "inter").all())
         self.assertIn("legacy_XL_type", final)
+        self.assertNotIn("original_XL_type", final)
         self.assertNotIn("XL_confirmed", final)
-        duplicates = pd.read_csv(output / f"{stem}_duplicate_sources.csv")
-        self.assertTrue(duplicates.empty)
-        self.assertEqual(final.iloc[0]["candidate_id"], final.iloc[3]["candidate_id"])
+        report = pd.read_csv(output / f"{stem}_record_tracking.csv", index_col=0)
+        self.assertEqual(len(report), 4)
+        rejected = report.loc[~report["included_in_sqcs"]]
+        self.assertEqual(rejected["source_record_id"].tolist(), ["record_000003"])
+        self.assertEqual(rejected["position_status_a"].tolist(), ["ambiguous"])
+        self.assertEqual(final.iloc[0]["candidate_id"], final.iloc[2]["candidate_id"])
         self.assertEqual(final["candidate_id"].nunique(), 2)
-        for path in (m1_path, ops_path, structure_path):
+        for path in (m1_path, ops_path):
             stage = pd.read_csv(path, index_col=0)
-            self.assertEqual(stage["source_record_id"].tolist(),
-                             final["source_record_id"].tolist())
-            self.assertEqual(stage["experiment"].tolist(),
-                             final["experiment"].tolist())
+            self.assertEqual(stage.index.tolist(), final.index.tolist())
+            self.assertEqual(stage["experiment"].tolist(), final["experiment"].tolist())
+            for column in ("source_record_id", "position_status_a", "position_status_b", "original_pos_a"):
+                self.assertNotIn(column, stage)
+        self.assertEqual(len(list((output / "visualization").glob("*/index.html"))), 1)
         return final
 
     def test_manual_and_auto_modes_keep_provenance_through_all_modules(self):
@@ -216,21 +211,17 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
                 topolink = self.run_pipeline(output, options)
                 topolink.assert_called_once()
                 final = self.check_source_outputs(output)
-                self.assertEqual(final["chain_a"].tolist(), ["A", "B", "A", "A"])
-                self.assertEqual(final["chain_b"].tolist(), ["B", "A", "B", "B"])
+                self.assertEqual(final["chain_a"].tolist(), ["A", "B", "A"])
+                self.assertEqual(final["chain_b"].tolist(), ["B", "A", "B"])
                 self.assertTrue(final["af_model_id"].eq(MODEL_ID).all())
                 self.assertEqual(final["distance_status"].tolist(),
-                                 ["computed", "computed", "not_evaluable", "computed"])
+                                 ["computed", "computed", "computed"])
                 np.testing.assert_allclose(final.iloc[:2]["eucl_dist"], expected, atol=0.001)
                 np.testing.assert_allclose(final.iloc[:2]["topo_dist"],
                                            np.array(expected) + 1, atol=0.001)
-                repeated = final.iloc[3]
+                repeated = final.iloc[2]
                 self.assertAlmostEqual(repeated["eucl_dist"], final.iloc[0]["eucl_dist"])
                 self.assertAlmostEqual(repeated["topo_dist"], final.iloc[0]["topo_dist"])
-                unresolved = final.iloc[2]
-                self.assertEqual(unresolved["distance_reason"], "unresolved_position")
-                self.assertTrue(pd.isna(unresolved["topo_dist"]))
-                self.assertTrue(pd.isna(unresolved["homo_pep_overl"]))
                 for column in ("path", "af_metadata_path"):
                     self.assertTrue(Path(final.iloc[0][column]).is_file())
                 plt.close("all")
@@ -252,7 +243,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             topolink = self.run_pipeline(output, ["--af-complex-auto"])
         topolink.assert_called_once()
         final = self.check_source_outputs(output)
-        first, bounded, unresolved = (final.iloc[i] for i in range(3))
+        first, bounded = (final.iloc[i] for i in range(2))
         self.assertEqual(first["distance_status"], "computed")
         self.assertAlmostEqual(first["topo_dist"], 66.751)
         self.assertEqual(bounded["distance_status"], "lower_bound")
@@ -261,8 +252,6 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         self.assertAlmostEqual(bounded["topo_dist_lower_bound"], 75.957)
         self.assertTrue(pd.isna(bounded["topo_dist"]))
         self.assertFalse(bounded["legacy_XL_confirmed"])
-        self.assertEqual(unresolved["distance_reason"], "unresolved_position")
-        self.assertTrue(pd.isna(unresolved["topo_dist_lower_bound"]))
 
     def test_native_failure_stops_before_final_output(self):
         output = self.root / "native_failure"
@@ -350,8 +339,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             )
             self.assertEqual(saved["topo_dist_raw"].iloc[:2].tolist(),
                              ["66.750", "80.000"])
-            self.assertEqual(saved["topo_dist_raw"].iloc[3], "66.750")
-            self.assertTrue(pd.isna(saved["topo_dist_raw"].iloc[2]))
+            self.assertEqual(saved["topo_dist_raw"].iloc[2], "66.750")
             self.assertEqual(saved["topo_dist"].iloc[:2].tolist(), [66.75, 80.0])
             self.assertEqual(saved["distance_status"].iloc[:2].tolist(),
                              ["computed", "computed"])
@@ -371,10 +359,9 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
                 self.run_pipeline(output, [*mode, *policies])
                 final = self.check_source_outputs(output)
                 self.assertEqual(final["eucl_assessment_status"].tolist(),
-                                 ["satisfied", "satisfied", "not_evaluable", "satisfied"])
+                                 ["satisfied", "satisfied", "satisfied"])
                 self.assertEqual(final["topo_assessment_status"].tolist(),
-                                 ["satisfied", "violated", "not_evaluable", "satisfied"])
-                self.assertEqual(final.iloc[2]["topo_assessment_reason"], "unresolved_position")
+                                 ["satisfied", "violated", "satisfied"])
                 self.assertTrue(final["eucl_assessment_maximum"].eq(100.0).all())
                 self.assertTrue(final["topo_assessment_maximum"].eq(70.0).all())
                 self.assertTrue(final["topo_assessment_plddt_cutoff"].eq(0.0).all())
@@ -424,7 +411,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             self.assertTrue(final[f"{prefix}_assessment_reason"].eq("no_candidate_model").all())
         audit = pd.read_csv(output / "crosslinks.run1_candidate_audit.csv", index_col=0)
         self.assertEqual(audit["experiment"].tolist(),
-                         ["condition_A", "condition_B", "condition_C", "condition_D"])
+                         ["condition_A", "condition_B", "condition_D"])
         self.assertTrue(audit["m4_selection_status"].eq("retained").all())
 
 

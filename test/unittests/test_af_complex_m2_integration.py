@@ -198,3 +198,43 @@ class TestAFComplexM2Integration(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestAFPreprocessingReport(unittest.TestCase):
+    def test_restores_only_exported_rows_by_index(self):
+        from claudio.module01.src.io.write_out import write_outputs
+        from claudio.utils.af_complex import restore_preprocessing_tracking
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            rows = pd.DataFrame({
+                "unip_id_a": ["P1", "P1"], "unip_id_b": ["P2", "P2"],
+                "pos_a": [2, 4], "pos_b": [3, 3],
+                "source_record_id": ["bad", "good"],
+                "candidate_id": [None, "candidate_1"],
+                "original_pos_a": [2, 2], "original_pos_b": [3, 3],
+                "position_status_a": ["ambiguous", "corrected"],
+                "position_status_b": ["valid", "valid"],
+            }, index=[2, 8])
+            write_outputs(rows, pd.DataFrame(), "input", folder + "/", 0)
+            source = root / "input.sqcs"
+            sqcs = pd.read_csv(source, index_col=0)
+            self.assertEqual(sqcs.index.tolist(), [8])
+            self.assertNotIn("source_record_id", sqcs)
+            self.assertNotIn("position_status_a", sqcs)
+            restored = restore_preprocessing_tracking(sqcs, source)
+            self.assertEqual(restored.index.tolist(), [8])
+            self.assertEqual(restored.loc[8, "source_record_id"], "good")
+            self.assertEqual(restored.loc[8, "candidate_id"], "candidate_1")
+            self.assertEqual(restored.loc[8, "position_status_a"], "corrected")
+            with self.assertRaisesRegex(ValueError, "report"):
+                restore_preprocessing_tracking(sqcs.assign(pos_a=5), source)
+            rejected = rows.loc[[2], ["unip_id_a", "unip_id_b", "pos_a", "pos_b"]]
+            with self.assertRaisesRegex(ValueError, "report"):
+                restore_preprocessing_tracking(rejected, source)
+
+    def test_legacy_input_without_a_report_is_unchanged(self):
+        from claudio.utils.af_complex import restore_preprocessing_tracking
+        with TemporaryDirectory() as folder:
+            data = pd.DataFrame({"unip_id_a": ["P1"]})
+            result = restore_preprocessing_tracking(data, Path(folder) / "old.sqcs")
+            pd.testing.assert_frame_equal(result, data)

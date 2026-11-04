@@ -4,3 +4,4 @@ matplotlib==3.6.3
 pandas==1.5.3
 requests==2.28.2
 numpy==1.23.5
+molviewspec==1.8.1; python_version >= '3.10'

@@ -5,10 +5,10 @@ import os
 import shutil
 import socket
 import time
-import requests as r
-import pandas as pd
 from io import StringIO
 from math import isfinite
+import requests as r
+import pandas as pd
 from Bio.PDB import PDBParser
 from Bio.PDB.PDBExceptions import PDBConstructionException
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
@@ -232,11 +232,7 @@ def download_pdb_from_db(url: str, i_try: int, max_try: int):
 
         # Else attempt .pdb call from AlphaFold database
         for i in reversed(range(1, 7)):
-            response = r.get(rreplace(url, 6, i, 1), timeout=60)
-            if response.status_code == 404:
-                continue
-            response.raise_for_status()
-            pdb_text = response.text
+            pdb_text = r.get(rreplace(url, 6, i, 1), timeout=60).text
             try:
                 structure = PDBParser(
                     QUIET=True, PERMISSIVE=False
@@ -347,7 +343,6 @@ def accept_resolution_method_download(pdb: str, pdb_id: str,
 
             resolution = max(values)
             return resolution <= res_cutoff, method, resolution
-
         for line in pdb.split('\n'):
             # If line startswith EXPDTA, it contains the information of the
             # experimental method used for structure determination

@@ -104,10 +104,16 @@ def double_check_data(data: pd.DataFrame, filename: str,
             log_text += "\tISSUE\n"
 
         # Recompute residue positions for site a and b
-        row, log_text = check_pep_pos(i, row, 'a', df_xl_res, log_text,
-                                      verbose_level)
-        row, log_text = check_pep_pos(i, row, 'b', df_xl_res, log_text,
-                                      verbose_level)
+        try:
+            for site in ("a", "b"):
+                row, log_text = check_pep_pos(
+                    i, row, site, df_xl_res, log_text, verbose_level,
+                )
+        except ValueError as error:
+            log_text += f"{i}_{site}: {error}; entry will be dropped.\n"
+            data.drop(i, inplace=True)
+            log_text += "\tFAIL\n\tREMOVE\n"
+            continue
 
         # ISSUE: Check if peptide occurs multiple times in full sequence
         # as is (possible insertions are not considered)
@@ -295,10 +301,7 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                 f"site {site}: {res_pos}; expected an integer "
                 f"between 1 and {len(peptide)}"
             )
-        if (
-            peptide_position.is_integer()
-            and 1 <= peptide_position <= len(peptide)
-        ):
+        else:
             peptide_position = int(peptide_position)
 
             peptide_residue = peptide[peptide_position - 1]
@@ -476,6 +479,9 @@ def check_pep_pos(i: int, row: pd.Series, site: str, df_xl_res: pd.DataFrame,
                     except Exception:
                         log_text += f"\tres_pos_{site} was not given\n"
                         log_text += "\tFAIL\n"
+
+        if not pos_replaced:
+            raise ValueError(f"Could not correct protein position at site {site}")
 
     if not wrong_pos:
         row[status_column] = "valid"

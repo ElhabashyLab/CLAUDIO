@@ -14,6 +14,7 @@ from claudio.module02.src_distance_reevaluation.algorithm import search_pdb_pos
 
 
 class TestM2DownloadRetries(unittest.TestCase):
+
     def test_structure_download_stops_after_connection_failures(self):
         urls = [
             "https://files.rcsb.org/download/1ABC.pdb",
@@ -53,6 +54,7 @@ class TestM2DownloadRetries(unittest.TestCase):
                     self.assertEqual(result, (None, ""))
                     self.assertEqual(get.call_count, attempts)
                     self.assertEqual(list(Path(folder).iterdir()), [])
+
 
 
 if __name__ == "__main__":

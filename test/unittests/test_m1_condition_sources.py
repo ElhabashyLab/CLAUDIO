@@ -140,7 +140,10 @@ class TestM1ConditionSources(unittest.TestCase):
                 if preserve:
                     self.assertEqual(saved["organelle_fraction"].tolist(),
                                      data["organelle_fraction"].tolist())
-                    self.assertEqual(saved["candidate_id"].nunique(), 1)
+                    report = pd.read_csv(output / "input_record_tracking.csv", index_col=0)
+                    self.assertEqual(report["candidate_id"].nunique(), 1)
+                    self.assertNotIn("candidate_id", saved)
+                    self.assertNotIn("position_status_a", saved)
 
 
 if __name__ == "__main__":

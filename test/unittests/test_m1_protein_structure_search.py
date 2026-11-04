@@ -93,9 +93,13 @@ class TestM1ProteinStructureSearch(unittest.TestCase):
         sequence_search.assert_called_once()
         structure_search.assert_not_called()
         saved = pd.read_csv(self.root / "out" / "input.sqcs", index_col=0)
-        row = saved.iloc[0]
+        self.assertEqual(saved.iloc[0]["experiment"], "condition_A")
+        self.assertEqual(saved.iloc[0]["pos_a"], 3)
+        self.assertNotIn("position_status_a", saved)
+        self.assertNotIn("source_record_id", saved)
+        report = pd.read_csv(self.root / "out" / "input_record_tracking.csv", index_col=0)
+        row = report.iloc[0]
         self.assertEqual(row["source_record_id"], "record_000001")
-        self.assertEqual(row["experiment"], "condition_A")
         self.assertEqual(row["original_pos_a"], 1)
         self.assertEqual(row["pos_a"], 3)
         self.assertEqual(row["position_status_a"], "corrected")

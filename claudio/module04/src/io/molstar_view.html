@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLAUDIO structure visualization</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/molstar@5.13.1/build/viewer/molstar.css">
+  <script src="https://cdn.jsdelivr.net/npm/molstar@5.13.1/build/viewer/molstar.js"></script>
+  <style>
+    body { margin: 0; font: 15px system-ui, sans-serif; color: #24344a; background: #fafbfd; }
+    header, main { padding: 16px 24px; }
+    h1 { margin: 0 0 12px; font-size: 22px; }
+    select, button { padding: 6px 10px; margin-right: 12px; }
+    #viewer { position: relative; height: 65vh; min-height: 400px; background: white; }
+    #status { min-height: 20px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 8px; border-bottom: 1px solid #dce3eb; text-align: left; vertical-align: top; }
+    th { white-space: nowrap; }
+    p { line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CLAUDIO structure visualization</h1>
+    <label for="model">Structure:</label>
+    <select id="model" disabled>${model_options}</select>
+    <button id="save-image" type="button" disabled>Save image</button>
+    <p id="status" role="status">Loading viewer…</p>
+  </header>
+  <div id="viewer"></div>
+  <main>
+    <p>Link colors show the final XL_type: blue = intra, red = inter, gray = unavailable.
+       Dashed lines connect endpoint atoms. Their geometric length is a Euclidean distance,
+       not a TopoLink path. Reported distances and classification evidence are listed below.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Source</th><th>Structure</th><th>original_XL_type</th><th>XL_type</th>
+          <th>eucl_dist (Å)</th><th>topo_dist (Å)</th><th>Evidence</th><th>Visualization</th></tr></thead>
+        <tbody>${link_rows}</tbody>
+      </table>
+    </div>
+    <p>The structure data are included in the MVSX packages. This page loads the Mol* viewer
+       from a CDN, so viewing requires internet access.</p>
+  </main>
+  <script>
+    const model = document.getElementById('model');
+    const status = document.getElementById('status');
+    const saveImage = document.getElementById('save-image');
+    let viewer;
+
+    async function loadModel() {
+      model.disabled = true;
+      saveImage.disabled = true;
+      status.textContent = 'Loading structure…';
+      try {
+        await viewer.loadMvsFromUrl(model.value, 'mvsx', { replaceExisting: true });
+        status.textContent = 'Drag to rotate, scroll to zoom, and hover over a link for details.';
+        saveImage.disabled = false;
+      } catch (error) {
+        status.textContent = 'Could not load the structure: ' + error.message;
+      } finally {
+        model.disabled = false;
+      }
+    }
+
+    async function initialize() {
+      if (location.protocol === 'file:') {
+        status.textContent = 'Serve this folder with python -m http.server 8000, then open http://localhost:8000.';
+        return;
+      }
+      if (!model.options.length) {
+        status.textContent = 'No usable structure was available. See the table for details.';
+        return;
+      }
+      try {
+        viewer = await molstar.Viewer.create('viewer', { layoutIsExpanded: false });
+        await loadModel();
+      } catch (error) {
+        status.textContent = 'Could not start Mol*. Check internet access and browser WebGL support. ' + error.message;
+      }
+    }
+
+    model.addEventListener('change', loadModel);
+    saveImage.addEventListener('click', async () => {
+      try {
+        await viewer.plugin.helpers.viewportScreenshot.download('claudio-structure.png');
+      } catch (error) {
+        status.textContent = 'Could not save the image: ' + error.message;
+      }
+    });
+    initialize();
+  </script>
+</body>
+</html>

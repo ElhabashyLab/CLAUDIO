@@ -18,9 +18,10 @@ setup(
     author_email='alexander.roehl@uni-tuebingen.de, tobias.loeser@student.uni-tuebingen.de',
     description='Structural analysis, mapping, validation, visualization, and modeling of protein cross-links on '
                 'protein and protein-protein interaction.',
-    install_requires=['biopython==1.79', 'click==8.1.3', 'matplotlib==3.6.3', 'pandas==1.5.3', 'requests==2.28.2','numpy==1.24.4'],
+    install_requires=['biopython==1.79', 'click==8.1.3', 'matplotlib==3.6.3', 'pandas==1.5.3', 'requests==2.28.2','numpy==1.24.4',
+                      "molviewspec==1.8.1; python_version >= '3.10'"],
     include_package_data=True,
-    package_data={'': ['data/*']},
+    package_data={'': ['data/*'], 'claudio.module04.src.io': ['molstar_view.html']},
     entry_points={
         'console_scripts': [
             'claudio=claudio.claudio_m:main',

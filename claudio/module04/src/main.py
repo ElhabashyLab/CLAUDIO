@@ -2,7 +2,9 @@
 and collects further evidence for the formation of homo-complexes."""
 import ast
 import sys
+import tempfile
 import time
+from pathlib import Path
 import click
 
 from claudio.module04.src.io.read_ins import read_inputs
@@ -10,6 +12,7 @@ from claudio.module04.src.algorithm.combine_reevals import combine_inter_reevalu
 from claudio.module04.src.algorithm.retrieve_oligo_state import retrieve_oligomeric_states
 from claudio.module04.src.algorithm.create_plots import create_plots
 from claudio.module04.src.io.create_pymol_scripts import setup_pml_scripts
+from claudio.module04.src.io.create_molstar_view import export_molstar_visualization
 from claudio.module04.src.io.write_outs import write_outputs
 from claudio.module04.src.algorithm.structure_assessment import (
     annotate_structure_relationships,
@@ -58,6 +61,8 @@ def _assessment_policies(euclidean, topological):
 @click.option("-c", "--cutoff", default=0.0)
 @click.option("-o", "--output-directory", default="test/out/sample/")
 @click.option("-s", "--compute-scoring", default=False)
+@click.option("-x", "--xl-residues", default="K,M:N:1",
+              help="Residue and atom configuration used for M2 distance calculation.")
 @click.option("-v", "--verbose-level", default=2)
 @click.option(
     "--euclidean-assessment",
@@ -74,7 +79,8 @@ def _assessment_policies(euclidean, topological):
 def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
          linker_maximum, euclidean_strictness, distance_maximum, cutoff,
          output_directory, compute_scoring, verbose_level,
-         euclidean_assessment=None, topological_assessment=None):
+         euclidean_assessment=None, topological_assessment=None,
+         xl_residues="K,M:N:1"):
     """
     Combines the results from the structural and the OPS analysis and
     collects further evidence for the formation of homo-complexes
@@ -91,7 +97,8 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
     cutoff : float,
     output_directory : String,
     compute_scoring : Bool,
-    verbose_level : int
+    verbose_level : int,
+    xl_residues : str
 
     Returns
     -------
@@ -159,6 +166,19 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
         write_outputs(data, filename, compute_scoring, output_directory)
         audit = build_candidate_audit(all_candidates, data, selection_log)
         audit.to_csv(f"{output_directory}{filename}_candidate_audit.csv")
+
+        if sys.version_info < (3, 10):
+            setup_pml_scripts(data)
+        else:
+            verbose_print("Write Mol* structure visualization", 0, verbose_level)
+            visualization_parent = Path(output_directory) / "visualization"
+            visualization_parent.mkdir(parents=True, exist_ok=True)
+            visualization_directory = tempfile.mkdtemp(
+                prefix=f"{filename}_", dir=str(visualization_parent)
+            )
+            export_molstar_visualization(
+                data, visualization_directory, xl_residues=xl_residues
+            )
     runtime = round_self(time.time() - start_time, 2)
     verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')
     verbose_print("===================================", 0, verbose_level, start='')
