@@ -19,7 +19,9 @@ def read_inputs(file1: str, file2: str):
     data1 = pd.read_csv(file1, index_col=0, low_memory=False)
     data2 = pd.read_csv(file2, index_col=0)
     data = merge_datasets(data1, data2)
-    data.loc[data.chain_a != data.chain_b, "homo_pep_overl"] = False
+    different_chains = data["chain_a"] != data["chain_b"]
+    known_overlap = data["homo_pep_overl"].notna()
+    data.loc[different_chains & known_overlap, "homo_pep_overl"] = False
 
     return data
 

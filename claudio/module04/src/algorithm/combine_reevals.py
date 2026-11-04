@@ -132,7 +132,8 @@ def score_inter_potential(datapoint: pd.Series, plddt_cutoff: float,
                       if euclidean_strictness is not None else raw_topo_score * .5)
 
     # calculate OPS argument of inter protein crosslink confidence score
-    if datapoint.homo_pep_overl:
+    overlap = datapoint.homo_pep_overl
+    if pd.notna(overlap) and overlap:
         score += datapoint.homo_int_overl / 2
 
     return round_self(score, 3)
@@ -201,10 +202,14 @@ def write_evidence(datapoint: pd.Series, plddt_cutoff: float,
     # else write split ops and dist evidence
     else:
         ops_evidence = ""
-        if datapoint.homo_pep_overl and \
-                (datapoint.unip_id_a == datapoint.unip_id_b) and \
-                (datapoint.chain_a == datapoint.chain_b):
-            ops_evidence += "peptides overlap" if datapoint.homo_pep_overl else ""
+        overlap = datapoint.homo_pep_overl
+        if (
+            pd.notna(overlap)
+            and overlap
+            and datapoint.unip_id_a == datapoint.unip_id_b
+            and datapoint.chain_a == datapoint.chain_b
+        ):
+            ops_evidence += "peptides overlap"
 
         dist_evidence = ""
         if dist_arg:
