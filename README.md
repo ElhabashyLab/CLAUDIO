@@ -253,7 +253,7 @@ claudio --help
 ## 3 Authors :bowtie:
 * **Alexander Röhl**
 * **Tobias Löser**
-* **Wanchaen Zhang**
+* **Wanchen Zhang**
 * **Eugen Netz**
 * **Hadeer Elhabashy**
 
