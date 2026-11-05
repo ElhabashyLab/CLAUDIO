@@ -258,14 +258,13 @@ claudio --help
 * **Hadeer Elhabashy**
 
 ---
-
----
 ## 4 Citation :heart:
 > [!IMPORTANT] 
 > If you use *CLAUDIO 2.0*, please cite:
+> > Tobias Löser, Alexander Röhl, Markus Baier, Andrei Lupas, Oliver Kohlbacher, Hadeer Elhabashy. "CLAUDIO 2.0: Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2026)
+> 
 > > Alexander Röhl, Eugen Netz, Oliver Kohlbacher, and Hadeer Elhabashy. "CLAUDIO: automated structural analysis of cross-linking data." *Bioinformatics* 40, no. 4 (2024): btae146.
 > 
-> > Tobias Löser, Alexander Röhl, Markus Baier, Andrei Lupas, Oliver Kohlbacher, Hadeer Elhabashy. "CLAUDIO 2.0: Scalable Web Application for Structural Analysis of Cross-Linking Data" *Manuscript in preparation*  (2026)
 
 ⭐ If this tool helped your research, please consider starring the repository.
 
@@ -276,10 +275,11 @@ If you have any questions or inquiries, please feel free to contact Hadeer Elhab
 
 # License
 - **CLAUDIO code** is licensed under the [MIT License](./LICENSE).
-  
-⭐ If this tool helped your research, please consider starring the repository.
 
 ---
+<!--
+## This entire section is hidden
+
 ## 5 References :page_with_curl:
 * [1] Ferrari, Allan JR, et al. "TopoLink: evaluation of structural models using chemical crosslinking distance constraints." Bioinformatics 35.17 (2019): 3169-3170.
 * [2] Altschul, Stephen F., et al. "Basic local alignment search tool." Journal of molecular biology 215.3 (1990): 403-410.
@@ -289,3 +289,4 @@ If you have any questions or inquiries, please feel free to contact Hadeer Elhab
 * [6] Schwede, Torsten, et al. "SWISS-MODEL: an automated protein homology-modeling server." Nucleic acids research 31.13 (2003): 3381-3385.
 * [7] Dana, Jose M., et al. "SIFTS: updated Structure Integration with Function, Taxonomy and Sequences resource allows 40-fold increase in coverage of structure-based annotations for proteins." Nucleic acids research 47.D1 (2019): D482-D489.
 * [8] Velankar, Sameer, et al. "SIFTS: structure integration with function, taxonomy and sequences resource." Nucleic acids research 41.D1 (2012): D483-D489.
+-->
