@@ -89,7 +89,7 @@ class TestM4MolstarCLI(unittest.TestCase):
         self.assertIn("http://localhost:8000", result.output)
         self.assertFalse(self.model_path.with_suffix(".pml").exists())
         final = pd.read_csv(self.output / "example_final.csv", index_col=0)
-        self.assertNotIn("original_XL_type", final.columns)
+        self.assertEqual(final["original_XL_type"].tolist(), ["intra", "intra"])
         self.assertEqual(final["XL_type"].tolist(), ["intra", "inter"])
         html = pages[0].read_text(encoding="utf-8")
         for source in final["source_record_id"]:
