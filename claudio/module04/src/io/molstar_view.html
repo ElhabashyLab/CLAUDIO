@@ -23,9 +23,17 @@
 <body>
   <header>
     <h1>CLAUDIO structure visualization</h1>
-    <label for="model">Structure:</label>
-    <select id="model" disabled>${model_options}</select>
-    <button id="save-image" type="button" disabled>Save image</button>
+    <section id="online-instructions" aria-label="Online viewing instructions">
+      <p>Open the <a href="https://molstar.org/viewer/" target="_blank" rel="noopener noreferrer">Mol* online viewer</a>.
+         Choose <strong>Home &gt; Open Files</strong> and select a <code>model_*.mvsx</code> file
+         from this folder (Format: <strong>Auto</strong> or <strong>MVSX</strong>),
+         or drag the file into the viewer. For HPC results, download the MVSX files to your computer first.</p>
+    </section>
+    <div id="local-viewer-controls">
+      <label for="model">Structure:</label>
+      <select id="model" disabled>${model_options}</select>
+      <button id="save-image" type="button" disabled>Save image</button>
+    </div>
     <p id="status" role="status">Loading viewer…</p>
   </header>
   <div id="viewer"></div>
@@ -40,8 +48,8 @@
         <tbody>${link_rows}</tbody>
       </table>
     </div>
-    <p>The structure data are included in the MVSX packages. This page loads the Mol* viewer
-       from a CDN, so viewing requires internet access.</p>
+    <p>Each MVSX package includes its structure and cross-link annotations. The online viewer requires internet access.
+       This page can also display the structures when served over HTTP.</p>
   </main>
   <script>
     const model = document.getElementById('model');
@@ -65,12 +73,17 @@
     }
 
     async function initialize() {
-      if (location.protocol === 'file:') {
-        status.textContent = 'Serve this folder with python -m http.server 8000, then open http://localhost:8000.';
+      if (!model.options.length) {
+        document.getElementById('online-instructions').hidden = true;
+        document.getElementById('local-viewer-controls').hidden = true;
+        document.getElementById('viewer').hidden = true;
+        status.textContent = 'No usable structure was available. See the table for details.';
         return;
       }
-      if (!model.options.length) {
-        status.textContent = 'No usable structure was available. See the table for details.';
+      if (location.protocol === 'file:') {
+        document.getElementById('local-viewer-controls').hidden = true;
+        document.getElementById('viewer').hidden = true;
+        status.textContent = 'Use the online viewer above to open a local MVSX file. The result table is shown below.';
         return;
       }
       try {

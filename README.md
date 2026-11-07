@@ -250,6 +250,21 @@ claudio --help
 ---
 
 ---
+### 2.2 View structures and cross-links with Mol*
+
+On Python 3.10–3.11, M4 writes a `visualization/` directory containing an HTML result
+table and portable `model_*.mvsx` packages. Each package includes its structure and
+cross-link annotations.
+
+Open the [Mol* online viewer](https://molstar.org/viewer/), choose **Home → Open Files**,
+and select a local `.mvsx` file with **Format: Auto** or **MVSX**. You can also drag
+the file into the viewer. For HPC runs, download the MVSX files to your computer first.
+This workflow requires internet access but does not require a local HTTP server.
+
+Double-click the generated `index.html` to read the result table and viewing instructions.
+The embedded 3D viewer remains available when the complete visualization directory is
+served over HTTP. Displayed link lengths are Euclidean distances, not TopoLink paths.
+
 ## 3 Authors :bowtie:
 * **Alexander Röhl**
 * **Tobias Löser**

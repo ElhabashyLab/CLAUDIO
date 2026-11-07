@@ -1,7 +1,6 @@
 """Export existing structure and cross-link results for the Mol* viewer."""
 import html
 import math
-import shlex
 import zipfile
 from pathlib import Path
 from string import Template
@@ -144,11 +143,14 @@ def export_molstar_visualization(data, output_directory, atom_name="CB", xl_resi
     (output_directory / "index.html").write_text(page, encoding="utf-8")
 
     print(f"Structure visualization saved: {output_directory}")
-    print("To view locally, run:")
-    print(f"  python -m http.server 8000 --bind 127.0.0.1 --directory {shlex.quote(str(output_directory))}")
-    print("Open http://localhost:8000 in your browser.")
-    print("For HPC runs, download the complete visualization folder first and use its local path.")
-    print("The viewer loads Mol* from a CDN and requires internet access.")
+    if options:
+        print("Open Mol* online viewer: https://molstar.org/viewer/")
+        print("Choose Home > Open Files and select a model_*.mvsx file from the folder above "
+              "(Format: Auto or MVSX), or drag the file into the viewer.")
+        print("For HPC runs, download the .mvsx file(s) to your computer first.")
+    else:
+        print("No usable structure was available for 3D visualization.")
+    print("Double-click index.html for the result table and viewing instructions.")
     return output_directory
 
 

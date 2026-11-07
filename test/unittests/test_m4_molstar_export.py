@@ -120,9 +120,28 @@ class TestM4MolstarExport(unittest.TestCase):
         html = (output_dir / "index.html").read_text(encoding="utf-8")
         self.assertIn(package.name, html)
         self.assertNotIn(str(self.structure_path), html)
-        self.assertIn("python -m http.server", console.getvalue())
-        self.assertIn("http://localhost:8000", console.getvalue())
+        self.assertIn("https://molstar.org/viewer/", console.getvalue())
+        self.assertIn("Open Files", console.getvalue())
+        self.assertIn(".mvsx", console.getvalue())
+        self.assertNotIn("python -m http.server", console.getvalue())
+        self.assertIn('href="https://molstar.org/viewer/"', html)
+        self.assertIn("Open Files", html)
+        self.assertIn("MVSX", html)
         pd.testing.assert_frame_equal(self.data, original)
+
+    def test_no_structure_keeps_the_table_without_suggesting_a_missing_package(self):
+        data = self.data.copy()
+        data["path"] = "-"
+        output_dir = self.root / "no_structure"
+        console = io.StringIO()
+        with redirect_stdout(console):
+            export_molstar_visualization(data, output_dir)
+        self.assertEqual(list(output_dir.glob("*.mvsx")), [])
+        self.assertIn("No usable structure", console.getvalue())
+        self.assertNotIn("Open Files", console.getvalue())
+        html = (output_dir / "index.html").read_text(encoding="utf-8")
+        for source in ("source_1", "source_2"):
+            self.assertIn(source, html)
 
     def test_uses_the_requested_atom_instead_of_always_using_cb(self):
         output_dir = self.root / "ca_visualization"
