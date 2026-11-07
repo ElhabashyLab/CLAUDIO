@@ -5,7 +5,9 @@ import os
 import sys
 import time
 import click
-
+from claudio.module02.src_distance_reevaluation.algorithm.af_complex_distances import (
+    calculate_complex_site_dists,
+)
 from claudio.module02.src_distance_reevaluation.io.read_uniprot_search_out import read_unipsearch_out
 from claudio.module02.src_distance_reevaluation.algorithm.search_pdb_pos import search_site_pos_in_pdb
 from claudio.module02.src_distance_reevaluation.algorithm.calc_site_distances import calculate_site_dists
@@ -82,27 +84,36 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
                       0, verbose_level)
         data = read_unipsearch_out(input_filepath)
 
-        # Search for site positions in pdb files (replace rcsb pdb
-        # with alphafold, if not able to find it there)
-        verbose_print("Search site pos in pdb files (replace rcsb-pdb with alphafold-pdb if needed)",
-                      0, verbose_level)
-        data = search_site_pos_in_pdb(data, df_xl_res, verbose_level)
-
-        # Compute distances of sites, and if distance calculation successful
-        # compute new xl_type
-        verbose_print("Calculate presumed interaction site distances and evaluate interaction likelihood",
-                      0, verbose_level)
-        data = calculate_site_dists(data, temp_dir, df_xl_res, plddt_cutoff,
-                                    topolink_bin, verbose_level)
-
-        # Clean dataset for output
-        data = clean_dataset(data)
+        if "af_match_status" in data.columns:
+            verbose_print("Map AF complex sites and calculate distances",
+                          0, verbose_level)
+            data = calculate_complex_site_dists(
+                data, temp_dir, xl_residues, plddt_cutoff,
+                topolink_bin, verbose_level,
+            )
+            # Preserve every AF source/candidate row and replace old results
+            # if this file is being processed again.
+            data["eucl_dist"] = data.pop("eucl_dist_tplk")
+            data["topo_dist"] = data.pop("topo_dist_tplk")
+        else:
+            verbose_print("Search site pos in pdb files",
+                          0, verbose_level)
+            data = search_site_pos_in_pdb(data, df_xl_res, verbose_level)
+            verbose_print("Calculate structural site distances",
+                          0, verbose_level)
+            data = calculate_site_dists(
+                data, temp_dir, df_xl_res, plddt_cutoff,
+                topolink_bin, verbose_level,
+            )
+            data = clean_dataset(data)
 
         # Plot histograms of distances
-        verbose_print("Create distance histograms", 0, verbose_level)
-        create_histogram(data, input_filepath.split('/')[-1], output_directory,
-                         linker_minimum, linker_maximum)
-
+        if not data.empty:
+            verbose_print("Create distance histograms", 0, verbose_level)
+            create_histogram(
+                data, input_filepath.split('/')[-1], output_directory,
+                linker_minimum, linker_maximum,
+            )
         # Overwrite previous outputfile of module02
         verbose_print("Overwrite outputfile", 0, verbose_level)
         write_output(data, input_filepath)
@@ -116,49 +127,23 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
 def inputs_valid(input_directory: str, input_filename: str, search_tool: str,
                  xl_residues: str, plddt_cutoff: float, output_directory: str,
                  topolink_bin: str | None, verbose_level: int):
-    """
-    check validity of inputted parameters
+    """Validate options for PDB, mmCIF, and no-model inputs."""
+    if not os.path.isdir(input_directory):
+        raise FileNotFoundError(
+            f"Structure directory does not exist: {input_directory}"
+        )
+    if not input_filename.endswith(".sqcs_structdi.csv"):
+        raise RuntimeError(
+            f"Expected a .sqcs_structdi.csv input: {input_filename}"
+        )
+    if search_tool not in ("blastp", "hhsearch"):
+        raise ValueError(f"Invalid search tool: {search_tool}")
 
-    Parameters
-    ----------
-    input_directory : str,
-    input_filename : str,
-    search_tool : str,
-    xl_residues : str,
-    plddt_cutoff : float,
-    output_directory : str,
-    topolink_bin : str | None,
-    verbose_level : int
-    
-    Returns
-    -------
-    inputs_valid : bool
-
-    Raises
-    ------
-        Invalid input parameters exceptions
-    """
-
-    if any((".pdb" in filename for filename in os.listdir(input_directory))):
-        if input_filename.endswith(".sqcs_structdi.csv"):
-            if search_tool in ["blastp", "hhsearch"]:
-                # check whether xl_residues can be turned into a proper DataFrame,
-                #  else return False
-                build_xl_dataset(xl_residues)
-                # check whether plddt cutoff has valid value
-                try:
-                    plddt_cutoff = float(plddt_cutoff)
-                    if 0 <= plddt_cutoff <= 100:
-                        return True
-                    raise ValueError(f"pLDDT cutoff value should be in [0, 100] (given: {plddt_cutoff}).")
-                except Exception as exc:
-                    raise TypeError(f"Value given for pLDDT cutoff should be possible to turn into a float "
-                                    f"(given: {plddt_cutoff}).") from exc
-            else:
-                raise ValueError(f"Error! Invalid search tool! (given: {search_tool})")
-        else:
-            raise RuntimeError(f"Error! Given inputfile (-i2) extension hints at incorrect output of uniprot-search "
-                            f"(given: {input_filename})!")
-    else:
-        print(f"Warning! No structure files created by structure_search tool found (given: {input_directory})!")
-        return True
+    build_xl_dataset(xl_residues)
+    try:
+        cutoff = float(plddt_cutoff)
+    except (TypeError, ValueError) as error:
+        raise TypeError("pLDDT cutoff must be a number") from error
+    if not 0 <= cutoff <= 100:
+        raise ValueError("pLDDT cutoff must be between 0 and 100")
+    return True

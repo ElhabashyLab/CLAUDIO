@@ -31,10 +31,23 @@ from claudio.utils.utils import verbose_print, clean_input_paths, \
 @click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
+@click.option(
+    "--skip-protein-structure-search",
+    is_flag=True,
+    default=False,
+    help="Skip PDB searching for the unique-protein report; keep sequence and site checks.",
+)
+@click.option(
+    "--preserve-source-records",
+    is_flag=True,
+    default=False,
+    help="Keep separate input sources that share the same protein residue pair.",
+)
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, input_temppath, projections, uniprot_search,
          xl_residues, search_tool, output_directory, blast_bin, blast_db,
-         hhsearch_bin, hhsearch_db, verbose_level):
+         hhsearch_bin, hhsearch_db, verbose_level,
+         skip_protein_structure_search=False, preserve_source_records=False):
     """
     Performs preprocessing of input data for CLAUDIO and creates a list of
     unique proteins.
@@ -90,7 +103,8 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
     if inputs_valid(input_filepath, uniprot_search_temp_dir,
                     unique_protein_temp_dir, projections, uniprot_search,
                     xl_residues, search_tool, output_directory, blast_bin,
-                    blast_db, hhsearch_bin, hhsearch_db, verbose_level):
+                    blast_db, hhsearch_bin, hhsearch_db, verbose_level,
+                    skip_protein_structure_search=skip_protein_structure_search):
         # Use projections to apply unified column names to input dataset
         # (for example see module01/src/dict/default_projections.py)
         new_keys = ["pep_a", "pep_b", "pos_a", "pos_b", "res_pos_a",
@@ -121,17 +135,20 @@ def main(input_filepath, input_temppath, projections, uniprot_search,
         # Check datapoints for inconsistencies and correct them if possible
         # (creates logfile in the process)
         verbose_print("Check datapoints for inconsistencies", 0, verbose_level)
-        data = double_check_data(data, filename, df_xl_res, output_directory,
-                                 verbose_level)
+        data = double_check_data(
+            data, filename, df_xl_res, output_directory, verbose_level,
+            preserve_source_records=preserve_source_records,
+        )
         verbose_print("Changes made to dataset written to log-file", 0,
                       verbose_level)
 
         # Write list of unique protein pairs and unique proteins overall
         verbose_print("Create unique protein list", 0, verbose_level)
-        unique_proteins_list = create_list_of_unique_proteins(data, unique_protein_temp_dir,
-                                                              search_tool, blast_bin, blast_db,
-                                                              hhsearch_bin, hhsearch_db,
-                                                              verbose_level)
+        unique_proteins_list = create_list_of_unique_proteins(
+            data, unique_protein_temp_dir, search_tool, blast_bin, blast_db,
+            hhsearch_bin, hhsearch_db, verbose_level,
+            search_structures=not skip_protein_structure_search,
+        )
 
         # Clean dataset for output
         data = clean_dataset(data)
@@ -152,7 +169,8 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
                  uniprot_search: bool, xl_residues: str, search_tool: str,
                  output_directory: str, blast_bin: str | None, blast_db: str,
                  hhsearch_bin: str | None, hhsearch_db: str,
-                 verbose_level: int):
+                 verbose_level: int,
+                 skip_protein_structure_search: bool = False):
     """
     check validity of inputted parameters
 
@@ -202,6 +220,8 @@ def inputs_valid(input_filepath: str, uniprot_search_temp_dir: str,
             # check whether specified structure search tool is either blastp
             # or hhsearch
             if search_tool in ["blastp", "hhsearch"]:
+                if skip_protein_structure_search:
+                    return True
                 # check blast database path
                 if (search_tool == "hhsearch") or os.path.exists(str(blast_db) + "pdbaa.phr"):
                     # check hhsearch database path

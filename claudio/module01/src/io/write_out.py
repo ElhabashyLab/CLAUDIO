@@ -34,6 +34,9 @@ def write_outputs(data: pd.DataFrame, unique_proteins_list: pd.DataFrame,
         "source_record_id", "unip_id_a", "unip_id_b",
         "original_pos_a", "original_pos_b", "pos_a", "pos_b",
     ]
+    if "candidate_id" in data.columns:
+        report_columns.append("candidate_id")
+        tracking_columns.append("candidate_id")
     status_columns = ["position_status_a", "position_status_b"]
     included = pd.Series(True, index=data.index, dtype=bool)
     report = data.reindex(columns=report_columns).copy()

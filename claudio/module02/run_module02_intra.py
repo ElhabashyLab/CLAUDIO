@@ -2,12 +2,21 @@
 distance evaluation submodules."""
 import sys
 import click
-
+import os
 from claudio.module02.src_structure_search.main import main as run_structure_search
 from claudio.module02.src_distance_reevaluation.main import main as run_distance_analysis
 
-from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
-
+from claudio.utils.utils import (
+    clean_input_paths,
+    evaluate_boolean_input,
+    create_out_path,
+)
+def _run_stage(command, **params):
+    try:
+        return click.get_current_context().invoke(command, **params)
+    except SystemExit as error:
+        if error.code not in (None, 0):
+            raise
 
 @click.command()
 @click.option("-i", "--input-filepath",
@@ -30,10 +39,13 @@ from claudio.utils.utils import clean_input_paths, evaluate_boolean_input
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
 @click.option("-tl", "--topolink-bin", default=None)
 @click.option("-v", "--verbose-level", default=2)
+@click.option("--af-complex-model", default=None)
+@click.option("--af-complex-auto", is_flag=True, default=False)
 def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
          plddt_cutoff, linker_minimum, linker_maximum, e_value, query_id,
          coverage, res_cutoff, output_directory, blast_bin, blast_db,
-         hhsearch_bin, hhsearch_db, topolink_bin, verbose_level):
+         hhsearch_bin, hhsearch_db, topolink_bin, verbose_level,
+         af_complex_model=None, af_complex_auto=False):
     """
     Performs structural analysis using structure search and distance evaluation submodules
     
@@ -64,41 +76,66 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
     None
 
     """
-    # Get absolute paths and translate eventual windows paths
-    list_of_paths = [input_filepath, input_temppath, output_directory,
-                     blast_bin, blast_db, hhsearch_bin, hhsearch_db,
-                     topolink_bin]
-    input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin = \
-        clean_input_paths(list_of_paths)
+    if af_complex_auto and af_complex_model is not None:
+        raise click.UsageError(
+            "--af-complex-auto and --af-complex-model are mutually exclusive."
+        )
+    if af_complex_model is not None:
+        af_complex_model = af_complex_model.strip()
+        if not af_complex_model:
+            raise click.BadParameter(
+                "Model ID must not be empty",
+                param_hint="--af-complex-model",
+            )
 
-    # Evaluate value of boolean inputs
+    input_temppath = input_temppath or None
+    paths = clean_input_paths([
+        input_filepath, input_temppath, output_directory,
+        blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin,
+    ])
+    (
+        input_filepath, input_temppath, output_directory,
+        blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin,
+    ) = paths
     read_temps = evaluate_boolean_input(read_temps)
-
-    if not output_directory.endswith('/'):
-        output_directory += '/'
-
+    output_directory = create_out_path(output_directory, input_filepath)
+    structures_directory = create_out_path(
+        output_directory + "structures", input_filepath
+    )
     filename = input_filepath.split('/')[-1]
-    try:
-        run_structure_search(["-i", input_filepath, "-it", input_temppath,
-                              "-s", not read_temps, "-t", search_tool,
-                              "-e", e_value, "-q", query_id, "-c", coverage,
-                              "-r", res_cutoff, "-o", output_directory,
-                              "-bl", blast_bin, "-bldb", blast_db,
-                              "-hh", hhsearch_bin, "-hhdb", hhsearch_db,
-                              "-v", verbose_level])
-    except SystemExit:
-        pass
-    try:
-        run_distance_analysis(["-i", f"{output_directory}structures",
-                               "-i2",
-                               f"{output_directory}{filename}_structdi.csv",
-                               "-it", input_temppath, "-t", search_tool,
-                               "-x", xl_residues, "-p", plddt_cutoff,
-                               "-lmin", linker_minimum,
-                               "-lmax", linker_maximum,
-                               "-o", output_directory, "-tl", topolink_bin,
-                               "-v", verbose_level])
-    except SystemExit:
-        pass
+    output_filepath = f"{output_directory}{filename}_structdi.csv"
 
+    _run_stage(
+        run_structure_search,
+        input_filepath=input_filepath,
+        input_temppath=input_temppath,
+        do_structure_search=not read_temps,
+        search_tool=search_tool,
+        e_value=e_value, query_id=query_id, coverage=coverage,
+        res_cutoff=res_cutoff, output_directory=output_directory,
+        blast_bin=blast_bin, blast_db=blast_db,
+        hhsearch_bin=hhsearch_bin, hhsearch_db=hhsearch_db,
+        verbose_level=verbose_level,
+        af_complex_model=af_complex_model,
+        af_complex_auto=af_complex_auto,
+    )
+    if not os.path.isfile(output_filepath):
+        raise click.ClickException(
+            f"Structure search output was not created: {output_filepath}"
+        )
+
+    _run_stage(
+        run_distance_analysis,
+        input_directory=structures_directory,
+        input_filepath=output_filepath,
+        input_temppath=input_temppath,
+        search_tool=search_tool,
+        xl_residues=xl_residues,
+        plddt_cutoff=plddt_cutoff,
+        linker_minimum=linker_minimum,
+        linker_maximum=linker_maximum,
+        output_directory=output_directory,
+        topolink_bin=topolink_bin,
+        verbose_level=verbose_level,
+    )
     sys.exit(0)

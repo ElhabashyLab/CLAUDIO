@@ -6,11 +6,16 @@ import time
 import click
 
 from claudio.module02.src_structure_search.io.read_input import read_in
+from claudio.utils.af_complex import restore_preprocessing_tracking
 from claudio.module02.src_structure_search.algorithm.structure_search import structure_search
 from claudio.module02.src_structure_search.io.read_temp import read_temp_file
 from claudio.module02.src_structure_search.algorithm.pdb_download import download_pdbs
 from claudio.module02.src_structure_search.algorithm.chain_copies import create_ident_chain_copies
 from claudio.module02.src_structure_search.io.write_out import write_output
+from claudio.module02.src_structure_search.algorithm.af_complex_search import (
+    retrieve_af_complex,
+    retrieve_discovered_complexes,
+)
 
 from claudio.utils.utils import (verbose_print, clean_input_paths,
                                 create_out_path, round_self)
@@ -31,10 +36,21 @@ from claudio.utils.utils import (verbose_print, clean_input_paths,
 @click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
+@click.option(
+    "--af-complex-model",
+    default=None,
+    help="Retrieve a specified existing AFDB protein-complex model.",
+)
+@click.option(
+    "--af-complex-auto",
+    is_flag=True,
+    default=False,
+    help="Discover and retrieve existing AFDB complexes for input protein pairs.",
+)
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, input_temppath, do_structure_search, search_tool,
          e_value, query_id, coverage, res_cutoff, output_directory, blast_bin,
-         blast_db, hhsearch_bin, hhsearch_db, verbose_level):
+         blast_db, hhsearch_bin, hhsearch_db, verbose_level, af_complex_model=None, af_complex_auto=False):
     """
         Performs structure search as part of the structural analysis
 
@@ -60,6 +76,10 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         None
 
     """
+    if af_complex_auto and af_complex_model is not None:
+        raise click.UsageError(
+            "--af-complex-auto and --af-complex-model are mutually exclusive."
+        )
     verbose_print("[3.1] Start Structure Search", 0, verbose_level, start='')
     start_time = time.time()
 
@@ -68,7 +88,46 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
                      blast_bin, blast_db, hhsearch_bin, hhsearch_db]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, \
     hhsearch_bin, hhsearch_db = clean_input_paths(list_of_paths)
+    if af_complex_auto or af_complex_model is not None:
+        if not input_filepath or not input_filepath.endswith(".sqcs"):
+            raise click.BadParameter(
+                "Input must be a .sqcs file.",
+                param_hint="--input-filepath",
+            )
 
+        output_directory = create_out_path(
+            output_directory, input_filepath
+        )
+        data, filename = read_in(input_filepath)
+        data = restore_preprocessing_tracking(data, input_filepath)
+
+        structures_dir = os.path.join(output_directory, "structures")
+        if af_complex_auto:
+            data = retrieve_discovered_complexes(
+                data,
+                structures_dir,
+            )
+        else:
+            data = retrieve_af_complex(
+                data,
+                af_complex_model,
+                structures_dir,
+            )
+
+        matched = data["af_match_status"].eq("matched")
+        data.loc[matched, "pdb_id"] = data.loc[matched, "af_model_id"]
+        data.loc[matched, "pdb_method"] = "ALPHAFOLD"
+        data.loc[matched, "pdb_resolution"] = "ALPHAFOLD"
+
+        write_output(data, filename, output_directory)
+
+        runtime = round_self(time.time() - start_time, 2)
+        verbose_print(
+            f"Finished AF complex retrieval (Elapsed time: {runtime}s)",
+            0,
+            verbose_level,
+        )
+        return
     # Create temporary dir
     temp_dir = create_out_path(input_temppath + "/structure_search" if input_temppath is not None else
                                output_directory + "temp/structure_search", input_filepath)
