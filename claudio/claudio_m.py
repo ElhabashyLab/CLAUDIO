@@ -92,8 +92,17 @@ def _require_output(path):
               help="boolean, for whether experimental scoring and resulting XL-type evluations should be\ncomputed and appended to result dataset")
 @click.option("-v", "--verbose-level",
               help="verbose level value")
-@click.option("--af-complex-model", default=None)
-@click.option("--af-complex-auto", is_flag=True, default=False)
+@click.option(
+    "--af-complex-model",
+    default=None,
+    help="Retrieve a specified existing AFDB protein-complex model.",
+)
+@click.option(
+    "--af-complex-auto",
+    is_flag=True,
+    default=False,
+    help="Discover and retrieve existing AFDB complexes for input protein pairs.",
+)
 @click.option("-c", "--config",
               help="filepath to configuration file containing all input parameters")
 def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
