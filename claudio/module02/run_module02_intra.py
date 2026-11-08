@@ -40,12 +40,19 @@ def _run_stage(command, **params):
 @click.option("-tl", "--topolink-bin", default=None)
 @click.option("-v", "--verbose-level", default=2)
 @click.option("--af-complex-model", default=None)
-@click.option("--af-complex-auto", is_flag=True, default=False)
+@click.option(
+    "--af-complex-auto/--no-af-complex-auto",
+    default=None,
+    help=(
+        "Discover existing AFDB complexes automatically. "
+        "Enabled by default unless a model is specified."
+    ),
+)
 def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
          plddt_cutoff, linker_minimum, linker_maximum, e_value, query_id,
          coverage, res_cutoff, output_directory, blast_bin, blast_db,
          hhsearch_bin, hhsearch_db, topolink_bin, verbose_level,
-         af_complex_model=None, af_complex_auto=False):
+         af_complex_model=None, af_complex_auto=None):
     """
     Performs structural analysis using structure search and distance evaluation submodules
     
@@ -80,6 +87,8 @@ def main(input_filepath, input_temppath, read_temps, search_tool, xl_residues,
         raise click.UsageError(
             "--af-complex-auto and --af-complex-model are mutually exclusive."
         )
+    if af_complex_auto is None:
+        af_complex_auto = af_complex_model is None
     if af_complex_model is not None:
         af_complex_model = af_complex_model.strip()
         if not af_complex_model:

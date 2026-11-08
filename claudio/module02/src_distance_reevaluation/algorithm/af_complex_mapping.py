@@ -131,6 +131,7 @@ def map_complex_record(row, records, atom_a, atom_b):
     if isinstance(af_status, str) and af_status in (
         "no_candidate_model",
         "no_matching_chain_pair",
+        "retrieval_failed",
     ):
         return not_evaluable_record(af_status)
 
@@ -213,6 +214,7 @@ def map_complex_dataset(data, atom_a, atom_b):
         if isinstance(af_status, str) and af_status in (
             "no_candidate_model",
             "no_matching_chain_pair",
+            "retrieval_failed",
         ):
             records = []
         else:

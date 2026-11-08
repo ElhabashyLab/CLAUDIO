@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import click
+import pandas as pd
 from claudio.module02.src_distance_reevaluation.algorithm.af_complex_distances import (
     calculate_complex_site_dists,
 )
@@ -84,28 +85,74 @@ def main(input_directory, input_filepath, input_temppath, search_tool,
                       0, verbose_level)
         data = read_unipsearch_out(input_filepath)
 
-        if "af_match_status" in data.columns:
-            verbose_print("Map AF complex sites and calculate distances",
-                          0, verbose_level)
-            data = calculate_complex_site_dists(
-                data, temp_dir, xl_residues, plddt_cutoff,
-                topolink_bin, verbose_level,
+        # Select the distance engine for each candidate row.
+        if "structure_backend" in data.columns:
+            _known_backends = data["structure_backend"].isin(
+                ["af_complex", "legacy"]
             )
-            # Preserve every AF source/candidate row and replace old results
-            # if this file is being processed again.
-            data["eucl_dist"] = data.pop("eucl_dist_tplk")
-            data["topo_dist"] = data.pop("topo_dist_tplk")
+            if not _known_backends.all():
+                raise ValueError(
+                    "Unknown or missing structure_backend value."
+                )
+
+            _af_mask = data["structure_backend"].eq("af_complex")
+
+        elif "af_match_status" in data.columns:
+            # Support result files written before structure_backend existed.
+            _af_mask = data["af_match_status"].notna()
+
         else:
-            verbose_print("Search site pos in pdb files",
-                          0, verbose_level)
-            data = search_site_pos_in_pdb(data, df_xl_res, verbose_level)
-            verbose_print("Calculate structural site distances",
-                          0, verbose_level)
-            data = calculate_site_dists(
-                data, temp_dir, df_xl_res, plddt_cutoff,
-                topolink_bin, verbose_level,
+            _af_mask = pd.Series(False, index=data.index)
+
+        _results = []
+
+         # Process empty AF tables too, so output headers are preserved.
+        if _af_mask.any() or (
+            data.empty and "af_match_status" in data.columns
+        ):
+            verbose_print(
+                "Map AF complex sites and calculate distances",
+                0, verbose_level,
             )
-            data = clean_dataset(data)
+            _af_data = calculate_complex_site_dists(
+                data.loc[_af_mask].copy(),
+                temp_dir,
+                xl_residues,
+                plddt_cutoff,
+                topolink_bin,
+                verbose_level,
+            )
+            _af_data["eucl_dist"] = _af_data.pop("eucl_dist_tplk")
+            _af_data["topo_dist"] = _af_data.pop("topo_dist_tplk")
+            _results.append(_af_data)
+
+        if (~_af_mask).any():
+            verbose_print(
+                "Search site pos in pdb files",
+                0, verbose_level,
+            )
+            _legacy_data = search_site_pos_in_pdb(
+                data.loc[~_af_mask].copy(),
+                df_xl_res,
+                verbose_level,
+            )
+            verbose_print(
+                "Calculate structural site distances",
+                0, verbose_level,
+            )
+            _legacy_data = calculate_site_dists(
+                _legacy_data,
+                temp_dir,
+                df_xl_res,
+                plddt_cutoff,
+                topolink_bin,
+                verbose_level,
+            )
+            _legacy_data = clean_dataset(_legacy_data)
+            _results.append(_legacy_data)
+
+        if _results:
+            data = pd.concat(_results, sort=False)
 
         # Plot histograms of distances
         if not data.empty:

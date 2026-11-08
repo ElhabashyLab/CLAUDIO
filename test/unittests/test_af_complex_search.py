@@ -558,7 +558,7 @@ class TestMatchComplexChains(unittest.TestCase):
             list(zip(result["chain_a"], result["chain_b"])),
             [("A", "B"), ("A", "B")],
         )
-    def test_cli_without_model_keeps_legacy_search_route(self):
+    def test_cli_with_auto_disabled_keeps_legacy_search_route(self):
         data = pd.DataFrame([{
             "unip_id_a": "TEST_P1",
             "unip_id_b": "TEST_P2",
@@ -602,13 +602,20 @@ class TestMatchComplexChains(unittest.TestCase):
                 side_effect=download_result,
             ) as download_mock, patch(
                 "claudio.module02.src_structure_search.main.retrieve_af_complex",
-            ) as af_mock:
+            ) as af_mock, patch(
+                "claudio.module02.src_structure_search.main."
+                "retrieve_discovered_complexes",
+                side_effect=AssertionError(
+                    "Disabled automatic discovery must not run"
+                ),
+            ) as auto_mock:
                 execution = CliRunner().invoke(
                     structure_search_main,
                     [
                         "-i", str(input_path),
                         "-o", str(output_dir),
                         "-bldb", str(database_dir) + "/",
+                        "--no-af-complex-auto",
                         "-v", "0",
                     ],
                 )
@@ -621,7 +628,7 @@ class TestMatchComplexChains(unittest.TestCase):
             search_mock.assert_called_once()
             download_mock.assert_called_once()
             af_mock.assert_not_called()
-
+            auto_mock.assert_not_called()
             result = pd.read_csv(
                 output_dir / "legacy.sqcs_structdi.csv",
                 index_col=0,

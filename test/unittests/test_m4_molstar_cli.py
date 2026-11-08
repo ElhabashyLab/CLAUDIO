@@ -132,17 +132,27 @@ class TestM4MolstarCLI(unittest.TestCase):
         source.write_text("input\n", encoding="utf-8")
         for suffix in [".sqcs", ".sqcs_ops.csv", ".sqcs_structdi.csv"]:
             (self.output / ("example" + suffix)).write_text("input\n", encoding="utf-8")
-
+        def _finish_m4(**_params):
+            _final = (
+                Path(_params["output_directory"])
+                / "example_final.csv"
+            )
+            _final.write_text("result\n", encoding="utf-8")
         with ExitStack() as stack:
             stack.enter_context(patch.object(pipeline, "_pkg_version", return_value="2.2.1"))
             for name in ["db_updater", "run_claudio_lists", "run_claudio_ops", "run_claudio_structdi"]:
                 stack.enter_context(patch.object(pipeline, name))
-            run_m4 = stack.enter_context(patch.object(pipeline, "run_claudio_xl"))
+            run_m4 = stack.enter_context(
+                patch.object(
+                    pipeline,
+                    "run_claudio_xl",
+                    side_effect=_finish_m4,
+                )
+            )
             result = CliRunner().invoke(pipeline.main, [
                 "-i", str(source), "-o", str(self.output), "-x", "K:CA:", "-v", "0",
             ])
         self.assertEqual(result.exit_code, 0, result.output + repr(result.exception))
         run_m4.assert_called_once()
-        arguments = run_m4.call_args.args[0]
-        self.assertIn("-x", arguments)
-        self.assertEqual(arguments[arguments.index("-x") + 1], "K:CA:")
+        arguments = run_m4.call_args.kwargs
+        self.assertEqual(arguments["xl_residues"], "K:CA:")

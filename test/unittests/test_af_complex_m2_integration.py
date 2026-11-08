@@ -27,6 +27,21 @@ class TestAFComplexM2Integration(unittest.TestCase):
         self.addCleanup(folder.cleanup)
         self.addCleanup(plt.close, "all")
         self.root = Path(folder.name)
+        # Database marker used by argument validation.
+        # Actual legacy searching is mocked below.
+        self.legacy_db = self.root / "mock-db"
+        self.legacy_db.mkdir()
+        (self.legacy_db / "pdbaa.phr").touch()
+
+        _legacy_patcher = patch(
+            "claudio.module02.src_structure_search.main."
+            "_search_legacy_candidates",
+            side_effect=lambda _data, **_kwargs: _data.iloc[:0].assign(
+                structure_backend="legacy"
+            ),
+        )
+        self.legacy_search = _legacy_patcher.start()
+        self.addCleanup(_legacy_patcher.stop)
         self.metadata = json.loads((FIXTURES / "metadata.json").read_text())
         chains = {record["chainId"]: record for record in self.metadata}
         self.forward = {
@@ -105,11 +120,12 @@ class TestAFComplexM2Integration(unittest.TestCase):
         )
 
     def invoke_m2(self, data, output, options):
+        self.legacy_search.reset_mock()
         input_path = self.root / "input.sqcs"
         data.to_csv(input_path)
         return CliRunner().invoke(m2.main, [
             "-i", str(input_path), "-o", str(output),
-            "-bldb", str(self.root / "missing-db"),
+            "-bldb", str(self.legacy_db),
             "-x", "K", "-pc", "0", "-v", "0", *options,
         ])
 
@@ -121,6 +137,7 @@ class TestAFComplexM2Integration(unittest.TestCase):
         cases = [
             ("manual", ["--af-complex-model", MODEL_ID], 2),
             ("auto", ["--af-complex-auto"], 3),
+            ("default", [], 3),
         ]
         for mode, options, request_count in cases:
             with self.subTest(mode=mode):
@@ -137,6 +154,10 @@ class TestAFComplexM2Integration(unittest.TestCase):
 
                 self.assertEqual(result.exit_code, 0,
                                  result.output + repr(result.exception))
+                if mode in ("auto", "default"):
+                    self.legacy_search.assert_called_once()
+                else:
+                    self.legacy_search.assert_not_called()
                 self.assertEqual(network.call_count, request_count)
                 topolink.assert_called_once()
                 saved = pd.read_csv(output / "input.sqcs_structdi.csv", index_col=0)
@@ -184,6 +205,7 @@ class TestAFComplexM2Integration(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0,
                          result.output + repr(result.exception))
+        self.legacy_search.assert_called_once()
         network.assert_called_once()
         topolink.assert_not_called()
         saved = pd.read_csv(output / "input.sqcs_structdi.csv", index_col=0)

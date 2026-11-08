@@ -98,10 +98,12 @@ def _require_output(path):
     help="Retrieve a specified existing AFDB protein-complex model.",
 )
 @click.option(
-    "--af-complex-auto",
-    is_flag=True,
-    default=False,
-    help="Discover and retrieve existing AFDB complexes for input protein pairs.",
+    "--af-complex-auto/--no-af-complex-auto",
+    default=None,
+    help=(
+        "Discover existing AFDB complexes automatically. "
+        "Enabled by default unless a model is specified."
+    ),
 )
 @click.option("-c", "--config",
               help="filepath to configuration file containing all input parameters")
@@ -110,7 +112,7 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
          linker_minimum, linker_maximum, euclidean_strictness, distance_maximum,
          cutoff, output_directory, blast_bin, blast_db, hhsearch_bin,
          hhsearch_db, topolink_bin, compute_scoring, verbose_level, config,
-         af_complex_model=None, af_complex_auto=False):
+         af_complex_model=None, af_complex_auto=None):
     """
     
     wrapper function for the full CLAUDIO pipeline, which includes the following modules:
@@ -156,6 +158,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
         raise click.UsageError(
             "--af-complex-auto and --af-complex-model are mutually exclusive."
         )
+    if af_complex_auto is None:
+        af_complex_auto = af_complex_model is None
     if af_complex_model is not None:
         af_complex_model = af_complex_model.strip()
         if not af_complex_model:
@@ -185,7 +189,19 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin, hhsearch_db, topolink_bin \
         = clean_input_paths([input_filepath, input_temppath, output_directory, blast_bin, blast_db, hhsearch_bin,
                              hhsearch_db, topolink_bin])
-
+    if af_complex_model is None:
+        verbose_print(
+            "Check Updates for SIFTS and pdbaa databases.", 0, 1
+        )
+        _run_stage(
+            db_updater,
+            sifts_threshold=14,
+            pdbaa_threshold=14,
+            pdbaa_dir=blast_db,
+        )
+        verbose_print(
+            "===================================", 0, 1, start=""
+        )
     if af_mode:
         _run_af_pipeline(
             input_filepath, input_temppath, projections, read_temps,
@@ -197,16 +213,6 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
             af_complex_model, af_complex_auto,
         )
         return
-
-    verbose_print(f"Check Updates for SIFTS and pdbaa databases.", 0, 1)
-    try:
-        db_updater(["-s", 14, "-p", 14, "-d", blast_db])
-    except SystemExit:
-        pass
-    except Exception as e:
-        print("Error during database update:", repr(e))
-        raise(e)
-    verbose_print("===================================", 0, 1, start='')
 
     filename = '.'.join(input_filepath.split('/')[-1].split('.')[:-1])
 
@@ -249,7 +255,8 @@ def main(input_filepath, input_temppath, projections, read_temps, xl_residues,
                               "-r", res_cutoff, "-o", output_directory,
                               "-bl", blast_bin, "-bldb", blast_db,
                               "-hh", hhsearch_bin, "-hhdb", hhsearch_db,
-                              "-tl", topolink_bin, "-v", verbose_level])
+                              "-tl", topolink_bin, "-v", verbose_level,
+                              "--no-af-complex-auto"])
     except SystemExit:
         pass
     except Exception as e:

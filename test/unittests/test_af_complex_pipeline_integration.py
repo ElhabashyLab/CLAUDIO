@@ -13,7 +13,7 @@ from urllib.parse import parse_qs, urlsplit
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from Bio.PDB import MMCIFParser, PDBParser
+from Bio.PDB import MMCIFParser, PDBParser, PDBIO
 from click.testing import CliRunner
 from requests import Response
 
@@ -29,6 +29,21 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         self.addCleanup(folder.cleanup)
         self.addCleanup(plt.close, "all")
         self.root = Path(folder.name)
+        # Database marker used by argument validation.
+        # Actual legacy searching is mocked below.
+        self.legacy_db = self.root / "mock-db"
+        self.legacy_db.mkdir()
+        (self.legacy_db / "pdbaa.phr").touch()
+
+        _legacy_patcher = patch(
+            "claudio.module02.src_structure_search.main."
+            "_search_legacy_candidates",
+            side_effect=lambda _data, **_kwargs: _data.iloc[:0].assign(
+                structure_backend="legacy"
+            ),
+        )
+        self.legacy_search = _legacy_patcher.start()
+        self.addCleanup(_legacy_patcher.stop)
         self.metadata = json.loads((FIXTURES / "metadata.json").read_text())
         chains = {record["chainId"]: record for record in self.metadata}
         self.protein_a = chains["A"]["uniprotAccession"]
@@ -128,6 +143,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         )
 
     def run_pipeline(self, output, options):
+        self.legacy_search.reset_mock()
         with patch(
             "requests.get", side_effect=self.service_response,
         ), patch(
@@ -135,19 +151,24 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             "af_complex_distances.subprocess.run", side_effect=self.run_topolink,
         ) as topolink, patch.object(
             pipeline, "db_updater",
-            side_effect=AssertionError("AF mode must not update structure databases"),
+            return_value=None,
         ) as database:
             result = CliRunner().invoke(pipeline.main, [
                 "-i", str(self.input), "-o", str(output),
-                "-bldb", str(self.root / "missing-db"),
+                "-bldb", str(self.legacy_db),
                 "-x", "K", "-pc", "0", "-rt", "False", "-s", "False",
                 "-v", "0", *options,
             ])
         self.assertEqual(result.exit_code, 0,
                          result.output + repr(result.exception))
-        database.assert_not_called()
-        return topolink
+        if "--af-complex-model" in options:
+            database.assert_not_called()
+            self.legacy_search.assert_not_called()
+        else:
+            database.assert_called_once()
+            self.legacy_search.assert_called_once()
 
+        return topolink
     def check_source_outputs(self, output):
         stem = "crosslinks.run1"
         report = pd.read_csv(output / f"{stem}_record_tracking.csv", index_col=0)
@@ -182,6 +203,7 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         for name, options in (
             ("manual", ["--af-complex-model", MODEL_ID]),
             ("auto", ["--af-complex-auto"]),
+            ("default", []),
         ):
             with self.subTest(mode=name):
                 output = self.root / name
@@ -223,9 +245,130 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             return_value=subprocess.CompletedProcess([], 7, stdout="", stderr="native error")), patch.object(
                 pipeline, "db_updater"):
             execution = CliRunner().invoke(pipeline.main, [
-                "-i", str(self.input), "-o", str(output), "-x", "K", "-pc", "0",
+                "-i", str(self.input), "-o", str(output),
+                "-bldb", str(self.legacy_db),
+                "-x", "K", "-pc", "0",
                 "-rt", "False", "-s", "False", "-v", "0", "--af-complex-auto"])
         self.assertNotEqual(execution.exit_code, 0)
         self.assertIn("TopoLink", str(execution.exception))
         self.assertFalse((output / "crosslinks_final.csv").exists())
         self.assertEqual(len(list(output.rglob("topo_*.log"))), 1)
+    def test_default_pipeline_preserves_mixed_structure_candidates(self):
+        _output = self.root / "mixed"
+
+        # Export the local coordinates as a PDB fixture.
+        _structure = MMCIFParser(QUIET=True).get_structure(
+            "legacy", str(FIXTURES / f"{MODEL_ID}.cif")
+        )
+        _model = next(_structure.get_models())
+        _pdb_path = self.root / "legacy_fixture.pdb"
+        _writer = PDBIO()
+        _writer.set_structure(_structure)
+        _writer.save(str(_pdb_path))
+
+        _chains = {
+            self.protein_a: "A",
+            self.protein_b: "B",
+        }
+
+        def _legacy_candidates(_data, **_kwargs):
+            _result = _data.copy()
+            _result["structure_backend"] = "legacy"
+            _result["pdb_id"] = "1ABC"
+            _result["pdb_method"] = "X-RAY DIFFRACTION"
+            _result["pdb_resolution"] = 2.0
+            _result["path"] = str(_pdb_path)
+            _result["chain_a"] = _result["unip_id_a"].map(_chains)
+            _result["chain_b"] = _result["unip_id_b"].map(_chains)
+            return _result
+
+        def _legacy_mapping(_data, *args):
+            return _data.assign(
+                pdb_pos_a=_data["pos_a"],
+                pdb_pos_b=_data["pos_b"],
+                pLDDT_a="-",
+                pLDDT_b="-",
+                is_interfaced=True,
+            )
+
+        def _legacy_distances(_data, *args):
+            _distances = []
+            for _row in _data.itertuples():
+                _a = _model[_row.chain_a][
+                    int(_row.pdb_pos_a)
+                ]["CB"].coord
+                _b = _model[_row.chain_b][
+                    int(_row.pdb_pos_b)
+                ]["CB"].coord
+                _distances.append(float(np.linalg.norm(_a - _b)))
+
+            return _data.assign(
+                eucl_dist=_distances,
+                topo_dist=[_distance + 2 for _distance in _distances],
+            )
+
+        self.legacy_search.side_effect = _legacy_candidates
+
+        _target = "claudio.module02.src_distance_reevaluation.main."
+        with patch(
+            _target + "search_site_pos_in_pdb",
+            side_effect=_legacy_mapping,
+        ), patch(
+            _target + "calculate_site_dists",
+            side_effect=_legacy_distances,
+        ):
+            self.run_pipeline(_output, []).assert_called_once()
+
+        _m2 = pd.read_csv(
+            _output / "crosslinks.run1.sqcs_structdi.csv",
+            index_col=0,
+        )
+        _final = pd.read_csv(
+            _output / "crosslinks_final.csv",
+            index_col=0,
+        )
+
+        # Three experimental sources, each with two structure candidates.
+        for _stage, _table in (("M2", _m2), ("M4", _final)):
+            self.assertEqual(
+                len(_table), 6,
+                f"{_stage} did not preserve all structure candidates",
+            )
+            self.assertEqual(
+                set(_table["structure_backend"]),
+                {"legacy", "af_complex"},
+            )
+            for _source in (
+                "record_000001",
+                "record_000002",
+                "record_000004",
+            ):
+                _rows = _table[
+                    _table["source_record_id"].eq(_source)
+                ]
+                self.assertEqual(len(_rows), 2)
+                self.assertEqual(
+                    set(_rows["structure_backend"]),
+                    {"legacy", "af_complex"},
+                )
+
+        # M4 must preserve candidate identity and calculated distances.
+        _columns = [
+            "source_record_id", "structure_backend", "experiment",
+            "unip_id_a", "unip_id_b", "pos_a", "pos_b",
+            "pdb_id", "chain_a", "chain_b", "eucl_dist", "topo_dist",
+        ]
+        _keys = ["source_record_id", "structure_backend"]
+        pd.testing.assert_frame_equal(
+            _final[_columns].sort_values(_keys).reset_index(drop=True),
+            _m2[_columns].sort_values(_keys).reset_index(drop=True),
+            check_dtype=False,
+            atol=0.001,
+            rtol=0,
+        )
+
+        # Both coordinate models must reach visualization.
+        _packages = list(
+            (_output / "visualization").glob("*/*.mvsx")
+        )
+        self.assertEqual(len(_packages), 2)

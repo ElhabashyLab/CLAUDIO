@@ -1,5 +1,5 @@
 """Tests for connecting AFDB discovery to complex retrieval."""
-
+import requests
 import unittest
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
@@ -431,5 +431,113 @@ class TestRetrieveDiscoveredComplexes(unittest.TestCase):
         self.assertEqual(result.loc[12, "af_match_status"], "matched")
         self.assertEqual(result.loc[12, "af_model_id"], "AF-test-cd")
         pd.testing.assert_frame_equal(data, original)
+    def test_network_failures_preserve_successful_pairs_and_sources(self):
+        _data = pd.DataFrame([
+            {
+                "unip_id_a": "P1", "unip_id_b": "P2",
+                "source_record_id": "record_1",
+            },
+            {
+                "unip_id_a": "P3", "unip_id_b": "P4",
+                "source_record_id": "record_2",
+            },
+        ], index=[7, 12])
+        _original = _data.copy(deep=True)
+        _target = (
+            "claudio.module02.src_structure_search.algorithm."
+            "af_complex_search."
+        )
+
+        _response = Response()
+        _response.status_code = 503
+        _errors = [
+            requests.exceptions.Timeout("test timeout"),
+            requests.exceptions.ConnectionError("test connection"),
+            requests.exceptions.HTTPError(response=_response),
+        ]
+
+        for _stage in ("discovery", "retrieval"):
+            for _error in _errors:
+                with self.subTest(
+                    stage=_stage, error=type(_error).__name__
+                ):
+                    def _discover(_a, _b):
+                        if _a == "P3" and _stage == "discovery":
+                            raise _error
+                        return [{
+                            "modelEntityId": (
+                                "AF-good" if _a == "P1" else "AF-bad"
+                            )
+                        }]
+
+                    def _retrieve(_frame, _model, _folder):
+                        if _model == "AF-bad" and _stage == "retrieval":
+                            raise _error
+                        return _frame.assign(
+                            af_model_id=_model,
+                            af_match_status="matched",
+                            path="model.cif",
+                        )
+
+                    with TemporaryDirectory() as _folder, patch(
+                        _target + "discover_complex_candidates",
+                        side_effect=_discover,
+                    ), patch(
+                        _target + "retrieve_af_complex",
+                        side_effect=_retrieve,
+                    ):
+                        _result = retrieve_discovered_complexes(
+                            _data, _folder
+                        )
+
+                    self.assertEqual(len(_result), 2)
+                    self.assertTrue(_result.index.is_unique)
+                    _rows = _result.set_index("source_record_id")
+                    self.assertEqual(
+                        _rows.loc["record_1", "af_match_status"],
+                        "matched",
+                    )
+                    self.assertEqual(
+                        _rows.loc["record_1", "af_model_id"],
+                        "AF-good",
+                    )
+                    self.assertEqual(
+                        _rows.loc["record_2", "af_match_status"],
+                        "retrieval_failed",
+                    )
+                    self.assertEqual(
+                        _rows.loc["record_2", "af_error_type"],
+                        type(_error).__name__,
+                    )
+                    self.assertEqual(
+                        _rows.loc["record_2", "path"], "-"
+                    )
+                    pd.testing.assert_frame_equal(_data, _original)
+
+    def test_validation_and_nonrecoverable_http_errors_are_not_suppressed(self):
+        _data = pd.DataFrame([{
+            "unip_id_a": "P1", "unip_id_b": "P2",
+        }])
+        _target = (
+            "claudio.module02.src_structure_search.algorithm."
+            "af_complex_search."
+        )
+        _response = Response()
+        _response.status_code = 401
+
+        for _error in (
+            ValueError("model identity mismatch"),
+            requests.exceptions.HTTPError(response=_response),
+        ):
+            with self.subTest(error=type(_error).__name__):
+                with TemporaryDirectory() as _folder, patch(
+                    _target + "discover_complex_candidates",
+                    return_value=[{"modelEntityId": "AF-test"}],
+                ), patch(
+                    _target + "retrieve_af_complex",
+                    side_effect=_error,
+                ):
+                    with self.assertRaises(type(_error)):
+                        retrieve_discovered_complexes(_data, _folder)
 if __name__ == "__main__":
     unittest.main()

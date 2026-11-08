@@ -107,8 +107,16 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
                       0, verbose_level)
         data = retrieve_oligomeric_states(data, verbose_level)
 
-        # Clean dataset for output
-        data = clean_dataset(data)
+        # Preserve every AF complex candidate and its experimental source.
+        _preserve_candidates = (
+            "structure_backend" in data.columns
+            and data["structure_backend"].eq("af_complex").any()
+        )
+
+        if _preserve_candidates:
+            data = clean_dataset(data, preserve_candidates=True)
+        else:
+            data = clean_dataset(data)
         data[["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a", "pep_b",
               "res_pos_a", "res_pos_b", "pdb_id", "pdb_method", 
               "pdb_resolution", "chain_a", "chain_b", "pdb_pos_a", "pdb_pos_b",
@@ -122,8 +130,9 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
                           0, verbose_level)
             setup_pml_scripts(data)
 
-        # Minimize dataset
-        data = minimize_dataset(data)
+        # Keep all candidates when AF complex evaluation is included.
+        if not _preserve_candidates:
+            data = minimize_dataset(data)
 
         # Create inter score histogram
         verbose_print("Create score histogram", 0, verbose_level)

@@ -224,8 +224,130 @@ class TestAFComplexDistanceCLI(unittest.TestCase):
         pd.testing.assert_frame_equal(saved[original.columns], original)
         self.assertIn("eucl_dist", saved.columns)
         self.assertIn("distance_status", saved.columns)
+    def test_mixed_input_routes_each_backend_and_preserves_sources(self):
+        _af_first = {
+            **self.row,
+            "structure_backend": "af_complex",
+        }
+        _af_second = {
+            **_af_first,
+            "source_record_id": "record_000002",
+            "experiment": "condition_B",
+        }
+        _legacy = {
+            _key: _value
+            for _key, _value in self.row.items()
+            if not _key.startswith("af_")
+        }
+        _legacy.update({
+            "structure_backend": "legacy",
+            "source_record_id": "record_000003",
+            "candidate_id": "candidate_000002",
+            "experiment": "condition_C",
+            "pdb_id": "1ABC",
+            "pdb_method": "X-RAY DIFFRACTION",
+            "pdb_resolution": "2.0",
+            "path": "legacy.pdb",
+        })
 
+        _data = pd.DataFrame(
+            [_legacy, _af_first, _af_second],
+            index=["legacy", "af_1", "af_2"],
+        )
 
+        with patch.object(
+            distance_main,
+            "calculate_complex_site_dists",
+            side_effect=lambda _frame, *args: _frame.assign(
+                eucl_dist_tplk=10.0,
+                topo_dist_tplk=12.0,
+            ),
+        ) as _af_calculate, patch.object(
+            distance_main,
+            "search_site_pos_in_pdb",
+            side_effect=lambda _frame, *args: _frame,
+        ) as _legacy_map, patch.object(
+            distance_main,
+            "calculate_site_dists",
+            side_effect=lambda _frame, *args: _frame.assign(
+                eucl_dist=20.0,
+                topo_dist=22.0,
+            ),
+        ) as _legacy_calculate, patch.object(
+            distance_main,
+            "clean_dataset",
+            side_effect=lambda _frame: _frame,
+        ) as _clean:
+            _original, _saved = self.invoke_distance_cli(_data)
+
+        _af_calculate.assert_called_once()
+        _legacy_map.assert_called_once()
+        _legacy_calculate.assert_called_once()
+        _clean.assert_called_once()
+
+        self.assertEqual(
+            _af_calculate.call_args.args[0].index.tolist(),
+            ["af_1", "af_2"],
+        )
+        for _operation in (_legacy_map, _legacy_calculate, _clean):
+            self.assertEqual(
+                _operation.call_args.args[0].index.tolist(),
+                ["legacy"],
+            )
+
+        # All source records and original fields must survive.
+        pd.testing.assert_frame_equal(
+            _saved[_original.columns].sort_index(),
+            _original.sort_index(),
+        )
+        self.assertEqual(len(_saved), 3)
+        self.assertTrue(
+            _saved.loc[["af_1", "af_2"], "eucl_dist"].eq(10.0).all()
+        )
+        self.assertTrue(
+            _saved.loc[["af_1", "af_2"], "topo_dist"].eq(12.0).all()
+        )
+        self.assertEqual(_saved.loc["legacy", "eucl_dist"], 20.0)
+        self.assertEqual(_saved.loc["legacy", "topo_dist"], 22.0)
+    def test_retrieval_failure_is_preserved_without_running_distance_engine(self):
+        _data = pd.DataFrame([{
+            **self.row,
+            "structure_backend": "af_complex",
+            "af_match_status": "retrieval_failed",
+            "af_error_type": "Timeout",
+            "af_model_id": None,
+            "af_model_version": None,
+            "af_metadata_path": None,
+            "path": "-",
+            "chain_a": "-",
+            "chain_b": "-",
+        }])
+
+        with patch.object(
+            distance_main,
+            "search_site_pos_in_pdb",
+            side_effect=AssertionError(
+                "Failed AF candidate reached the legacy mapper"
+            ),
+        ), patch(
+            "claudio.module02.src_distance_reevaluation.algorithm."
+            "af_complex_distances.calculate_site_dists"
+        ) as _calculate:
+            _original, _saved = self.invoke_distance_cli(_data)
+
+        _calculate.assert_not_called()
+        pd.testing.assert_frame_equal(
+            _saved[_original.columns], _original
+        )
+        self.assertEqual(len(_saved), 1)
+        self.assertEqual(
+            _saved.iloc[0]["distance_status"], "not_evaluable"
+        )
+        self.assertEqual(
+            _saved.iloc[0]["distance_reason"], "retrieval_failed"
+        )
+        self.assertTrue(pd.isna(_saved.iloc[0]["eucl_dist"]))
+        self.assertTrue(pd.isna(_saved.iloc[0]["topo_dist"]))
 
 
 if __name__ == "__main__":

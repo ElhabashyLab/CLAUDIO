@@ -38,7 +38,8 @@ class TestAFComplexM2CLI(unittest.TestCase):
             (["--af-complex-model", "AF-0000000208747029"],
              "AF-0000000208747029", False),
             (["--af-complex-auto"], None, True),
-            ([], None, False),
+            ([], None, True),
+            (["--no-af-complex-auto"], None, False),
         ]
         for options, model, auto in cases:
             with self.subTest(options=options):

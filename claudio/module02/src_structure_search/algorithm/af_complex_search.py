@@ -1,4 +1,5 @@
 import pandas as pd
+import requests
 from claudio.utils.af_complex import (
     fetch_complex_metadata,
     download_complex_cif,
@@ -142,7 +143,51 @@ def discover_complex_candidates(protein_a, protein_b):
         protein_a=protein_a,
         protein_b=protein_b,
     )
+_AF_REQUEST_ERRORS = (
+    requests.exceptions.Timeout,
+    requests.exceptions.ConnectionError,
+    requests.exceptions.HTTPError,
+)
 
+
+def _failed_complex_rows(_data, _error, _model_id=None):
+    """Preserve records affected by recoverable AFDB request failures."""
+    _http_status = None
+
+    if isinstance(_error, requests.exceptions.HTTPError):
+        _response = _error.response
+        if _response is not None:
+            _http_status = _response.status_code
+
+        _recoverable = (
+            _http_status in (404, 408, 429)
+            or (
+                _http_status is not None
+                and 500 <= _http_status <= 599
+            )
+        )
+        if not _recoverable:
+            raise _error
+
+    _result = _data.copy()
+    _result["af_match_status"] = "retrieval_failed"
+    _result["af_error_type"] = type(_error).__name__
+    _result["af_http_status"] = (
+        _http_status if _http_status is not None else pd.NA
+    )
+    _result["af_model_id"] = (
+        _model_id if _model_id is not None else pd.NA
+    )
+    _result["af_model_version"] = pd.NA
+    _result["af_metadata_path"] = pd.NA
+
+    for _column in (
+        "chain_a", "chain_b", "path",
+        "pdb_id", "pdb_method", "pdb_resolution",
+    ):
+        _result[_column] = "-"
+
+    return _result
 
 def retrieve_discovered_complexes(data, output_dir):
     """Discover and retrieve complex models for input protein pairs."""
@@ -158,10 +203,18 @@ def retrieve_discovered_complexes(data, output_dir):
 
     model_positions = {}
     unmatched_positions = []
-
+    retrieved = []
     # Discover models and collect their associated input rows.
     for pair, positions in pair_positions.items():
-        candidates = discover_complex_candidates(*pair)
+        try:
+            candidates = discover_complex_candidates(*pair)
+        except _AF_REQUEST_ERRORS as _error:
+            retrieved.append(
+                _failed_complex_rows(
+                    data.iloc[positions], _error
+                )
+            )
+            continue
 
         if len(candidates) == 0:
             unmatched_positions.extend(positions)
@@ -171,12 +224,19 @@ def retrieve_discovered_complexes(data, output_dir):
             model_id = candidate["modelEntityId"]
             model_positions.setdefault(model_id, set()).update(positions)
 
-    retrieved = []
-
     # Retrieve each model once, using only its associated records.
     for model_id, positions in model_positions.items():
         subset = data.iloc[sorted(positions)].copy()
-        result = retrieve_af_complex(subset, model_id, output_dir)
+
+        try:
+            result = retrieve_af_complex(
+                subset, model_id, output_dir
+            )
+        except _AF_REQUEST_ERRORS as _error:
+            result = _failed_complex_rows(
+                subset, _error, _model_id=model_id
+            )
+
         retrieved.append(result)
 
     # Preserve records for which discovery found no candidate.

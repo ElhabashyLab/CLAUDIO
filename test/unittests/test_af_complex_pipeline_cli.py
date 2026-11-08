@@ -59,6 +59,7 @@ class TestAFComplexPipelineCLI(unittest.TestCase):
             (["--af-complex-model", "AF-0000000208747029"],
              "AF-0000000208747029", False),
             (["--af-complex-auto"], None, True),
+            ([], None, True),
         ]
         for options, model, auto in cases:
             with self.subTest(options=options), ExitStack() as stack:
@@ -67,7 +68,10 @@ class TestAFComplexPipelineCLI(unittest.TestCase):
                 self.assertEqual(result.exit_code, 0,
                                  result.output + repr(result.exception))
                 af_mode = bool(model or auto)
-                self.assertEqual(stages["db_updater"].call_count, int(not af_mode))
+                self.assertEqual(
+                    stages["db_updater"].call_count,
+                    int(model is None),
+                )
                 for name in STAGES[1:]:
                     stages[name].assert_called_once()
                 m1 = stages["run_claudio_lists"].call_args.kwargs
@@ -113,7 +117,7 @@ class TestAFComplexPipelineCLI(unittest.TestCase):
                 result = self.invoke(["--af-complex-auto"])
                 self.assertEqual(result.exit_code, 3,
                                  result.output + repr(result.exception))
-                stages["db_updater"].assert_not_called()
+                stages["db_updater"].assert_called_once()
                 for name in STAGES[STAGES.index(failed_name) + 1:]:
                     stages[name].assert_not_called()
                 self.assertNotIn("Finished full CLAUDIO pipeline", result.output)
@@ -173,8 +177,31 @@ class TestAFComplexPipelineCLI(unittest.TestCase):
         self.assertEqual(result.exit_code, 0,
                          result.output + repr(result.exception))
         self.assertEqual(received, [(42.5, False)])
+    def test_disabling_auto_keeps_legacy_routing_and_database_update(self):
+        with ExitStack() as _stack:
+            _stages = self.mock_stages(_stack)
+            _result = self.invoke(["--no-af-complex-auto"])
 
+        self.assertEqual(
+            _result.exit_code, 0,
+            _result.output + repr(_result.exception),
+        )
+        _stages["db_updater"].assert_called_once()
+        _stages["run_claudio_structdi"].assert_called_once()
 
+        _arguments = (
+            _stages["run_claudio_structdi"].call_args.args[0]
+        )
+        self.assertIn("--no-af-complex-auto", _arguments)
+    def test_database_update_failure_stops_before_modules(self):
+        with ExitStack() as _stack:
+            _stages = self.mock_stages(_stack)
+            _stages["db_updater"].side_effect = SystemExit(3)
+            _result = self.invoke()
+
+        self.assertEqual(_result.exit_code, 3, _result.output)
+        for _name in STAGES[1:]:
+            _stages[_name].assert_not_called()
 
 
 
