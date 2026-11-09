@@ -187,7 +187,9 @@ def round_self(value: float, decimals: int):
     return rounded_value
 
 
-def clean_dataset(data: pd.DataFrame):
+def clean_dataset(
+    data: pd.DataFrame, preserve_candidates: bool = False
+):
     """
     Cleaning of structure data dataset for outputs
 
@@ -201,7 +203,7 @@ def clean_dataset(data: pd.DataFrame):
     """
 
     # Drop datapoints with ident index, if data values are all identical
-    if "pdb_id" in data.columns:
+    if "pdb_id" in data.columns and not preserve_candidates:
         drop_indeces,\
             already_checked = ([] for _ in range(2))
         for row in data.itertuples():
@@ -274,7 +276,7 @@ def clean_dataset(data: pd.DataFrame):
                             "swiss_model_homology": str}, errors="ignore")
 
     # Reduce multichain examples to fitting ones (if present)
-    if "evidence" in data.columns:
+    if "evidence" in data.columns and not preserve_candidates:
         drop_indeces,\
             already_checked = ([] for _ in range(2))
         for row in data.itertuples():

@@ -25,8 +25,14 @@ def read_inputfile(input_filepath: str, projections: dict):
         "source_record_id",
         "original_pos_a",
         "original_pos_b",
+        "candidate_id",
     }
-    conflicts = reserved_columns.intersection(data.columns)
+    projected_columns = {
+        projections.get(column, column) for column in data.columns
+    }
+    conflicts = reserved_columns.intersection(
+        set(data.columns) | projected_columns
+    )
     if conflicts:
         raise ValueError(
             "Reserved tracking columns already exist in input: "

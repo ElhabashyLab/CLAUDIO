@@ -4,18 +4,116 @@ import os
 import sys
 import time
 import click
-
+import pandas as pd
 from claudio.module02.src_structure_search.io.read_input import read_in
+from claudio.utils.af_complex import restore_preprocessing_tracking
 from claudio.module02.src_structure_search.algorithm.structure_search import structure_search
 from claudio.module02.src_structure_search.io.read_temp import read_temp_file
 from claudio.module02.src_structure_search.algorithm.pdb_download import download_pdbs
 from claudio.module02.src_structure_search.algorithm.chain_copies import create_ident_chain_copies
 from claudio.module02.src_structure_search.io.write_out import write_output
+from claudio.module02.src_structure_search.algorithm.af_complex_search import (
+    retrieve_af_complex,
+    retrieve_discovered_complexes,
+)
 
 from claudio.utils.utils import (verbose_print, clean_input_paths,
                                 create_out_path, round_self)
 
+_STRUCTURE_INPUT_ROW = "_claudio_structure_input_row"
 
+
+def _af_complex_fallback_input(_input_data, _legacy_data):
+    """Select original input rows without an accepted experimental PDB."""
+    if _legacy_data.empty:
+        return _input_data.copy()
+
+    _pdb_ids = _legacy_data["pdb_id"].fillna("").astype(str)
+    _methods = _legacy_data["pdb_method"].fillna("").astype(str)
+    _paths_exist = _legacy_data["path"].map(
+        lambda _path: isinstance(_path, str) and os.path.isfile(_path)
+    )
+    _has_pdb = (
+        _pdb_ids.str.fullmatch(r"[A-Za-z0-9]{4}", na=False)
+        & ~_methods.str.contains("ALPHAFOLD", case=False, na=False)
+        & _paths_exist
+    )
+    _covered_rows = set(
+        _legacy_data.loc[_has_pdb, _STRUCTURE_INPUT_ROW]
+    )
+    _positions = [
+        _position for _position in range(len(_input_data))
+        if _position not in _covered_rows
+    ]
+    return _input_data.iloc[_positions].copy()
+
+
+def _search_legacy_candidates(
+    _data, _tmp_filepath, _structures_dir,
+    _do_structure_search, _search_tool,
+    _e_value, _query_id, _coverage, _res_cutoff,
+    _blast_bin, _blast_db, _hhsearch_bin, _hhsearch_db,
+    _verbose_level,
+):
+    """Retrieve candidates through the existing structure-search pipeline."""
+    if not _do_structure_search and os.path.exists(_tmp_filepath):
+        verbose_print(
+            "Read from temporary save file", 0, _verbose_level
+        )
+        _data = read_temp_file(_data, _tmp_filepath)
+    else:
+        verbose_print(
+            f"Perform {_search_tool} search", 0, _verbose_level
+        )
+        _data = structure_search(
+            _data, _search_tool, _e_value, _query_id,
+            _coverage, _tmp_filepath, _blast_bin,
+            _blast_db, _hhsearch_bin, _hhsearch_db,
+            _verbose_level,
+        )
+
+    verbose_print(
+        "Download structures from RCSB database, "
+        "or AlphaFold database if not found there",
+        0, _verbose_level,
+    )
+    os.makedirs(_structures_dir, exist_ok=True)
+    _data = download_pdbs(
+        _data, _search_tool, _res_cutoff,
+        _structures_dir, _verbose_level,
+    )
+    _data = create_ident_chain_copies(_data)
+    _data["structure_backend"] = "legacy"
+
+    return _data
+def _combine_structure_candidates(_frames):
+    """Preserve all candidates and assign unique row indices."""
+    _combined = pd.concat(_frames, sort=False)
+
+    # Reserve existing names so generated indices cannot overwrite them.
+    _reserved = {str(_index) for _index in _combined.index}
+    _used = set()
+    _indices = []
+
+    for _index in _combined.index:
+        _new_index = _index
+        _suffix = 1
+
+        while str(_new_index) in _used:
+            _new_index = f"{_index}_{_suffix}"
+            _suffix += 1
+
+            while str(_new_index) in _reserved:
+                _new_index = f"{_index}_{_suffix}"
+                _suffix += 1
+
+        _used.add(str(_new_index))
+        _indices.append(_new_index)
+
+    _combined.index = pd.Index(
+        _indices, name=_combined.index.name
+    )
+    return _combined
 @click.command()
 @click.option("-i", "--input-filepath",
               default="test/out/sample/sample_data_random.sqcs")
@@ -31,10 +129,23 @@ from claudio.utils.utils import (verbose_print, clean_input_paths,
 @click.option("-bldb", "--blast-db", default="claudio/data/pdbaa")
 @click.option("-hh", "--hhsearch-bin", default=None)
 @click.option("-hhdb", "--hhsearch-db", default="$HHDB")
+@click.option(
+    "--af-complex-model",
+    default=None,
+    help="Retrieve a specified existing AFDB protein-complex model.",
+)
+@click.option(
+    "--af-complex-auto/--no-af-complex-auto",
+    default=None,
+    help=(
+        "Discover existing AFDB complexes automatically. "
+        "Enabled by default unless a model is specified."
+    ),
+)
 @click.option("-v", "--verbose-level", default=2)
 def main(input_filepath, input_temppath, do_structure_search, search_tool,
          e_value, query_id, coverage, res_cutoff, output_directory, blast_bin,
-         blast_db, hhsearch_bin, hhsearch_db, verbose_level):
+         blast_db, hhsearch_bin, hhsearch_db, verbose_level, af_complex_model=None, af_complex_auto=None):
     """
         Performs structure search as part of the structural analysis
 
@@ -60,6 +171,12 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         None
 
     """
+    if af_complex_auto and af_complex_model is not None:
+        raise click.UsageError(
+            "--af-complex-auto and --af-complex-model are mutually exclusive."
+        )
+    if af_complex_auto is None:
+        af_complex_auto = af_complex_model is None
     verbose_print("[3.1] Start Structure Search", 0, verbose_level, start='')
     start_time = time.time()
 
@@ -68,6 +185,40 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
                      blast_bin, blast_db, hhsearch_bin, hhsearch_db]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, \
     hhsearch_bin, hhsearch_db = clean_input_paths(list_of_paths)
+    _legacy_input = None
+    if af_complex_auto or af_complex_model is not None:
+        if not input_filepath or not input_filepath.endswith(".sqcs"):
+            raise click.BadParameter(
+                "Input must be a .sqcs file.",
+                param_hint="--input-filepath",
+            )
+
+        output_directory = create_out_path(
+            output_directory, input_filepath
+        )
+        data, filename = read_in(input_filepath)
+        data = restore_preprocessing_tracking(data, input_filepath)
+        _legacy_input = data.copy()
+
+        # A manually selected model continues to bypass automatic search.
+        if af_complex_model is not None:
+            structures_dir = os.path.join(output_directory, "structures")
+            data = retrieve_af_complex(
+                data, af_complex_model, structures_dir,
+            )
+            data["structure_backend"] = "af_complex"
+            matched = data["af_match_status"].eq("matched")
+            data.loc[matched, "pdb_id"] = data.loc[matched, "af_model_id"]
+            data.loc[matched, "pdb_method"] = "ALPHAFOLD"
+            data.loc[matched, "pdb_resolution"] = "ALPHAFOLD"
+            write_output(data, filename, output_directory)
+
+            runtime = round_self(time.time() - start_time, 2)
+            verbose_print(
+                f"Finished AF complex retrieval (Elapsed time: {runtime}s)",
+                0, verbose_level,
+            )
+            return
 
     # Create temporary dir
     temp_dir = create_out_path(input_temppath + "/structure_search" if input_temppath is not None else
@@ -86,39 +237,73 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         coverage = float(coverage)
         res_cutoff = float(res_cutoff)
 
-        # Read dataset and add columns for results
+        # Use the same input records for both search backends.
         verbose_print("Read input", 0, verbose_level)
-        data, filename = read_in(input_filepath)
-
-        # If given variable do_structure_search is True perform new search,
-        # else retrieve results from earlier temporary save file
-        tmp_filepath = f"{temp_dir}{'.'.join(filename.split('.')[:-1])}_{search_tool}_bltmp.{filename.split('.')[-1]}"
-        if (not do_structure_search) and os.path.exists(tmp_filepath):
-            verbose_print("Read from temporary save file", 0, verbose_level)
-            data = read_temp_file(data, tmp_filepath)
+        if _legacy_input is None:
+            data, filename = read_in(input_filepath)
         else:
-            verbose_print(f"Perform {search_tool} search", 0, verbose_level)
-            data = structure_search(data, search_tool, e_value, query_id,
-                                    coverage, tmp_filepath, blast_bin,
-                                    blast_db, hhsearch_bin, hhsearch_db,
-                                    verbose_level)
+            data = _legacy_input.copy()
 
-        # Download structure files from RCSB database into structures
-        # subdirectory, if search tool found a proper result,
-        # else use Uniprot ID in order to attempt retrieval of matching
-        # AlphaFold entry
-        verbose_print("Download structures from RCSB database, or AlphaFold database if not found there", 0,
-                      verbose_level)
-        if not os.path.exists(f"{output_directory}structures"):
-            os.mkdir(f"{output_directory}structures")
-        data = download_pdbs(data, search_tool, res_cutoff,
-                             f"{output_directory}structures/", verbose_level)
+        _tmp_filepath = (
+            f"{temp_dir}"
+            f"{'.'.join(filename.split('.')[:-1])}"
+            f"_{search_tool}_bltmp.{filename.split('.')[-1]}"
+        )
+        if af_complex_auto:
+            if _STRUCTURE_INPUT_ROW in data.columns:
+                raise ValueError(
+                    f"Reserved internal column: {_STRUCTURE_INPUT_ROW}"
+                )
+            _legacy_input = data.copy()
+            data[_STRUCTURE_INPUT_ROW] = range(len(data))
 
-        # Create copy datapoints with marked indeces for alternative but
-        # identical chains
-        data = create_ident_chain_copies(data)
+        data = _search_legacy_candidates(
+            _data=data,
+            _tmp_filepath=_tmp_filepath,
+            _structures_dir=f"{output_directory}structures/",
+            _do_structure_search=do_structure_search,
+            _search_tool=search_tool,
+            _e_value=e_value,
+            _query_id=query_id,
+            _coverage=coverage,
+            _res_cutoff=res_cutoff,
+            _blast_bin=blast_bin,
+            _blast_db=blast_db,
+            _hhsearch_bin=hhsearch_bin,
+            _hhsearch_db=hhsearch_db,
+            _verbose_level=verbose_level,
+        )
 
-        # Write new output
+        if af_complex_auto:
+            _fallback_input = _af_complex_fallback_input(
+                _legacy_input, data,
+            )
+            data = data.drop(
+                columns=[_STRUCTURE_INPUT_ROW], errors="ignore",
+            )
+
+            if not _fallback_input.empty:
+                verbose_print(
+                    f"Search AF complexes for {len(_fallback_input)} "
+                    "input candidates without an available PDB",
+                    0, verbose_level,
+                )
+                _af_candidates = retrieve_discovered_complexes(
+                    _fallback_input,
+                    os.path.join(output_directory, "structures"),
+                )
+                _af_candidates["structure_backend"] = "af_complex"
+                _matched = _af_candidates["af_match_status"].eq("matched")
+                _af_candidates.loc[_matched, "pdb_id"] = (
+                    _af_candidates.loc[_matched, "af_model_id"]
+                )
+                _af_candidates.loc[_matched, "pdb_method"] = "ALPHAFOLD"
+                _af_candidates.loc[_matched, "pdb_resolution"] = "ALPHAFOLD"
+                data = _combine_structure_candidates(
+                    [data, _af_candidates]
+                )
+
+        # Write all structure candidates together.
         write_output(data, filename, output_directory)
     runtime = round_self(time.time() - start_time, 2)
     verbose_print(f"Finished successfully (Elapsed time: {runtime}s)", 0, verbose_level, start='')

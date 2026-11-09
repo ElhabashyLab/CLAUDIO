@@ -15,7 +15,8 @@ def create_list_of_unique_proteins(data: pd.DataFrame,
                                    unique_protein_temp_dir: str,
                                    search_tool: str, blast_bin: str | None,
                                    blast_db: str, hhsearch_bin: str | None,
-                                   hhsearch_db : str, verbose_level: int):
+                                   hhsearch_db : str, verbose_level: int,
+                                   search_structures: bool = True):
     """
     create pandas dataframe of unique proteins depending on uniprot ids
 
@@ -54,10 +55,15 @@ def create_list_of_unique_proteins(data: pd.DataFrame,
     infos = search_uniprot_metadata(unique_proteins, verbose_level)
     # Apply blastp or hhsearch search for pdb entries
     # on unique proteins by their sequences
-    pdbs = search_pdb_entries(unique_proteins, unique_sequences,
-                              unique_protein_temp_dir, search_tool, blast_bin,
-                              blast_db, hhsearch_bin, hhsearch_db,
-                              verbose_level)
+    if search_structures:
+        pdbs = search_pdb_entries(
+            unique_proteins, unique_sequences, unique_protein_temp_dir,
+            search_tool, blast_bin, blast_db, hhsearch_bin, hhsearch_db,
+            verbose_level,
+        )
+    else:
+        # No structure search was performed.
+        pdbs = [pd.NA] * len(unique_proteins)
 
     # Collect information of unique proteins
     # for final unique protein list dataset
