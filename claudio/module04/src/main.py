@@ -121,8 +121,10 @@ def main(input_filepath, input_filepath2, plddt_cutoff, linker_minimum,
               "res_pos_a", "res_pos_b", "pdb_id", "pdb_method", 
               "pdb_resolution", "chain_a", "chain_b", "pdb_pos_a", "pdb_pos_b",
               "pLDDT_a", "pLDDT_b", "topo_dist", "eucl_dist", "homo_pep_overl",
-              "evidence", "XL_type", "XL_confirmed", "swiss_model_homology"
-            ]].to_csv(f"{output_directory}{filename}_extended.csv")
+              "evidence", "original_XL_type", "XL_type", "XL_confirmed", "swiss_model_homology"
+            ]].rename(
+                columns={"XL_type": "assigned_XL_type"}
+            ).to_csv(f"{output_directory}{filename}_extended.csv")
 
         # Keep the existing output available on older supported Python versions.
         if sys.version_info < (3, 10):
