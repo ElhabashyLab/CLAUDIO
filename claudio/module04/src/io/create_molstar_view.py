@@ -1,7 +1,6 @@
 """Export existing structure and cross-link results for the Mol* viewer."""
 import html
 import math
-import shlex
 import zipfile
 from pathlib import Path
 from string import Template
@@ -94,6 +93,7 @@ def export_molstar_visualization(data, output_directory, atom_name="CB", xl_resi
                 type="cartoon"
             ).color(color=palette[chain_number % len(palette)])
 
+        labelled_pairs = set()
         for record in records:
             row = record["row"]
             try:
@@ -110,16 +110,47 @@ def export_molstar_visualization(data, output_directory, atom_name="CB", xl_resi
             color = {"intra": "#2878b5", "inter": "#d64c4c"}.get(
                 _text(row.get("XL_type")), "#666666"
             )
-            structure.component(selector=[a[1], b[1]]).representation(
+            # Highlight the complete cross-linked residues.
+            residue_selectors = [
+                {
+                    key: value
+                    for key, value in endpoint[1].items()
+                    if key != "auth_atom_id"
+                }
+                for endpoint in (a, b)
+            ]
+            structure.component(selector=residue_selectors).representation(
                 type="ball_and_stick"
             ).color(color=color)
-            structure.component(selector=[a[1], b[1]]).tooltip(text=tooltip)
-            structure.primitives(tooltip=tooltip).distance(
-                start=a[0], end=b[0], color=color, radius=0.08,
-                dash_length=0.25, label_template="{{distance}}",
-                label_size=3.0, label_color="#333333",
+            structure.component(selector=residue_selectors).tooltip(
+                text=tooltip
             )
 
+            # Show the exact endpoint atoms as prominent spheres.
+            structure.component(selector=[a[1], b[1]]).representation(
+                type="spacefill", size_factor=0.5
+            ).color(color=color)
+
+            # Share the distance label for the same atoms, including reversed pairs.
+            # Keep a separate line and tooltip for every source record.
+            pair_key = tuple(sorted(
+                tuple(sorted(endpoint[1].items())) for endpoint in (a, b)
+            ))
+            link_geometry = dict(
+                start=a[0], end=b[0], color=color,
+                radius=0.30, dash_length=0.60,
+            )
+            primitives = structure.primitives(tooltip=tooltip)
+            if pair_key in labelled_pairs:
+                primitives.tube(**link_geometry)
+            else:
+                primitives.distance(
+                    **link_geometry, label_template="{{distance}}",
+                    label_size=2.2, label_color="#333333",
+                )
+                labelled_pairs.add(pair_key)
+
+        structure.component(selector="all").focus(radius_factor=1.15)
         state = builder.get_state(title=f"CLAUDIO: {label}")
         if hasattr(state, "model_dump_json"):
             scene = state.model_dump_json(exclude_none=True, indent=2)
@@ -144,11 +175,14 @@ def export_molstar_visualization(data, output_directory, atom_name="CB", xl_resi
     (output_directory / "index.html").write_text(page, encoding="utf-8")
 
     print(f"Structure visualization saved: {output_directory}")
-    print("To view locally, run:")
-    print(f"  python -m http.server 8000 --bind 127.0.0.1 --directory {shlex.quote(str(output_directory))}")
-    print("Open http://localhost:8000 in your browser.")
-    print("For HPC runs, download the complete visualization folder first and use its local path.")
-    print("The viewer loads Mol* from a CDN and requires internet access.")
+    if options:
+        print("Open Mol* online viewer: https://molstar.org/viewer/")
+        print("Choose Home > Open Files and select a model_*.mvsx file from the folder above "
+              "(Format: Auto or MVSX), or drag the file into the viewer.")
+        print("For HPC runs, download the .mvsx file(s) to your computer first.")
+    else:
+        print("No usable structure was available for 3D visualization.")
+    print("Double-click index.html for the result table and viewing instructions.")
     return output_directory
 
 

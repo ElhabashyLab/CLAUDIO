@@ -120,9 +120,79 @@ class TestM4MolstarExport(unittest.TestCase):
         html = (output_dir / "index.html").read_text(encoding="utf-8")
         self.assertIn(package.name, html)
         self.assertNotIn(str(self.structure_path), html)
-        self.assertIn("python -m http.server", console.getvalue())
-        self.assertIn("http://localhost:8000", console.getvalue())
+        self.assertIn("https://molstar.org/viewer/", console.getvalue())
+        self.assertIn("Open Files", console.getvalue())
+        self.assertIn(".mvsx", console.getvalue())
+        self.assertNotIn("python -m http.server", console.getvalue())
+        self.assertIn('href="https://molstar.org/viewer/"', html)
+        self.assertIn("Open Files", html)
+        self.assertIn("MVSX", html)
         pd.testing.assert_frame_equal(self.data, original)
+
+    def test_duplicate_endpoint_pairs_share_a_label_without_losing_sources(self):
+        for reverse in (False, True):
+            with self.subTest(reverse=reverse):
+                first = self.data.iloc[:1].copy()
+                duplicate = first.copy()
+                duplicate["source_record_id"] = "duplicate_source"
+                if reverse:
+                    for column in ("chain", "pdb_pos", "pos"):
+                        duplicate[f"{column}_a"], duplicate[f"{column}_b"] = (
+                            first[f"{column}_b"], first[f"{column}_a"]
+                        )
+                data = pd.concat([first, duplicate], ignore_index=True)
+                original = data.copy(deep=True)
+                output_dir = self.root / f"duplicate_pair_{reverse}"
+                with redirect_stdout(io.StringIO()):
+                    export_molstar_visualization(data, output_dir)
+
+                _, scene, measurements = self.read_scene(output_dir)
+                self.assertEqual(len(measurements), 1)
+                tubes = [
+                    node["params"] for node in walk_nodes(scene["root"])
+                    if node.get("params", {}).get("kind") == "tube"
+                ]
+                self.assertEqual(len(tubes), 1)
+                expected_start = [3.0, 0.0, 0.0] if reverse else [0.0, 0.0, 0.0]
+                self.assertEqual(tubes[0]["start"], expected_start)
+                html = (output_dir / "index.html").read_text(encoding="utf-8")
+                for source in ("source_1", "duplicate_source"):
+                    self.assertIn(source, html)
+                    self.assertIn(source, json.dumps(scene))
+                pd.testing.assert_frame_equal(data, original)
+
+    def test_distinct_residues_at_identical_coordinates_keep_separate_labels(self):
+        structure = PDBParser(QUIET=True).get_structure("model", str(self.structure_path))
+        residue = structure[0]["A"][10].copy()
+        residue.id = (" ", 12, " ")
+        structure[0]["A"].add(residue)
+        writer = PDBIO()
+        writer.set_structure(structure)
+        writer.save(str(self.structure_path))
+        first = self.data.iloc[:1].copy()
+        other = first.copy()
+        other["source_record_id"] = "other_residue_source"
+        other["pdb_pos_a"] = 12
+        data = pd.concat([first, other], ignore_index=True)
+        output_dir = self.root / "distinct_residues"
+        with redirect_stdout(io.StringIO()):
+            export_molstar_visualization(data, output_dir)
+        _, _, measurements = self.read_scene(output_dir)
+        self.assertEqual(len(measurements), 2)
+
+    def test_no_structure_keeps_the_table_without_suggesting_a_missing_package(self):
+        data = self.data.copy()
+        data["path"] = "-"
+        output_dir = self.root / "no_structure"
+        console = io.StringIO()
+        with redirect_stdout(console):
+            export_molstar_visualization(data, output_dir)
+        self.assertEqual(list(output_dir.glob("*.mvsx")), [])
+        self.assertIn("No usable structure", console.getvalue())
+        self.assertNotIn("Open Files", console.getvalue())
+        html = (output_dir / "index.html").read_text(encoding="utf-8")
+        for source in ("source_1", "source_2"):
+            self.assertIn(source, html)
 
     def test_uses_the_requested_atom_instead_of_always_using_cb(self):
         output_dir = self.root / "ca_visualization"

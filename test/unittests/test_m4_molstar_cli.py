@@ -85,8 +85,10 @@ class TestM4MolstarCLI(unittest.TestCase):
         pages = list((self.output / "visualization").glob("*/index.html"))
         self.assertEqual(len(pages), 1)
         self.assertEqual(len(list(pages[0].parent.glob("*.mvsx"))), 1)
-        self.assertIn("python -m http.server", result.output)
-        self.assertIn("http://localhost:8000", result.output)
+        self.assertIn("https://molstar.org/viewer/", result.output)
+        self.assertIn("Open Files", result.output)
+        self.assertIn(".mvsx", result.output)
+        self.assertNotIn("python -m http.server", result.output)
         self.assertFalse(self.model_path.with_suffix(".pml").exists())
         final = pd.read_csv(self.output / "example_final.csv", index_col=0)
         self.assertNotIn("original_XL_type", final.columns)
@@ -119,8 +121,10 @@ class TestM4MolstarCLI(unittest.TestCase):
                 yield from walk(child)
 
         links = [node["params"] for node in walk(state["root"])
-                 if node.get("params", {}).get("kind") == "distance_measurement"]
+                 if node.get("params", {}).get("kind") in {"distance_measurement", "tube"}]
         self.assertEqual(len(links), 2)
+        self.assertEqual(sum(link["kind"] == "distance_measurement" for link in links), 1)
+        self.assertEqual({link["color"] for link in links}, {"#2878b5", "#d64c4c"})
         for link in links:
             self.assertEqual(link["start"], [0.0, 0.0, 1.0])
             self.assertEqual(link["end"], [6.0, 0.0, 1.0])
