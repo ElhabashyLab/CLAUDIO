@@ -121,8 +121,10 @@ class TestM4MolstarCLI(unittest.TestCase):
                 yield from walk(child)
 
         links = [node["params"] for node in walk(state["root"])
-                 if node.get("params", {}).get("kind") == "distance_measurement"]
+                 if node.get("params", {}).get("kind") in {"distance_measurement", "tube"}]
         self.assertEqual(len(links), 2)
+        self.assertEqual(sum(link["kind"] == "distance_measurement" for link in links), 1)
+        self.assertEqual({link["color"] for link in links}, {"#2878b5", "#d64c4c"})
         for link in links:
             self.assertEqual(link["start"], [0.0, 0.0, 1.0])
             self.assertEqual(link["end"], [6.0, 0.0, 1.0])
