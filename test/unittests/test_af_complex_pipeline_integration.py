@@ -272,7 +272,10 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
         }
 
         def _legacy_candidates(_data, **_kwargs):
-            _result = _data.copy()
+            # Only condition_D has an accepted experimental PDB.
+            _result = _data.loc[
+                _data["source_record_id"].eq("record_000004")
+            ].copy()
             _result["structure_backend"] = "legacy"
             _result["pdb_id"] = "1ABC"
             _result["pdb_method"] = "X-RAY DIFFRACTION"
@@ -328,29 +331,36 @@ class TestAFComplexPipelineIntegration(unittest.TestCase):
             index_col=0,
         )
 
-        # Three experimental sources, each with two structure candidates.
+        # Two sources use AF fallback; condition_D keeps its PDB.
+        _expected_backends = {
+            "record_000001": "af_complex",
+            "record_000002": "af_complex",
+            "record_000004": "legacy",
+        }
         for _stage, _table in (("M2", _m2), ("M4", _final)):
             self.assertEqual(
-                len(_table), 6,
-                f"{_stage} did not preserve all structure candidates",
+                len(_table), 3,
+                f"{_stage} lost or duplicated a structure result",
             )
             self.assertEqual(
-                set(_table["structure_backend"]),
-                {"legacy", "af_complex"},
+                set(_table["source_record_id"]),
+                set(_expected_backends),
             )
-            for _source in (
-                "record_000001",
-                "record_000002",
-                "record_000004",
-            ):
-                _rows = _table[
+            self.assertNotIn(
+                "_claudio_structure_input_row", _table.columns
+            )
+            for _source, _backend in _expected_backends.items():
+                _rows = _table.loc[
                     _table["source_record_id"].eq(_source)
                 ]
-                self.assertEqual(len(_rows), 2)
+                self.assertEqual(len(_rows), 1)
                 self.assertEqual(
-                    set(_rows["structure_backend"]),
-                    {"legacy", "af_complex"},
+                    _rows["structure_backend"].tolist(), [_backend]
                 )
+
+        # A PDB distance above the linker limit must not trigger AF fallback.
+        _pdb_rows = _m2.loc[_m2["structure_backend"].eq("legacy")]
+        self.assertTrue(_pdb_rows["topo_dist"].gt(35).all())
 
         # M4 must preserve candidate identity and calculated distances.
         _columns = [

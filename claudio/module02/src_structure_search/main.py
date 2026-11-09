@@ -20,6 +20,34 @@ from claudio.module02.src_structure_search.algorithm.af_complex_search import (
 from claudio.utils.utils import (verbose_print, clean_input_paths,
                                 create_out_path, round_self)
 
+_STRUCTURE_INPUT_ROW = "_claudio_structure_input_row"
+
+
+def _af_complex_fallback_input(_input_data, _legacy_data):
+    """Select original input rows without an accepted experimental PDB."""
+    if _legacy_data.empty:
+        return _input_data.copy()
+
+    _pdb_ids = _legacy_data["pdb_id"].fillna("").astype(str)
+    _methods = _legacy_data["pdb_method"].fillna("").astype(str)
+    _paths_exist = _legacy_data["path"].map(
+        lambda _path: isinstance(_path, str) and os.path.isfile(_path)
+    )
+    _has_pdb = (
+        _pdb_ids.str.fullmatch(r"[A-Za-z0-9]{4}", na=False)
+        & ~_methods.str.contains("ALPHAFOLD", case=False, na=False)
+        & _paths_exist
+    )
+    _covered_rows = set(
+        _legacy_data.loc[_has_pdb, _STRUCTURE_INPUT_ROW]
+    )
+    _positions = [
+        _position for _position in range(len(_input_data))
+        if _position not in _covered_rows
+    ]
+    return _input_data.iloc[_positions].copy()
+
+
 def _search_legacy_candidates(
     _data, _tmp_filepath, _structures_dir,
     _do_structure_search, _search_tool,
@@ -157,7 +185,6 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
                      blast_bin, blast_db, hhsearch_bin, hhsearch_db]
     input_filepath, input_temppath, output_directory, blast_bin, blast_db, \
     hhsearch_bin, hhsearch_db = clean_input_paths(list_of_paths)
-    _af_candidates = None
     _legacy_input = None
     if af_complex_auto or af_complex_model is not None:
         if not input_filepath or not input_filepath.endswith(".sqcs"):
@@ -172,25 +199,18 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
         data, filename = read_in(input_filepath)
         data = restore_preprocessing_tracking(data, input_filepath)
         _legacy_input = data.copy()
-        structures_dir = os.path.join(output_directory, "structures")
-        if af_complex_auto:
-            data = retrieve_discovered_complexes(
-                data,
-                structures_dir,
-            )
-        else:
-            data = retrieve_af_complex(
-                data,
-                af_complex_model,
-                structures_dir,
-            )
-        data["structure_backend"] = "af_complex"
-        matched = data["af_match_status"].eq("matched")
-        data.loc[matched, "pdb_id"] = data.loc[matched, "af_model_id"]
-        data.loc[matched, "pdb_method"] = "ALPHAFOLD"
-        data.loc[matched, "pdb_resolution"] = "ALPHAFOLD"
 
+        # A manually selected model continues to bypass automatic search.
         if af_complex_model is not None:
+            structures_dir = os.path.join(output_directory, "structures")
+            data = retrieve_af_complex(
+                data, af_complex_model, structures_dir,
+            )
+            data["structure_backend"] = "af_complex"
+            matched = data["af_match_status"].eq("matched")
+            data.loc[matched, "pdb_id"] = data.loc[matched, "af_model_id"]
+            data.loc[matched, "pdb_method"] = "ALPHAFOLD"
+            data.loc[matched, "pdb_resolution"] = "ALPHAFOLD"
             write_output(data, filename, output_directory)
 
             runtime = round_self(time.time() - start_time, 2)
@@ -200,7 +220,6 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
             )
             return
 
-        _af_candidates = data
     # Create temporary dir
     temp_dir = create_out_path(input_temppath + "/structure_search" if input_temppath is not None else
                                output_directory + "temp/structure_search", input_filepath)
@@ -230,6 +249,14 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
             f"{'.'.join(filename.split('.')[:-1])}"
             f"_{search_tool}_bltmp.{filename.split('.')[-1]}"
         )
+        if af_complex_auto:
+            if _STRUCTURE_INPUT_ROW in data.columns:
+                raise ValueError(
+                    f"Reserved internal column: {_STRUCTURE_INPUT_ROW}"
+                )
+            _legacy_input = data.copy()
+            data[_STRUCTURE_INPUT_ROW] = range(len(data))
+
         data = _search_legacy_candidates(
             _data=data,
             _tmp_filepath=_tmp_filepath,
@@ -247,10 +274,34 @@ def main(input_filepath, input_temppath, do_structure_search, search_tool,
             _verbose_level=verbose_level,
         )
 
-        if _af_candidates is not None:
-            data = _combine_structure_candidates(
-                [data, _af_candidates]
+        if af_complex_auto:
+            _fallback_input = _af_complex_fallback_input(
+                _legacy_input, data,
             )
+            data = data.drop(
+                columns=[_STRUCTURE_INPUT_ROW], errors="ignore",
+            )
+
+            if not _fallback_input.empty:
+                verbose_print(
+                    f"Search AF complexes for {len(_fallback_input)} "
+                    "input candidates without an available PDB",
+                    0, verbose_level,
+                )
+                _af_candidates = retrieve_discovered_complexes(
+                    _fallback_input,
+                    os.path.join(output_directory, "structures"),
+                )
+                _af_candidates["structure_backend"] = "af_complex"
+                _matched = _af_candidates["af_match_status"].eq("matched")
+                _af_candidates.loc[_matched, "pdb_id"] = (
+                    _af_candidates.loc[_matched, "af_model_id"]
+                )
+                _af_candidates.loc[_matched, "pdb_method"] = "ALPHAFOLD"
+                _af_candidates.loc[_matched, "pdb_resolution"] = "ALPHAFOLD"
+                data = _combine_structure_candidates(
+                    [data, _af_candidates]
+                )
 
         # Write all structure candidates together.
         write_output(data, filename, output_directory)

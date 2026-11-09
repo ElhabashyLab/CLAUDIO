@@ -25,7 +25,7 @@ class TestAFComplexAutoCLI(unittest.TestCase):
         "claudio.module02.src_structure_search.main."
         "retrieve_discovered_complexes"
     )
-    def test_default_mode_retrieves_and_writes_results(
+    def test_default_mode_without_pdb_retrieves_and_writes_results(
         self, mock_auto, mock_manual, mock_search, mock_download
     ):
         data = pd.DataFrame([{
@@ -56,12 +56,12 @@ class TestAFComplexAutoCLI(unittest.TestCase):
                 "_search_legacy_candidates",
                 side_effect=lambda _data, **kwargs: _data.assign(
                     structure_backend="legacy",
-                    pdb_id="1ABC",
-                    pdb_method="X-RAY DIFFRACTION",
-                    pdb_resolution="2.0",
-                    chain_a="A",
-                    chain_b="B",
-                    path="legacy.pdb",
+                    pdb_id="-",
+                    pdb_method="-",
+                    pdb_resolution="-",
+                    chain_a="-",
+                    chain_b="-",
+                    path="-",
                 ),
             ) as _legacy:
                 result = CliRunner().invoke(entry.main, [
