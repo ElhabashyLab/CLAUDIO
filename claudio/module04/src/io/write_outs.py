@@ -84,10 +84,16 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
                 unip_arg = ((data.unip_id_a == unip_id.split('_')[0]) & (data.unip_id_b == unip_id.split('_')[1])) | \
                             ((data.unip_id_a == unip_id.split('_')[1]) & (data.unip_id_b == unip_id.split('_')[0]))
 
-            data[unip_arg][['pdb_id', 'chain_a', 'chain_b', 'pdb_pos_a',
-                            'pdb_pos_b', 'pos_a', 'pos_b', 
-                            'swiss_model_homology', 'original_XL_type', 'XL_type']]\
-                .to_csv(f"{output_subdirectory}/{unip_id}_{row.swiss_model_homology}.csv", index=False)
+            data.loc[unip_arg, [
+                "pdb_id", "chain_a", "chain_b", "pdb_pos_a",
+                "pdb_pos_b", "pos_a", "pos_b",
+                "swiss_model_homology", "original_XL_type", "XL_type",
+            ]].rename(
+                columns={"XL_type": "assigned_XL_type"}
+            ).to_csv(
+                f"{output_subdirectory}/{unip_id}_{row.swiss_model_homology}.csv",
+                index=False,
+            )
 
             # add uniprot id to list of already finished results
             if is_intra:
@@ -105,6 +111,7 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
                 "pdb_pos_a", "pdb_pos_b", "pLDDT_a", "pLDDT_b", 
                 "is_interfaced", "topo_dist", "eucl_dist", "homo_adjacency", 
                 "homo_int_overl", "homo_pep_overl", "evidence", "original_XL_type", "XL_type",
+                "assigned_XL_type",
                 "XL_confirmed", "swiss_model_homology"]
     out_columns = ["unip_id_a", "unip_id_b", "pos_a", "pos_b", "pep_a",
                    "pep_b", "res_pos_a", "res_pos_b",
@@ -120,7 +127,9 @@ def write_outputs(data: pd.DataFrame, filename: str, compute_scoring: bool, outp
     # also, select columns which were in the input but were unused by this tool
     out_columns.extend([col for col in data.columns if col not in all_cols])
 
-    data[out_columns].to_csv(f"{output_directory}{filename}_final.csv")
+    data[out_columns].rename(
+        columns={"XL_type": "assigned_XL_type"}
+    ).to_csv(f"{output_directory}{filename}_final.csv")
 
     # try:
     #     write_small_test_sets(data)

@@ -121,13 +121,22 @@ class TestM4OriginalXLType(unittest.TestCase):
 
             for name in ("example_extended.csv", "example_final.csv"):
                 frame = pd.read_csv(output / name, index_col=0)
+                self.assertIn("assigned_XL_type", frame.columns)
+                self.assertNotIn("XL_type", frame.columns)
                 self.assertEqual(frame["original_XL_type"].tolist(), ["intra", "intra", "inter"])
-                self.assertEqual(frame["XL_type"].tolist(), ["intra", "inter", "inter"])
+                self.assertEqual(frame["assigned_XL_type"].tolist(), ["intra", "inter", "inter"])
                 self.assertEqual(frame.columns.tolist().count("original_XL_type"), 1)
-                self.assertEqual(frame.columns.get_loc("XL_type"), frame.columns.get_loc("original_XL_type") + 1)
+                self.assertEqual(frame.columns.get_loc("assigned_XL_type"), frame.columns.get_loc("original_XL_type") + 1)
 
             homomer = pd.read_csv(output / "homomers/P1/P1_.csv")
             heteromer = pd.read_csv(output / "heteromers/P1_P2/P1_P2_.csv")
             self.assertEqual(homomer["original_XL_type"].tolist(), ["intra", "intra"])
-            self.assertEqual(homomer["XL_type"].tolist(), ["intra", "inter"])
+            self.assertEqual(homomer["assigned_XL_type"].tolist(), ["intra", "inter"])
             self.assertEqual(heteromer["original_XL_type"].tolist(), ["inter"])
+
+            self.assertEqual(
+                heteromer["assigned_XL_type"].tolist(), ["inter"]
+            )
+            for _frame in (homomer, heteromer):
+                self.assertIn("assigned_XL_type", _frame.columns)
+                self.assertNotIn("XL_type", _frame.columns)
